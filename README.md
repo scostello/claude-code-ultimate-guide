@@ -3,12 +3,15 @@
 > From zero to power user — a comprehensive, self-contained guide to mastering Claude Code.
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![GitHub stars](https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=social)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers)
 
 **Author**: [Florian BRUNIAUX](https://github.com/FlorianBruniaux) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
 **Contact**: [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
 
 **Written with**: Claude (Anthropic)
+
+> **If you find this guide useful, please consider giving it a star!** It helps others discover this resource and motivates continued updates.
 
 ---
 
@@ -37,68 +40,37 @@ If you find value in this guide, have questions, or want to discuss Claude Code 
 
 ---
 
-## Guide Overview
+## Table of Contents
 
-### 1. Quick Start (Day 1)
-Installation, first workflow, essential commands, permission modes.
+Jump directly to any section in the [full guide](./english-ultimate-claude-code-guide.md):
 
-### 2. Core Concepts
-- **Context Management** — The most critical concept (zones, recovery, poisoning)
-- **Plan Mode** — Safe exploration before changes
-- **Rewind** — Undo mistakes safely
-- **Mental Model** — How Claude sees your codebase
+| # | Section | Description |
+|---|---------|-------------|
+| 1 | [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) | Installation, first workflow, essential commands |
+| 2 | [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) | Context management, Plan Mode, Rewind, Mental Model |
+| 3 | [Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings) | CLAUDE.md files, .claude/ folder, precedence rules |
+| 4 | [Agents](./english-ultimate-claude-code-guide.md#4-agents) | Custom AI personas, Tool SEO, orchestration patterns |
+| 5 | [Skills](./english-ultimate-claude-code-guide.md#5-skills) | Reusable knowledge modules (Security, TDD...) |
+| 6 | [Commands](./english-ultimate-claude-code-guide.md#6-commands) | Custom slash commands, variable interpolation |
+| 7 | [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) | Event-driven automation (security, formatting, logging) |
+| 8 | [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) | Serena, Context7, Sequential, Playwright, Postgres |
+| 9 | [Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns) | Trinity, CI/CD, feedback loops, vibe coding |
+| 10 | [Reference](./english-ultimate-claude-code-guide.md#10-reference) | Commands, shortcuts, troubleshooting, checklists |
+| A | [Appendix](./english-ultimate-claude-code-guide.md#appendix-templates-collection) | Ready-to-use templates |
 
-### 3. Configuration
-- `CLAUDE.md` files (global, project, local)
-- The `.claude/` folder structure
-- Settings & permissions
-- Precedence rules
+### Quick Links by Topic
 
-### 4. Agents
-Create specialized AI personas for specific tasks:
-- Code reviewer, debugger, backend architect
-- Tool SEO for better agent discovery
-- Multi-agent orchestration patterns
+**Getting Started**
+- [Installation](./english-ultimate-claude-code-guide.md#11-installation) · [First Workflow](./english-ultimate-claude-code-guide.md#12-first-workflow) · [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands)
 
-### 5. Skills
-Reusable knowledge modules:
-- Security Guardian (OWASP, secrets management)
-- TDD (Red-Green-Refactor cycle)
-- Creating your own skills
+**Critical Concepts**
+- [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) · [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) · [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd)
 
-### 6. Commands
-Custom slash commands:
-- `/commit`, `/pr`, problem framer
-- Variable interpolation with `$ARGUMENTS`
+**Customization**
+- [Creating Agents](./english-ultimate-claude-code-guide.md#42-creating-custom-agents) · [Creating Skills](./english-ultimate-claude-code-guide.md#52-creating-skills) · [Creating Commands](./english-ultimate-claude-code-guide.md#62-creating-custom-commands) · [Creating Hooks](./english-ultimate-claude-code-guide.md#72-creating-hooks)
 
-### 7. Hooks
-Event-driven automation:
-- Security blockers (pre-tool use)
-- Auto-formatters (post-tool use)
-- Context enrichers (prompt submit)
-- Activity logging
-
-### 8. MCP Servers
-External tool integrations:
-- **Serena** — Semantic code navigation
-- **Context7** — Library documentation
-- **Sequential** — Structured reasoning
-- **Playwright** — Browser automation
-- **Postgres** — Database queries
-
-### 9. Advanced Patterns
-- The Trinity (Plan + Think + Agents)
-- CI/CD & IDE integration
-- Tight feedback loops
-- Todo as instruction mirrors
-- Vibe coding & skeleton projects
-- Batch operations
-
-### 10. Reference
-Commands table, keyboard shortcuts, troubleshooting, checklists.
-
-### Appendix
-Ready-to-use templates for agents, skills, commands, hooks, settings, and prompts.
+**Advanced**
+- [The Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) · [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) · [MCP Configuration](./english-ultimate-claude-code-guide.md#83-configuration)
 
 ---
 

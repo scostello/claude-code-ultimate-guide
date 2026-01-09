@@ -61,7 +61,7 @@
 
 ---
 
-## Configuration (2 levels)
+## Memory & Settings (2 levels)
 
 | Level | Location | Scope | Git |
 |-------|----------|-------|-----|
@@ -72,10 +72,10 @@
 
 | File | Where | Usage |
 |------|-------|-------|
-| `CLAUDE.md` | Project root | Team instructions |
-| `settings.json` | `.claude/` | Team permissions |
-| `settings.local.json` | `.claude/` | Your overrides |
-| `CLAUDE.md` | `~/.claude/` | Personal instructions |
+| `CLAUDE.md` | Project root | Team memory (instructions) |
+| `settings.json` | `.claude/` | Team settings (hooks) |
+| `settings.local.json` | `.claude/` | Your setting overrides |
+| `CLAUDE.md` | `~/.claude/` | Personal memory |
 
 ---
 
@@ -83,7 +83,7 @@
 
 ```
 .claude/
-├── CLAUDE.md           # Personal instructions
+├── CLAUDE.md           # Local memory (gitignored)
 ├── settings.json       # Hooks (committed)
 ├── settings.local.json # Permissions (not committed)
 ├── agents/             # Custom agents
@@ -289,7 +289,7 @@ Deep analysis     → Use --think or --ultrathink
 - **Official docs**: [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code)
 - **Inspired by**: [Claudelog.com](https://claudelog.com/) - Advanced tips & patterns
 - **Full guide**: `english-ultimate-claude-code-guide.md`
-- **Project config**: `CLAUDE.md` at project root
+- **Project memory**: `CLAUDE.md` at project root
 
 ---
 

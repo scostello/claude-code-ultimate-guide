@@ -42,7 +42,7 @@ Describe → Claude Analyzes → Review Diff → Accept/Reject → Verify
 | 70-90% | `/compact` now |
 | 90%+ | `/clear` required |
 
-### Configuration Priority
+### Memory Hierarchy
 ```
 ~/.claude/CLAUDE.md       → Global (all projects)
 /project/CLAUDE.md        → Project (committed)
@@ -91,9 +91,9 @@ Context full → /compact or /clear
   - [2.3 Plan Mode](#23-plan-mode)
   - [2.4 Rewind](#24-rewind)
   - [2.5 Mental Model](#25-mental-model)
-- [3. Configuration](#3-configuration)
-  - [3.1 CLAUDE.md Files](#31-claudemd-files)
-  - [3.2 The .claude/ Folder](#32-the-claude-folder)
+- [3. Memory & Settings](#3-memory--settings)
+  - [3.1 Memory Files (CLAUDE.md)](#31-memory-files-claudemd)
+  - [3.2 The .claude/ Folder Structure](#32-the-claude-folder-structure)
   - [3.3 Settings & Permissions](#33-settings--permissions)
   - [3.4 Precedence Rules](#34-precedence-rules)
 - [4. Agents](#4-agents)
@@ -756,21 +756,21 @@ The more context you provide, the better Claude can help.
 
 ---
 
-# 3. Configuration
+# 3. Memory & Settings
 
 **Reading time**: 15 minutes
 **Skill level**: Week 1
 **Goal**: Customize Claude Code for your project
 
-## 3.1 CLAUDE.md Files
+## 3.1 Memory Files (CLAUDE.md)
 
-CLAUDE.md files are persistent instructions that Claude reads at the start of every session.
+CLAUDE.md files are persistent instructions that Claude reads at the start of every session. They're called "memory" files because they give Claude long-term memory of your preferences, conventions, and project context — persisting across sessions rather than being forgotten after each conversation.
 
-### Three Levels of Configuration
+### Three Levels of Memory
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                 CONFIGURATION HIERARCHY                 │
+│                    MEMORY HIERARCHY                     │
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │   ~/.claude/CLAUDE.md          (Global - All projects)  │
@@ -859,9 +859,9 @@ Personal overrides not committed to git (add to .gitignore):
 | Update when conventions change | Let it go stale |
 | Reference external docs | Duplicate documentation |
 
-## 3.2 The .claude/ Folder
+## 3.2 The .claude/ Folder Structure
 
-The `.claude/` folder is your project's Claude Code configuration directory.
+The `.claude/` folder is your project's Claude Code directory for memory, settings, and extensions.
 
 ### Full Structure
 
@@ -1134,9 +1134,9 @@ claude
 
 ## 3.4 Precedence Rules
 
-When configurations conflict, Claude Code uses this precedence:
+When memory files or settings conflict, Claude Code uses this precedence:
 
-### Configuration Precedence
+### Settings Precedence
 
 ```
 Highest Priority
