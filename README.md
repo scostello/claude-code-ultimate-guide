@@ -78,13 +78,18 @@ Jump directly to any section in the [full guide](./english-ultimate-claude-code-
 ## Quick Start
 
 ```bash
-# Install Claude Code
+# Install Claude Code (all platforms)
+npm install -g @anthropic-ai/claude-code
+
+# Or on macOS/Linux only:
 curl -fsSL https://claude.ai/install.sh | sh
 
 # Start in your project
 cd your-project
 claude
 ```
+
+> **Windows Users**: Use `%USERPROFILE%\.claude\` instead of `~/.claude/` for all paths in this guide.
 
 ### The 7 Commands You Need
 

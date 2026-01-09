@@ -63,10 +63,10 @@
 
 ## Memory & Settings (2 levels)
 
-| Level | Location | Scope | Git |
-|-------|----------|-------|-----|
-| **Project** | `.claude/` | Team | ✅ |
-| **Personal** | `~/.claude/` | You (all projects) | ❌ |
+| Level | macOS/Linux | Windows | Scope | Git |
+|-------|-------------|---------|-------|-----|
+| **Project** | `.claude/` | `.claude\` | Team | ✅ |
+| **Personal** | `~/.claude/` | `%USERPROFILE%\.claude\` | You (all projects) | ❌ |
 
 **Priority**: Project overrides Personal
 
@@ -75,7 +75,7 @@
 | `CLAUDE.md` | Project root | Team memory (instructions) |
 | `settings.json` | `.claude/` | Team settings (hooks) |
 | `settings.local.json` | `.claude/` | Your setting overrides |
-| `CLAUDE.md` | `~/.claude/` | Personal memory |
+| `CLAUDE.md` | `~/.claude/` (Win: `%USERPROFILE%\.claude\`) | Personal memory |
 
 ---
 
@@ -190,10 +190,19 @@ Instructions for what to do...
 $ARGUMENTS - user provided args
 ```
 
-### Hook (`.claude/hooks/my-hook.sh`)
+### Hook (macOS/Linux: `.sh` | Windows: `.ps1`)
+
+**Bash** (macOS/Linux):
 ```bash
 #!/bin/bash
 INPUT=$(cat)
+# Process JSON input
+exit 0  # 0=continue, 2=block
+```
+
+**PowerShell** (Windows):
+```powershell
+$input = [Console]::In.ReadToEnd() | ConvertFrom-Json
 # Process JSON input
 exit 0  # 0=continue, 2=block
 ```

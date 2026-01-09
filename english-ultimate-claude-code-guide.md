@@ -157,21 +157,23 @@ Context full → /compact or /clear
 
 ## 1.1 Installation
 
-Choose your preferred installation method:
+Choose your preferred installation method based on your operating system:
 
-### Option A: Shell Script (Recommended)
-
-```bash
-curl -fsSL https://claude.ai/install.sh | sh
-```
-
-### Option B: npm
+### Option A: npm (Recommended - All Platforms)
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-### Option C: Homebrew (macOS)
+This method works on **Windows, macOS, and Linux**.
+
+### Option B: Shell Script (macOS/Linux)
+
+```bash
+curl -fsSL https://claude.ai/install.sh | sh
+```
+
+### Option C: Homebrew (macOS only)
 
 ```bash
 brew install claude-code
@@ -182,6 +184,15 @@ brew install claude-code
 ```bash
 claude --version
 ```
+
+### Platform-Specific Paths
+
+| Platform | Global Config Path | Shell Config |
+|----------|-------------------|--------------|
+| **macOS/Linux** | `~/.claude/` | `~/.zshrc` or `~/.bashrc` |
+| **Windows** | `%USERPROFILE%\.claude\` | PowerShell profile |
+
+> **Windows Users**: Throughout this guide, when you see `~/.claude/`, use `%USERPROFILE%\.claude\` or `C:\Users\YourName\.claude\` instead.
 
 ### First Launch
 
@@ -623,6 +634,8 @@ Each new user request requires a fresh plan - previous approvals don't carry ove
 ```
 
 **Launch with Auto Plan Mode**:
+
+*macOS/Linux:*
 ```bash
 # Direct
 claude --append-system-prompt "Before executing ANY tool..."
@@ -632,6 +645,20 @@ claude --append-system-prompt "$(cat ~/.claude/auto-plan-mode.txt)"
 
 # Alias in .zshrc/.bashrc
 alias claude-safe='claude --append-system-prompt "$(cat ~/.claude/auto-plan-mode.txt)"'
+```
+
+*Windows (PowerShell):*
+```powershell
+# Create the config file at %USERPROFILE%\.claude\auto-plan-mode.txt with the same content
+
+# Direct
+claude --append-system-prompt "Before executing ANY tool..."
+
+# Via file (add to $PROFILE)
+function claude-safe {
+    $planPrompt = Get-Content "$env:USERPROFILE\.claude\auto-plan-mode.txt" -Raw
+    claude --append-system-prompt $planPrompt $args
+}
 ```
 
 **Resulting Workflow**:
@@ -2686,6 +2713,150 @@ afplay "$SOUND" 2>/dev/null &
 exit 0
 ```
 
+### Windows Hook Templates
+
+Windows users can create hooks using PowerShell (.ps1) or batch files (.cmd).
+
+> **Note**: Windows hooks should use the full PowerShell invocation with `-ExecutionPolicy Bypass` to avoid execution policy restrictions.
+
+#### Template W1: PreToolUse Security Check (PowerShell)
+
+Create `.claude/hooks/security-check.ps1`:
+
+```powershell
+# security-check.ps1
+# Blocks dangerous commands
+
+$inputJson = [Console]::In.ReadToEnd() | ConvertFrom-Json
+$command = $inputJson.tool_input.command
+
+# List of dangerous patterns
+$dangerousPatterns = @(
+    "rm -rf /",
+    "rm -rf ~",
+    "Remove-Item -Recurse -Force C:\",
+    "git push --force origin main",
+    "git push -f origin main",
+    "npm publish"
+)
+
+foreach ($pattern in $dangerousPatterns) {
+    if ($command -like "*$pattern*") {
+        Write-Error "BLOCKED: Dangerous command detected: $pattern"
+        exit 2
+    }
+}
+
+exit 0
+```
+
+#### Template W2: PostToolUse Auto-Formatter (PowerShell)
+
+Create `.claude/hooks/auto-format.ps1`:
+
+```powershell
+# auto-format.ps1
+# Auto-formats code after edits
+
+$inputJson = [Console]::In.ReadToEnd() | ConvertFrom-Json
+$toolName = $inputJson.tool_name
+
+if ($toolName -ne "Edit" -and $toolName -ne "Write") {
+    exit 0
+}
+
+$filePath = $inputJson.tool_input.file_path
+
+if (-not $filePath) {
+    exit 0
+}
+
+if ($filePath -match '\.(ts|tsx|js|jsx|json|md|css|scss)$') {
+    npx prettier --write $filePath 2>$null
+}
+
+exit 0
+```
+
+#### Template W3: Context Enricher (Batch File)
+
+Create `.claude/hooks/git-context.cmd`:
+
+```batch
+@echo off
+setlocal enabledelayedexpansion
+
+for /f "tokens=*" %%i in ('git branch --show-current 2^>nul') do set BRANCH=%%i
+if "%BRANCH%"=="" set BRANCH=not a git repo
+
+for /f "tokens=*" %%i in ('git log -1 --format^="%%h %%s" 2^>nul') do set LAST_COMMIT=%%i
+if "%LAST_COMMIT%"=="" set LAST_COMMIT=no commits
+
+echo {"hookSpecificOutput":{"additionalContext":"[Git] Branch: %BRANCH% | Last: %LAST_COMMIT%"}}
+exit /b 0
+```
+
+#### Template W4: Notification (Windows)
+
+Create `.claude/hooks/notification.ps1`:
+
+```powershell
+# notification.ps1
+# Shows Windows toast notifications and plays sounds
+
+$inputJson = [Console]::In.ReadToEnd() | ConvertFrom-Json
+$title = $inputJson.title
+$body = $inputJson.body
+
+# Determine sound based on content
+if ($title -match "error" -or $body -match "failed") {
+    [System.Media.SystemSounds]::Hand.Play()
+} elseif ($title -match "complete" -or $body -match "success") {
+    [System.Media.SystemSounds]::Asterisk.Play()
+} else {
+    [System.Media.SystemSounds]::Beep.Play()
+}
+
+# Optional: Show Windows Toast Notification (requires BurntToast module)
+# Install-Module -Name BurntToast
+# New-BurntToastNotification -Text $title, $body
+
+exit 0
+```
+
+#### Windows settings.json for Hooks
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File .claude/hooks/security-check.ps1",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File .claude/hooks/auto-format.ps1",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## 7.4 Security Hooks
 
 Security hooks are critical for protecting your system.
@@ -3275,6 +3446,8 @@ claude --headless --model sonnet "Analyze code quality"
 
 ### Git Hooks Integration
 
+> **Windows Note**: Git hooks run in Git Bash on Windows, so the bash syntax below works. Alternatively, you can create `.cmd` or `.ps1` versions and reference them from a wrapper script.
+
 **Pre-commit hook**:
 
 ```bash
@@ -3450,6 +3623,8 @@ Works with IntelliJ, WebStorm, PyCharm:
 
 For terminal-native workflow:
 
+#### macOS/Linux (Bash/Zsh)
+
 ```bash
 # Add to .bashrc or .zshrc
 alias cc='claude'
@@ -3465,6 +3640,31 @@ cq() {
 Usage:
 ```bash
 cq "What does this regex do: ^[a-z]+$"
+```
+
+#### Windows (PowerShell)
+
+```powershell
+# Add to $PROFILE (run: notepad $PROFILE to edit)
+function cc { claude $args }
+function ccp { claude --plan $args }
+function cce { claude --execute $args }
+
+function cq {
+    param([Parameter(ValueFromRemainingArguments)]$question)
+    claude --headless ($question -join ' ')
+}
+```
+
+To find your profile location: `echo $PROFILE`
+
+Common locations:
+- `C:\Users\YourName\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
+- `C:\Users\YourName\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1`
+
+If the file doesn't exist, create it:
+```powershell
+New-Item -Path $PROFILE -Type File -Force
 ```
 
 ## 9.5 Tight Feedback Loops
