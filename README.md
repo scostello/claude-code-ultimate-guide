@@ -35,6 +35,7 @@ If you find value in this guide, have questions, or want to discuss Claude Code 
 |------|-------------|--------------|
 | [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (4000+ lines) | ~2.5 hours |
 | [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
+| [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
 | [`claude-code-ultimate-guide_notebooklm.pdf`](./claude-code-ultimate-guide_notebooklm.pdf) | Audio Deep Dive (NotebookLM podcast) | ~1 hour |
 | [`claude-code-ultimate-guide_kimi.pdf`](./claude-code-ultimate-guide_kimi.pdf) | PDF version (Kimi export) | ~2.5 hours |
 
@@ -132,10 +133,46 @@ Found an error? Have a suggestion? Open an issue or PR.
 
 ---
 
+## Audit Your Setup
+
+Want to know if your Claude Code setup follows best practices?
+
+**File**: [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md)
+
+**How it works**:
+1. Copy the prompt from the file
+2. Run `claude --ultrathink` in your project
+3. Paste the prompt and get a personalized audit report
+
+**What it checks**:
+- Memory files (CLAUDE.md) configuration
+- Agents, skills, commands, and hooks setup
+- MCP servers configuration
+- Context management practices
+- CI/CD integration patterns
+
+**Output**: A prioritized report with health score, quick wins, and ready-to-use templates tailored to your tech stack.
+
+---
+
 ## Resources
 
-- [Official Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Claudelog.com](https://claudelog.com/) — Advanced tips & patterns (inspiration for some sections)
+### Official
+- [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code) — Official Anthropic docs
+
+### Community Curated Lists
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Commands, workflows, IDE integrations
+- [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) — Custom skills collection
+- [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) — Full-stack & DevOps subagents
+- [awesome-claude](https://github.com/alvinunreal/awesome-claude) — General Claude resources (SDKs, tools)
+- [awesome-claude-prompts](https://github.com/langgptai/awesome-claude-prompts) — Prompt templates
+
+### Frameworks & Tools
+- [SuperClaude](https://github.com/SuperClaude-Org/SuperClaude_Framework) — Advanced configuration framework with 30+ commands
+- [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials
+
+### Further Reading
+- [Nick Tune: Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Advanced autonomous workflow patterns
 
 ---
 

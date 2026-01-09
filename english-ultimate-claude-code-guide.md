@@ -133,6 +133,7 @@ Context full → /compact or /clear
   - [9.7 Output Styles](#97-output-styles)
   - [9.8 Vibe Coding & Skeleton Projects](#98-vibe-coding--skeleton-projects)
   - [9.9 Batch Operations Pattern](#99-batch-operations-pattern)
+  - [9.10 Continuous Improvement Mindset](#910-continuous-improvement-mindset)
 - [10. Reference](#10-reference)
   - [10.1 Commands Table](#101-commands-table)
   - [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts)
@@ -858,6 +859,40 @@ Personal overrides not committed to git (add to .gitignore):
 | Include examples | Be vague |
 | Update when conventions change | Let it go stale |
 | Reference external docs | Duplicate documentation |
+
+### Single Source of Truth Pattern
+
+When using multiple AI tools (Claude Code, CodeRabbit, SonarQube, Copilot...), they can conflict if each has different conventions. The solution: **one source of truth for all tools**.
+
+**Recommended structure**:
+
+```
+/docs/conventions/
+├── coding-standards.md    # Style, naming, patterns
+├── architecture.md        # System design decisions
+├── testing.md             # Test conventions
+└── anti-patterns.md       # What to avoid
+```
+
+**Then reference from everywhere**:
+
+```markdown
+# In CLAUDE.md
+@docs/conventions/coding-standards.md
+@docs/conventions/architecture.md
+```
+
+```yaml
+# In .coderabbit.yml
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - "docs/conventions/*.md"
+```
+
+**Why this matters**: Without a single source, your local agent might approve code that CodeRabbit then flags — wasting cycles. With aligned conventions, all tools enforce the same standards.
+
+> Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
 
 ## 3.2 The .claude/ Folder Structure
 
@@ -2437,6 +2472,34 @@ Hooks are scripts that run automatically when specific events occur.
 └─────────────────────────────────────────────────────────┘
 ```
 
+### Shell Scripts vs AI Agents: When to Use What
+
+Not everything needs AI. Choose the right tool:
+
+| Task Type | Best Tool | Why | Example |
+|-----------|-----------|-----|---------|
+| **Deterministic** | Bash script | Fast, predictable, no tokens | Create branch, fetch PR comments |
+| **Pattern-based** | Bash + regex | Reliable for known patterns | Check for secrets, validate format |
+| **Interpretation needed** | AI Agent | Judgment required | Code review, architecture decisions |
+| **Context-dependent** | AI Agent | Needs understanding | "Does this match requirements?" |
+
+**Rule of thumb**: If you can write a regex or a simple conditional for it, use a bash script. If it requires "understanding" or "judgment", use an agent.
+
+**Example — PR workflow**:
+```bash
+# Deterministic (bash): create branch, push, open PR
+git checkout -b feature/xyz
+git push -u origin feature/xyz
+gh pr create --title "..." --body "..."
+
+# Interpretation (agent): review code quality
+# → Use code-review subagent
+```
+
+**Why this matters**: Bash scripts are instant, free (no tokens), and 100% predictable. Reserve AI for tasks that genuinely need intelligence.
+
+> Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
+
 ## 7.2 Creating Hooks
 
 ### Hook Registration (settings.json)
@@ -3267,6 +3330,100 @@ jobs:
             Output as markdown."
 ```
 
+### Verify Gate Pattern
+
+Before creating a PR, ensure all local checks pass. This prevents wasted CI cycles and review time.
+
+**The pattern**:
+
+```
+Build ✓ → Lint ✓ → Test ✓ → Type-check ✓ → THEN create PR
+```
+
+**Implementation as a command** (`.claude/commands/complete-task.md`):
+
+```markdown
+# Complete Task
+
+Run the full verification gate before creating a PR:
+
+1. **Build**: Run `pnpm build` - must succeed
+2. **Lint**: Run `pnpm lint` - must have zero errors
+3. **Test**: Run `pnpm test` - all tests must pass
+4. **Type-check**: Run `pnpm typecheck` - no type errors
+
+If ANY step fails:
+- Stop immediately
+- Report what failed and why
+- Suggest fixes
+- Do NOT proceed to PR creation
+
+If ALL steps pass:
+- Create the PR with `gh pr create`
+- Wait for CI with `gh pr checks --watch`
+- If CI fails, fetch feedback and auto-fix
+- Loop until mergeable or blocked
+```
+
+**Autonomous retry loop**:
+
+```
+┌─────────────────────────────────────────┐
+│         VERIFY GATE + AUTO-FIX          │
+├─────────────────────────────────────────┤
+│                                         │
+│   Local checks (build/lint/test)        │
+│        │                                │
+│        ▼ FAIL?                          │
+│   ┌─────────┐                           │
+│   │ Auto-fix│ ──► Re-run checks         │
+│   └─────────┘                           │
+│        │                                │
+│        ▼ PASS                           │
+│   Create PR                             │
+│        │                                │
+│        ▼                                │
+│   Wait for CI (gh pr checks --watch)    │
+│        │                                │
+│        ▼ FAIL?                          │
+│   ┌─────────────────────┐               │
+│   │ Fetch CI feedback   │               │
+│   │ (CodeRabbit, etc.)  │               │
+│   └─────────────────────┘               │
+│        │                                │
+│        ▼                                │
+│   Auto-fix + push + loop                │
+│        │                                │
+│        ▼                                │
+│   PR mergeable OR blocked (ask human)   │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+**Fetching CI feedback** (GitHub GraphQL):
+
+```bash
+# Get PR review status and comments
+gh api graphql -f query='
+  query($pr: Int!) {
+    repository(owner: "OWNER", name: "REPO") {
+      pullRequest(number: $pr) {
+        reviewDecision
+        reviewThreads(first: 100) {
+          nodes {
+            isResolved
+            comments(first: 1) {
+              nodes { body }
+            }
+          }
+        }
+      }
+    }
+  }' -F pr=$PR_NUMBER
+```
+
+> Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
+
 ## 9.4 IDE Integration
 
 ### VS Code Integration
@@ -3713,6 +3870,59 @@ User: Add error boundaries to all page components:
 
 List affected files first, then make changes."
 ```
+
+## 9.10 Continuous Improvement Mindset
+
+The goal isn't just to use AI for coding — it's to **continuously improve the workflow** so AI produces better results with less intervention.
+
+### The Key Question
+
+After every manual intervention, ask yourself:
+
+> "How can I improve the process so this error or manual fix can be avoided next time?"
+
+### Improvement Pipeline
+
+```
+Error or manual intervention detected
+        │
+        ▼
+Can a linting rule catch it?
+        │
+    YES ─┴─ NO
+     │      │
+     ▼      ▼
+Add lint   Can it go in conventions/docs?
+rule            │
+            YES ─┴─ NO
+             │      │
+             ▼      ▼
+        Add to    Accept as
+      CLAUDE.md   edge case
+       or ADRs
+```
+
+### Practical Examples
+
+| Problem | Solution | Where to Add |
+|---------|----------|--------------|
+| Agent forgets to run tests | Add to workflow command | `.claude/commands/complete-task.md` |
+| Code review catches style issue | Add ESLint rule | `.eslintrc.js` |
+| Same architecture mistake repeated | Document decision | `docs/conventions/architecture.md` |
+| Agent uses wrong import pattern | Add example | `CLAUDE.md` |
+
+### The Mindset Shift
+
+Traditional: *"I write code, AI helps"*
+
+AI-native: *"I improve the workflow and context so AI writes better code"*
+
+> "Software engineering might be more workflow + context engineering."
+> — Nick Tune
+
+This is the meta-skill: instead of fixing code, **fix the system that produces the code**.
+
+> Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
 
 ---
 
@@ -4418,6 +4628,112 @@ exit 0
 
 ---
 
+## Further Reading
+
+### Nick Tune: Coding Agent Development Workflows
+
+**Article**: [Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) by Nick Tune
+
+Nick Tune's article explores a more **autonomous, pipeline-driven approach** to AI-assisted development. His workflow aims for fully autonomous task completion: the agent starts from a ticket and delivers a mergeable PR with minimal human intervention.
+
+**Key concepts from his approach**:
+
+| Concept | Description |
+|---------|-------------|
+| **Task Completion Pipeline** | Orchestrated flow: local checks → code review → PR → CI → auto-fix → loop until mergeable |
+| **Single Source of Truth** | All conventions in `/docs/`, referenced by every tool (Claude, CodeRabbit, SonarQube) |
+| **Shell vs AI Decision** | Deterministic tasks = bash scripts; interpretation needed = AI agents |
+| **Verify Gate** | Build/lint/test must pass locally BEFORE PR creation |
+| **Continuous Improvement** | Every manual intervention = opportunity to improve the workflow |
+
+**His approach vs this guide**:
+
+| Aspect | This Guide | Nick Tune's Approach |
+|--------|------------|---------------------|
+| **Focus** | Learning Claude Code comprehensively | Optimizing autonomous workflows |
+| **Audience** | Beginners to advanced | Advanced practitioners |
+| **Philosophy** | Master the tool, then customize | Automate aggressively from day one |
+| **Workflow** | Interactive, human-in-the-loop | Autonomous, human-at-the-end |
+| **Tooling** | Claude Code-centric | Multi-tool orchestration (CodeRabbit, SonarQube, GitHub GraphQL) |
+
+**When to adopt his patterns**:
+
+- You're comfortable with Claude Code basics
+- You want near-autonomous PR generation
+- You have CI/CD infrastructure (GitHub Actions, CodeRabbit, etc.)
+- You're working on a project where you can invest in workflow setup
+
+**Recommended reading order**:
+1. This guide (master fundamentals)
+2. Nick Tune's article (advanced automation)
+
+### Community Resources
+
+The Claude Code ecosystem is growing rapidly. Here are curated resources to continue learning:
+
+#### Awesome Lists
+
+| Repository | Focus | Last Updated |
+|------------|-------|--------------|
+| [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Commands, workflows, IDE integrations | Apr 2025 |
+| [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | Custom skills collection | Oct 2025 |
+| [awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) | Full-stack & DevOps subagents | Jul 2025 |
+| [awesome-claude](https://github.com/alvinunreal/awesome-claude) | General Claude resources (SDKs, tools) | Aug 2025 |
+| [awesome-claude-prompts](https://github.com/langgptai/awesome-claude-prompts) | Prompt templates for various use cases | 2023 |
+
+#### Frameworks
+
+| Framework | Description | Link |
+|-----------|-------------|------|
+| **SuperClaude** | Advanced configuration framework with 30+ commands (`/sc:*`), cognitive personas, and MCP integration | [GitHub](https://github.com/SuperClaude-Org/SuperClaude_Framework) |
+
+SuperClaude transforms Claude Code into a structured development platform through behavioral instruction injection. Key features:
+- 30+ specialized commands for common dev tasks
+- Smart personas for different contexts
+- MCP server integration
+- Task management and session persistence
+
+#### Learning Sites
+
+| Site | Description |
+|------|-------------|
+| [Claudelog.com](https://claudelog.com/) | Tips, patterns, tutorials, and best practices |
+| [Official Docs](https://docs.anthropic.com/en/docs/claude-code) | Anthropic's official Claude Code documentation |
+
+> **Tip**: These resources evolve quickly. Star repos you find useful to track updates.
+
+### Tools
+
+#### Audit Your Setup
+
+Use the included audit prompt to analyze your current Claude Code configuration:
+
+**File**: [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md)
+
+**What it does**:
+1. Scans your global (`~/.claude/`) and project (`.claude/`) configuration
+2. Compares against best practices from this guide
+3. Generates a prioritized report with actionable recommendations
+4. Provides ready-to-use templates tailored to your tech stack
+
+**How to use**:
+1. Copy the prompt from the file
+2. Run `claude --ultrathink` in your project directory
+3. Paste the prompt and review findings
+4. Choose which recommendations to implement
+
+**Example output**:
+
+| Priority | Element | Status | Action |
+|----------|---------|--------|--------|
+| 🔴 High | Project CLAUDE.md | ❌ | Create with tech stack + conventions |
+| 🟡 Medium | Security hooks | ⚠️ | Add PreToolUse for secrets check |
+| 🟢 Low | MCP Serena | ❌ | Configure for large codebase |
+
+The audit covers: Memory files, folder structure, agents, hooks, MCP servers, context management, and CI/CD integration patterns.
+
+---
+
 ## About This Guide
 
 **End of Guide**
@@ -4428,7 +4744,9 @@ exit 0
 
 **Written with**: Claude (Anthropic) - This guide was collaboratively written with Claude Code, demonstrating the tool's capabilities for technical documentation.
 
-**Inspired by**: [Claudelog.com](https://claudelog.com/) - An excellent resource for Claude Code tips, patterns, and advanced techniques that served as a major reference for this guide.
+**Inspired by**:
+- [Claudelog.com](https://claudelog.com/) - An excellent resource for Claude Code tips, patterns, and advanced techniques that served as a major reference for this guide.
+- [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) - Advanced workflow patterns integrated in sections 3.1, 7.1, 9.3, and 9.10.
 
 **License**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) - Feel free to use, adapt, and share with attribution.
 
