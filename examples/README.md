@@ -1,0 +1,79 @@
+# Claude Code Examples
+
+Ready-to-use templates for Claude Code configuration.
+
+## Structure
+
+| Folder | Description |
+|--------|-------------|
+| [`agents/`](./agents/) | Custom AI personas for specialized tasks |
+| [`skills/`](./skills/) | Reusable knowledge modules |
+| [`commands/`](./commands/) | Custom slash commands |
+| [`hooks/`](./hooks/) | Event-driven automation scripts |
+| [`config/`](./config/) | Configuration file templates |
+| [`memory/`](./memory/) | CLAUDE.md memory file templates |
+
+## Quick Start
+
+1. Copy the template you need
+2. Customize for your project
+3. Place in the correct location (see paths below)
+
+## File Locations
+
+| Type | Project Location | Global Location |
+|------|------------------|-----------------|
+| Agents | `.claude/agents/` | `~/.claude/agents/` |
+| Skills | `.claude/skills/` | `~/.claude/skills/` |
+| Commands | `.claude/commands/` | `~/.claude/commands/` |
+| Hooks | `.claude/hooks/` | `~/.claude/hooks/` |
+| Config | `.claude/` | `~/.claude/` |
+| Memory | `./CLAUDE.md` or `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` |
+
+> **Windows**: Replace `~/.claude/` with `%USERPROFILE%\.claude\`
+
+## Templates Index
+
+### Agents
+| File | Purpose | Model |
+|------|---------|-------|
+| [code-reviewer.md](./agents/code-reviewer.md) | Thorough code review | Sonnet |
+| [test-writer.md](./agents/test-writer.md) | TDD/BDD test generation | Sonnet |
+| [security-auditor.md](./agents/security-auditor.md) | Security vulnerability detection | Sonnet |
+| [refactoring-specialist.md](./agents/refactoring-specialist.md) | Clean code refactoring | Sonnet |
+
+### Skills
+| File | Purpose |
+|------|---------|
+| [tdd-workflow.md](./skills/tdd-workflow.md) | Test-Driven Development process |
+| [security-checklist.md](./skills/security-checklist.md) | OWASP Top 10 security checks |
+
+### Commands
+| File | Trigger | Purpose |
+|------|---------|---------|
+| [commit.md](./commands/commit.md) | `/commit` | Conventional commit messages |
+| [review-pr.md](./commands/review-pr.md) | `/review-pr` | PR review workflow |
+| [generate-tests.md](./commands/generate-tests.md) | `/generate-tests` | Test generation |
+
+### Hooks
+| File | Event | Purpose |
+|------|-------|---------|
+| [security-check.*](./hooks/) | PreToolUse | Block secrets in commands |
+| [auto-format.*](./hooks/) | PostToolUse | Auto-format after edits |
+
+### Config
+| File | Purpose |
+|------|---------|
+| [settings.json](./config/settings.json) | Hooks configuration |
+| [mcp.json](./config/mcp.json) | MCP servers setup |
+| [.gitignore-claude](./config/.gitignore-claude) | Git ignore patterns |
+
+### Memory
+| File | Purpose |
+|------|---------|
+| [CLAUDE.md.project-template](./memory/CLAUDE.md.project-template) | Team project memory |
+| [CLAUDE.md.personal-template](./memory/CLAUDE.md.personal-template) | Personal global memory |
+
+---
+
+*See the [main guide](../english-ultimate-claude-code-guide.md) for detailed explanations.*

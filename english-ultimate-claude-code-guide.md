@@ -687,6 +687,67 @@ Claude: [Executes the plan]
 
 **Result**: 76% fewer tokens with better results because the plan is validated before execution.
 
+### OpusPlan Mode
+
+**Concept**: Use Opus for planning (superior reasoning) and Sonnet for implementation (cost-efficient).
+
+**Why OpusPlan?**
+- **Cost optimization**: Opus tokens cost more than Sonnet
+- **Best of both worlds**: Opus-quality planning + Sonnet-speed execution
+- **Token savings**: Planning is typically shorter than implementation
+
+**Activation**:
+```
+/model opusplan
+```
+
+Or in `~/.claude/settings.json`:
+```json
+{
+  "model": "opusplan"
+}
+```
+
+**How It Works**:
+1. In **Plan Mode** (`/plan` or `Shift+Tab` twice) → Uses **Opus**
+2. In **Act Mode** (normal execution) → Uses **Sonnet**
+3. Automatic switching based on mode
+
+**Recommended Workflow**:
+```
+1. /model opusplan        → Enable OpusPlan
+2. Shift+Tab × 2          → Enter Plan Mode (Opus)
+3. Describe your task     → Get Opus-quality planning
+4. Shift+Tab              → Exit to Act Mode (Sonnet)
+5. Execute the plan       → Sonnet implements efficiently
+```
+
+**Alternative Approach with Subagents**:
+
+You can also control model usage per agent:
+
+```yaml
+# .claude/agents/planner.md
+---
+name: planner
+model: opus
+tools: Read, Grep, Glob
+---
+# Strategic Planning Agent
+```
+
+```yaml
+# .claude/agents/implementer.md
+---
+name: implementer
+model: haiku
+tools: Write, Edit, Bash
+---
+# Fast Implementation Agent
+```
+
+**Pro Users Note**: OpusPlan is particularly valuable for Pro subscribers with limited Opus tokens. It lets you leverage Opus reasoning for critical planning while preserving tokens for more sessions.
+
 ## 2.4 Rewind
 
 Rewind is Claude Code's undo mechanism.

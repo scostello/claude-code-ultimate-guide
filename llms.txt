@@ -53,7 +53,16 @@ claude-code-ultimate-guide/
 ├── english-ultimate-claude-code-guide.md  # Complete guide (main content)
 ├── cheatsheet-en.md                    # 1-page reference
 ├── claude-setup-audit-prompt.md        # Setup audit tool
+├── CONTRIBUTING.md                     # Contribution guidelines
+├── CHANGELOG.md                        # Version history
 ├── llms.txt                            # This file (for AI indexation)
+├── examples/                           # Ready-to-use templates
+│   ├── agents/                         # Custom AI personas
+│   ├── skills/                         # Knowledge modules
+│   ├── commands/                       # Slash commands
+│   ├── hooks/                          # Event automation (bash + PowerShell)
+│   ├── config/                         # Configuration files
+│   └── memory/                         # CLAUDE.md templates
 └── *.pdf                               # Alternative formats
 ```
 
@@ -112,9 +121,11 @@ CC BY-SA 4.0 - Free to share and adapt with attribution.
 ## How to Use This Guide
 
 1. **New to Claude Code?** Start with README.md Quick Start section
-2. **Want comprehensive learning?** Read english-ultimate-claude-code-guide.md
-3. **Need daily reference?** Print cheatsheet-en.md
-4. **Want to audit your setup?** Use claude-setup-audit-prompt.md
+2. **Choose your path** See Learning Paths in README for audience-specific guides
+3. **Want comprehensive learning?** Read english-ultimate-claude-code-guide.md
+4. **Need daily reference?** Print cheatsheet-en.md
+5. **Want to audit your setup?** Use claude-setup-audit-prompt.md
+6. **Need templates?** Browse examples/ folder for ready-to-use configs
 
 ## Keywords
 

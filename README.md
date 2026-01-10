@@ -142,9 +142,42 @@ claude
 
 ---
 
+## Learning Paths
+
+Choose your path based on experience and goals:
+
+### Junior Developer (45 min to productivity)
+1. [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) - Installation & first workflow
+2. [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands) - The 7 commands you need
+3. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) - Critical concept
+4. [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd) - Create your first CLAUDE.md
+5. [Cheatsheet](./cheatsheet-en.md) - Print and keep nearby
+
+### Senior Developer (40 min to mastery)
+1. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) - Mental model & context zones
+2. [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) - Safe exploration
+3. [Agents](./english-ultimate-claude-code-guide.md#4-agents) - Custom AI personas
+4. [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) - Event-driven automation
+5. [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) - Pipeline automation
+
+### Power User (2 hours for full mastery)
+1. Read the [complete guide](./english-ultimate-claude-code-guide.md) end-to-end
+2. [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) - Extended capabilities
+3. [The Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) - Advanced workflows
+4. [Audit your setup](./claude-setup-audit-prompt.md) - Optimize your configuration
+5. Explore [examples/](./examples/) - Ready-to-use templates
+
+### Non-Technical / Product Manager (20 min overview)
+1. [What's Inside](#whats-inside) - Understand the scope
+2. [The Golden Rules](#the-golden-rules) - Key principles
+3. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) - High-level overview
+4. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) - Why it matters
+
+---
+
 ## Contributing
 
-Found an error? Have a suggestion? Open an issue or PR.
+Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
