@@ -3932,6 +3932,31 @@ The most powerful Claude Code pattern combines three techniques:
 | `--think-hard` | Deep | ~10K | Architectural decisions |
 | `--ultrathink` | Maximum | ~32K | Critical redesign |
 
+#### Inline Thinking Keywords
+
+You can also trigger extended thinking by adding keywords directly in your prompt:
+
+```bash
+# Minimal boost - standard analysis
+claude -p "Think. Outline a plan to refactor the auth module."
+
+# Medium boost - deeper consideration
+claude -p "Think hard. Draft a migration plan from REST to gRPC."
+
+# Strong boost - thorough analysis
+claude -p "Think harder. Evaluate trade-offs for our caching strategy."
+
+# Maximum boost - comprehensive reasoning
+claude -p "Ultrathink. Propose a step-by-step strategy to fix flaky payment tests and add guardrails."
+```
+
+**How it works:**
+- **think** → Claude spends more time planning before responding
+- **think hard/harder** → Progressively deeper analysis with more consideration of alternatives
+- **ultrathink** → Maximum pre-answer reasoning about implications, edge cases, and trade-offs
+
+**Higher levels increase latency and token usage** - use the smallest level that works for your task.
+
 ### Example: Using the Trinity
 
 ```
