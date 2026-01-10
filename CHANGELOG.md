@@ -6,6 +6,114 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-01-10
+
+### Added
+- **DeepTo Claude Code Guide integration** (~800 lines across 5 sections)
+  - **Image Processing** (Section 2.3.2, lines 377-445)
+    - Direct image input via paste/drag-drop in terminal
+    - Screenshot analysis, UI debugging, error message analysis
+    - Best practices for image-based workflows
+    - Supported formats: PNG, JPG, GIF, WebP, screenshots
+  - **Session Continuation and Resume** (Section 2.3.4, lines 447-560)
+    - `claude --continue` / `-c` to resume last session
+    - `claude --resume <id>` / `-r <id>` for specific sessions
+    - Use cases table: long-term projects, research, interrupted work, daily workflows
+    - Context preservation across terminal sessions
+    - Integration with MCP Serena for persistent memory
+  - **XML-Structured Prompts** (Section 2.6, lines 1582-2148)
+    - Semantic organization using `<instruction>`, `<context>`, `<code_example>`, `<constraints>`, `<output>` tags
+    - Benefits table: disambiguation, role clarity, example isolation, constraint definition
+    - 3 practical examples: code review, feature implementation, bug investigation
+    - Advanced patterns: nested tags, multiple examples, conditional instructions
+    - Integration with CLAUDE.md and Plan Mode
+    - Template library for common scenarios
+  - **ccusage CLI Tool** (Section 3.5.3, around line 970)
+    - Detailed cost analytics and tracking
+    - Model-specific breakdowns (Haiku/Sonnet/Opus)
+    - Token usage analysis and optimization insights
+    - Installation and usage instructions
+  - **Unix Piping Workflows** (Section 9.3.3, line 4490)
+    - Feeding content to Claude via stdin pipes
+    - Output format options (text, json, markdown)
+    - Build script integration patterns
+    - CI/CD pipeline examples (linting, testing, security)
+    - Automated analysis and report generation
+  - **DeepTo Guide reference** added to README.md Resources section
+    - Listed alongside zebbern, Claudelog, and ykdojo guides
+    - Brief description covering all integrated concepts
+  - **Source attribution** included in all new sections
+    - Proper credit to https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide
+    - Following same attribution format used for other community guides
+
+### Changed
+- **Guide statistics updated**
+  - Guide expanded to approximately 9,700+ lines (+800 lines from DeepTo integration)
+  - Enhanced coverage of context management, structured prompting, and automation
+- **README.md Resources section enhanced**
+  - Added DeepTo Claude Code Guide to Related Guides
+
+### Stats
+- 0 new files created (documentation enhancement only)
+- 3 files modified (README.md, english-ultimate-claude-code-guide.md, CHANGELOG.md)
+- Focus on advanced prompting techniques, cost optimization, and automation workflows
+- Integration of community best practices from DeepTo guide
+
+## [2.2.0] - 2026-01-10
+
+### Added
+- **ykdojo/claude-code-tips reference integration** (~300 lines, 6 tips)
+  - Added to References section in README.md (2 locations: Key inspirations + Related Guides)
+  - Added to Learning Sites table in guide (Section 10.3.3, lines 8277, 8500)
+  - Listed as peer guide alongside Claudelog and zebbern
+  - **Tip 1: Undocumented Commands** integrated in Section 10.1 Commands Table
+    - `/usage` - Check rate limits and token allocation
+    - `/stats` - View usage statistics with activity graphs
+    - `/chrome` - Toggle native browser integration
+    - `/mcp` - Manage Model Context Protocol servers
+  - **Tips 3+4+8: Keyboard Shortcuts** integrated in Section 10.2
+    - Restructured with 2 categories: "Session Control" + "Input & Navigation"
+    - `Ctrl+A` - Jump to beginning of line
+    - `Ctrl+E` - Jump to end of line
+    - `Ctrl+W` - Delete previous word
+    - `Ctrl+G` - Open external editor for long text
+    - `Ctrl+B` - Run command in background
+  - **Tip 5: Session Handoff Pattern** new subsection in Section 2.2 (lines 1252-1308)
+    - Complete template with 5 sections (Accomplished, Current State, Decisions, Next Steps, Context)
+    - When-to-use table with 5 scenarios (end of day, context limit, switching focus, interruption, debugging)
+    - Storage location: `claudedocs/handoffs/handoff-YYYY-MM-DD.md`
+    - Pro tip: Ask Claude to generate handoff automatically
+  - **Tip 12: GitHub Actions CLI Debugging** new subsection in Section 9.3 (lines 4445-4500)
+    - Quick investigation workflow with `gh run` commands
+    - Common commands table: list, view, view logs, watch, rerun
+    - Practical example combining `gh` with Claude Code
+    - Pro tip: Pipe failed logs directly to Claude for analysis
+  - **Additional topics worth exploring** section added (lines 8516-8522)
+    - 6 non-integrated but pertinent topics from ykdojo listed
+    - Voice transcription workflows (superwhisper/MacWhisper)
+    - Tmux for autonomous testing
+    - cc-safe security tool
+    - Cascade multitasking method
+    - Container experimentation with Docker
+    - Half-clone technique for context trimming
+
+### Changed
+- **Guide statistics updated**
+  - Guide expanded from 8,505 to 8,929 lines (+424 lines, +5.0%)
+  - Word count increased from ~31,280 to 33,219 words (+1,939 words, +6.2%)
+  - Reading time updated: "~3 hours" → "~2h15min" (more precise estimate)
+- **Version alignment** across documentation
+  - english-ultimate-claude-code-guide.md: Version 2.1 → 2.2
+  - README.md: Version 2.1 → 2.2
+  - CHANGELOG.md: New release 2.2.0 documented
+
+### Stats
+- 0 new files created (documentation enhancement only)
+- 3 files modified (README.md, english-ultimate-claude-code-guide.md, CHANGELOG.md)
+- Guide grew by 424 lines (5.0% growth from v2.1.0)
+- Focus on productivity techniques and terminal efficiency
+- Integration of battle-tested workflows from Y.K. Dojo
+
 ## [2.1.0] - 2026-01-10
 
 ### Added

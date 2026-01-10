@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.1
+**Version**: 2.2
 
 ---
 
@@ -373,6 +373,191 @@ Claude: Which file contains the authentication logic? [Wastes time searching]
 You: Fix the authentication bug in @src/auth/middleware.ts
 Claude: [Immediately loads file and proposes fix]
 ```
+
+#### Working with Images and Screenshots
+
+Claude Code supports **direct image input** for visual analysis, mockup implementation, and design feedback.
+
+**How to use images**:
+
+1. **Paste directly in terminal** (macOS/Linux/Windows with modern terminal):
+   - Copy screenshot or image to clipboard (`Cmd+Shift+4` on macOS, `Win+Shift+S` on Windows)
+   - In Claude Code session, paste with `Cmd+V` / `Ctrl+V`
+   - Claude receives the image and can analyze it
+
+2. **Drag and drop** (some terminals):
+   - Drag image file into terminal window
+   - Claude loads and processes the image
+
+3. **Reference with path**:
+   ```bash
+   Analyze this mockup: /path/to/design.png
+   ```
+
+**Common use cases**:
+
+```bash
+# Implement UI from mockup
+You: [Paste screenshot of Figma design]
+Implement this login screen in React with Tailwind CSS
+
+# Debug visual issues
+You: [Paste screenshot of broken layout]
+The button is misaligned. Fix the CSS.
+
+# Analyze diagrams
+You: [Paste architecture diagram]
+Explain this system architecture and identify potential bottlenecks
+
+# Code from whiteboard
+You: [Paste photo of whiteboard algorithm]
+Convert this algorithm to Python code
+
+# Accessibility audit
+You: [Paste screenshot of UI]
+Review this interface for WCAG 2.1 compliance issues
+```
+
+**Supported formats**: PNG, JPG, JPEG, WebP, GIF (static)
+
+**Best practices**:
+- **High contrast**: Ensure text/diagrams are clearly visible
+- **Crop relevantly**: Remove unnecessary UI elements for focused analysis
+- **Annotate when needed**: Circle/highlight specific areas you want Claude to focus on
+- **Combine with text**: "Focus on the header section" provides additional context
+
+**Example workflow**:
+```
+You: [Paste screenshot of error message in browser console]
+This error appears when users click the submit button. Debug it.
+
+Claude: I can see the error "TypeError: Cannot read property 'value' of null".
+This suggests the form field reference is incorrect. Let me check your form handling code...
+[Reads relevant files and proposes fix]
+```
+
+**Limitations**:
+- Images consume significant context tokens (equivalent to ~1000-2000 words of text)
+- Use `/status` to monitor context usage after pasting images
+- Consider describing complex diagrams textually if context is tight
+- Some terminals may not support clipboard image pasting (fallback: save and reference file path)
+
+> **💡 Pro tip**: Take screenshots of error messages, design mockups, and documentation instead of describing them textually. Visual input is often faster and more precise than written descriptions.
+
+#### Session Continuation and Resume
+
+Claude Code allows you to **continue previous conversations** across terminal sessions, maintaining full context and conversation history.
+
+**Two ways to resume**:
+
+1. **Continue last session** (`--continue` or `-c`):
+   ```bash
+   # Automatically resumes your most recent conversation
+   claude --continue
+   # Short form
+   claude -c
+   ```
+
+2. **Resume specific session** (`--resume <id>` or `-r <id>`):
+   ```bash
+   # Resume a specific session by ID
+   claude --resume abc123def
+   # Short form
+   claude -r abc123def
+   ```
+
+**Finding session IDs**:
+
+```bash
+# List recent sessions with IDs
+claude mcp call serena list_sessions
+
+# Sessions are also shown when you exit
+You: /exit
+Session ID: abc123def (saved for resume)
+```
+
+**Common use cases**:
+
+| Scenario | Command | Why |
+|----------|---------|-----|
+| Interrupted work | `claude -c` | Pick up exactly where you left off |
+| Multi-day feature | `claude -r abc123` | Continue complex task across days |
+| After break/meeting | `claude -c` | Resume without losing context |
+| Parallel projects | `claude -r <id>` | Switch between different project contexts |
+| Code review follow-up | `claude -r <id>` | Address review comments in original context |
+
+**Example workflow**:
+
+```bash
+# Day 1: Start implementing authentication
+cd ~/project
+claude
+You: Implement JWT authentication with refresh tokens
+Claude: [Analysis and initial implementation]
+You: /exit
+Session ID: auth-feature-xyz (27% context used)
+
+# Day 2: Continue the work
+cd ~/project
+claude --continue
+Claude: Resuming session auth-feature-xyz...
+You: Add rate limiting to the auth endpoints
+Claude: [Continues with full context of Day 1 work]
+```
+
+**Best practices**:
+
+- **Use `/exit` properly**: Always exit with `/exit` or `Ctrl+D` (not force-kill) to ensure session is saved
+- **Descriptive final messages**: End sessions with context ("Ready for testing") so you remember the state when resuming
+- **Check context before resuming**: High-context sessions (>75%) may need `/compact` after resuming
+- **Session naming**: Use meaningful session IDs when available to identify different work streams
+
+**Resume vs. fresh start**:
+
+| Use Resume When... | Start Fresh When... |
+|-------------------|---------------------|
+| Continuing a specific feature/task | Switching to unrelated work |
+| Building on previous decisions | Previous session went off track |
+| Context is still relevant (<75%) | Context is bloated (>90%) |
+| Multi-step implementation in progress | Quick one-off questions |
+
+**Limitations**:
+
+- Sessions are stored locally (not synced across machines)
+- Very old sessions may be pruned (depends on local storage limits)
+- Corrupted sessions can't be resumed (start fresh with `/clear`)
+- Cannot resume sessions started with different model or MCP config
+
+**Context preservation**:
+
+When you resume, Claude retains:
+- ✅ Full conversation history
+- ✅ Files previously read/edited
+- ✅ CLAUDE.md and project settings
+- ✅ MCP server state (if Serena is used)
+- ✅ Uncommitted code changes awareness
+
+**Combining with MCP Serena**:
+
+For advanced session management with project memory and symbol tracking:
+
+```bash
+# Initialize Serena memory for the project
+claude mcp call serena initialize_session
+
+# Work with full session persistence
+You: Implement user authentication
+Claude: [Works with Serena tracking symbols and context]
+
+# Exit and resume later with full project memory
+claude -c
+Claude: [Resumes with Serena's persistent project understanding]
+```
+
+> **💡 Pro tip**: Use `claude -c` as your default way to start Claude Code in active projects. This ensures you never lose context from previous sessions unless you explicitly want a fresh start with `claude` (no flags).
+
+> **Source**: [DeepTo Claude Code Guide - Context Resume Functions](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
 
 ## 1.4 Permission Modes
 
@@ -968,6 +1153,40 @@ Claude Code │ Ctx(u): 45% │ Cost: $0.23 │ Session: 1h 23m
                               ↑ Current session cost
 ```
 
+**Advanced tracking with `ccusage`**:
+
+The `ccusage` CLI tool provides detailed cost analytics beyond the `/cost` command:
+
+```bash
+ccusage                    # Overview all periods
+ccusage --today            # Today's costs
+ccusage --month            # Current month
+ccusage --session          # Active session breakdown
+ccusage --model-breakdown  # Cost by model (Sonnet/Opus/Haiku)
+```
+
+**Example output**:
+```
+┌──────────────────────────────────────────────────────┐
+│ USAGE SUMMARY - January 2026                         │
+├──────────────────────────────────────────────────────┤
+│ Today                           $2.34 (12 sessions)  │
+│ This week                       $8.91 (47 sessions)  │
+│ This month                     $23.45 (156 sessions) │
+├──────────────────────────────────────────────────────┤
+│ MODEL BREAKDOWN                                      │
+│   Sonnet 3.5    85%    $19.93                        │
+│   Opus 4        12%     $2.81                        │
+│   Haiku 3.5      3%     $0.71                        │
+└──────────────────────────────────────────────────────┘
+```
+
+**Why use `ccusage` over `/cost`?**
+- **Historical trends**: Track usage patterns over days/weeks/months
+- **Model breakdown**: See which model tier drives costs
+- **Budget planning**: Set monthly spending targets
+- **Team analytics**: Aggregate costs across developers
+
 **Monthly tracking**:
 
 Check your Anthropic Console for detailed usage:
@@ -1474,6 +1693,459 @@ Login is broken
 ```
 
 The more context you provide, the better Claude can help.
+
+## 2.6 Structured Prompting with XML Tags
+
+XML-structured prompts provide **semantic organization** for complex requests, helping Claude distinguish between different aspects of your task for clearer understanding and better results.
+
+### What Are XML-Structured Prompts?
+
+XML tags act as **labeled containers** that explicitly separate instruction types, context, examples, constraints, and expected output format.
+
+**Basic syntax**:
+
+```xml
+<instruction>
+  Your main task description here
+</instruction>
+
+<context>
+  Background information, project details, or relevant state
+</context>
+
+<code_example>
+  Reference code or examples to follow
+</code_example>
+
+<constraints>
+  - Limitation 1
+  - Limitation 2
+  - Requirement 3
+</constraints>
+
+<output>
+  Expected format or structure of the response
+</output>
+```
+
+### Why Use XML Tags?
+
+| Benefit | Description |
+|---------|-------------|
+| **Separation of concerns** | Different aspects of the task are clearly delineated |
+| **Reduced ambiguity** | Claude knows which information serves what purpose |
+| **Better context handling** | Helps Claude prioritize main instructions over background info |
+| **Consistent formatting** | Easier to template complex requests |
+| **Multi-faceted requests** | Complex tasks with multiple requirements stay organized |
+
+### Common Tags and Their Uses
+
+**Core Instruction Tags**:
+
+```xml
+<instruction>Main task</instruction>          <!-- Primary directive -->
+<task>Specific subtask</task>                 <!-- Individual action item -->
+<question>What should I do about X?</question> <!-- Explicit inquiry -->
+<goal>Achieve state Y</goal>                  <!-- Desired outcome -->
+```
+
+**Context and Information Tags**:
+
+```xml
+<context>Project uses Next.js 14</context>            <!-- Background info -->
+<problem>Users report slow page loads</problem>       <!-- Issue description -->
+<background>Migration from Pages Router</background>  <!-- Historical context -->
+<state>Currently on feature-branch</state>            <!-- Current situation -->
+```
+
+**Code and Example Tags**:
+
+```xml
+<code_example>
+  // Existing pattern to follow
+  const user = await getUser(id);
+</code_example>
+
+<current_code>
+  // Code that needs modification
+</current_code>
+
+<expected_output>
+  // What the result should look like
+</expected_output>
+```
+
+**Constraint and Rule Tags**:
+
+```xml
+<constraints>
+  - Must maintain backward compatibility
+  - No breaking changes to public API
+  - Maximum 100ms response time
+</constraints>
+
+<requirements>
+  - TypeScript strict mode
+  - 100% test coverage
+  - Accessible (WCAG 2.1 AA)
+</requirements>
+
+<avoid>
+  - Don't use any for types
+  - Don't modify the database schema
+</avoid>
+```
+
+### Practical Examples
+
+**Example 1: Code Review with Context**
+
+```xml
+<instruction>
+Review this authentication middleware for security vulnerabilities
+</instruction>
+
+<context>
+This middleware is used in a financial application handling sensitive user data.
+We follow OWASP Top 10 guidelines and need PCI DSS compliance.
+</context>
+
+<code_example>
+async function authenticate(req, res, next) {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'No token' });
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = decoded;
+  next();
+}
+</code_example>
+
+<constraints>
+- Point out any security risks
+- Suggest PCI DSS compliant alternatives
+- Consider timing attacks and token leakage
+</constraints>
+
+<output>
+Provide:
+1. List of security issues found
+2. Severity rating for each (Critical/High/Medium/Low)
+3. Specific code fixes with examples
+4. Additional security hardening recommendations
+</output>
+```
+
+**Example 2: Feature Implementation with Examples**
+
+```xml
+<instruction>
+Add a rate limiting system to our API endpoints
+</instruction>
+
+<context>
+Current stack: Express.js + Redis
+No rate limiting currently exists
+Experiencing API abuse from specific IPs
+</context>
+
+<requirements>
+- 100 requests per minute per IP for authenticated users
+- 20 requests per minute per IP for unauthenticated
+- Custom limits for premium users (stored in database)
+- Return 429 status with Retry-After header
+</requirements>
+
+<code_example>
+// Existing middleware pattern we use
+app.use(authenticate);
+app.use(authorize(['admin', 'user']));
+</code_example>
+
+<constraints>
+- Must not impact existing API performance
+- Redis connection should be reused
+- Handle Redis connection failures gracefully
+</constraints>
+
+<output>
+Provide:
+1. Rate limiter middleware implementation
+2. Redis configuration
+3. Unit tests
+4. Documentation for the team
+</output>
+```
+
+**Example 3: Bug Investigation with State**
+
+```xml
+<task>
+Investigate why user sessions are expiring prematurely
+</task>
+
+<problem>
+Users report being logged out after 5-10 minutes of activity,
+but session timeout is configured for 24 hours.
+</problem>
+
+<context>
+- Next.js 14 App Router with next-auth
+- PostgreSQL session store
+- Load balanced across 3 servers
+- Issue started after deploying v2.3.0 last week
+</context>
+
+<state>
+Git diff between v2.2.0 (working) and v2.3.0 (broken) shows changes to:
+- middleware.ts (session refresh logic)
+- auth.config.ts (session strategy)
+- database.ts (connection pooling)
+</state>
+
+<constraints>
+- Don't suggest reverting the deploy
+- Production issue, needs quick resolution
+- Must maintain session security
+</constraints>
+
+<output>
+Provide:
+1. Root cause hypothesis
+2. Files to investigate (in priority order)
+3. Debugging commands to run
+4. Potential fixes with trade-offs
+</output>
+```
+
+### Advanced Patterns
+
+**Nested Tags for Complex Hierarchy**:
+
+```xml
+<task>
+Refactor authentication system
+  <subtask priority="high">
+    Update user model
+    <constraints>
+      - Preserve existing user IDs
+      - Add migration for email verification
+    </constraints>
+  </subtask>
+
+  <subtask priority="medium">
+    Implement OAuth providers
+    <requirements>
+      - Google and GitHub OAuth
+      - Reuse existing session logic
+    </requirements>
+  </subtask>
+</task>
+```
+
+**Multiple Examples with Labels**:
+
+```xml
+<code_example label="current_implementation">
+  // Old approach with callback hell
+  getUser(id, (user) => {
+    getOrders(user.id, (orders) => {
+      res.json({ user, orders });
+    });
+  });
+</code_example>
+
+<code_example label="desired_pattern">
+  // New async/await pattern
+  const user = await getUser(id);
+  const orders = await getOrders(user.id);
+  res.json({ user, orders });
+</code_example>
+```
+
+**Conditional Instructions**:
+
+```xml
+<instruction>
+Optimize database query performance
+</instruction>
+
+<context>
+Query currently takes 2.5 seconds for 10,000 records
+</context>
+
+<constraints>
+  <if condition="PostgreSQL">
+    - Use EXPLAIN ANALYZE
+    - Consider materialized views
+  </if>
+
+  <if condition="MySQL">
+    - Use EXPLAIN with query plan analysis
+    - Consider query cache
+  </if>
+</constraints>
+```
+
+### When to Use XML-Structured Prompts
+
+| Scenario | Recommended? | Why |
+|----------|--------------|-----|
+| Simple one-liner requests | ❌ No | Overhead outweighs benefit |
+| Multi-step feature implementation | ✅ Yes | Separates goals, constraints, examples |
+| Bug investigation with context | ✅ Yes | Distinguishes symptoms from environment |
+| Code review with specific criteria | ✅ Yes | Clear separation of code, context, requirements |
+| Architecture planning | ✅ Yes | Organizes goals, constraints, trade-offs |
+| Quick typo fix | ❌ No | Unnecessary complexity |
+
+### Best Practices
+
+**Do's**:
+- ✅ Use descriptive tag names that clarify purpose
+- ✅ Keep tags consistent across similar requests
+- ✅ Combine with CLAUDE.md for project-specific tag conventions
+- ✅ Nest tags logically when representing hierarchy
+- ✅ Use tags to separate "what" from "why" from "how"
+
+**Don'ts**:
+- ❌ Over-structure simple requests (adds noise)
+- ❌ Mix tag purposes (e.g., constraints inside code examples)
+- ❌ Use generic tags (`<tag>`, `<content>`) without clear meaning
+- ❌ Nest too deeply (>3 levels becomes hard to read)
+
+### Integration with CLAUDE.md
+
+You can standardize XML tag usage in your project's CLAUDE.md:
+
+```markdown
+# XML Prompt Conventions
+
+When making complex requests, use this structure:
+
+<instruction>Main task</instruction>
+
+<context>
+  Project context and state
+</context>
+
+<code_example>
+  Reference implementations
+</code_example>
+
+<constraints>
+  Technical and business requirements
+</constraints>
+
+<output>
+  Expected deliverables
+</output>
+
+## Project-Specific Tags
+
+- `<api_design>` - API endpoint design specifications
+- `<accessibility>` - WCAG requirements and ARIA considerations
+- `<performance>` - Performance budgets and optimization goals
+```
+
+### Combining with Other Features
+
+**XML + Plan Mode**:
+
+```xml
+<instruction>Plan the migration from REST to GraphQL</instruction>
+
+<context>
+Currently 47 REST endpoints serving mobile and web clients
+</context>
+
+<constraints>
+- Must maintain REST endpoints during transition (6-month overlap)
+- Mobile app can't be force-updated immediately
+</constraints>
+
+<output>
+Multi-phase migration plan with rollback strategy
+</output>
+```
+
+Then use `/plan` to explore read-only before implementation.
+
+**XML + Cost Awareness**:
+
+For large requests, structure with XML to help Claude understand scope and estimate token usage:
+
+```xml
+<instruction>Analyze all TypeScript files for unused imports</instruction>
+
+<scope>
+  src/ directory (~200 files)
+</scope>
+
+<output_format>
+  Summary report only (don't list every file)
+</output_format>
+```
+
+This helps Claude optimize the analysis approach and reduce token consumption.
+
+### Example Template Library
+
+Create reusable templates in `claudedocs/templates/`:
+
+**`claudedocs/templates/code-review.xml`**:
+
+```xml
+<instruction>
+Review the following code for quality and best practices
+</instruction>
+
+<context>
+[Describe the component's purpose and architecture context]
+</context>
+
+<code_example>
+[Paste code here]
+</code_example>
+
+<focus_areas>
+- Security vulnerabilities
+- Performance bottlenecks
+- Maintainability issues
+- Test coverage gaps
+</focus_areas>
+
+<output>
+1. Issues found (categorized by severity)
+2. Specific recommendations with code examples
+3. Priority order for fixes
+</output>
+```
+
+**Usage**:
+
+```bash
+cat claudedocs/templates/code-review.xml | \
+  sed 's/\[Paste code here\]/'"$(cat src/auth.ts)"'/' | \
+  claude -p "Process this review request"
+```
+
+### Limitations and Considerations
+
+**Token overhead**: XML tags consume tokens. For simple requests, natural language is more efficient.
+
+**Not required**: Claude understands natural language perfectly well. Use XML when structure genuinely helps.
+
+**Consistency matters**: If you use XML tags, be consistent. Mixing styles within a session can confuse context.
+
+**Learning curve**: Team members need to understand the tag system. Document your conventions in CLAUDE.md.
+
+> **💡 Pro tip**: Start with natural language prompts. Introduce XML structure when:
+> - Requests have 3+ distinct aspects (instruction + context + constraints)
+> - Ambiguity causes Claude to misunderstand your intent
+> - Creating reusable prompt templates
+> - Working with junior developers who need structured communication patterns
+
+> **Source**: [DeepTo Claude Code Guide - XML-Structured Prompts](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
 
 ---
 
@@ -4382,6 +5054,186 @@ claude --headless --timeout 300 "Build the project"
 # With specific model
 claude --headless --model sonnet "Analyze code quality"
 ```
+
+### Unix Piping Workflows
+
+Claude Code supports **Unix pipe operations**, enabling powerful shell integration for automated code analysis and transformation.
+
+**How piping works**:
+
+```bash
+# Pipe content to Claude with a prompt
+cat file.txt | claude -p 'analyze this code'
+
+# Pipe command output for analysis
+git diff | claude -p 'explain these changes'
+
+# Chain commands with Claude
+npm test 2>&1 | claude -p 'summarize test failures and suggest fixes'
+```
+
+**Common patterns**:
+
+1. **Code review automation**:
+   ```bash
+   git diff main...feature-branch | claude -p 'Review this diff for security issues'
+   ```
+
+2. **Log analysis**:
+   ```bash
+   tail -n 100 /var/log/app.log | claude -p 'Find the root cause of errors'
+   ```
+
+3. **Test output parsing**:
+   ```bash
+   npm test 2>&1 | claude -p 'Create a summary of failing tests with priority order'
+   ```
+
+4. **Documentation generation**:
+   ```bash
+   cat src/api/*.ts | claude -p 'Generate API documentation in Markdown'
+   ```
+
+5. **Batch file analysis**:
+   ```bash
+   find . -name "*.js" -exec cat {} \; | claude -p 'Identify unused dependencies'
+   ```
+
+**Using with `--output-format`**:
+
+```bash
+# Get structured JSON output
+git status --short | claude -p 'Categorize changes' --output-format json
+
+# Stream JSON for real-time processing
+cat large-file.txt | claude -p 'Analyze line by line' --output-format stream-json
+```
+
+**Best practices**:
+
+- **Be specific**: Clear prompts yield better results
+  ```bash
+  # Good: Specific task
+  git diff | claude -p 'List all function signature changes'
+
+  # Less effective: Vague request
+  git diff | claude -p 'analyze this'
+  ```
+
+- **Limit input size**: Pipe only relevant content to avoid context overload
+  ```bash
+  # Good: Filtered scope
+  git diff --name-only | head -n 10 | xargs cat | claude -p 'review'
+
+  # Risky: Could exceed context
+  cat entire-codebase/* | claude -p 'review'
+  ```
+
+- **Use non-interactive mode**: Add `--headless` for automation
+  ```bash
+  cat file.txt | claude --headless -p 'fix linting errors' > output.txt
+  ```
+
+- **Combine with jq for JSON**: Parse Claude's JSON output
+  ```bash
+  echo "const x = 1" | claude -p 'analyze' --output-format json | jq '.suggestions[]'
+  ```
+
+**Output format control**:
+
+The `--output-format` flag controls Claude's response format:
+
+| Format | Use Case | Example |
+|--------|----------|---------|
+| `text` | Human-readable output (default) | `claude -p 'explain' --output-format text` |
+| `json` | Machine-parseable structured data | `claude -p 'analyze' --output-format json` |
+| `stream-json` | Real-time streaming for large outputs | `claude -p 'transform' --output-format stream-json` |
+
+**Example JSON workflow**:
+
+```bash
+# Get structured analysis
+git log --oneline -10 | claude -p 'Categorize commits by type' --output-format json
+
+# Output:
+# {
+#   "categories": {
+#     "features": ["add user auth", "new dashboard"],
+#     "fixes": ["fix login bug", "resolve crash"],
+#     "chores": ["update deps", "refactor tests"]
+#   },
+#   "summary": "10 commits: 2 features, 2 fixes, 6 chores"
+# }
+```
+
+**Integration with build scripts** (`package.json`):
+
+```json
+{
+  "scripts": {
+    "claude-review": "git diff main | claude -p 'Review for security issues' --output-format json > review.json",
+    "claude-test-summary": "npm test 2>&1 | claude --headless -p 'Summarize failures and suggest fixes'",
+    "claude-docs": "cat src/**/*.ts | claude -p 'Generate API documentation' > API.md",
+    "precommit-check": "git diff --cached | claude --headless -p 'Check for secrets or anti-patterns' && git diff --cached | prettier --check"
+  }
+}
+```
+
+**CI/CD integration example**:
+
+```yaml
+# .github/workflows/claude-review.yml
+name: AI Code Review
+on: [pull_request]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run Claude Review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          git diff origin/main...HEAD | \
+            claude --headless -p 'Review this PR diff for security issues, performance problems, and code quality. Format as JSON.' \
+            --output-format json > review.json
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const review = JSON.parse(fs.readFileSync('review.json', 'utf8'));
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🤖 Claude Code Review\n\n${review.summary}`
+            });
+```
+
+**Limitations**:
+
+- **Context size**: Large pipes may exceed token limits (monitor with `/status`)
+- **Interactive prompts**: Use `--headless` for automation to avoid blocking
+- **Error handling**: Pipe failures don't always propagate; add `set -e` for strict mode
+- **API costs**: Automated pipes consume API credits; monitor usage with `ccusage`
+
+> **💡 Pro tip**: Combine piping with aliases for frequently used patterns:
+> ```bash
+> # Add to ~/.bashrc or ~/.zshrc
+> alias claude-review='git diff | claude -p "Review for bugs and suggest improvements"'
+> alias claude-logs='tail -f /var/log/app.log | claude -p "Monitor for errors and alert on critical issues"'
+> ```
+
+> **Source**: [DeepTo Claude Code Guide - Unix Piping](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
 
 ### Git Hooks Integration
 
@@ -8409,6 +9261,14 @@ SuperClaude transforms Claude Code into a structured development platform throug
 
 > **Tip**: These resources evolve quickly. Star repos you find useful to track updates.
 
+**Additional topics from ykdojo worth exploring** (not yet integrated in this guide):
+- **Voice transcription workflows** - Using superwhisper/MacWhisper for faster input than typing
+- **Tmux for autonomous testing** - Running interactive tools in tmux sessions for automated testing
+- **cc-safe security tool** - Auditing approved commands to prevent accidental deletions
+- **Cascade method** - Multitasking pattern with 3-4 terminal tabs for parallel work streams
+- **Container experimentation** - Using Docker with `--dangerously-skip-permissions` for safe experimental work
+- **Half-clone technique** - Manual context trimming to keep recent conversation history only
+
 ### Tools
 
 #### Audit Your Setup
@@ -8634,4 +9494,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.1
+**Last updated**: January 2026 | **Version**: 2.3

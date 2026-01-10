@@ -1,5 +1,4 @@
 # Personal Claude Memory
-
 > This file provides Claude with your personal preferences.
 > Place at: ~/.claude/CLAUDE.md (global, applies to all projects).
 

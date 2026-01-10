@@ -25,7 +25,7 @@
 
 | File | Description | Reading Time |
 |------|-------------|--------------|
-| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (7500+ lines, 27K+ words) | ~3 hours |
+| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (8900+ lines, 33K+ words) | ~3 hours |
 | [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
 | [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
 | [`examples/`](./examples/) | Production-ready commands, hooks, agents | Browse as needed |
@@ -42,7 +42,7 @@ Transform this repository into an interactive AI-powered documentation explorer:
 - **Search semantically** beyond keyword matching
 - **Get summaries** of specific sections on demand
 
-Perfect for quick lookups when you don't want to read the full 7500+ lines.
+Perfect for quick lookups when you don't want to read the full 8900+ lines.
 
 ---
 
@@ -284,6 +284,8 @@ Want to know if your Claude Code setup follows best practices?
 - [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference & troubleshooting guide with cybersecurity focus (excellent for security practitioners)
 - [Claudelog.com](https://claudelog.com/) — Tips, patterns & tutorials (highly recommended for all users)
 - [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical tips & productivity techniques (voice workflows, context management, terminal efficiency)
+  - Additional topics worth exploring: voice transcription (superwhisper/MacWhisper), tmux autonomous testing, cc-safe tool, cascade method, container experimentation, half-clone technique
+- [DeepTo Claude Code Guide](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide) — Comprehensive best practices covering XML-structured prompts, session continuation, image processing, Unix piping workflows, and cost tracking (ccusage tool)
 
 ### Community Curated Lists
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Commands, workflows, IDE integrations
@@ -316,4 +318,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2026 | Version 2.1*
+*Last updated: January 2026 | Version 2.3*
