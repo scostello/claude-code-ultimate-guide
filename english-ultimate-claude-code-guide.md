@@ -4297,6 +4297,176 @@ This is the meta-skill: instead of fixing code, **fix the system that produces t
 - Review hook error message
 - Adjust hook rules if needed
 
+### MCP Server Issues
+
+**"MCP server connection failed"**
+
+Common causes and solutions:
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `ECONNREFUSED` | Server not running | Check `mcp.json` command is correct |
+| `Timeout after 30s` | Slow initialization | Increase timeout or check server logs |
+| `Module not found` | Missing dependencies | Run `npm install` in server directory |
+| `Permission denied` | File access | Check file permissions on server executable |
+
+**Serena MCP specific issues:**
+
+```bash
+# Index not found
+serena list-memories
+# If empty, re-index:
+# In your project, ask Claude: "Index this project with Serena"
+
+# Session not persisting
+# Check mcp.json has correct data directory:
+{
+  "mcpServers": {
+    "serena": {
+      "command": "npx",
+      "args": ["-y", "@serenaai/serena-mcp"],
+      "env": {
+        "SERENA_DATA_DIR": "/absolute/path/to/.serena"
+      }
+    }
+  }
+}
+```
+
+**Context7 MCP issues:**
+
+```bash
+# Documentation not found
+# Ensure you're searching for official libraries:
+# ✅ "React useState documentation"
+# ❌ "my-custom-lib documentation" (not in Context7)
+
+# Slow lookups
+# Context7 fetches from official docs - network dependent
+# Check your internet connection
+```
+
+**Sequential Thinking MCP issues:**
+
+```bash
+# "Sequential not responding"
+# Sequential uses significant compute - expect 10-30s responses
+# Not an error, just be patient
+
+# Quality seems off
+# Sequential works best with specific, well-defined problems
+# ✅ "Debug why user authentication fails on mobile"
+# ❌ "Make the app better"
+```
+
+### Permission Issues
+
+**Pattern matching problems:**
+
+```json
+// ❌ Wrong - too specific
+{
+  "allowedTools": ["Bash(npm test)"]
+}
+// This ONLY allows exactly "npm test"
+
+// ✅ Right - use wildcards
+{
+  "allowedTools": ["Bash(npm *)"]
+}
+// This allows any npm command
+```
+
+**Common permission patterns:**
+
+```json
+{
+  "allowedTools": [
+    "Bash(git *)",           // All git commands
+    "Bash(npm *)",           // All npm commands
+    "Bash(pytest *)",        // All pytest commands
+    "Edit",                  // All file edits
+    "Write",                 // All file writes
+    "Read",                  // All file reads
+    "mcp__serena__*",        // All Serena tools
+    "mcp__context7__*",      // All Context7 tools
+    "Task"                   // Allow agent delegation
+  ]
+}
+```
+
+### Timeout Issues
+
+**Claude stops responding mid-task:**
+
+Possible causes:
+
+1. **Network interruption** - Check your internet connection
+2. **API rate limit** - Wait 1-2 minutes and retry
+3. **Context exhausted** - Use `/compact` or `/clear`
+4. **Long-running operation** - Some MCP operations take 30s+
+
+**Workaround for long operations:**
+
+```bash
+# Instead of:
+"Analyze all 500 files in the codebase"
+
+# Break into chunks:
+"Analyze files in /src/components/ first"
+"Now analyze /src/utils/"
+"Finally analyze /src/services/"
+```
+
+### Installation Issues
+
+**Windows-specific problems:**
+
+```powershell
+# npm global install fails
+# Run PowerShell as Administrator
+npm install -g @anthropic-ai/claude-code
+
+# PATH not updated
+# Manually add to PATH:
+$env:Path += ";$env:APPDATA\npm"
+
+# Permission errors
+# Check antivirus isn't blocking Node.js
+```
+
+**macOS-specific problems:**
+
+```bash
+# "Command not found" after install
+# Check shell config loaded:
+source ~/.zshrc  # or ~/.bashrc
+
+# Permission denied on /usr/local
+# Don't use sudo with npm
+# Fix permissions:
+sudo chown -R $(whoami) /usr/local
+
+# curl install blocked
+# Check firewall/VPN settings
+```
+
+**Linux-specific problems:**
+
+```bash
+# npm not found
+# Install Node.js first:
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Global install permission issues
+# Configure npm to use home directory:
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## 10.5 Cheatsheet
 
 ### One-Page Quick Reference
