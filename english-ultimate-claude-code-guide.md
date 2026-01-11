@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.6
+**Version**: 2.7
 
 ---
 
@@ -228,6 +228,8 @@ On first launch:
 1. You'll be prompted to authenticate with your Anthropic account
 2. Accept the terms of service
 3. Claude Code will index your project (may take a few seconds for large codebases)
+
+> **Note**: Claude Code requires an active Anthropic subscription. See [claude.com/pricing](https://claude.com/pricing) for current plans and token limits.
 
 ## 1.2 First Workflow
 
@@ -4786,6 +4788,23 @@ mgrep "code that handles user authentication"
 | `${workspaceFolder}` | Current project path |
 | `${env:VAR_NAME}` | Environment variable |
 
+### CLI-Based MCP Configuration
+
+**Quick setup with environment variables**:
+
+```bash
+# Add server with API key
+claude mcp add -e API_KEY=your-key my-server -- npx @org/server
+
+# Multiple environment variables
+claude mcp add -e DATABASE_URL=postgresql://... -e DEBUG=true postgres -- npx @prisma/postgres
+
+# Verify with --help
+claude mcp add --help
+```
+
+> **Source**: CLI syntax adapted from [Shipyard Claude Code Cheat Sheet](https://shipyard.build/blog/claude-code-cheat-sheet/)
+
 ## 8.4 Server Selection Guide
 
 ### Decision Tree
@@ -7736,6 +7755,16 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `Ctrl+G` | Open external editor for long text |
 | `Tab` | Autocomplete file paths |
 | `↑` / `↓` | Navigate command history |
+
+### Useful Flag Combinations
+
+| Flags | Purpose | Example |
+|-------|---------|---------|
+| `-c -p "msg"` | Resume session + single prompt | `claude -c -p "run tests"` |
+| `-r <id> -p` | Resume specific session + prompt | `claude -r abc123 -p "check status"` |
+| `--headless -p` | Non-interactive automation | `claude --headless -p "lint fix" < errors.txt` |
+
+> **Note**: Combine resume flags with `-p` for scripting and CI/CD workflows.
 
 ## 10.3 Configuration Reference
 
