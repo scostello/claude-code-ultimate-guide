@@ -6,6 +6,68 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-01-11
+
+### Added
+- **Section 8.5: Plugin System** (~245 lines, comprehensive documentation)
+  - **Plugin System fundamentals** (lines 4836-5073)
+    - What are plugins: packaged agents, skills, commands, domain-specific tooling
+    - Plugin commands table: install, enable, disable, uninstall, update, validate
+    - Marketplace management: add, list, update, remove marketplaces
+    - Using plugins workflow from marketplace to session usage
+    - Plugin session loading with `--plugin-dir` flag for testing
+  - **When to Use Plugins** decision matrix
+    - Team workflows: Share standardized agents/skills via private marketplace
+    - Domain expertise: Pre-built security, accessibility, performance plugins
+    - Repeating patterns: Package custom workflows for reuse
+    - Community solutions: Leverage community expertise
+  - **Creating Custom Plugins** guide
+    - Directory structure with manifest (plugin.json)
+    - Example security-audit plugin manifest
+    - Validation command: `claude plugin validate ./my-plugin`
+  - **Plugin vs. MCP Server** comparison table
+    - Plugin = "How Claude thinks" (workflows, specialized agents)
+    - MCP Server = "What Claude can do" (tools, external systems)
+    - Clear guidance on when to use which
+  - **Security Considerations** section
+    - Before installing: trust source, review manifest, test in isolation
+    - Red flags: network access without reason, obfuscated code, no documentation
+  - **Example Use Cases** with real workflows
+    - Team Code Standards Plugin (private marketplace)
+    - Security Audit Suite (community plugin)
+    - Accessibility Testing (a11y plugin with WCAG compliance)
+  - **Troubleshooting** guide
+    - Plugin not found after install
+    - Plugin conflicts resolution
+    - Plugin not loading in session
+- **Keyboard Shortcut: `Esc×2` double-tap** (line 7487)
+  - Added to Section 10.2 Keyboard Shortcuts table
+  - Clarifies double-tap pattern: Rewind to previous checkpoint (same as `/rewind`)
+  - Resolves inconsistency between TL;DR mention and shortcuts table
+- **Plugin command** in Section 10.1 Commands Table (line 7696)
+  - `/plugin` command: Manage Claude Code plugins (Config category)
+- **Plugin flag** in Section 10.3 CLI Flags Reference (line 7782)
+  - `--plugin-dir`: Load plugins from directory (repeatable flag)
+
+### Changed
+- **Table of Contents updated** (line 147)
+  - Added [8.5 Plugin System](#85-plugin-system) entry
+- **Section 8 Quick Jump navigation enhanced** (line 4530)
+  - Added Plugin System link to quick navigation bar
+- **TL;DR Power Features table** (line 80)
+  - Added "Plugins: Community-created extension packages" row
+- **Version alignment** across documentation
+  - english-ultimate-claude-code-guide.md: Version 2.5 → 2.6
+  - README.md: Version 2.5 → 2.6
+
+### Stats
+- Guide expanded from 8,545 to 8,787 lines (+242 lines, +2.8%)
+- Plugin System section: ~245 lines of comprehensive documentation
+- 1 keyboard shortcut clarified (Esc×2)
+- 2 command/flag additions (/plugin, --plugin-dir)
+- Focus on extensibility and community-driven functionality
+- Zero loss of existing functionality
+
 ## [2.5.0] - 2026-01-11
 
 ### Removed

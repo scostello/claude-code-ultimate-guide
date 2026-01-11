@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.5
+**Version**: 2.6
 
 ---
 
@@ -77,6 +77,7 @@ Describe → Claude Analyzes → Review Diff → Accept/Reject → Verify
 | **Skills** | Reusable knowledge modules |
 | **Hooks** | Automation scripts triggered by events |
 | **MCP Servers** | External tools (Serena, Context7, Playwright...) |
+| **Plugins** | Community-created extension packages |
 
 ### The Golden Rules
 1. **Always review diffs** before accepting changes
@@ -144,6 +145,7 @@ Context full → /compact or /clear
   - [8.2 Available Servers](#82-available-servers)
   - [8.3 Configuration](#83-configuration)
   - [8.4 Server Selection Guide](#84-server-selection-guide)
+  - [8.5 Plugin System](#85-plugin-system)
 - [9. Advanced Patterns](#9-advanced-patterns)
   - [9.1 The Trinity](#91-the-trinity)
   - [9.2 Composition Patterns](#92-composition-patterns)
@@ -4526,7 +4528,7 @@ exit 0
 
 # 8. MCP Servers
 
-_Quick jump:_ [What is MCP](#81-what-is-mcp) · [Available Servers](#82-available-servers) · [Configuration](#83-configuration) · [Server Selection Guide](#84-server-selection-guide)
+_Quick jump:_ [What is MCP](#81-what-is-mcp) · [Available Servers](#82-available-servers) · [Configuration](#83-configuration) · [Server Selection Guide](#84-server-selection-guide) · [Plugin System](#85-plugin-system)
 
 ---
 
@@ -4832,6 +4834,243 @@ Servers can work together:
 3. Sequential → Analyze how to integrate
 4. Playwright → Test the implementation
 ```
+
+## 8.5 Plugin System
+
+Claude Code includes a comprehensive **plugin system** that allows you to extend functionality through community-created or custom plugins and marketplaces.
+
+### What Are Plugins?
+
+Plugins are packaged extensions that can add:
+- Custom agents with specialized behavior
+- New skills for reusable workflows
+- Pre-configured commands
+- Domain-specific tooling
+
+Think of plugins as **distributable packages** that bundle agents, skills, and configuration into installable modules.
+
+### Plugin Commands
+
+| Command | Purpose | Example |
+|---------|---------|---------|
+| `claude plugin` | List installed plugins | Shows all plugins with status |
+| `claude plugin install <name>` | Install plugin from marketplace | `claude plugin install security-audit` |
+| `claude plugin install <name>@<marketplace>` | Install from specific marketplace | `claude plugin install linter@company` |
+| `claude plugin enable <name>` | Enable installed plugin | `claude plugin enable security-audit` |
+| `claude plugin disable <name>` | Disable plugin without removing | `claude plugin disable linter` |
+| `claude plugin uninstall <name>` | Remove plugin completely | `claude plugin uninstall security-audit` |
+| `claude plugin update [name]` | Update plugin to latest version | `claude plugin update security-audit` |
+| `claude plugin validate <path>` | Validate plugin manifest | `claude plugin validate ./my-plugin` |
+
+### Marketplace Management
+
+Marketplaces are repositories of plugins you can install from.
+
+**Marketplace commands:**
+
+```bash
+# Add a marketplace
+claude plugin marketplace add <url-or-path>
+
+# Examples:
+claude plugin marketplace add https://github.com/claudecode/plugins
+claude plugin marketplace add /Users/yourname/company-plugins
+claude plugin marketplace add gh:myorg/claude-plugins  # GitHub shorthand
+
+# List configured marketplaces
+claude plugin marketplace list
+
+# Update marketplace catalog
+claude plugin marketplace update [name]
+
+# Remove a marketplace
+claude plugin marketplace remove <name>
+```
+
+### Using Plugins
+
+**Typical workflow:**
+
+```bash
+# 1. Add a marketplace (one-time setup)
+claude plugin marketplace add https://github.com/awesome-claude/plugins
+
+# 2. Install a plugin
+claude plugin install code-reviewer
+
+# 3. Enable it for your project
+claude plugin enable code-reviewer
+
+# 4. Use it in Claude Code session
+claude
+You: /review-pr
+# Plugin command is now available
+```
+
+### Plugin Session Loading
+
+Load plugins temporarily for a single session:
+
+```bash
+# Load plugin directory for this session only
+claude --plugin-dir ~/.claude/custom-plugins
+
+# Load multiple plugin directories
+claude --plugin-dir ~/work/plugins --plugin-dir ~/personal/plugins
+```
+
+This is useful for testing plugins before permanent installation.
+
+### When to Use Plugins
+
+| Scenario | Use Plugins |
+|----------|-------------|
+| **Team workflows** | ✅ Share standardized agents/skills across team via private marketplace |
+| **Domain expertise** | ✅ Install pre-built plugins for security, accessibility, performance analysis |
+| **Repeating patterns** | ✅ Package your custom workflows for reuse across projects |
+| **Community solutions** | ✅ Leverage community expertise instead of rebuilding from scratch |
+| **Quick experiments** | ❌ Use custom agents/skills directly in `.claude/` folder |
+| **Project-specific** | ❌ Keep as project CLAUDE.md instructions instead |
+
+### Creating Custom Plugins
+
+Plugins are structured directories with a manifest:
+
+```
+my-plugin/
+├── plugin.json           # Plugin manifest
+├── agents/
+│   └── my-agent.md       # Custom agents
+├── skills/
+│   └── my-skill.md       # Custom skills
+├── commands/
+│   └── my-cmd.sh         # Custom commands
+└── README.md             # Documentation
+```
+
+**Example `plugin.json`:**
+
+```json
+{
+  "name": "security-audit",
+  "version": "1.0.0",
+  "description": "Security audit tools for Claude Code",
+  "author": "Your Name",
+  "agents": ["agents/security-scanner.md"],
+  "skills": ["skills/owasp-check.md"],
+  "commands": ["commands/scan.sh"]
+}
+```
+
+**Validate before distribution:**
+
+```bash
+claude plugin validate ./my-plugin
+```
+
+### Plugin vs. MCP Server
+
+Understanding when to use which:
+
+| Feature | Plugin | MCP Server |
+|---------|--------|------------|
+| **Purpose** | Bundle Claude-specific workflows (agents, skills) | Add external tool capabilities (databases, APIs) |
+| **Complexity** | Simpler - just files + manifest | More complex - requires server implementation |
+| **Scope** | Claude Code instructions and patterns | External system integrations |
+| **Installation** | `claude plugin install` | Add to `settings.json` MCP config |
+| **Use case** | Security auditor agent, code review workflows | PostgreSQL access, Playwright browser automation |
+
+**Rule of thumb:**
+- **Plugin** = "How Claude thinks" (new workflows, specialized agents)
+- **MCP Server** = "What Claude can do" (new tools, external systems)
+
+### Security Considerations
+
+**Before installing plugins:**
+
+1. **Trust the source** - Only install from verified marketplaces
+2. **Review manifest** - Check what the plugin includes with `validate`
+3. **Test in isolation** - Use `--plugin-dir` for testing before permanent install
+4. **Company policies** - Check if your organization has approved plugin sources
+
+**Red flags:**
+
+- Plugins requesting network access without clear reason
+- Unclear or obfuscated code in agents/skills
+- Plugins without documentation or proper manifest
+
+### Example Use Cases
+
+**1. Team Code Standards Plugin**
+
+```bash
+# Company creates private marketplace
+git clone git@github.com:yourcompany/claude-plugins.git ~/company-plugins
+
+# Add marketplace
+claude plugin marketplace add ~/company-plugins
+
+# Install company standards
+claude plugin install code-standards@company
+
+# Now all team members use same linting, review patterns
+```
+
+**2. Security Audit Suite**
+
+```bash
+# Install community security plugin
+claude plugin install owasp-scanner
+
+# Use in session
+claude
+You: /security-scan
+# Runs OWASP Top 10 checks, dependency audit, secret scanning
+```
+
+**3. Accessibility Testing**
+
+```bash
+# Install a11y plugin
+claude plugin install wcag-checker
+
+# Enable for project
+claude plugin enable wcag-checker
+
+# Adds accessibility-focused agents
+You: Review this component for WCAG 2.1 compliance
+```
+
+### Troubleshooting
+
+**Plugin not found after install:**
+
+```bash
+# Refresh marketplace catalogs
+claude plugin marketplace update
+
+# Verify plugin is installed
+claude plugin
+
+# Check if disabled
+claude plugin enable <name>
+```
+
+**Plugin conflicts:**
+
+```bash
+# Disable conflicting plugin
+claude plugin disable <conflicting-plugin>
+
+# Or uninstall completely
+claude plugin uninstall <conflicting-plugin>
+```
+
+**Plugin not loading in session:**
+
+- Plugins are loaded at session start
+- Restart Claude Code after enabling/disabling
+- Check `~/.claude/plugins/` for installation
 
 ---
 
@@ -7454,6 +7693,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `/stats` | View usage statistics with activity graphs | Info |
 | `/chrome` | Toggle native browser integration | Mode |
 | `/mcp` | Manage Model Context Protocol servers | Config |
+| `/plugin` | Manage Claude Code plugins | Config |
 | `/plan` | Enter Plan Mode | Mode |
 | `/execute` | Exit Plan Mode | Mode |
 | `/rewind` | Undo recent changes | Edit |
@@ -7484,6 +7724,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `Ctrl+L` | Clear screen (keeps context) |
 | `Ctrl+B` | Run command in background |
 | `Esc` | Dismiss current suggestion |
+| `Esc×2` (double-tap) | Rewind to previous checkpoint (same as `/rewind`) |
 
 ### Input & Navigation
 
@@ -7538,6 +7779,7 @@ Complete reference for all Claude Code command-line flags.
 | `--disallowedTools` | Blacklist specific tools | `claude --disallowedTools "WebFetch"` |
 | `--mcp-config` | Load MCP servers from JSON file | `claude --mcp-config ./mcp.json` |
 | `--strict-mcp-config` | Only use MCP servers from config | `claude --strict-mcp-config` |
+| `--plugin-dir` | Load plugins from directory (repeatable) | `claude --plugin-dir ~/.claude/plugins` |
 | `--append-system-prompt` | Add to system prompt | `claude --append-system-prompt "Use TypeScript"` |
 | `--permission-mode` | Permission mode (default/auto/plan) | `claude --permission-mode plan` |
 | `--model` | Model selection | `claude --model sonnet` |
@@ -8542,4 +8784,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.5
+**Last updated**: January 2026 | **Version**: 2.6
