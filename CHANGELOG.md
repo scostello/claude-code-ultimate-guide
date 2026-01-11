@@ -6,6 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-01-11
+
+### Removed
+- **Content cleanup and optimization** (~1048 lines removed, -10.9%)
+  - **DeepSeek Integration section** (~200 lines, lines 9123-9321)
+    - Third-party provider documentation not specific to Claude Code
+    - Replaced reference in configuration table with generic "Alternative auth token"
+  - **Git Archaeology Pattern** (~250 lines, lines 8834-9081)
+    - General Git technique, not Claude Code-specific
+  - **Emergency Hotfix Checklist** (~140 lines, lines 8695-8832)
+    - Generic development workflow, not specific to Claude Code
+  - **Maturity Model & Success Metrics** (~95 lines, lines 8544-8691)
+    - Gamification content that added weight without Claude Code value
+  - **Prompt Templates** (~105 lines, lines 8437-8542)
+    - Generic prompt templates not specific to Claude Code
+  - **Task-specific checklists** (Bug Fix, Feature, Code Review, Refactoring)
+    - General development checklists, not Claude Code workflows
+  - **Community Resources fictional dates** (table column removed)
+    - Removed "Last Updated" column with fictional future dates (Apr 2025, Oct 2025, Jul 2025, Aug 2025)
+    - Reduced from 5 to 3 essential awesome-lists
+
+### Changed
+- **Health Check Scripts externalized** to `examples/scripts/`
+  - Replaced ~90 lines of inline PowerShell/Bash scripts with links
+  - Created `examples/scripts/check-claude.sh` (macOS/Linux health check)
+  - Created `examples/scripts/check-claude.ps1` (Windows health check)
+  - Main guide now references external scripts for maintainability
+- **Clean Reinstall Scripts externalized** to `examples/scripts/`
+  - Replaced ~75 lines of inline reinstall procedures with links
+  - Created `examples/scripts/clean-reinstall-claude.sh` (macOS/Linux reinstall)
+  - Created `examples/scripts/clean-reinstall-claude.ps1` (Windows reinstall)
+  - Improves separation of concerns (guide vs utilities)
+- **Nick Tune reference condensed**
+  - Reduced from ~40 lines to 3 lines with link only
+  - Kept attribution but removed excessive detail
+- **Daily Workflow & Checklists streamlined**
+  - Removed generic checklists (Bug Fix, Feature, Code Review, Refactoring)
+  - Kept only Claude Code-specific parts (Daily Workflow, Prompt Quality)
+- **Table of Contents cleaned**
+  - Removed obsolete references to A.8 (Prompt Templates) and A.9 (Success Metrics)
+  - Fixed document structure coherence
+
+### Fixed
+- Version consistency across documentation (2.4 aligned)
+- Code block balance verification (673 markers, properly balanced)
+- Removed broken internal references to deleted sections
+
+### Stats
+- Document reduced from 9,593 to 8,545 lines (-1,048 lines, -10.9%)
+- 4 new script files created in examples/scripts/ (~350 lines externalized)
+- Focus shifted to Claude Code-specific content only
+- Improved maintainability through script externalization
+- Zero loss of essential Claude Code functionality
+
 ## [2.4.0] - 2026-01-10
 
 ### Added
