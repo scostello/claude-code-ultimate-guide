@@ -28,18 +28,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - 5-step diagnosis flow (context → connectivity → configuration → permissions → doctor)
     - Covers: context overflow, rate limits, MCP issues, permission prompts, session corruption
 
+- **README.md navigation improvements** (~50 lines)
+  - Decision Helper table after Quick Start (6 user personas with direct links)
+  - Moved Audit section to prominent position after Quick Start
+  - Reframed AI admission from apologetic to professional tone
+  - Added Prerequisites section (Node.js, API key, cost estimate)
+  - Outcome-based Guide Navigation ("After this, you can...")
+  - Consolidated PDFs/DeepWiki into collapsible `<details>` section
+  - Shortened Windows disclaimer (5 lines → 1 line)
+  - Added GitHub Actions section to Production-Ready Examples
+- **examples/README.md catalog completion**
+  - Added `github-actions/` folder to Structure table (3 CI/CD workflows)
+  - Added `workflows/` folder to Structure table (database branch setup)
+  - Complete Templates Index with all 9 example categories
+
 ### Changed
 - **Verification methodology improvements**
   - All additions verified via `claude --help` output or direct user testing
   - Rejected 6+ unverified elements from Medium article (false positives and non-existent commands)
   - Avoided documenting 16 already-present elements (prevented redundancy)
   - Maintained guide credibility by only adding 100% confirmed features
+- **README.md restructured** for better first-time user experience
+  - Clear decision support for new users ("Not Sure Where to Start?")
+  - Audit tool more discoverable (moved from buried position)
+  - Professional AI disclosure without being apologetic
 
 ### Stats
 - Guide expanded from 8,787 to 8,848 lines (+61 lines, +0.7%)
-- 4 sections modified (Installation, Commands Table, CLI Flags, Troubleshooting)
-- Focus on maintenance commands, structured output, and rapid diagnostics
+- 6 sections modified (Installation, Commands Table, CLI Flags, Troubleshooting, README, examples/README)
+- Focus on maintenance commands, structured output, rapid diagnostics, and navigation UX
 - Verification ratio: 7 confirmed additions / 22 rejected claims (~32% valid from source article)
+- README improvements: Decision Helper, Audit visibility, GitHub Actions showcase
 
 ## [2.7.0] - 2026-01-11
 
