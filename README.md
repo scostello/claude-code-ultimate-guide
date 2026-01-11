@@ -25,7 +25,7 @@
 
 | File | Description | Reading Time |
 |------|-------------|--------------|
-| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (8900+ lines, 33K+ words) | ~3 hours |
+| [`english-ultimate-claude-code-guide.md`](./english-ultimate-claude-code-guide.md) | Complete guide (9500+ lines, 35K+ words) | ~3 hours |
 | [`cheatsheet-en.md`](./cheatsheet-en.md) | 1-page printable daily reference | 5 minutes |
 | [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) | Self-audit prompt for your setup | ~10 minutes |
 | [`examples/`](./examples/) | Production-ready commands, hooks, agents | Browse as needed |
@@ -42,7 +42,7 @@ Transform this repository into an interactive AI-powered documentation explorer:
 - **Search semantically** beyond keyword matching
 - **Get summaries** of specific sections on demand
 
-Perfect for quick lookups when you don't want to read the full 8900+ lines.
+Perfect for quick lookups when you don't want to read the full 9500+ lines.
 
 ---
 
@@ -299,6 +299,8 @@ Want to know if your Claude Code setup follows best practices?
 
 ### Further Reading
 - [Nick Tune: Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa) — Advanced autonomous workflow patterns
+- [Neon Branching Documentation](https://neon.tech/docs/guides/branching) — Database branching for development workflows
+- [PlanetScale Branching Documentation](https://planetscale.com/docs/concepts/branching) — MySQL branching and deployment patterns
 
 ---
 
@@ -318,4 +320,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2026 | Version 2.3*
+*Last updated: January 2026 | Version 2.4*

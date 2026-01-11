@@ -9,9 +9,11 @@ Create isolated git worktrees for feature development without switching branches
 1. **Check Existing Directories**: `.worktrees/` or `worktrees/`
 2. **Verify .gitignore**: Ensure worktree dir is ignored
 3. **Create Worktree**: `git worktree add`
-4. **Install Dependencies**: Auto-detect package manager
-5. **Run Baseline Tests**: Verify clean state
-6. **Report Location**: Confirm ready
+4. **Detect Database Provider**: Check for DB branching capability
+5. **Suggest Database Branch**: Remind user with exact commands
+6. **Install Dependencies**: Auto-detect package manager
+7. **Run Baseline Tests**: Verify clean state
+8. **Report Location**: Confirm ready
 
 ## Directory Selection
 
@@ -97,6 +99,54 @@ Tests passing (<N> tests, 0 failures)
 Ready to implement <feature-name>
 ```
 
+## Database Branch Suggestion
+
+**After worktree creation, command detects database provider and suggests isolation.**
+
+### Quick Command Reference
+
+| Provider | Suggested Command |
+|----------|-------------------|
+| **Neon** | `neonctl branches create --name <branch> --parent main` |
+| **PlanetScale** | `pscale branch create <db> <branch>` |
+| **Local Postgres** | `psql -c "CREATE SCHEMA <schema>;"` |
+| **Other** | Manual setup or shared DB |
+
+**Example output:**
+
+```
+✅ Worktree created at .worktrees/feature-auth
+
+💡 DB Isolation: neonctl branches create --name feature-auth --parent main
+   Then update .env with new DATABASE_URL
+   Full guide: ../workflows/database-branch-setup.md
+```
+
+### .worktreeinclude Setup
+
+**Critical for environment variables:**
+
+```bash
+# .worktreeinclude (at project root)
+.env
+.env.local
+.env.development
+**/.claude/settings.local.json
+```
+
+**Why:** Without this, `.env` files won't be copied to worktrees → Claude sessions fail.
+
+### When to Create Database Branch
+
+| Scenario | Create Branch? |
+|----------|---------------|
+| Schema migrations | ✅ Yes |
+| Data model refactoring | ✅ Yes |
+| Bug fix (no schema change) | ❌ No |
+| Performance experiments | ✅ Yes |
+
+**See:** [Database Branch Setup Guide](../workflows/database-branch-setup.md) for complete workflows.
+
 ## Quick Reference
 
 | Situation | Action |
@@ -106,6 +156,9 @@ Ready to implement <feature-name>
 | Both exist | Use `.worktrees/` |
 | Neither exists | Check CLAUDE.md → Ask user |
 | Not in .gitignore | Add + commit immediately |
+| Neon detected | Suggest `neonctl branches create` |
+| PlanetScale detected | Suggest `pscale branch create` |
+| No .worktreeinclude | Create with `.env` pattern |
 | Tests fail | Report + ask to proceed |
 
 ## Common Mistakes
@@ -119,16 +172,34 @@ Ready to implement <feature-name>
 **Proceeding with failing tests**
 - Can't distinguish new bugs from pre-existing
 
+**Not copying .env to worktree**
+- Symptom: Claude fails with "DATABASE_URL not found"
+- Fix: Add `.env` to `.worktreeinclude`
+
+**Using shared database for schema changes**
+- Symptom: Migration conflicts, broken dev environment
+- Fix: Create database branch before modifying schema
+
 ## Cleanup (After Work Complete)
 
 ```bash
-# Remove worktree
+# 1. Remove git worktree
 git worktree remove .worktrees/$BRANCH_NAME
 
 # Or force if uncommitted changes
 git worktree remove --force .worktrees/$BRANCH_NAME
 
-# Prune stale worktrees
+# 2. If you created a database branch, delete it
+# Neon:
+neonctl branches delete $BRANCH_NAME
+
+# PlanetScale:
+pscale branch delete <database-name> $BRANCH_NAME
+
+# Local schema:
+psql $DATABASE_URL -c "DROP SCHEMA ${BRANCH_NAME/\//_} CASCADE;"
+
+# 3. Prune stale references
 git worktree prune
 ```
 

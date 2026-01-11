@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-01-10
+
+### Added
+- **Database Branch Isolation with Git Worktrees** (~540 lines across 3 files)
+  - **examples/commands/git-worktree.md** enhanced (~90 lines added)
+    - Database provider auto-detection (Neon, PlanetScale, Local Postgres, Supabase)
+    - Suggested commands for DB branch creation per provider
+    - `.worktreeinclude` setup documentation for .env copying
+    - "When to Create Database Branch" decision table
+    - Cleanup commands including DB branch deletion
+    - Common mistakes section expanded with DB-related pitfalls
+  - **examples/workflows/database-branch-setup.md** (NEW, ~350 lines)
+    - Complete provider-specific setup guides (Neon, PlanetScale, Local Postgres)
+    - TL;DR section for 90% use case (Neon quick start)
+    - Provider comparison table with branching capabilities
+    - 3 isolation patterns: Cloud branching, Local schema, Shared DB
+    - Decision tree for choosing DB isolation strategy
+    - Real-world workflow examples with commands
+    - Troubleshooting section with common issues
+    - Prerequisites and CLI installation per provider
+  - **english-ultimate-claude-code-guide.md** Section 9.12 enhanced (~95 lines)
+    - "Database Branch Isolation with Worktrees" new subsection
+    - Problem/Solution framing for schema conflicts
+    - Provider detection explanation
+    - "When to create DB branch" decision table
+    - Complete workflow example with Neon
+    - Prerequisites for all major providers
+    - Links to detailed workflow guide
+  - **Source attribution**: [Neon database branching](https://neon.tech/docs/guides/branching) and [PlanetScale branching workflows](https://planetscale.com/docs/concepts/branching)
+
+### Changed
+- **Guide statistics updated**
+  - Guide expanded from 9,700+ to 9,592 lines (optimized structure, net -108 lines)
+  - Content reorganized for better progressive disclosure
+  - Reduced redundancy through single source of truth pattern
+- **Documentation architecture improved**
+  - Command reference (git-worktree.md) kept concise and scannable
+  - Detailed workflows separated into dedicated guide
+  - Clear separation: Quick Reference → Complete Tutorial
+
+### Stats
+- 1 new file created (workflows/database-branch-setup.md, ~350 lines)
+- 3 files modified (git-worktree.md +90, guide +95, examples/README.md)
+- Focus on database isolation patterns for modern dev workflows
+- Maintenance-friendly: Single source of truth for provider commands
+
 ## [2.3.0] - 2026-01-10
 
 ### Added

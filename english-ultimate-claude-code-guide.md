@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.2
+**Version**: 2.4
 
 ---
 
@@ -6891,6 +6891,101 @@ git worktree remove --force .worktrees/old-feature
 **Resources:**
 - [Git Worktree Documentation](https://git-scm.com/docs/git-worktree)
 - Example command: [`examples/commands/git-worktree.md`](../examples/commands/git-worktree.md)
+
+### Database Branch Isolation with Worktrees
+
+**Modern pattern (2024+):** Combine git worktrees with database branches for true feature isolation.
+
+**The Problem:**
+
+```
+Traditional workflow:
+Git branch → Shared dev database → Schema conflicts → Migration hell
+```
+
+**The Solution:**
+
+```
+Modern workflow:
+Git worktree + DB branch → Isolated environments → Safe experimentation
+```
+
+**How it works:**
+
+```bash
+# 1. Create worktree (standard)
+/git-worktree feature/auth
+
+# 2. Claude detects your database and suggests:
+🔍 Detected Neon database
+💡 DB Isolation: neonctl branches create --name feature-auth --parent main
+   Then update .env with new DATABASE_URL
+
+# 3. You run the commands (or skip if not needed)
+# 4. Work in isolated environment
+```
+
+**Provider detection:**
+
+The `/git-worktree` command automatically detects:
+- **Neon** → Suggests `neonctl branches create`
+- **PlanetScale** → Suggests `pscale branch create`
+- **Supabase** → Notes lack of branching support
+- **Local Postgres** → Suggests schema-based isolation
+- **Other** → Reminds about isolation options
+
+**When to create DB branch:**
+
+| Scenario | Create Branch? |
+|----------|---------------|
+| Adding database migrations | ✅ Yes |
+| Refactoring data model | ✅ Yes |
+| Bug fix (no schema change) | ❌ No |
+| Performance experiments | ✅ Yes |
+
+**Prerequisites:**
+
+```bash
+# For Neon:
+npm install -g neonctl
+neonctl auth
+
+# For PlanetScale:
+brew install pscale
+pscale auth login
+
+# For all providers:
+# Ensure .worktreeinclude contains .env
+echo ".env" >> .worktreeinclude
+echo ".env.local" >> .worktreeinclude
+```
+
+**Complete workflow:**
+
+```bash
+# 1. Create worktree
+/git-worktree feature/payments
+
+# 2. Follow suggestion to create DB branch
+cd .worktrees/feature-payments
+neonctl branches create --name feature-payments --parent main
+
+# 3. Update .env with new DATABASE_URL
+# (Get connection string from neonctl output)
+
+# 4. Work in isolation
+npx prisma migrate dev
+pnpm test
+
+# 5. After PR merge, cleanup
+git worktree remove .worktrees/feature-payments
+neonctl branches delete feature-payments
+```
+
+**See also:**
+- [Database Branch Setup Guide](../examples/workflows/database-branch-setup.md) - Complete provider-specific workflows
+- [Neon Branching](https://neon.tech/docs/guides/branching) - Official Neon documentation
+- [PlanetScale Branching](https://planetscale.com/docs/concepts/branching) - Official PlanetScale guide
 
 ---
 
