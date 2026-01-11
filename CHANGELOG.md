@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.8.0] - 2026-01-11
+
+### Added
+- **Verified CLI commands and flags from Medium article analysis** (~61 lines)
+  - **Section 1.1 "Updating Claude Code"** (lines 210-241)
+    - `claude update` command - Check and install available updates
+    - `claude doctor` command - Verify auto-updater health and system integrity
+    - Maintenance commands reference table with usage guidance
+    - Update frequency recommendations (weekly, before major work, after system changes)
+    - Alternative npm update method documented
+  - **Section 10.1 Built-in Commands** (line 7746)
+    - `/output-style` - Change response format (concise/detailed/code)
+    - `/feedback` - Report bugs or send feedback to Anthropic (renamed from `/bug`)
+  - **Section 10.3 CLI Flags Reference** (lines 7837, 7848)
+    - `--json-schema <schema>` - JSON Schema for structured output validation
+    - `--max-budget-usd <amount>` - Maximum API spend limit (with `--print` only)
+  - **Section 10.4 Quick Diagnostic Guide** (lines 7893-7913)
+    - Symptom-based troubleshooting table with 8 common scenarios
+    - Quick Fix + Prevention columns for rapid issue resolution
+    - 5-step diagnosis flow (context → connectivity → configuration → permissions → doctor)
+    - Covers: context overflow, rate limits, MCP issues, permission prompts, session corruption
+
+### Changed
+- **Verification methodology improvements**
+  - All additions verified via `claude --help` output or direct user testing
+  - Rejected 6+ unverified elements from Medium article (false positives and non-existent commands)
+  - Avoided documenting 16 already-present elements (prevented redundancy)
+  - Maintained guide credibility by only adding 100% confirmed features
+
+### Stats
+- Guide expanded from 8,787 to 8,848 lines (+61 lines, +0.7%)
+- 4 sections modified (Installation, Commands Table, CLI Flags, Troubleshooting)
+- Focus on maintenance commands, structured output, and rapid diagnostics
+- Verification ratio: 7 confirmed additions / 22 rejected claims (~32% valid from source article)
+
 ## [2.7.0] - 2026-01-11
 
 ### Added

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.7
+**Version**: 2.8
 
 ---
 
@@ -206,6 +206,38 @@ Choose your preferred installation method based on your operating system:
 ```bash
 claude --version
 ```
+
+### Updating Claude Code
+
+Keep Claude Code up to date for the latest features, bug fixes, and model improvements:
+
+```bash
+# Check for available updates
+claude update
+
+# Alternative: Update via npm
+npm update -g @anthropic-ai/claude-code
+
+# Verify the update
+claude --version
+
+# Check system health after update
+claude doctor
+```
+
+**Available maintenance commands:**
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `claude update` | Check and install updates | Weekly or when encountering issues |
+| `claude doctor` | Verify auto-updater health | After system changes or if updates fail |
+| `claude --version` | Display current version | Before reporting bugs |
+
+**Update frequency recommendations:**
+- **Weekly**: Check for updates during normal development
+- **Before major work**: Ensure latest features and fixes
+- **After system changes**: Run `claude doctor` to verify health
+- **On unexpected behavior**: Update first, then troubleshoot
 
 ### Platform-Specific Paths
 
@@ -7710,6 +7742,8 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `/status` | Show session info (context, cost) | Info |
 | `/usage` | Check rate limits and token allocation | Info |
 | `/stats` | View usage statistics with activity graphs | Info |
+| `/output-style` | Change response format (concise/detailed/code) | Display |
+| `/feedback` | Report bugs or send feedback to Anthropic | Support |
 | `/chrome` | Toggle native browser integration | Mode |
 | `/mcp` | Manage Model Context Protocol servers | Config |
 | `/plugin` | Manage Claude Code plugins | Config |
@@ -7802,6 +7836,7 @@ Complete reference for all Claude Code command-line flags.
 |------|-------------|---------|
 | `-p, --print` | Print response and exit (non-interactive) | `claude -p "analyze app.ts"` |
 | `--output-format` | Output format (text/json/stream-json) | `claude --output-format json` |
+| `--json-schema` | JSON Schema for structured output validation | `claude --json-schema '{"type":"object","properties":{"name":{"type":"string"}}}' ` |
 | `--input-format` | Input format (text/stream-json) | `claude --input-format stream-json` |
 | `--replay-user-messages` | Re-emit user messages in stream | `claude --replay-user-messages` |
 | `--allowedTools` | Whitelist specific tools | `claude --allowedTools "Edit,Read,Bash(git:*)"` |
@@ -7812,6 +7847,7 @@ Complete reference for all Claude Code command-line flags.
 | `--append-system-prompt` | Add to system prompt | `claude --append-system-prompt "Use TypeScript"` |
 | `--permission-mode` | Permission mode (default/auto/plan) | `claude --permission-mode plan` |
 | `--model` | Model selection | `claude --model sonnet` |
+| `--max-budget-usd` | Maximum API spend limit (with `--print` only) | `claude -p "analyze" --max-budget-usd 5.00` |
 | `--add-dir` | Add additional directories to context | `claude --add-dir ../shared ../utils` |
 | `--continue` | Continue last conversation | `claude --continue` |
 | `-r, --resume` | Resume session by ID | `claude --resume abc123` |
@@ -7854,6 +7890,30 @@ claude --add-dir ../shared-lib ../utils ../config
 | `--debug` | 🟡 Medium | Troubleshooting (verbose logs) |
 
 ## 10.4 Troubleshooting
+
+### Quick Diagnostic Guide
+
+Use this symptom-based guide for rapid issue identification and resolution:
+
+| Symptom | Likely Cause | Quick Fix | Prevention |
+|---------|--------------|-----------|------------|
+| "Context too long" error | Session accumulated too much context | `/compact` first, then `/clear` if needed | Compact regularly at 70% |
+| Slow/delayed responses | High context usage (>75%) | Check `/status`, run `/compact` | Monitor context with `/status` |
+| "Rate limit exceeded" | API throttling from frequent requests | Wait 2 minutes, use `--model haiku` for simple tasks | Batch operations, use `/compact` |
+| Claude forgets instructions | Context overflow, CLAUDE.md lost | Create checkpoint, `/clear`, reload CLAUDE.md | Keep CLAUDE.md concise (<500 lines) |
+| MCP server not connecting | Server crashed or config error | `claude mcp list`, check paths, restart server | Test servers after config changes |
+| Permission prompts every time | Tool not in `allowedTools` | Add pattern to `settings.json` allowedTools | Use wildcards: `Bash(git:*)` |
+| Changes not taking effect | Cached configuration | Restart Claude Code session | Use `/exit` before config changes |
+| Session won't resume | Corrupted session file | Start fresh with `/clear` | Exit cleanly with `/exit` or `Ctrl+D` |
+
+**Quick Diagnosis Flow:**
+1. Check context: `/status` → If >70%, run `/compact`
+2. Check connectivity: Try simple command → If fails, check network
+3. Check configuration: `claude mcp list` → Verify MCP servers
+4. Check permissions: Review error message → Add to allowedTools if needed
+5. Still failing: `claude doctor` → Verify system health
+
+### Common Issues Reference
 
 | Symptom | Cause | Solution |
 |---------|-------|----------|

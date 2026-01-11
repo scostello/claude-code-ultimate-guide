@@ -349,4 +349,4 @@ You are free to share and adapt this material, provided you give appropriate cre
 
 ---
 
-*Last updated: January 2026 | Version 2.7*
+*Last updated: January 2026 | Version 2.8*
