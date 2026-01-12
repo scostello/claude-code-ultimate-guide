@@ -95,9 +95,11 @@ https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-
 ```bash
 bash -c '
 echo "=== GLOBAL CONFIG ==="
-for f in ~/.claude/CLAUDE.md ~/.claude/settings.json ~/.claude/mcp.json; do
+for f in ~/.claude/CLAUDE.md ~/.claude/settings.json; do
   [ -f "$f" ] && echo "✅ $(basename $f)" || echo "❌ $(basename $f)"
 done
+# Note: MCP config is now in ~/.claude.json, not ~/.claude/mcp.json
+[ -f ~/.claude.json ] && echo "✅ ~/.claude.json (contains MCP config)" || echo "❌ ~/.claude.json"
 
 echo -e "\n=== PROJECT CONFIG ==="
 for f in ./CLAUDE.md ./.claude/CLAUDE.md ./.claude/settings.json ./.claude/settings.local.json; do
@@ -141,17 +143,40 @@ else
   echo "❌ No hooks directory"
 fi
 
-# MCP servers
+# MCP servers (check all locations)
 echo -e "\n=== MCP SERVERS ==="
-if [ -f ~/.claude/mcp.json ]; then
-  if command -v jq &> /dev/null; then
-    jq -r ".mcpServers | keys[]" ~/.claude/mcp.json 2>/dev/null
-  else
-    grep -oE "\"[a-zA-Z0-9_-]+\"\\s*:" ~/.claude/mcp.json | sed "s/\"//g;s/://g"
+CURRENT_DIR=$(pwd)
+
+# Check 1: Project-specific MCP in ~/.claude.json (most common)
+if [ -f ~/.claude.json ] && command -v jq &> /dev/null; then
+  MCP=$(jq -r --arg path "$CURRENT_DIR" ".projects[\$path].mcpServers // {} | keys[]" ~/.claude.json 2>/dev/null)
+  if [ -n "$MCP" ]; then
+    echo "Source: ~/.claude.json (project)"
+    echo "$MCP"
   fi
-else
-  echo "❌ No mcp.json"
 fi
+
+# Check 2: Project-level .claude/mcp.json
+if [ -z "$MCP" ] && [ -f ./.claude/mcp.json ]; then
+  echo "Source: .claude/mcp.json"
+  if command -v jq &> /dev/null; then
+    jq -r ".mcpServers // {} | keys[]" ./.claude/mcp.json 2>/dev/null
+  else
+    grep -oE "\"[a-zA-Z0-9_-]+\"[[:space:]]*:" ./.claude/mcp.json | sed "s/\"//g;s/://g"
+  fi
+fi
+
+# Check 3: Legacy global ~/.claude/mcp.json
+if [ -z "$MCP" ] && [ -f ~/.claude/mcp.json ]; then
+  echo "Source: ~/.claude/mcp.json (global)"
+  if command -v jq &> /dev/null; then
+    jq -r ".mcpServers // {} | keys[]" ~/.claude/mcp.json 2>/dev/null
+  else
+    grep -oE "\"[a-zA-Z0-9_-]+\"[[:space:]]*:" ~/.claude/mcp.json | sed "s/\"//g;s/://g"
+  fi
+fi
+
+[ -z "$MCP" ] && echo "❌ No MCP servers configured for this project"
 
 # CLAUDE.md quality
 echo -e "\n=== MEMORY FILE QUALITY ==="
@@ -448,7 +473,7 @@ Here's an example of what the audit report looks like:
 | **Memory Files** | CLAUDE.md files that provide persistent context to Claude across sessions |
 | **Single Source of Truth** | Pattern where conventions are documented once and referenced everywhere |
 | **Tool SEO** | Writing agent/command descriptions so Claude selects the right tool automatically |
-| **MCP Servers** | Model Context Protocol - external tools that extend Claude's capabilities |
+| **MCP Servers** | Model Context Protocol - external tools that extend Claude's capabilities. Config stored in `~/.claude.json` per project, or `.claude/mcp.json` at project level |
 | **Serena** | MCP server for codebase indexation and session memory persistence |
 | **Context7** | MCP server for official library documentation lookup |
 | **Hooks** | Scripts that run automatically on Claude events (PreToolUse, PostToolUse, etc.) |
@@ -528,4 +553,4 @@ Here's an example of what the audit report looks like:
 
 ---
 
-*Last updated: January 2026 | Version 2.8 - Optimized with bash scanning*
+*Last updated: January 2026 | Version 2.9 - Fixed MCP detection (now checks ~/.claude.json)*

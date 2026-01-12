@@ -68,7 +68,13 @@ get_file_lines() {
 }
 
 count_pattern() {
-  [[ -f "$1" ]] && grep -c "$2" "$1" 2>/dev/null || echo "0"
+  if [[ -f "$1" ]]; then
+    local count
+    count=$(grep -c "$2" "$1" 2>/dev/null) || count="0"
+    echo "$count"
+  else
+    echo "0"
+  fi
 }
 
 # Expand home directory
@@ -114,16 +120,60 @@ if [[ -d "./.claude/hooks" ]]; then
   grep -l "PreToolUse" ./.claude/hooks/* 2>/dev/null >/dev/null && HAS_SECURITY_HOOKS="true"
 fi
 
-# MCP servers (check global config)
+# MCP servers detection
+# Claude Code stores MCP config in multiple locations:
+# 1. ~/.claude.json under projects.<cwd>.mcpServers (per-project, most common)
+# 2. ~/.claude/mcp.json (legacy global)
+# 3. ./.claude/mcp.json (project-level)
 MCP_SERVERS=""
-if [[ -f "${GLOBAL_DIR}/mcp.json" ]]; then
-  # Extract server names (works with or without jq)
+MCP_SOURCE=""
+CURRENT_DIR=$(pwd)
+
+# Check 1: Project-specific MCP in ~/.claude.json
+if [[ -f "${HOME}/.claude.json" ]]; then
   if command -v jq &> /dev/null; then
-    MCP_SERVERS=$(jq -r '.mcpServers | keys[]' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
-  else
-    # Fallback: simple grep
-    MCP_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"\\s*:' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+    # Get MCP servers for current project path
+    MCP_SERVERS=$(jq -r --arg path "$CURRENT_DIR" '.projects[$path].mcpServers // {} | keys[]' "${HOME}/.claude.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_SERVERS" ]]; then
+      MCP_SOURCE="~/.claude.json (project)"
+    fi
   fi
+fi
+
+# Check 2: Project-level .claude/mcp.json
+if [[ -z "$MCP_SERVERS" && -f "./.claude/mcp.json" ]]; then
+  if command -v jq &> /dev/null; then
+    MCP_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "./.claude/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_SERVERS" ]]; then
+      MCP_SOURCE=".claude/mcp.json (project)"
+    fi
+  else
+    MCP_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "./.claude/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_SERVERS" ]]; then
+      MCP_SOURCE=".claude/mcp.json (project)"
+    fi
+  fi
+fi
+
+# Check 3: Legacy global ~/.claude/mcp.json
+if [[ -z "$MCP_SERVERS" && -f "${GLOBAL_DIR}/mcp.json" ]]; then
+  if command -v jq &> /dev/null; then
+    MCP_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_SERVERS" ]]; then
+      MCP_SOURCE="~/.claude/mcp.json (global)"
+    fi
+  else
+    MCP_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_SERVERS" ]]; then
+      MCP_SOURCE="~/.claude/mcp.json (global)"
+    fi
+  fi
+fi
+
+# Count MCP servers
+MCP_COUNT=0
+if [[ -n "$MCP_SERVERS" ]]; then
+  MCP_COUNT=$(echo "$MCP_SERVERS" | tr ',' '\n' | grep -c . || echo "0")
 fi
 
 # Memory file quality (if exists)
@@ -143,13 +193,13 @@ fi
 # === OUTPUT ===
 
 if [[ "$OUTPUT_MODE" == "json" ]]; then
-  # JSON output
+  # JSON output - ensure all values are properly formatted
   cat <<EOF
 {
   "global": {
     "claude_md": $GLOBAL_CLAUDE_MD,
     "settings": $GLOBAL_SETTINGS,
-    "mcp": $GLOBAL_MCP
+    "mcp_json": $GLOBAL_MCP
   },
   "project": {
     "claude_md": $PROJECT_CLAUDE_MD,
@@ -169,8 +219,13 @@ if [[ "$OUTPUT_MODE" == "json" ]]; then
     "has_security_hooks": $HAS_SECURITY_HOOKS,
     "has_ssot_references": $HAS_SSOT,
     "claude_md_lines": $CLAUDE_MD_LINES,
-    "claude_md_refs": $CLAUDE_MD_REFS,
-    "mcp_servers": "$MCP_SERVERS"
+    "claude_md_refs": $CLAUDE_MD_REFS
+  },
+  "mcp": {
+    "configured": $([ -n "$MCP_SERVERS" ] && echo "true" || echo "false"),
+    "count": $MCP_COUNT,
+    "servers": "$MCP_SERVERS",
+    "source": "$MCP_SOURCE"
   }
 }
 EOF
@@ -181,7 +236,7 @@ else
   echo -e "${BLUE}📁 GLOBAL CONFIG${NC} (~/.claude/)"
   [[ "$GLOBAL_CLAUDE_MD" == "true" ]] && echo -e "  ${GREEN}✅${NC} CLAUDE.md" || echo -e "  ${RED}❌${NC} CLAUDE.md"
   [[ "$GLOBAL_SETTINGS" == "true" ]] && echo -e "  ${GREEN}✅${NC} settings.json" || echo -e "  ${RED}❌${NC} settings.json"
-  [[ "$GLOBAL_MCP" == "true" ]] && echo -e "  ${GREEN}✅${NC} mcp.json" || echo -e "  ${RED}❌${NC} mcp.json"
+  [[ "$GLOBAL_MCP" == "true" ]] && echo -e "  ${GREEN}✅${NC} mcp.json (legacy)" || echo -e "  ${YELLOW}⚠️${NC}  mcp.json (not required, MCP in ~/.claude.json)"
 
   echo -e "\n${BLUE}📁 PROJECT CONFIG${NC} (./)"
   [[ "$PROJECT_CLAUDE_MD" == "true" ]] && echo -e "  ${GREEN}✅${NC} CLAUDE.md" || echo -e "  ${YELLOW}⚠️${NC}  CLAUDE.md (recommended)"
@@ -210,9 +265,10 @@ else
   fi
 
   if [[ -n "$MCP_SERVERS" ]]; then
-    echo -e "  ${GREEN}✅${NC} MCP servers: $MCP_SERVERS"
+    echo -e "  ${GREEN}✅${NC} MCP servers ($MCP_COUNT): $MCP_SERVERS"
+    echo -e "      ${BLUE}Source:${NC} $MCP_SOURCE"
   else
-    echo -e "  ${YELLOW}⚠️${NC}  No MCP servers configured"
+    echo -e "  ${YELLOW}⚠️${NC}  No MCP servers configured for this project"
   fi
 
   echo -e "\n${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

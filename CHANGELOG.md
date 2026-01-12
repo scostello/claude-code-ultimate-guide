@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.0] - 2026-01-12
+
+### Fixed
+- **MCP detection bug in audit-scan.sh** (~60 lines modified)
+  - **Root cause**: Script searched for `~/.claude/mcp.json` which doesn't exist
+  - **Actual location**: Claude Code stores MCP config in `~/.claude.json` under `projects.<path>.mcpServers`
+  - **Solution**: Multi-source detection with priority:
+    1. `~/.claude.json` → `projects.<cwd>.mcpServers` (most common)
+    2. `./.claude/mcp.json` (project-level)
+    3. `~/.claude/mcp.json` (legacy global)
+  - JSON output now includes detailed `mcp` section (configured, count, servers, source)
+  - Human output shows server count and source location
+- **Bug `0\n0` in `claude_md_refs`** (~8 lines)
+  - **Root cause**: `grep -c ... || echo "0"` could produce double output
+  - **Solution**: Rewritten `count_pattern()` function to properly capture and return count
+
+### Changed
+- **audit-scan.sh** enhanced (~50 lines)
+  - Added `MCP_SOURCE` variable to track where MCP config was found
+  - Added `MCP_COUNT` variable for server count
+  - Global `mcp.json` message changed from error to info (not required)
+  - JSON output restructured with separate `mcp` object
+- **claude-setup-audit-prompt.md** updated (~40 lines)
+  - Phase 1.1: Now checks `~/.claude.json` instead of `~/.claude/mcp.json`
+  - Phase 1.2: Complete MCP detection rewrite covering all 3 locations
+  - Glossary: Updated MCP definition to explain config locations
+  - Version: 2.8 → 2.9
+
+### Stats
+- 2 files modified (audit-scan.sh, claude-setup-audit-prompt.md)
+- Bug impact: Scripts now correctly detect MCP servers (was showing "No MCP" even when configured)
+- Tested: Verified on Méthode Aristote project with 9 MCP servers
+
 ## [2.8.0] - 2026-01-11
 
 ### Added
