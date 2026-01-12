@@ -51,6 +51,8 @@ deep_dive:
   troubleshooting: 7892
   cheatsheet: 8265
   daily_workflow: 8341
+  superclaude_modes: 8634
+  learning_mode: 8645
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -62,6 +64,7 @@ decide:
   repeating: "create agent or command"
   need_docs: "Context7 MCP"
   deep_debug: "--think or --ultrathink"
+  learning: "--learn (want to understand decisions)"
 
 # ════════════════════════════════════════════════════════════════
 # PROMPTING FORMULA (see deep_dive.xml_prompting for details)
@@ -128,6 +131,9 @@ cli:
   "--dangerously-skip-permissions": "auto-accept ALL (danger)"
   "--debug": "verbose output"
   "--mcp-debug": "debug MCP servers"
+  "--learn": "enable learning mode (explanations)"
+  "--learn focus:X": "learn only for domain (git/arch/sec)"
+  "--no-learn": "suppress learning offers"
 
 # ════════════════════════════════════════════════════════════════
 # CONTEXT MANAGEMENT - see deep_dive.context_management

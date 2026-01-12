@@ -64,6 +64,7 @@ claude
 | Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | 2h |
 | Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | 20 min |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
+| Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
 
 ### ⚡ Audit Your Setup
 
@@ -76,6 +77,18 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 **Instant checks**: Config files, tech stack, extensions, security hooks, MCP servers, CLAUDE.md quality
 
 **Want deeper analysis?** Use [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) for personalized recommendations (~3 min).
+
+### 🤖 LLM Reference
+
+Give any AI assistant instant Claude Code expertise (~2K tokens):
+
+```bash
+curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/claude-code-reference.yaml
+```
+
+**Use cases**: Paste output into ChatGPT/Claude/Gemini, add to system prompts, or reference in Claude Code with `@claude-code-reference.yaml`
+
+**What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./english-ultimate-claude-code-guide.md) for deep dives.
 
 ### 🎯 By Role (Tailored Learning Paths)
 

@@ -8629,6 +8629,142 @@ SuperClaude transforms Claude Code into a structured development platform throug
 - Smart personas for different contexts
 - MCP server integration
 - Task management and session persistence
+- **Behavioral modes** for optimized workflows
+
+#### SuperClaude Behavioral Modes
+
+SuperClaude includes configurable behavioral modes stored in `~/.claude/MODE_*.md` files:
+
+| Mode | Purpose | Activation |
+|------|---------|------------|
+| **Orchestration** | Smart tool selection, parallel execution | Auto (multi-tool ops, >75% context) |
+| **Task Management** | Hierarchical task tracking with memory | Auto (>3 steps, >2 directories) |
+| **Token Efficiency** | Symbol-enhanced compression (30-50% reduction) | Auto (>75% context) or `--uc` |
+| **Learning** | Just-in-time skill development | `--learn` flag or "why/how" questions |
+
+#### Learning Mode: Installation & Usage
+
+Learning Mode provides contextual explanations when techniques are first used, without overwhelming you with repeated explanations.
+
+**Installation**:
+
+1. Create the mode file:
+```bash
+# Create MODE_Learning.md in your global Claude config
+touch ~/.claude/MODE_Learning.md
+```
+
+2. Add the content (or copy from SuperClaude framework):
+```markdown
+# Learning Mode
+
+**Purpose**: Just-in-time skill development with contextual explanations when techniques are first used
+
+## Activation Triggers
+- Manual flag: `--learn`, `--learn focus:[domain]`
+- User explicitly asks "why?" or "how?" about an action
+- First occurrence of advanced technique in session
+
+## Default Behavior
+**OFF by default** - Activates via triggers above or explicit `--learn` flag
+
+When active, tracks techniques explained this session to avoid repetition.
+```
+
+3. Register in `~/.claude/CLAUDE.md`:
+```markdown
+# Behavioral Modes
+@MODE_Learning.md
+```
+
+4. Add flags to `~/.claude/FLAGS.md`:
+```markdown
+**--learn**
+- Trigger: User requests learning mode, beginner signals, "why/how" questions
+- Behavior: Enable just-in-time explanations with first-occurrence tracking
+
+**--no-learn**
+- Trigger: User wants pure execution without educational offers
+- Behavior: Suppress all learning mode offers
+```
+
+**Usage**:
+
+```bash
+# Activate for entire session
+claude --learn
+
+# Focus on specific domain
+claude --learn focus:git
+claude --learn focus:architecture
+claude --learn focus:security
+
+# Batch explanations at end
+claude --learn batch
+```
+
+**Offer Format**:
+
+When Learning Mode is active, Claude offers explanations after technical actions:
+
+```
+git rebase -i HEAD~3
+-> Explain: rebase vs merge? (y/detail/skip)
+```
+
+Response options:
+- `y` → Surface explanation (20-50 tokens)
+- `detail` → Medium depth (100-200 tokens)
+- `skip` → Continue without explanation
+
+**With Token Efficiency Mode** (compressed format):
+```
+git rebase -i HEAD~3
+-> ?rebase
+```
+
+**Integration with Other Modes**:
+
+| Combined With | Behavior |
+|---------------|----------|
+| Token Efficiency (`--uc`) | Compressed offer format: `-> ?[concept]` |
+| Task Management | Batch explanations at phase completion |
+| Brutal Advisor | Brutal on diagnosis, pedagogical on explanation |
+
+**Priority Rules**:
+```
+--no-learn > --uc > --learn
+Token Efficiency constraints > Learning verbosity
+Task flow > Individual explanations
+```
+
+**Example Session**:
+
+```bash
+$ claude --learn
+
+You: Refactor the authentication module
+
+Claude: [Reads files, implements changes]
+git rebase -i HEAD~3
+-> Explain: rebase vs merge? (y/detail/skip)
+
+You: y
+
+Claude: Rebase rewrites history linearly; merge preserves branches.
+Use rebase for clean history before push, merge for shared branches.
+
+[Continues work - won't ask about rebase again this session]
+```
+
+**When to Use Learning Mode**:
+
+| Use `--learn` | Use `--no-learn` |
+|---------------|------------------|
+| New to a technology | Expert in the domain |
+| Onboarding to project | Time-critical tasks |
+| Want to understand decisions | Already know the patterns |
+| Mentoring yourself | High context pressure |
 
 #### Learning Sites
 
