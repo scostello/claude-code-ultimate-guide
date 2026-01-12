@@ -139,6 +139,7 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 |------|---------|-----------------|
 | **[Ultimate Guide](./english-ultimate-claude-code-guide.md)** | 8500+ lines, 32K+ words, 10 sections | ~3 hours (or by section) |
 | **[Cheat Sheet](./cheatsheet-en.md)** | 1-page printable reference | 5 minutes |
+| **[LLM Reference](./claude-code-reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./claude-setup-audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
 
@@ -315,7 +316,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.1 | January 2026 | Crafted with Claude*
+*Version 2.9.2 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

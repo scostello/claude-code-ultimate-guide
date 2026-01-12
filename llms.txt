@@ -127,6 +127,16 @@ CC BY-SA 4.0 - Free to share and adapt with attribution.
 5. **Want to audit your setup?** Use claude-setup-audit-prompt.md
 6. **Need templates?** Browse examples/ folder for ready-to-use configs
 
+## Machine-Optimized Reference
+
+For fast LLM parsing, see `claude-code-reference.yaml` (~2K tokens) - structured YAML with:
+- Decision tree for task routing
+- Prompting formula (WHAT/WHERE/HOW/VERIFY)
+- Commands, shortcuts, CLI flags
+- Context management zones and symptoms
+- MCP servers, think levels, cost optimization
+- Anti-patterns and troubleshooting
+
 ## Keywords
 
 Claude Code, Anthropic, CLI, AI-assisted development, coding assistant, context management, MCP servers, agents, skills, hooks, commands, Plan Mode, CLAUDE.md, memory files, CI/CD integration, autonomous workflows, developer productivity, AI coding tools

@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.2] - 2026-01-12
+
+### Added
+- **claude-code-reference.yaml** - Machine-optimized LLM index (~2K tokens)
+  - **Decision tree** as first section (most used lookup)
+  - **Prompting formula** (WHAT/WHERE/HOW/VERIFY pattern)
+  - **38 deep_dive line references** to english-ultimate-claude-code-guide.md
+  - 22 sections covering: commands, shortcuts, CLI flags, context management, memory files, MCP servers, think levels, cost optimization, anti-patterns, troubleshooting
+  - Flat YAML structure (max 1 level nesting) for optimal LLM parsing
+  - ~97% token reduction vs full guide (2K vs 70K tokens)
+- **README.md** - Added LLM Reference row in Core Documentation table
+- **llms.txt** - Added Machine-Optimized Reference section with YAML file description
+
+### Stats
+- 1 new file created (claude-code-reference.yaml, 282 lines)
+- 2 files modified (README.md, llms.txt)
+- Use case: Claude Code self-reference for fast user question answering
+
 ## [2.9.1] - 2026-01-12
 
 ### Fixed

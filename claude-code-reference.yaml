@@ -1,0 +1,281 @@
+# claude-code-reference.yaml
+# Quick lookup for Claude Code - ~2K tokens target
+# Source: english-ultimate-claude-code-guide.md
+
+version: "2.9.1"
+updated: "2026-01"
+
+# ════════════════════════════════════════════════════════════════
+# DEEP DIVE - Line references to main guide for detailed info
+# File: english-ultimate-claude-code-guide.md
+# ════════════════════════════════════════════════════════════════
+deep_dive:
+  installation: 185
+  first_workflow: 266
+  essential_commands: 315
+  permission_modes: 596
+  interaction_loop: 908
+  context_management: 944
+  plan_mode: 1458
+  rewind: 1636
+  mental_model: 1675
+  xml_prompting: 1731
+  memory_files: 2218
+  claude_folder: 2349
+  settings: 2400
+  precedence_rules: 2622
+  agents: 2720
+  agent_template: 2793
+  agent_examples: 2901
+  skills: 3279
+  skill_template: 3357
+  skill_examples: 3425
+  commands: 3704
+  command_template: 3774
+  hooks: 4027
+  hook_templates: 4172
+  security_hooks: 4434
+  mcp_servers: 4573
+  mcp_config: 4771
+  trinity_pattern: 5171
+  cicd: 5329
+  ide_integration: 6018
+  feedback_loops: 6088
+  batch_operations: 6426
+  pitfalls: 6545
+  git_best_practices: 6814
+  cost_optimization: 7280
+  commands_table: 7733
+  shortcuts_table: 7766
+  troubleshooting: 7892
+  cheatsheet: 8265
+  daily_workflow: 8341
+
+# ════════════════════════════════════════════════════════════════
+# DECISION TREE (most important - en premier)
+# ════════════════════════════════════════════════════════════════
+decide:
+  simple_task: "just ask Claude"
+  complex_task: "/plan first, then TodoWrite"
+  context_high: "/compact (>70%) or /clear (>90%)"
+  repeating: "create agent or command"
+  need_docs: "Context7 MCP"
+  deep_debug: "--think or --ultrathink"
+
+# ════════════════════════════════════════════════════════════════
+# PROMPTING FORMULA (see deep_dive.xml_prompting for details)
+# ════════════════════════════════════════════════════════════════
+prompt_formula:
+  WHAT: "concrete deliverable"
+  WHERE: "file paths"
+  HOW: "constraints, approach"
+  VERIFY: "success criteria"
+  example: |
+    Add input validation to login form.
+    WHERE: src/components/LoginForm.tsx
+    HOW: Use Zod, inline errors
+    VERIFY: Empty email shows error
+
+# ════════════════════════════════════════════════════════════════
+# WORKFLOW (9 steps) - see deep_dive.first_workflow
+# ════════════════════════════════════════════════════════════════
+workflow:
+  1: "claude"
+  2: "/status"
+  3: "Shift+Tab×2 for plan mode (if risky)"
+  4: "describe task (WHAT/WHERE/HOW/VERIFY)"
+  5: "review diff"
+  6: "y/n"
+  7: "run tests"
+  8: "commit"
+  9: "/compact when >70%"
+
+# ════════════════════════════════════════════════════════════════
+# CRITICAL COMMANDS - see deep_dive.essential_commands
+# ════════════════════════════════════════════════════════════════
+commands:
+  /compact: "compress context - USE AT >70%"
+  /clear: "reset conversation - USE AT >90%"
+  /status: "show context % and cost"
+  /plan: "read-only mode (safe exploration)"
+  /execute: "exit plan mode"
+  /rewind: "undo changes"
+  /model: "switch: sonnet|opus|opusplan"
+  /mcp: "show MCP server status"
+  /context: "detailed token breakdown"
+
+# ════════════════════════════════════════════════════════════════
+# SHORTCUTS - see deep_dive.shortcuts_table
+# ════════════════════════════════════════════════════════════════
+shortcuts:
+  Shift+Tab: "cycle: default → auto-accept → plan"
+  Esc×2: "rewind/undo"
+  Ctrl+C: "interrupt"
+  Ctrl+R: "retry"
+  "@file": "reference file"
+  "!cmd": "shell command"
+
+# ════════════════════════════════════════════════════════════════
+# CLI FLAGS - see deep_dive.commands_table
+# ════════════════════════════════════════════════════════════════
+cli:
+  "-c": "continue last session"
+  "-r <id>": "resume specific session"
+  "-p": "non-interactive (pipe mode)"
+  "--headless": "CI/CD mode"
+  "--model X": "select model"
+  "--dangerously-skip-permissions": "auto-accept ALL (danger)"
+  "--debug": "verbose output"
+  "--mcp-debug": "debug MCP servers"
+
+# ════════════════════════════════════════════════════════════════
+# CONTEXT MANAGEMENT - see deep_dive.context_management
+# ════════════════════════════════════════════════════════════════
+context:
+  zones:
+    green: "0-50% → work freely"
+    yellow: "50-70% → be selective"
+    orange: "70-90% → /compact NOW"
+    red: "90%+ → /clear required"
+  symptoms:
+    short_responses: "/compact"
+    forgetting_instructions: "/clear"
+    inconsistent: "context bleeding → /clear"
+    slow: "/compact or /clear"
+
+# ════════════════════════════════════════════════════════════════
+# MEMORY FILES - see deep_dive.memory_files
+# ════════════════════════════════════════════════════════════════
+memory:
+  global: "~/.claude/CLAUDE.md (not committed)"
+  project_team: "./CLAUDE.md (committed)"
+  project_personal: "./.claude/CLAUDE.md (not committed)"
+  priority: "project > global"
+
+# ════════════════════════════════════════════════════════════════
+# .claude/ STRUCTURE - see deep_dive.claude_folder
+# ════════════════════════════════════════════════════════════════
+folder_structure:
+  CLAUDE.md: "local instructions"
+  settings.json: "hooks config (committed)"
+  settings.local.json: "permissions (not committed)"
+  agents/: "custom AI personas"
+  commands/: "slash commands"
+  hooks/: "event scripts"
+  skills/: "knowledge modules"
+  rules/: "auto-loaded rules"
+
+# ════════════════════════════════════════════════════════════════
+# PERMISSION MODES - see deep_dive.permission_modes
+# ════════════════════════════════════════════════════════════════
+permissions:
+  default: "editing=ask, execution=ask"
+  auto_accept: "editing=auto, execution=ask"
+  plan_mode: "editing=blocked, execution=blocked"
+  switch: "Shift+Tab"
+
+# ════════════════════════════════════════════════════════════════
+# MCP SERVERS - see deep_dive.mcp_servers
+# ════════════════════════════════════════════════════════════════
+mcp:
+  serena: "symbol search + session memory (write_memory/read_memory)"
+  context7: "library docs lookup"
+  sequential: "structured multi-step reasoning"
+  playwright: "browser automation / E2E"
+  check: "/mcp"
+  config: ".claude/mcp.json or ~/.claude.json"
+
+# ════════════════════════════════════════════════════════════════
+# THINK LEVELS - see deep_dive.trinity_pattern
+# ════════════════════════════════════════════════════════════════
+think:
+  "--think": "~4K tokens - moderate analysis"
+  "--think-hard": "~10K tokens - architecture"
+  "--ultrathink": "~32K tokens - critical redesign"
+
+# ════════════════════════════════════════════════════════════════
+# COST OPTIMIZATION - see deep_dive.cost_optimization
+# ════════════════════════════════════════════════════════════════
+cost:
+  haiku: "simple fixes, reviews ($)"
+  sonnet: "most development ($$)"
+  opus: "architecture, complex bugs ($$$)"
+  opusplan: "plan=opus + execute=sonnet ($$)"
+  tip: "use --add-dir to limit loaded dirs"
+
+# ════════════════════════════════════════════════════════════════
+# TOOL SELECTION
+# ════════════════════════════════════════════════════════════════
+tools:
+  file_search: "Glob (not find)"
+  content_search: "Grep (not grep bash)"
+  file_read: "Read (not cat)"
+  file_edit: "Edit (not sed)"
+  multi_file: "MultiEdit"
+  deep_analysis: "Sequential MCP"
+  library_docs: "Context7 MCP"
+  browser: "Playwright MCP"
+
+# ════════════════════════════════════════════════════════════════
+# ANTI-PATTERNS - see deep_dive.pitfalls
+# ════════════════════════════════════════════════════════════════
+dont:
+  - "vague prompts → be specific"
+  - "accept without reading → read every diff"
+  - "ignore >70% context → /compact"
+  - "skip permissions in prod → never"
+  - "load giant context → load only needed"
+  - "only negative constraints → provide alternatives"
+
+# ════════════════════════════════════════════════════════════════
+# TROUBLESHOOTING - see deep_dive.troubleshooting
+# ════════════════════════════════════════════════════════════════
+fix:
+  "command not found": "npm i -g @anthropic-ai/claude-code"
+  "context too high": "/compact or /clear"
+  "slow responses": "/compact"
+  "MCP not working": "claude mcp list, check config"
+  "permission denied": "check settings.local.json"
+  "hook blocking": "check exit code (0=ok, 2=block)"
+
+# ════════════════════════════════════════════════════════════════
+# DEBUG COMMANDS
+# ════════════════════════════════════════════════════════════════
+debug:
+  version: "claude --version"
+  update: "claude update"
+  diagnostic: "claude doctor"
+  verbose: "claude --debug"
+  mcp_debug: "claude --mcp-debug"
+
+# ════════════════════════════════════════════════════════════════
+# AGENT TEMPLATE - see deep_dive.agent_template
+# ════════════════════════════════════════════════════════════════
+agent_template: |
+  ---
+  name: agent-name
+  description: Use when [trigger]
+  model: sonnet|opus|haiku
+  tools: Read, Write, Edit, Bash
+  ---
+  # Instructions here
+
+# ════════════════════════════════════════════════════════════════
+# HOOK EVENTS - see deep_dive.hooks
+# ════════════════════════════════════════════════════════════════
+hook_events:
+  PreToolUse: "before tool (exit 2 to block)"
+  PostToolUse: "after tool"
+  UserPromptSubmit: "before prompt sent"
+  Notification: "alerts"
+
+# ════════════════════════════════════════════════════════════════
+# GOLDEN RULES
+# ════════════════════════════════════════════════════════════════
+rules:
+  1: "Always review diffs before accepting"
+  2: "Use /compact before >70%"
+  3: "Be specific (WHAT/WHERE/HOW/VERIFY)"
+  4: "Plan Mode first for complex/risky"
+  5: "Create CLAUDE.md for every project"
+  6: "Commit frequently after each task"
