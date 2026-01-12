@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.5] - 2026-01-12
+
+### Added
+- **README.md** - Deep Audit section with one-liner commands
+  - New row in "Not Sure Where to Start?" table
+  - `🔬 Deep Audit` section with two options:
+    - Quick Version (~10 sec): Single curl pipe to Claude
+    - Full Audit (~30 sec): Downloads YAML reference + scan for comprehensive analysis
+  - Outputs: Health score, prioritized findings, CLAUDE.md template, suggested extensions
+
+### Stats
+- 1 file modified (README.md, ~35 lines added)
+- Focus on one-command personalized audit experience
+
 ## [2.9.4] - 2026-01-12
 
 ### Added

@@ -65,6 +65,7 @@ claude
 | Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | 20 min |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
+| Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
 
 ### ⚡ Audit Your Setup
 
@@ -89,6 +90,38 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 **Use cases**: Paste output into ChatGPT/Claude/Gemini, add to system prompts, or reference in Claude Code with `@claude-code-reference.yaml`
 
 **What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./english-ultimate-claude-code-guide.md) for deep dives.
+
+### 🔬 Deep Audit (Personalized Recommendations)
+
+Get a comprehensive audit with health score, prioritized findings, and custom templates for your project:
+
+**Quick Version** (~10 sec):
+```bash
+curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash -s -- --json | claude -p "Analyze this Claude Code setup. Give: 1) Health score 0-100 2) Top 3 quick wins 3) CLAUDE.md template for detected stack. Be concise."
+```
+
+**Full Audit** (~30 sec, recommended):
+```bash
+# Copy entire block
+REF=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/claude-code-reference.yaml)
+SCAN=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash -s -- --json 2>/dev/null)
+claude -p "Reference:
+$REF
+
+My setup:
+$SCAN
+
+Audit my Claude Code setup. Output:
+1. Health Score (0-100) with priority breakdown
+2. Findings table: Priority|Element|Status|Action
+3. Top 3 quick wins (<5 min)
+4. CLAUDE.md template (~60 lines) for my stack
+5. Suggested agents/commands/hooks for my project type"
+```
+
+**What you get**: Health score, prioritized findings, stack-specific CLAUDE.md template, suggested extensions
+
+**Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
 
 ### 🎯 By Role (Tailored Learning Paths)
 
@@ -329,7 +362,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.4 | January 2026 | Crafted with Claude*
+*Version 2.9.5 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

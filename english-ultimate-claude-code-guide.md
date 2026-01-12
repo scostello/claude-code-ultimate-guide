@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 2.9.4
+**Version**: 2.9.5
 
 ---
 
@@ -9009,4 +9009,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 2.9.4
+**Last updated**: January 2026 | **Version**: 2.9.5
