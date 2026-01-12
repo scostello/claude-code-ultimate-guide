@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 2.8 | **Last Updated**: January 2026
+**Version**: 2.8.1 | **Last Updated**: January 2026
 
 ---
 
@@ -17,8 +17,11 @@
 | `/help` | Contextual help |
 | `/clear` | Reset conversation |
 | `/compact` | Free up context |
-| `/context` | View token usage |
-| `/status` | Session state |
+| `/status` | Session state + context usage |
+| `/context` | Detailed token breakdown |
+| `/plan` | Enter Plan Mode (no changes) |
+| `/execute` | Exit Plan Mode (apply changes) |
+| `/model` | Switch model (sonnet/opus/opusplan) |
 | `/exit` | Quit (or Ctrl+D) |
 
 ---
@@ -30,6 +33,8 @@
 | `Shift+Tab` | Cycle permission modes |
 | `Esc` × 2 | Rewind (undo) |
 | `Ctrl+C` | Interrupt |
+| `Ctrl+R` | Retry last operation |
+| `Ctrl+L` | Clear screen (keeps context) |
 | `Tab` | Autocomplete |
 | `Shift+Enter` | New line |
 | `Ctrl+D` | Exit |
@@ -137,8 +142,9 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 |---------|-------|
 | `/compact` | Summarize and free context |
 | `/clear` | Fresh start |
-| `/resume` | Resume previous session |
 | `/rewind` | Undo recent changes |
+| `claude -c` | Resume last session (CLI flag) |
+| `claude -r <id>` | Resume specific session (CLI flag) |
 
 ---
 
@@ -251,14 +257,16 @@ VERIFY: Empty email shows error, invalid format shows error
 | Flag | Usage |
 |------|-------|
 | `-p "query"` | Non-interactive mode |
+| `-c` / `--continue` | Continue last session |
+| `-r` / `--resume <id>` | Resume specific session |
+| `--headless` | Non-interactive (CI/CD) |
 | `--model sonnet` | Change model |
 | `--add-dir ../lib` | Add directory |
 | `--permission-mode plan` | Plan mode |
-| `--dangerously-skip-permissions` | Auto-accept (⚠️ use carefully) |
+| `--dangerously-skip-permissions` | Auto-accept (use carefully) |
 | `--debug` | Debug output |
 | `--mcp-debug` | Debug MCP servers |
 | `--allowedTools "Edit,Read"` | Whitelist tools |
-| `--disallowedTools "WebFetch"` | Blacklist tools |
 
 ---
 
@@ -266,6 +274,7 @@ VERIFY: Empty email shows error, invalid format shows error
 
 ```bash
 claude --version     # Version
+claude update        # Check/install updates
 claude doctor        # Diagnostic
 claude --debug       # Verbose mode
 claude --mcp-debug   # Debug MCPs
@@ -364,4 +373,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 2.8*
+*Last updated: January 2026 | Version 2.8.1*

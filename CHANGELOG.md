@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.1] - 2026-01-12
+
+### Fixed
+- **Cheatsheet completeness audit** (cheatsheet-en.md, ~15 lines modified)
+  - **Missing commands added**:
+    - `/execute` - Exit Plan Mode (counterpart to `/plan`)
+    - `/model` - Switch model (sonnet/opus/opusplan)
+  - **Missing keyboard shortcuts added**:
+    - `Ctrl+R` - Retry last operation
+    - `Ctrl+L` - Clear screen (keeps context)
+  - **Missing CLI flags added**:
+    - `-c` / `--continue` - Continue last session
+    - `-r` / `--resume <id>` - Resume specific session
+    - `--headless` - Non-interactive (CI/CD)
+  - **Missing maintenance command added**:
+    - `claude update` - Check/install updates
+  - **Inconsistency fixed**:
+    - Removed false `/resume` slash command from Context Recovery Commands
+    - Replaced with correct CLI flags (`claude -c`, `claude -r <id>`)
+  - **Clarification**:
+    - `/status` vs `/context` descriptions clarified (session state vs detailed token breakdown)
+  - Cheatsheet version: 2.8 → 2.8.1
+
+### Stats
+- 1 file modified (cheatsheet-en.md)
+- Audit coverage improved from ~36% to ~85% of documented commands
+- Format preserved: 377 lines, 1-page printable maintained
+
 ## [2.9.0] - 2026-01-12
 
 ### Fixed
