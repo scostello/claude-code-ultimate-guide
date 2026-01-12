@@ -1,0 +1,438 @@
+category: "Advanced Patterns"
+category_id: 9
+source_file: "english-ultimate-claude-code-guide.md"
+
+questions:
+  - id: "09-001"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What are the three components of 'The Trinity' pattern?"
+    options:
+      a: "Git, VSCode, Terminal"
+      b: "Plan Mode, Ultrathink, Sequential Thinking"
+      c: "Serena, Context7, Playwright"
+      d: "Agent, Skill, Command"
+    correct: "b"
+    explanation: |
+      The Trinity is the most powerful Claude Code pattern combining:
+
+      1. **Plan Mode** - Safe exploration without changes
+      2. **Ultrathink** - Deep analysis with extended thinking
+      3. **Sequential Thinking (MCP)** - Structured multi-step reasoning
+
+      Combined, these provide maximum understanding before taking action.
+      Use for architecture decisions, complex debugging, and legacy modernization.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.1 The Trinity"
+      anchor: "#91-the-trinity"
+
+  - id: "09-002"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is the approximate token usage for --ultrathink?"
+    options:
+      a: "~1K tokens"
+      b: "~4K tokens"
+      c: "~10K tokens"
+      d: "~32K tokens"
+    correct: "d"
+    explanation: |
+      Ultrathink levels and token usage:
+
+      | Flag | Thinking Depth | Token Usage | Best For |
+      |------|----------------|-------------|----------|
+      | `--think` | Standard | ~4K | Multi-component analysis |
+      | `--think-hard` | Deep | ~10K | Architectural decisions |
+      | `--ultrathink` | Maximum | ~32K | Critical redesign |
+
+      Higher levels increase latency and cost - use the smallest level that works.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.1 The Trinity"
+      anchor: "#ultrathink-levels"
+
+  - id: "09-003"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What CLI flag runs Claude Code without interactive prompts for CI/CD?"
+    options:
+      a: "--ci"
+      b: "--headless"
+      c: "--batch"
+      d: "--automated"
+    correct: "b"
+    explanation: |
+      The `--headless` flag runs Claude Code without interactive prompts:
+
+      ```bash
+      # Basic headless execution
+      claude --headless "Run the tests and report results"
+
+      # With timeout
+      claude --headless --timeout 300 "Build the project"
+      ```
+
+      Essential for CI/CD integration, automated pipelines, and scripted workflows.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.3 CI/CD Integration"
+      anchor: "#headless-mode"
+
+  - id: "09-004"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "How do you pipe content to Claude Code with a prompt?"
+    options:
+      a: "claude | cat file.txt -p 'analyze'"
+      b: "cat file.txt | claude -p 'analyze this code'"
+      c: "claude < file.txt --prompt 'analyze'"
+      d: "file.txt > claude -p 'analyze'"
+    correct: "b"
+    explanation: |
+      Use standard Unix piping with the `-p` flag:
+
+      ```bash
+      cat file.txt | claude -p 'analyze this code'
+      git diff | claude -p 'explain these changes'
+      npm test 2>&1 | claude -p 'summarize test failures'
+      ```
+
+      This enables powerful shell integration for automated code analysis.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.3 CI/CD Integration"
+      anchor: "#unix-piping-workflows"
+
+  - id: "09-005"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is the 'Rev the Engine' pattern?"
+    options:
+      a: "Running tests in parallel"
+      b: "Multiple rounds of write-critique-improve cycles"
+      c: "Restarting Claude Code between tasks"
+      d: "Using higher compute models"
+    correct: "b"
+    explanation: |
+      The "Rev the Engine" pattern uses multiple rounds of critique for quality:
+
+      ```
+      Round 1: [Initial implementation]
+      Critique: [What's wrong]
+      Improvement: [Better version]
+
+      Round 2: [Improved implementation]
+      Critique: [What's still wrong]
+      Improvement: [Even better version]
+
+      Round 3: [Final implementation]
+      Final check: [Verification]
+      ```
+
+      Typically 3 rounds are recommended for quality work.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.2 Composition Patterns"
+      anchor: "#the-rev-the-engine-pattern"
+
+  - id: "09-006"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What output format flag gets structured JSON from Claude for scripting?"
+    options:
+      a: "--format json"
+      b: "--output-format json"
+      c: "--json"
+      d: "--structured"
+    correct: "b"
+    explanation: |
+      Use `--output-format` to control response format:
+
+      | Format | Use Case |
+      |--------|----------|
+      | `text` | Human-readable output (default) |
+      | `json` | Machine-parseable structured data |
+      | `stream-json` | Real-time streaming for large outputs |
+
+      Example:
+      ```bash
+      git log --oneline -10 | claude -p 'Categorize commits' --output-format json
+      ```
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.3 CI/CD Integration"
+      anchor: "#output-format-control"
+
+  - id: "09-007"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What is 'Vibe Coding' according to the guide?"
+    options:
+      a: "Coding while listening to music"
+      b: "Rapid prototyping through natural conversation before committing to implementation"
+      c: "Using AI to generate random code"
+      d: "Coding in a relaxed environment"
+    correct: "b"
+    explanation: |
+      Vibe Coding is rapid prototyping through natural conversation.
+
+      When to vibe code:
+      - Early exploration: Testing if an approach works
+      - Proof of concept: Quick validation before full implementation
+      - Learning: Understanding a new library or pattern
+
+      Rules:
+      - No production code - exploration only
+      - Throw away freely
+      - Focus on learning
+      - Signal clearly: "This is vibe code, not for production"
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.8 Vibe Coding & Skeleton Projects"
+      anchor: "#vibe-coding"
+
+  - id: "09-008"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is the Verify Gate Pattern before creating a PR?"
+    options:
+      a: "Just run tests"
+      b: "Build -> Lint -> Test -> Type-check -> THEN create PR"
+      c: "Create PR first, then fix issues"
+      d: "Manual review only"
+    correct: "b"
+    explanation: |
+      The Verify Gate Pattern ensures all checks pass before PR creation:
+
+      ```
+      Build -> Lint -> Test -> Type-check -> THEN create PR
+      ```
+
+      If ANY step fails:
+      - Stop immediately
+      - Report what failed and why
+      - Suggest fixes
+      - Do NOT proceed to PR creation
+
+      This prevents wasted CI cycles and review time.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.3 CI/CD Integration"
+      anchor: "#verify-gate-pattern"
+
+  - id: "09-009"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is the key insight of 'Todo as Instruction Mirrors'?"
+    options:
+      a: "Todos are just for tracking"
+      b: "What you write as a todo becomes Claude's instruction"
+      c: "Todos should be vague for flexibility"
+      d: "Always use bullet points"
+    correct: "b"
+    explanation: |
+      The Mirror Principle: What you write as a todo becomes Claude's instruction.
+
+      Bad (vague todo -> vague execution):
+      "Fix the bug"
+
+      Good (specific todo -> precise execution):
+      "Fix null pointer in getUserById when user not found - return null instead of throwing"
+
+      Well-crafted todos guide Claude's execution with precision.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.6 Todo as Instruction Mirrors"
+      anchor: "#the-mirror-principle"
+
+  - id: "09-010"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "According to 'Continuous Improvement Mindset', what should you ask after every manual intervention?"
+    options:
+      a: "Was this my fault?"
+      b: "How can I improve the process so this error can be avoided next time?"
+      c: "Who is responsible for this?"
+      d: "Should I use a different AI?"
+    correct: "b"
+    explanation: |
+      After every manual intervention, ask:
+      "How can I improve the process so this error or manual fix can be avoided next time?"
+
+      The improvement pipeline:
+      1. Can a linting rule catch it? -> Add lint rule
+      2. Can it go in conventions/docs? -> Add to CLAUDE.md or ADRs
+      3. Neither? -> Accept as edge case
+
+      The meta-skill: instead of fixing code, fix the system that produces the code.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.10 Continuous Improvement Mindset"
+      anchor: "#the-key-question"
+
+  - id: "09-011"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What is a Skeleton Project?"
+    options:
+      a: "A project with no code"
+      b: "A minimal, working template that establishes patterns before full implementation"
+      c: "A deprecated project"
+      d: "A project outline document"
+    correct: "b"
+    explanation: |
+      A skeleton project is a minimal, working template that establishes patterns.
+
+      Skeleton principles:
+      1. **It must run**: `pnpm dev` works from day 1
+      2. **One complete vertical**: Full stack for one feature
+      3. **Patterns, not features**: Shows HOW, not WHAT
+      4. **Minimal dependencies**: Only what's needed
+
+      Progression: Skeleton (Day 1) -> MVP (Week 1) -> Full (Month 1)
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.8 Vibe Coding & Skeleton Projects"
+      anchor: "#skeleton-projects"
+
+  - id: "09-012"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is OpusPlan mode?"
+    options:
+      a: "Using only Opus for everything"
+      b: "Opus for planning, Sonnet for execution"
+      c: "A special debugging mode"
+      d: "Planning without AI"
+    correct: "b"
+    explanation: |
+      OpusPlan mode combines model strengths:
+      - **Planning**: Opus for high-level thinking
+      - **Execution**: Sonnet for implementation
+
+      This provides strategic thinking + cost-effective execution.
+
+      ```bash
+      /model opusplan
+      Shift+Tab x 2  # Enter Plan Mode (Opus)
+      # Design architecture...
+      Shift+Tab      # Exit Plan Mode (Sonnet)
+      # Implement the plan...
+      ```
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.13 Cost Optimization Strategies"
+      anchor: "#model-selection-matrix"
+
+  - id: "09-013"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "When should you NOT use --dangerously-skip-permissions?"
+    options:
+      a: "In CI/CD pipelines"
+      b: "On production systems or sensitive codebases"
+      c: "For automated testing"
+      d: "In Docker containers"
+    correct: "b"
+    explanation: |
+      Never use `--dangerously-skip-permissions` on production systems or sensitive codebases.
+
+      Safe usage:
+      - CI/CD pipelines with isolated environments
+      - Automated testing with limited scope
+      - Development containers
+
+      Unsafe usage:
+      - Production systems
+      - Codebases with secrets
+      - Environments with sensitive data
+
+      The flag bypasses all permission prompts, creating security risks.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.11 Common Pitfalls & Best Practices"
+      anchor: "#security-pitfalls"
+
+  - id: "09-014"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What prompt format does the guide recommend for effective requests?"
+    options:
+      a: "Simple natural language"
+      b: "WHAT, WHERE, HOW, VERIFY"
+      c: "Subject, Body, Footer"
+      d: "Title, Description, Acceptance Criteria"
+    correct: "b"
+    explanation: |
+      The recommended prompt format:
+
+      - **WHAT**: Concrete deliverable
+      - **WHERE**: File paths/locations
+      - **HOW**: Constraints/approach
+      - **VERIFY**: Success criteria
+
+      Example:
+      ```
+      WHAT: Add input validation to the login form
+      WHERE: src/components/LoginForm.tsx, src/schemas/auth.ts
+      HOW: Use Zod schema validation, display errors inline
+      VERIFY: Empty email shows error, invalid format shows error
+      ```
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.11 Common Pitfalls & Best Practices"
+      anchor: "#effective-prompt-format"
+
+  - id: "09-015"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What is the recommended learning progression for Claude Code?"
+    options:
+      a: "Learn everything at once"
+      b: "Start with advanced features"
+      c: "Week 1: Basic commands -> Week 2: CLAUDE.md -> Week 3: Agents -> Month 2+: MCP servers"
+      d: "Skip to MCP servers immediately"
+    correct: "c"
+    explanation: |
+      The guide recommends progressive learning:
+
+      1. **Week 1**: Basic commands, context management
+      2. **Week 2**: CLAUDE.md, permissions
+      3. **Week 3**: Agents and commands
+      4. **Month 2+**: MCP servers, advanced patterns
+
+      Start with simple, low-risk tasks and build up complexity gradually.
+      This avoids overwhelm and builds solid fundamentals.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.11 Common Pitfalls & Best Practices"
+      anchor: "#learning--adoption-pitfalls"
+
+  - id: "09-016"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What git workflow enables working on multiple features simultaneously with isolated contexts?"
+    options:
+      a: "Git stash"
+      b: "Git worktrees"
+      c: "Git branches only"
+      d: "Git submodules"
+    correct: "b"
+    explanation: |
+      Git worktrees create multiple working directories from the same repository.
+
+      Benefits:
+      - Work on multiple features simultaneously
+      - Each worktree has independent Claude Code context
+      - No need for stash/switch operations
+      - Parallel testing while developing
+
+      ```bash
+      git worktree add ../myproject-hotfix hotfix
+      git worktree add ../myproject-feature-a feature-a
+      ```
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "9.12 Git Best Practices & Workflows"
+      anchor: "#git-worktrees-for-parallel-development"

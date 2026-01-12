@@ -128,19 +128,21 @@ Local .claude/CLAUDE.md:
 $LOCAL_CLAUDE_MD
 
 Based on ALL this context (tech stack, business domain, existing instructions), provide:
-1. Health Score (0-100) with priority breakdown
-2. Findings table: Priority|Element|Status|Action
-3. Top 3 quick wins (<5 min) tailored to THIS project's domain
-4. CLAUDE.md template (~60 lines) that incorporates existing instructions + improvements
-5. Suggested agents/commands/hooks specific to THIS project's business context
-6. Ideas to leverage Claude Code for this specific domain"
+1. Stack Recap: runtime, framework, test runner, bundler, database, key integrations detected
+2. Health Score (0-100) with priority breakdown
+3. Findings table: Priority|Element|Status|Action
+4. Top 3 quick wins (<5 min) tailored to THIS project's domain
+5. CLAUDE.md template (~100 lines) that incorporates existing instructions + improvements
+6. Suggested agents/commands/hooks specific to THIS project's business context
+7. Ideas to leverage Claude Code for this specific domain and integrations"
 ```
 
 **What you get**:
+- **Stack recap**: Runtime, framework, test runner, bundler, database, and key integrations auto-detected
 - Health score with prioritized findings
-- Stack-specific CLAUDE.md template that builds on your existing instructions
+- Stack-specific CLAUDE.md template (~100 lines) that builds on your existing instructions
 - Domain-aware suggestions (e.g., EdTech → session planning agents, E-commerce → inventory commands)
-- Custom agents/commands/hooks ideas tailored to your project
+- Integration-aware ideas (e.g., Stripe → payment testing commands, Sentry → error monitoring hooks)
 
 **Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
 
@@ -383,7 +385,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 2.9.7 | January 2026 | Crafted with Claude*
+*Version 2.9.8 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

@@ -1,0 +1,364 @@
+category: "MCP Servers"
+category_id: 8
+source_file: "english-ultimate-claude-code-guide.md"
+
+questions:
+  - id: "08-001"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What does MCP stand for in the context of Claude Code?"
+    options:
+      a: "Model Compute Protocol"
+      b: "Model Context Protocol"
+      c: "Multi-Channel Processing"
+      d: "Module Configuration Protocol"
+    correct: "b"
+    explanation: |
+      MCP stands for Model Context Protocol.
+
+      It is a standard for connecting AI models to external tools and data sources.
+      MCP enables Claude Code to extend beyond built-in tools by connecting to:
+      - Semantic code analysis (Serena)
+      - Documentation lookup (Context7)
+      - Database queries (Postgres)
+      - Browser automation (Playwright)
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.1 What is MCP"
+      anchor: "#81-what-is-mcp"
+
+  - id: "08-002"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "Which MCP server should you use to find all usages of a function across your codebase?"
+    options:
+      a: "Context7"
+      b: "Sequential Thinking"
+      c: "Serena"
+      d: "Postgres"
+    correct: "c"
+    explanation: |
+      Serena provides semantic code analysis with tools like `find_referencing_symbols`.
+
+      Serena tools include:
+      - `find_symbol` - Find functions, classes, methods by name
+      - `get_symbols_overview` - Get file structure overview
+      - `find_referencing_symbols` - Find all usages of a symbol
+      - `search_for_pattern` - Regex search across codebase
+
+      Use Serena for deep code understanding and symbol-level analysis.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.2 Available Servers"
+      anchor: "#serena-semantic-code-analysis"
+
+  - id: "08-003"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "Which MCP server is best for looking up official library documentation?"
+    options:
+      a: "Serena"
+      b: "Context7"
+      c: "Sequential Thinking"
+      d: "mgrep"
+    correct: "b"
+    explanation: |
+      Context7 is designed for accessing official library documentation.
+
+      Use Context7 when:
+      - Learning new libraries
+      - Finding correct API usage
+      - Checking official patterns
+
+      For example, "How does React useEffect work?" should use Context7
+      to get the official documentation rather than generic knowledge.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.4 Server Selection Guide"
+      anchor: "#server-comparison"
+
+  - id: "08-004"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "Which MCP server provides persistent memory across sessions?"
+    options:
+      a: "Context7"
+      b: "Postgres"
+      c: "Serena"
+      d: "Sequential Thinking"
+    correct: "c"
+    explanation: |
+      Serena provides session memory that persists across conversations.
+
+      Serena memory tools:
+      - `write_memory` - Save context for future sessions
+      - `read_memory` - Retrieve saved context
+      - `list_memories` - List all stored memories
+
+      Memory is stored in `.serena/memories/` and survives between Claude Code sessions.
+      This is crucial for maintaining context on long-running projects.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.2 Available Servers"
+      anchor: "#session-memory-workflow"
+
+  - id: "08-005"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "Where is the global MCP configuration file located?"
+    options:
+      a: "~/.mcp/config.json"
+      b: "~/.claude/mcp.json"
+      c: "/etc/claude/mcp.json"
+      d: "~/.config/claude/mcp.json"
+    correct: "b"
+    explanation: |
+      The global MCP configuration is at `~/.claude/mcp.json`.
+
+      Configuration locations:
+      - `~/.claude/mcp.json` - Global (applies to all projects)
+      - `/project/.claude/mcp.json` - Project-specific (overrides global)
+
+      The configuration specifies which servers to run and their settings.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.3 Configuration"
+      anchor: "#mcpjson-location"
+
+  - id: "08-006"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is the recommended MCP server for complex debugging scenarios?"
+    options:
+      a: "Context7"
+      b: "Serena"
+      c: "Sequential Thinking"
+      d: "Postgres"
+    correct: "c"
+    explanation: |
+      Sequential Thinking is designed for multi-step analysis with explicit reasoning.
+
+      Use Sequential Thinking for:
+      - Complex debugging scenarios
+      - Architectural analysis
+      - System design decisions
+
+      The `sequentialthinking` tool provides step-by-step reasoning that is
+      ideal for problems requiring systematic investigation.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.4 Server Selection Guide"
+      anchor: "#decision-tree"
+
+  - id: "08-007"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "How can MCP servers work together effectively?"
+    options:
+      a: "They cannot - only one server at a time"
+      b: "Context7 for patterns -> Serena for code -> Sequential for analysis -> Playwright for testing"
+      c: "All servers must be configured identically"
+      d: "Servers must be chained in alphabetical order"
+    correct: "b"
+    explanation: |
+      MCP servers can be combined for powerful workflows:
+
+      1. **Context7** - Get official pattern for auth
+      2. **Serena** - Find existing auth code in codebase
+      3. **Sequential** - Analyze how to integrate
+      4. **Playwright** - Test the implementation
+
+      This combination leverages each server's strengths for comprehensive development.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.4 Server Selection Guide"
+      anchor: "#combining-servers"
+
+  - id: "08-008"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What variable can you use in mcp.json to reference the current project path?"
+    options:
+      a: "${projectPath}"
+      b: "${workspaceFolder}"
+      c: "${cwd}"
+      d: "${PROJECT_DIR}"
+    correct: "b"
+    explanation: |
+      The `${workspaceFolder}` variable expands to the current project path.
+
+      Variable substitution in mcp.json:
+      - `${workspaceFolder}` - Current project path
+      - `${env:VAR_NAME}` - Environment variable
+
+      Example:
+      ```json
+      "env": {
+        "PROJECT_PATH": "${workspaceFolder}"
+      }
+      ```
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.3 Configuration"
+      anchor: "#variable-substitution"
+
+  - id: "08-009"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is the key advantage of Serena over Claude Code's built-in tools?"
+    options:
+      a: "It's faster"
+      b: "It provides indexation that Claude Code lacks"
+      c: "It uses less memory"
+      d: "It works offline"
+    correct: "b"
+    explanation: |
+      Serena fills a critical gap: Claude Code has no built-in indexation (unlike Cursor).
+
+      Serena provides:
+      - **Indexation**: Pre-indexes your codebase for efficient symbol lookup
+      - **Project Memory**: Stores context between sessions
+      - **Onboarding**: Auto-analyzes project structure on first run
+
+      For large codebases (>10k lines), Serena's indexation dramatically improves performance.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.2 Available Servers"
+      anchor: "#serena-semantic-code-analysis"
+
+  - id: "08-010"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What distinguishes a Plugin from an MCP Server in Claude Code?"
+    options:
+      a: "Plugins are faster"
+      b: "Plugins bundle Claude-specific workflows; MCP servers add external tool capabilities"
+      c: "They are identical"
+      d: "MCP servers are for beginners, plugins for experts"
+    correct: "b"
+    explanation: |
+      The rule of thumb:
+      - **Plugin** = "How Claude thinks" (new workflows, specialized agents)
+      - **MCP Server** = "What Claude can do" (new tools, external systems)
+
+      Plugins bundle agents, skills, and configuration into installable modules.
+      MCP servers add external capabilities like database access or browser automation.
+
+      Installation differs too:
+      - Plugins: `claude plugin install`
+      - MCP: Add to `settings.json` MCP config
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.5 Plugin System"
+      anchor: "#plugin-vs-mcp-server"
+
+  - id: "08-011"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "Which MCP server is used for browser automation and E2E testing?"
+    options:
+      a: "Serena"
+      b: "Context7"
+      c: "Playwright"
+      d: "Sequential Thinking"
+    correct: "c"
+    explanation: |
+      Playwright MCP provides browser automation capabilities.
+
+      Playwright tools include:
+      - `navigate` - Go to URL
+      - `click` - Click element
+      - `fill` - Fill form field
+      - `screenshot` - Capture screenshot
+
+      Use Playwright for:
+      - E2E testing
+      - Visual validation
+      - Browser debugging
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.2 Available Servers"
+      anchor: "#playwright-browser-automation"
+
+  - id: "08-012"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "How do you add an MCP server with environment variables via CLI?"
+    options:
+      a: "claude mcp add --env API_KEY=key server"
+      b: "claude mcp add -e API_KEY=key my-server -- npx @org/server"
+      c: "claude mcp install server --api-key key"
+      d: "claude add mcp server -k key"
+    correct: "b"
+    explanation: |
+      Use the `-e` flag to pass environment variables:
+
+      ```bash
+      claude mcp add -e API_KEY=your-key my-server -- npx @org/server
+      ```
+
+      For multiple environment variables:
+      ```bash
+      claude mcp add -e DATABASE_URL=postgres://... -e DEBUG=true postgres -- npx @prisma/postgres
+      ```
+
+      This is quicker than manually editing mcp.json.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.3 Configuration"
+      anchor: "#cli-based-mcp-configuration"
+
+  - id: "08-013"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is mgrep's key differentiator compared to Serena?"
+    options:
+      a: "It's faster"
+      b: "It provides semantic search by intent, not just patterns"
+      c: "It supports more languages"
+      d: "It has better documentation"
+    correct: "b"
+    explanation: |
+      mgrep excels at intent-based search using natural language:
+
+      ```bash
+      # Traditional grep (exact match required)
+      grep -r "authenticate.*user" .
+
+      # mgrep (intent-based)
+      mgrep "code that handles user authentication"
+      ```
+
+      While Serena focuses on symbol-level analysis, mgrep finds code by
+      describing what it does rather than exact patterns.
+
+      Use mgrep for onboarding to unfamiliar codebases or exploring by intent.
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.2 Available Servers"
+      anchor: "#mgrep-semantic-search-alternative"
+
+  - id: "08-014"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What command lists all installed plugins in Claude Code?"
+    options:
+      a: "claude plugins list"
+      b: "claude plugin"
+      c: "/plugins"
+      d: "claude list plugins"
+    correct: "b"
+    explanation: |
+      Running `claude plugin` (without subcommand) lists all installed plugins with status.
+
+      Plugin commands:
+      - `claude plugin` - List installed plugins
+      - `claude plugin install <name>` - Install plugin
+      - `claude plugin enable <name>` - Enable plugin
+      - `claude plugin disable <name>` - Disable plugin
+      - `claude plugin uninstall <name>` - Remove plugin
+      - `claude plugin validate <path>` - Validate plugin manifest
+    doc_reference:
+      file: "english-ultimate-claude-code-guide.md"
+      section: "8.5 Plugin System"
+      anchor: "#plugin-commands"

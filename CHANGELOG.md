@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.9.8] - 2026-01-12
+
+### Enhanced
+- **audit-scan.sh** - Enhanced stack detection with detailed breakdown
+  - Now detects: runtime, framework, test runner, bundler, database/ORM
+  - Generic integration detection from package.json (auth, payments, AI, monitoring, etc.)
+  - Works without jq (grep-based fallback for all JSON parsing)
+  - Stack recap shown at top of human output
+  - JSON output includes full `stack` object with all detected components
+
+- **README.md** - Updated Full Audit prompt
+  - Now requests Stack Recap as first output item
+  - CLAUDE.md template increased from ~60 to ~100 lines
+  - Added integration-aware suggestions in output description
+
+### Fixed
+- **audit-scan.sh** - jq fallback now works for MCP detection in ~/.claude.json
+
+### Stats
+- 2 files modified (audit-scan.sh ~150 lines added, README.md prompt updated)
+- Detects 25+ common integrations (Clerk, Stripe, OpenAI, Sentry, etc.)
+
 ## [2.9.7] - 2026-01-12
 
 ### Enhanced
