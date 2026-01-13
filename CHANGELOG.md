@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.6] - 2026-01-13
+
+### Changed
+- **Documentation honesty overhaul** - Removed marketing language and unverified claims
+  - **README.md** (~12 edits):
+    - Added transparency disclaimer after badges
+    - Changed "Transform...superpower" → factual description of content
+    - Changed "Our Solution: in hours, not weeks" → honest framing
+    - Replaced time estimates with depth categories (Essentials, Foundation, Intermediate, Comprehensive)
+    - Fixed "2 seconds" claims → "Quick (~30 seconds)"
+    - Corrected privacy claim ("Everything runs locally" → accurate API explanation)
+    - Changed "mentor for Claude Code mastery" → "structured learning companion"
+  - **english-ultimate-claude-code-guide.md** (~15 edits):
+    - Added "Before You Start" disclaimer section at top
+    - Removed "Guide Status 100% Complete" table (false certainty)
+    - Added qualifying note after context thresholds table
+    - "90% of daily usage" → "the ones I use most frequently"
+    - "20-30% faster" → subjective productivity indicators
+    - "Saves 30-40%" → "Frees significant context space"
+    - Removed invented ROI table with fake calculations
+    - "Never guesses - always verifies" → with LLM hallucination warning
+    - Removed "12,400% ROI" ridiculous claim
+    - "90% of tasks" → "most common tasks"
+    - "80-90% savings" → "significant (varies by project)"
+  - **adoption-approaches.md** (already in 3.0.5):
+    - Added disclaimer about Claude Code being young (~1 year)
+    - Added "What We Don't Know Yet" section
+    - Changed prescriptive language to tentative observations
+
+### Stats
+- 3 files modified (README.md, english-ultimate-claude-code-guide.md, cheatsheet-en.md)
+- ~30 edits removing invented percentages, times, and marketing claims
+- Focus on honest, qualified observations over false authority
+
 ## [3.0.5] - 2026-01-13
 
 ### Added

@@ -1,33 +1,48 @@
-# Master Claude Code: The Complete Guide from Beginner to Power User
-
-> **Transform Anthropic's AI coding CLI into your superpower.** 8500+ lines covering installation, agents, MCP servers, hooks, skills, and CI/CD integration—presented as a learning journey, not a reference manual.
+# Claude Code Guide
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![GitHub stars](https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=social)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers)
 [![Ask Zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide)
 
-**By [Florian BRUNIAUX](https://github.com/FlorianBruniaux)** | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr) | [Connect on LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
+```bash
+npm install -g @anthropic-ai/claude-code && claude
+```
 
 ---
 
-## Why This Guide Exists
+**Transparency note**: This guide reflects my personal experience after several months of daily Claude Code usage. I'm sharing what I've learned, not claiming expertise. The tool evolves constantly, and so does my understanding. [Feedback welcome](./CONTRIBUTING.md).
 
-**The Problem**: Most Claude Code resources are either scattered blog posts or dense reference manuals. You're left piecing together workflows, guessing at best practices, and discovering critical concepts too late.
+---
 
-**Our Solution**: A structured learning journey that takes you from installation to advanced orchestration in hours, not weeks—with ready-to-use examples you can deploy immediately.
+**Start here:**
+- [Cheat Sheet](./cheatsheet-en.md) — print this, start coding
+- [15-min Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) — first workflow
+- [Audit your setup](./examples/scripts/audit-scan.sh) — quick scan
 
-### What Makes This Different
+**Go deeper** (optional): [Learning paths by role](#-by-role-tailored-learning-paths) | [Full guide](./english-ultimate-claude-code-guide.md)
+
+---
+
+## Why This Guide?
+
+> Installation, agents, MCP servers, hooks, skills, and CI/CD integration—documented through several months of daily practice. A structured learning journey sharing what I've learned so far.
+
+**By [Florian BRUNIAUX](https://github.com/FlorianBruniaux)** | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr) | [Connect on LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
+
+**The Problem**: Most Claude Code resources are scattered blog posts or dense reference manuals. You're left piecing together workflows and discovering critical concepts too late.
+
+**This guide**: A structured learning journey with ready-to-use examples. Your mileage will vary—the goal is to save you the exploration time I've already spent.
 
 | Traditional Docs | This Guide |
 |------------------|------------|
 | Lists features | Teaches workflows |
-| Reference lookup | Progressive mastery |
+| Reference lookup | Progressive learning |
 | Theoretical concepts | Production-ready patterns |
 | "Figure it out" | "Here's exactly how" |
 
-**Your Investment**: 45 minutes to productivity. 2 hours to mastery. 8500+ lines organized by learning path, not alphabetically.
+**Reading time**: The Quick Start takes ~15 minutes. Full guide is ~3 hours but most people read by section as needed.
 
-> **If this guide saves you hours of trial-and-error, please star it.** Your support helps others discover this resource and motivates continued updates.
+> **If this guide saves you hours of trial-and-error, please star it.**
 
 ### Prerequisites
 
@@ -37,43 +52,28 @@
 
 ---
 
-## Start Here: Choose Your Path
-
-### 🚀 Quick Start (15 minutes)
-
-**Goal**: Be productive immediately.
-
-```bash
-# Install (all platforms)
-npm install -g @anthropic-ai/claude-code
-
-# Start coding
-cd your-project
-claude
-```
-
-**Learn**: [Installation Guide](./english-ultimate-claude-code-guide.md#11-installation) → [First Workflow](./english-ultimate-claude-code-guide.md#12-first-workflow) → [Cheat Sheet](./cheatsheet-en.md)
+## Choose Your Path
 
 ### 🧭 Not Sure Where to Start?
 
-| If you... | Start here | Time |
-|-----------|------------|------|
-| Just installed Claude Code | [Quick Start](#-quick-start-15-minutes) | 15 min |
-| Want to understand core concepts | [Junior Path](#-by-role-tailored-learning-paths) | 45 min |
-| Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | 40 min |
-| Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | 2h |
-| Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | 20 min |
-| Choosing turnkey vs. autonomous approach | [Adoption Guide](./adoption-approaches.md) | 5 min |
-| Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
-| Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
-| Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
-| Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | 10 min |
-| Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | ~15 min |
-| Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | ~2 min |
+| If you... | Start here | Depth |
+|-----------|------------|-------|
+| Just installed Claude Code | [Quick Start](#-quick-start-15-minutes) | Essentials |
+| Want to understand core concepts | [Junior Path](#-by-role-tailored-learning-paths) | Foundation |
+| Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | Intermediate |
+| Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | Comprehensive |
+| Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | Overview |
+| Choosing turnkey vs. autonomous approach | [Adoption Guide](./adoption-approaches.md) | Quick read |
+| Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | Quick scan |
+| Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | Reference |
+| Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | Quick scan |
+| Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | Interactive |
+| Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | Interactive |
+| Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | Quick fix |
 
 ### ⚡ Audit Your Setup
 
-Already have Claude Code installed? Scan your configuration in 2 seconds:
+Already have Claude Code installed? Quickly scan your configuration:
 
 ```bash
 curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash
@@ -99,7 +99,7 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 
 Get a comprehensive, **context-aware** audit that analyzes your project's README, CLAUDE.md files, and business domain to provide tailored recommendations:
 
-> 🔒 **Privacy**: Everything runs locally on your machine. The script only downloads reference files from this repo—your project files (README, CLAUDE.md) are read locally and sent only to your own Claude CLI. Nothing is sent back to this repository or any third party.
+> 🔒 **Privacy**: The audit downloads reference files from this repo, then analyzes YOUR local files with your Claude CLI. Your project files are sent only to your Anthropic API endpoint, not to this repository or any third party.
 
 **Quick Version** (~10 sec):
 ```bash
@@ -245,7 +245,7 @@ Weak Areas (< 75%):
 <tr>
 <td width="50%">
 
-**Junior Developer** (45 min to productivity)
+**Junior Developer** (Foundation path)
 
 1. [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) — Install & first workflow
 2. [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands) — The 7 commands
@@ -256,7 +256,7 @@ Weak Areas (< 75%):
 </td>
 <td width="50%">
 
-**Senior Developer** (40 min to mastery)
+**Senior Developer** (Intermediate path)
 
 1. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) — Mental model
 2. [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) — Safe exploration
@@ -269,7 +269,7 @@ Weak Areas (< 75%):
 <tr>
 <td width="50%">
 
-**Power User** (2 hours for full mastery)
+**Power User** (Comprehensive path)
 
 1. [Complete Guide](./english-ultimate-claude-code-guide.md) — End-to-end
 2. [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) — Extended capabilities
@@ -280,7 +280,7 @@ Weak Areas (< 75%):
 </td>
 <td width="50%">
 
-**Product Manager** (20 min overview)
+**Product Manager** (Overview path)
 
 1. [What's Inside](#-complete-toolkit) — Scope
 2. [Golden Rules](#-golden-rules) — Key principles
@@ -299,7 +299,7 @@ Weak Areas (< 75%):
 
 | File | Purpose | Time Investment |
 |------|---------|-----------------|
-| **[Ultimate Guide](./english-ultimate-claude-code-guide.md)** | 8500+ lines, 32K+ words, 10 sections | ~3 hours (or by section) |
+| **[Ultimate Guide](./english-ultimate-claude-code-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
 | **[Cheat Sheet](./cheatsheet-en.md)** | 1-page printable reference | 5 minutes |
 | **[LLM Reference](./claude-code-reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./claude-setup-audit-prompt.md)** | Optimize your configuration | ~10 minutes |
@@ -388,6 +388,8 @@ Master these five principles before diving deeper:
 | 70-90% | Orange | `/compact` now |
 | 90%+ | Red | `/clear` required |
 
+> *These thresholds are based on my experience. Your optimal workflow may differ.*
+
 ---
 
 ## 🌍 About This Guide
@@ -401,7 +403,7 @@ Master these five principles before diving deeper:
 - Progressive complexity — start simple, master advanced at your pace
 - Practical workflows over theoretical concepts
 
-Think of this as **your mentor for Claude Code mastery** — not just documentation.
+Think of this as **a structured learning companion** — not just documentation.
 
 ### Origins & Transparency
 

@@ -10,28 +10,25 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.0.4
+**Version**: 3.0.6
 
 ---
 
-<div align="center">
+## Before You Start
 
-### 📊 Guide Status Overview
+**This guide is not official Anthropic documentation.** It's a community resource based on my exploration of Claude Code over several months.
 
-| Section | Status | Coverage | Last Updated |
-|---------|--------|----------|--------------|
-| **Quick Start & Installation** | ✅ Complete | 100% | Jan 2026 |
-| **Core Concepts** | ✅ Complete | 100% | Jan 2026 |
-| **Memory & Settings** | ✅ Complete | 100% | Jan 2026 |
-| **Agents & Skills** | ✅ Complete | 100% | Jan 2026 |
-| **Commands & Hooks** | ✅ Complete | 100% | Jan 2026 |
-| **MCP Integration** | ✅ Complete | 100% | Jan 2026 |
-| **Advanced Patterns** | ✅ Complete | 100% | Jan 2026 |
-| **Reference & Troubleshooting** | ✅ Complete | 100% | Jan 2026 |
+**What you'll find:**
+- Patterns that have worked for me
+- Observations that may not generalize to your workflow
+- Time estimates and percentages that are rough approximations, not measurements
 
-**Legend**: ✅ Complete | 🔄 In Progress | 📝 Planned | ⚠️ Needs Update
+**What you won't find:**
+- Definitive answers (the tool is too new)
+- Benchmarked performance claims
+- Guarantees that any technique will work for you
 
-</div>
+**Use critically. Experiment. Share what works for you.**
 
 ---
 
@@ -62,6 +59,8 @@ Describe → Claude Analyzes → Review Diff → Accept/Reject → Verify
 | 50-70% | Be selective |
 | 70-90% | `/compact` now |
 | 90%+ | `/clear` required |
+
+*These thresholds are based on my experience. Your optimal workflow may differ depending on task complexity and working style.*
 
 ### Memory Hierarchy
 ```
@@ -314,7 +313,7 @@ Claude will create a commit with an appropriate message.
 
 ## 1.3 Essential Commands
 
-These 7 commands cover 90% of daily usage:
+These 7 commands are the ones I use most frequently:
 
 | Command | Action | When to Use |
 |---------|--------|-------------|
@@ -865,11 +864,11 @@ Keep Copilot/Cursor for:
 - [ ] You prefer Claude Code's explanations over inline docs
 - [ ] You've integrated Claude Code into your daily workflow
 
-**Productivity indicators:**
+**Subjective productivity indicators** (your experience may vary):
 
-- Completing features 20-30% faster
-- Spending less time debugging
-- Higher code quality (caught by Claude reviews)
+- Feeling more productive on complex tasks
+- Spending less time on boilerplate and debugging
+- Catching more issues through Claude reviews
 - Better understanding of unfamiliar code
 
 ---
@@ -1160,7 +1159,7 @@ Cost per message increases as context grows
 
 # With /compact at 70%
 Context: 10% → 30% → 50% → 70% → [/compact] → 30% → 50%
-Saves 30-40% on subsequent messages
+Frees significant context space for subsequent messages
 ```
 
 **Strategy 3: Choose the right model**
@@ -1282,15 +1281,7 @@ Check your Anthropic Console for detailed usage:
 
 #### Cost vs. Value
 
-**Don't over-optimize!**
-
-Spending $0.50 to save 30 minutes is a **60x ROI** if your time is worth $30/hour.
-
-| Time Saved | Cost | Your Hourly Rate | ROI |
-|------------|------|------------------|-----|
-| 30 min | $0.50 | $30/hr | 30x |
-| 1 hour | $1.00 | $50/hr | 50x |
-| 2 hours | $2.00 | $75/hr | 75x |
+**Perspective on costs**: If Claude Code saves you meaningful time on a task, the API cost is usually negligible compared to your hourly rate. Don't over-optimize for token costs at the expense of productivity.
 
 **When to optimize**:
 - ✅ You're on a tight budget (student, hobbyist)
@@ -3013,7 +3004,7 @@ tools: Read, Bash, Grep, Glob
 You are a systematic debugger who:
 - Investigates root causes, not symptoms
 - Uses evidence-based debugging
-- Never guesses - always verifies
+- Aims to verify rather than assume (but always review output—LLMs can make mistakes)
 
 ## Methodology
 
@@ -3268,7 +3259,7 @@ Evaluate this interface with perspectives:
 │                    └──────────────┘                         │
 │                                                             │
 │   Cost: 2-2.5x cheaper than Opus everywhere                 │
-│   Quality: Equivalent for 90% of tasks                      │
+│   Quality: Equivalent for most common tasks                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -3300,7 +3291,7 @@ Scenario: Refactoring 100 files
 - Cost: ~$5-15
 - Time: 1h (parallelized)
 
-Savings: 80-90%
+Estimated savings: significant (varies by project)
 ```
 
 ---
@@ -7680,18 +7671,9 @@ Smart escalation (Haiku → Sonnet for 10% of PRs):
 - Invest in good prompts and memory files (reduce iterations)
 - Automate with agents (consistent, efficient)
 
-**ROI calculation:**
+**Perspective on ROI:**
 
-```
-Your hourly rate: $50/hour
-Claude Sonnet request: $0.10
-
-Time saved per request: 15 minutes (0.25 hours)
-Value of time saved: $50 × 0.25 = $12.50
-ROI: ($12.50 - $0.10) / $0.10 = 12,400% ROI
-
-Conclusion: Focus on productivity, not penny-pinching.
-```
+Time savings from effective Claude Code usage typically far outweigh API costs for most development tasks. Rather than calculating precise ROI (which depends heavily on your specific context, hourly rate, and task complexity), focus on whether the tool is genuinely helping you ship faster.
 
 **When to optimize aggressively:**
 - High-volume operations (>1000 requests/day)
@@ -9050,4 +9032,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.0.4
+**Last updated**: January 2026 | **Version**: 3.0.6
