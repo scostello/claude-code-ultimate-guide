@@ -55,7 +55,7 @@ correct: "a"
 explanation: |
   Explanation of why this is correct and what the user should learn.
 doc_reference:
-  file: "english-ultimate-claude-code-guide.md"
+  file: "guide/ultimate-guide.md"
   section: "${categoryName}"
   anchor: "#${categoryId}-${categoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}"
 \`\`\`
@@ -91,7 +91,7 @@ Requirements:
     // Add category info
     question.category = categoryName;
     question.category_id = categoryId;
-    question.source_file = 'english-ultimate-claude-code-guide.md';
+    question.source_file = 'guide/ultimate-guide.md';
     question.generated = true;
 
     return question;

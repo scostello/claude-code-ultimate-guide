@@ -72,5 +72,5 @@ SuperClaude also includes:
 
 ## See Also
 
-- [Guide Section 10.5: SuperClaude Framework](../../english-ultimate-claude-code-guide.md#105-superclaude-framework) — Full documentation
+- [Guide Section 10.5: SuperClaude Framework](../../guide/ultimate-guide.md#105-superclaude-framework) — Full documentation
 - [SuperClaude Repository](https://github.com/SuperClaude-Org/SuperClaude_Framework) — Complete framework

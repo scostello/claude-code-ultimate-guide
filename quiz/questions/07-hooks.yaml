@@ -1,6 +1,6 @@
 category: "Hooks"
 category_id: 7
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "07-001"
@@ -23,7 +23,7 @@ questions:
       This is critical for security hooks that need to prevent dangerous commands.
       For example, a hook that detects `rm -rf /` should `exit 2` to block execution.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#exit-codes"
 
@@ -48,7 +48,7 @@ questions:
       - **SessionStart/SessionEnd**: Session lifecycle events
       - **Stop**: When user interrupts
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.1 The Event System"
       anchor: "#event-types"
 
@@ -79,7 +79,7 @@ questions:
 
       Hooks typically parse this with: `INPUT=$(cat)` followed by `jq` for JSON extraction.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#hook-input-stdin-json"
 
@@ -107,7 +107,7 @@ questions:
       This hook would trigger for Bash, Edit, or Write tools.
       You can match specific tools or use `.*` to match all tools.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#configuration-fields"
 
@@ -132,7 +132,7 @@ questions:
 
       The context enricher example adds git branch, last commit, and staged/unstaged info.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.3 Hook Templates"
       anchor: "#template-3-userpromptsubmit-context-enricher"
 
@@ -157,7 +157,7 @@ questions:
       Always end your hooks with `exit 0` if you want to allow the operation,
       or `exit 2` to block it.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#exit-codes"
 
@@ -182,7 +182,7 @@ questions:
 
       Safe commands like `git status`, `npm test`, `ls` should be allowed.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.4 Security Hooks"
       anchor: "#recommended-security-rules"
 
@@ -213,7 +213,7 @@ questions:
 
       This allows hooks to provide context that Claude can use in its responses.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#hook-output"
 
@@ -242,7 +242,7 @@ questions:
 
       Rule: "If you can write a regex for it, use a bash script."
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.1 The Event System"
       anchor: "#shell-scripts-vs-ai-agents-when-to-use-what"
 
@@ -267,7 +267,7 @@ questions:
 
       The Auto-Formatter template uses PostToolUse to run Prettier after Edit/Write operations.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.1 The Event System"
       anchor: "#event-types"
 
@@ -296,7 +296,7 @@ questions:
 
       This ensures your hook correctly blocks dangerous commands before deployment.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.4 Security Hooks"
       anchor: "#testing-security-hooks"
 
@@ -323,7 +323,7 @@ questions:
       This bypasses the default execution policy that might block script execution.
       Batch files (.cmd) can also be used as an alternative for simpler hooks.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.3 Hook Templates"
       anchor: "#windows-hook-templates"
 
@@ -349,7 +349,7 @@ questions:
       JSONL is ideal for log files as each line is a valid JSON object,
       making it easy to append and parse.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.5 Hook Examples"
       anchor: "#example-1-activity-logger"
 
@@ -377,6 +377,6 @@ questions:
       This prevents hooks from blocking Claude Code indefinitely.
       For longer operations like formatting, you might increase this to 10000ms.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#hook-registration-settingsjson"

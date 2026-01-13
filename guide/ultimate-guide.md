@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.0.7
+**Version**: 3.1.0
 
 ---
 
@@ -7912,7 +7912,7 @@ claude --add-dir ../shared-lib ../utils ../config
 
 ## 10.4 Troubleshooting
 
-> **Interactive Troubleshooting**: Use the `/diagnose` command for guided, interactive problem-solving. It auto-scans your environment and provides targeted solutions. See [examples/commands/diagnose.md](./examples/commands/diagnose.md).
+> **Interactive Troubleshooting**: Use the `/diagnose` command for guided, interactive problem-solving. It auto-scans your environment and provides targeted solutions. See [examples/commands/diagnose.md](../examples/commands/diagnose.md).
 
 ### Quick Diagnostic Guide
 
@@ -8813,7 +8813,7 @@ Use rebase for clean history before push, merge for shared branches.
 
 Use the included audit prompt to analyze your current Claude Code configuration:
 
-**File**: [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md)
+**File**: [`tools/audit-prompt.md`](../tools/audit-prompt.md)
 
 **What it does**:
 1. Scans your global (`~/.claude/`) and project (`.claude/`) configuration

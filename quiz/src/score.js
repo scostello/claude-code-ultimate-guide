@@ -69,7 +69,7 @@ export function displayFinalScore(results, topics) {
     console.log(chalk.blue.bold('Recommended Reading:'));
     for (const area of weakAreas.slice(0, 3)) {
       const anchor = getSectionAnchor(area.id);
-      console.log(chalk.blue(`  ${area.id}. english-ultimate-claude-code-guide.md${anchor}`));
+      console.log(chalk.blue(`  ${area.id}. guide/ultimate-guide.md${anchor}`));
     }
   }
 

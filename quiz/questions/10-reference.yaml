@@ -1,6 +1,6 @@
 category: "Reference"
 category_id: 10
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "10-001"
@@ -22,7 +22,7 @@ questions:
 
       Plan Mode allows safe, read-only exploration before making changes.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.2 Keyboard Shortcuts"
       anchor: "#session-control"
 
@@ -44,7 +44,7 @@ questions:
 
       Use when Claude made a mistake and you want to try a different approach.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.2 Keyboard Shortcuts"
       anchor: "#session-control"
 
@@ -69,7 +69,7 @@ questions:
       This frees up context space while preserving important information.
       Check context usage with `/status`.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.1 Commands Table"
       anchor: "#built-in-commands"
 
@@ -95,7 +95,7 @@ questions:
 
       Proactive compaction at 70% prevents context degradation and maintains performance.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.4 Troubleshooting"
       anchor: "#context-recovery"
 
@@ -119,7 +119,7 @@ questions:
       - `Ctrl+L`: Clear screen (keeps context)
       - `Esc`: Dismiss current suggestion
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.2 Keyboard Shortcuts"
       anchor: "#session-control"
 
@@ -144,7 +144,7 @@ questions:
 
       Wildcards (*) enable flexible permission matching.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"
       anchor: "#permission-patterns"
 
@@ -170,7 +170,7 @@ questions:
       The root `CLAUDE.md` is committed and shared with the team.
       The `.claude/CLAUDE.md` is personal and should be in `.gitignore`.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"
       anchor: "#claudemd-locations"
 
@@ -195,7 +195,7 @@ questions:
 
       Use when MCP servers aren't connecting or tools aren't appearing.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.4 Troubleshooting"
       anchor: "#mcp-debugging-techniques"
 
@@ -224,7 +224,7 @@ questions:
       - Special characters (@, #, etc.)
       - More than 64 characters
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.4 Troubleshooting"
       anchor: "#error-1-tool-name-validation-failed"
 
@@ -252,7 +252,7 @@ questions:
 
       Use `/stats` for usage statistics with activity graphs.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.1 Commands Table"
       anchor: "#built-in-commands"
 
@@ -276,7 +276,7 @@ questions:
       This prevents runaway costs in automated pipelines.
       The operation stops if the budget is exceeded.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"
       anchor: "#cli-flags-reference"
 
@@ -301,7 +301,7 @@ questions:
 
       Example: `!git status` runs git status without Claude interpreting it.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.1 Commands Table"
       anchor: "#quick-actions"
 
@@ -327,7 +327,7 @@ questions:
 
       Combine with `-p` for scripting: `claude -r abc123 -p "check status"`
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"
       anchor: "#cli-flags-reference"
 
@@ -359,7 +359,7 @@ questions:
 
       This keeps team workflows shared while personal settings stay private.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.11 Common Pitfalls & Best Practices"
       anchor: "#recommended-gitignore"
 
@@ -383,7 +383,7 @@ questions:
 
       This ensures you start with fresh code and full context awareness.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.6 Daily Workflow & Checklists"
       anchor: "#daily-workflow-pattern"
 
@@ -408,7 +408,7 @@ questions:
       This is more efficient than loading the entire monorepo.
       Multiple directories can be specified for multi-package projects.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"
       anchor: "#cli-flags-reference"
 
@@ -434,7 +434,7 @@ questions:
 
       The longer response time reflects deeper analysis.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.4 Troubleshooting"
       anchor: "#sequential-thinking-mcp-issues"
 
@@ -460,6 +460,6 @@ questions:
 
       The external editor allows comfortable editing of complex prompts.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.2 Keyboard Shortcuts"
       anchor: "#input--navigation"

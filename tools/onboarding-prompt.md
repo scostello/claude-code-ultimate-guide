@@ -4,7 +4,7 @@
 
 **Author**: [Florian BRUNIAUX](https://github.com/FlorianBruniaux) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
-**Reference**: [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md)
+**Reference**: [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
 
 ---
 
@@ -93,7 +93,7 @@ You are an expert Claude Code instructor. Your mission is to onboard me to Claud
 **After understanding my preferences, read the guide:**
 
 Fetch and read the complete guide from:
-https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/english-ultimate-claude-code-guide.md
+https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/guide/ultimate-guide.md
 
 **Alternative**: If the URL is not accessible, use WebSearch to find the guide content or ask me to provide it.
 
@@ -208,9 +208,9 @@ Tu veux approfondir ou passer au sujet suivant ?
 
 ## 7. Related Resources
 
-- [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md) - Full reference
-- [Claude Code Setup Audit](./claude-setup-audit-prompt.md) - Analyze your configuration
-- [Quick Reference Cheatsheet](./cheatsheet-en.md) - Commands at a glance
+- [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md) - Full reference
+- [Claude Code Setup Audit](./audit-prompt.md) - Analyze your configuration
+- [Quick Reference Cheatsheet](../guide/cheatsheet.md) - Commands at a glance
 
 ---
 

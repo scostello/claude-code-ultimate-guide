@@ -1,6 +1,6 @@
 category: "Agents"
 category_id: 4
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "04-001"
@@ -16,7 +16,7 @@ questions:
     explanation: |
       Agents are specialized sub-processes (AI personas) that Claude can delegate tasks to. They encapsulate domain expertise, like a security reviewer knowing OWASP Top 10 or a backend architect understanding API design. Think of them as "expert consultants" - instead of explaining everything in your prompt, you invoke an agent that already has that expertise.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.1 What Are Agents"
       anchor: "#41-what-are-agents"
 
@@ -33,7 +33,7 @@ questions:
     explanation: |
       Custom agent files should be stored in `.claude/agents/` within your project directory. They are markdown files with YAML frontmatter. For example: `.claude/agents/backend-architect.md`, `.claude/agents/code-reviewer.md`. These can be committed to version control to share with your team.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.2 Creating Custom Agents"
       anchor: "#42-creating-custom-agents"
 
@@ -50,7 +50,7 @@ questions:
     explanation: |
       Only `name` and `description` are required in agent frontmatter. Optional fields include: model (sonnet default, opus, or haiku), tools (comma-separated list), skills (to inherit), and disallowedTools. The description is crucial - it determines when Claude auto-activates the agent, so make it clear and specific.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.2 Creating Custom Agents"
       anchor: "#frontmatter-fields"
 
@@ -67,7 +67,7 @@ questions:
     explanation: |
       Agents encapsulate expertise. Without agents, you'd write: "Review this code for security issues, focusing on OWASP Top 10, checking for SQL injection, XSS, CSRF..." With agents: "Use the security-reviewer agent to audit this code." The agent already has that expertise, making your prompts shorter and more consistent.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.1 What Are Agents"
       anchor: "#agent-vs-direct-prompt"
 
@@ -84,7 +84,7 @@ questions:
     explanation: |
       Use opus for complex reasoning and architecture tasks. Model selection guidelines: haiku (fast, low cost) for quick tasks and simple changes; sonnet (balanced, default) for most tasks; opus (slow, high cost) for complex reasoning, architecture decisions, and critical security reviews. Match the model to the task's complexity.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.2 Creating Custom Agents"
       anchor: "#model-selection"
 
@@ -101,7 +101,7 @@ questions:
     explanation: |
       Tool SEO optimizes the agent's description field to improve auto-activation. Techniques include: using "use PROACTIVELY" to encourage automatic activation, listing explicit trigger keywords, describing specific contexts, and adding short nicknames. A good description: "Security code reviewer - use PROACTIVELY when: reviewing auth code, analyzing API endpoints... Triggers: security, auth, vulnerability, OWASP"
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#tool-seo---optimizing-agent-descriptions"
 
@@ -118,7 +118,7 @@ questions:
     explanation: |
       Always prefer specialization over generalization. Good: separate agents for backend-architect (API, database, performance), security-reviewer (OWASP, auth, encryption), test-engineer (test strategy, coverage, TDD). Bad: one full-stack-expert that "does everything (poorly)". Specialized agents have focused context and domain-specific expertise.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.4 Best Practices"
       anchor: "#specialization-over-generalization"
 
@@ -135,7 +135,7 @@ questions:
     explanation: |
       Agents inherit skills using the `skills` field in frontmatter. For example: `skills: [security-guardian]`. This composes expertise without duplication - instead of copying OWASP knowledge into every security-related agent, they all inherit from the security-guardian skill. This follows DRY principles for knowledge organization.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.4 Best Practices"
       anchor: "#skill-composition"
 
@@ -152,7 +152,7 @@ questions:
     explanation: |
       The 7-Parallel-Task Method launches 7 specialized sub-agents in parallel: 1) Components, 2) Styles, 3) Tests, 4) Types, 5) Hooks, 6) Integration, 7) Config. All run in parallel, then results are consolidated. This dramatically speeds up feature implementation by parallelizing independent work streams.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#the-7-parallel-task-method"
 
@@ -169,7 +169,7 @@ questions:
     explanation: |
       Use lightweight agents (<3K tokens, <1s init time) for frequent tasks and workers. Golden Rule: "A lightweight agent used 100x > A heavy agent used 10x." Agent weight categories: Lightweight (<3K tokens) for frequent tasks, Medium (10-15K) for analysis/reviews, Heavy (25K+) for architecture/full audits. Match weight to task frequency.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#agent-weight-classification"
 
@@ -186,7 +186,7 @@ questions:
     explanation: |
       The recommended pattern is: Sonnet as orchestrator (coordinates), Haiku workers (parallel execution), Sonnet validator (final check). This is 2-2.5x cheaper than using Opus everywhere with equivalent quality for 90% of tasks. For example, refactoring 100 files: Sonnet analyzes and plans, Haiku does parallel edits, Sonnet validates - saving 80-90% cost.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#multi-agent-orchestration-pattern"
 
@@ -203,7 +203,7 @@ questions:
     explanation: |
       An agent's output format should specify structured deliverables. For example, a code reviewer agent outputs: Summary, Critical Issues (Must Fix) with file:line references, Warnings (Should Fix), Suggestions (Nice to Have), and Positive Notes. Clear output format ensures consistent, actionable results across all invocations.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.5 Agent Examples"
       anchor: "#example-1-code-reviewer-agent"
 
@@ -220,7 +220,7 @@ questions:
     explanation: |
       The disallowedTools field blocks specific tools from being used by the agent. For example, a code reviewer agent might have `disallowedTools: [WebSearch]` to ensure it focuses on the actual code rather than searching the web. This provides security boundaries and focuses the agent on its core purpose.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.2 Creating Custom Agents"
       anchor: "#agent-file-structure"
 
@@ -237,7 +237,7 @@ questions:
     explanation: |
       Split Role Sub-Agents provide multi-perspective analysis in parallel. Process: 1) Activate Plan Mode + ultrathink, 2) Ask "What expert roles would analyze this?", 3) Select roles (e.g., Security Expert, Senior Dev, Code Reviewer), 4) Run parallel analysis from each perspective, 5) Consolidate reports into recommendations. Great for comprehensive code and UX reviews.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#split-role-sub-agents"
 
@@ -254,7 +254,7 @@ questions:
     explanation: |
       Avoid parallel execution for destructive (write) operations that are dependent on each other. The decision matrix: Independent + Non-destructive = Parallel (max efficiency); Independent + Destructive = Sequential with Plan Mode first; Dependent operations = Sequential (order matters). Parallel writes risk conflicts if files share imports/exports.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.6 Advanced Agent Patterns"
       anchor: "#parallelization-decision-matrix"
 
@@ -271,7 +271,7 @@ questions:
     explanation: |
       A systematic Debugger agent follows: 1) Reproduce - confirm the issue exists, 2) Isolate - narrow down to smallest reproducible case, 3) Analyze - read code, check logs, trace execution, 4) Hypothesize - form theories about cause, 5) Test - verify hypothesis with minimal changes, 6) Fix - implement solution, 7) Verify - confirm fix works without breaking other things. Never guess - always verify.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.5 Agent Examples"
       anchor: "#example-2-debugger-agent"
 
@@ -288,6 +288,6 @@ questions:
     explanation: |
       "Backend stuff" is a bad description - it's too vague to help Claude know when to activate the agent. Good descriptions are specific: "Use when designing APIs, reviewing database schemas, or optimizing backend performance" or "Security code reviewer - use PROACTIVELY when reviewing auth code." Clear activation triggers improve agent utilization.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "4.4 Best Practices"
       anchor: "#explicit-activation-triggers"

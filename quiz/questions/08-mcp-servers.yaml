@@ -1,6 +1,6 @@
 category: "MCP Servers"
 category_id: 8
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "08-001"
@@ -23,7 +23,7 @@ questions:
       - Database queries (Postgres)
       - Browser automation (Playwright)
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.1 What is MCP"
       anchor: "#81-what-is-mcp"
 
@@ -48,7 +48,7 @@ questions:
 
       Use Serena for deep code understanding and symbol-level analysis.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
       anchor: "#serena-semantic-code-analysis"
 
@@ -73,7 +73,7 @@ questions:
       For example, "How does React useEffect work?" should use Context7
       to get the official documentation rather than generic knowledge.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.4 Server Selection Guide"
       anchor: "#server-comparison"
 
@@ -98,7 +98,7 @@ questions:
       Memory is stored in `.serena/memories/` and survives between Claude Code sessions.
       This is crucial for maintaining context on long-running projects.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
       anchor: "#session-memory-workflow"
 
@@ -121,7 +121,7 @@ questions:
 
       The configuration specifies which servers to run and their settings.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.3 Configuration"
       anchor: "#mcpjson-location"
 
@@ -146,7 +146,7 @@ questions:
       The `sequentialthinking` tool provides step-by-step reasoning that is
       ideal for problems requiring systematic investigation.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.4 Server Selection Guide"
       anchor: "#decision-tree"
 
@@ -170,7 +170,7 @@ questions:
 
       This combination leverages each server's strengths for comprehensive development.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.4 Server Selection Guide"
       anchor: "#combining-servers"
 
@@ -198,7 +198,7 @@ questions:
       }
       ```
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.3 Configuration"
       anchor: "#variable-substitution"
 
@@ -222,7 +222,7 @@ questions:
 
       For large codebases (>10k lines), Serena's indexation dramatically improves performance.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
       anchor: "#serena-semantic-code-analysis"
 
@@ -248,7 +248,7 @@ questions:
       - Plugins: `claude plugin install`
       - MCP: Add to `settings.json` MCP config
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.5 Plugin System"
       anchor: "#plugin-vs-mcp-server"
 
@@ -276,7 +276,7 @@ questions:
       - Visual validation
       - Browser debugging
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
       anchor: "#playwright-browser-automation"
 
@@ -304,7 +304,7 @@ questions:
 
       This is quicker than manually editing mcp.json.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.3 Configuration"
       anchor: "#cli-based-mcp-configuration"
 
@@ -334,7 +334,7 @@ questions:
 
       Use mgrep for onboarding to unfamiliar codebases or exploring by intent.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
       anchor: "#mgrep-semantic-search-alternative"
 
@@ -359,6 +359,6 @@ questions:
       - `claude plugin uninstall <name>` - Remove plugin
       - `claude plugin validate <path>` - Validate plugin manifest
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "8.5 Plugin System"
       anchor: "#plugin-commands"

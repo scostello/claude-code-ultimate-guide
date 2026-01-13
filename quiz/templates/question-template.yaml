@@ -47,7 +47,7 @@ questions:
       - 70-90%: Orange (/compact now)
       - 90%+: Red (/clear required)
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#22-context-management"
 

@@ -4,10 +4,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=social)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers)
 [![Ask Zread](https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff)](https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide)
 
-```bash
-npm install -g @anthropic-ai/claude-code && claude
-```
-
 ---
 
 **Transparency note**: This guide reflects my personal experience after several months of daily Claude Code usage. I'm sharing what I've learned, not claiming expertise. The tool evolves constantly, and so does my understanding. [Feedback welcome](./CONTRIBUTING.md).
@@ -15,11 +11,11 @@ npm install -g @anthropic-ai/claude-code && claude
 ---
 
 **Start here:**
-- [Cheat Sheet](./cheatsheet-en.md) — print this, start coding
-- [15-min Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) — first workflow
+- [Cheat Sheet](./guide/cheatsheet.md) — print this, start coding
+- [15-min Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — first workflow
 - [Audit your setup](./examples/scripts/audit-scan.sh) — quick scan
 
-**Go deeper** (optional): [Learning paths by role](#-by-role-tailored-learning-paths) | [Full guide](./english-ultimate-claude-code-guide.md)
+**Go deeper** (optional): [Learning paths by role](#-by-role-tailored-learning-paths) | [Full guide](./guide/ultimate-guide.md)
 
 ---
 
@@ -46,9 +42,8 @@ npm install -g @anthropic-ai/claude-code && claude
 
 ### Prerequisites
 
-- **Node.js 18+** (or use the [shell installer](./english-ultimate-claude-code-guide.md#11-installation) on macOS/Linux)
+- **Node.js 18+** (or use the [shell installer](./guide/ultimate-guide.md#11-installation) on macOS/Linux)
 - **Anthropic API key** — [Get one here](https://console.anthropic.com/)
-- **~$5-20/month** typical usage cost (varies with usage intensity)
 
 ---
 
@@ -58,19 +53,19 @@ npm install -g @anthropic-ai/claude-code && claude
 
 | If you... | Start here | Depth |
 |-----------|------------|-------|
-| Just installed Claude Code | [Quick Start](#-quick-start-15-minutes) | Essentials |
+| Just installed Claude Code | [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) | Essentials |
 | Want to understand core concepts | [Junior Path](#-by-role-tailored-learning-paths) | Foundation |
 | Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | Intermediate |
 | Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | Comprehensive |
 | Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | Overview |
-| Choosing turnkey vs. autonomous approach | [Adoption Guide](./adoption-approaches.md) | Quick read |
+| Choosing turnkey vs. autonomous approach | [Adoption Guide](./guide/adoption-approaches.md) | Quick read |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | Quick scan |
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | Reference |
 | Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | Quick scan |
 | Want to test your knowledge | [Knowledge Quiz](#-knowledge-quiz) | Interactive |
-| Want a guided tour | [Personalized Onboarding](./personalized-onboarding-prompt.md) | Interactive |
+| Want a guided tour | [Personalized Onboarding](./tools/onboarding-prompt.md) | Interactive |
 | Having issues with Claude Code | [/diagnose command](./examples/commands/diagnose.md) | Quick fix |
-| Want mobile access to Claude Code | [Mobile Access Setup](./mobile-access-setup.md) | WIP |
+| Want mobile access to Claude Code | [Mobile Access Setup](./tools/mobile-access.md) | WIP |
 
 ### ⚡ Audit Your Setup
 
@@ -82,19 +77,19 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 
 **Instant checks**: Config files, tech stack, extensions, security hooks, MCP servers, CLAUDE.md quality
 
-**Want deeper analysis?** Use [`claude-setup-audit-prompt.md`](./claude-setup-audit-prompt.md) for personalized recommendations (~3 min).
+**Want deeper analysis?** Use [`tools/audit-prompt.md`](./tools/audit-prompt.md) for personalized recommendations (~3 min).
 
 ### 🤖 LLM Reference
 
 Give any AI assistant instant Claude Code expertise (~2K tokens):
 
 ```bash
-curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/claude-code-reference.yaml
+curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/machine-readable/reference.yaml
 ```
 
-**Use cases**: Paste output into ChatGPT/Claude/Gemini, add to system prompts, or reference in Claude Code with `@claude-code-reference.yaml`
+**Use cases**: Paste output into ChatGPT/Claude/Gemini, add to system prompts, or reference in Claude Code with `@machine-readable/reference.yaml`
 
-**What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./english-ultimate-claude-code-guide.md) for deep dives.
+**What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./guide/ultimate-guide.md) for deep dives.
 
 ### 🔬 Deep Audit (Personalized Recommendations)
 
@@ -111,7 +106,7 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 ```bash
 # Claude Code Deep Audit - Context-Aware Version
 # Downloads reference files, reads YOUR local files, analyzes with Claude
-REF=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/claude-code-reference.yaml)
+REF=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/machine-readable/reference.yaml)
 SCAN=$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/examples/scripts/audit-scan.sh | bash -s -- --json 2>/dev/null)
 README_CONTENT=$(head -100 README.md 2>/dev/null || echo "No README.md found")
 CLAUDE_MD=$(cat CLAUDE.md 2>/dev/null || echo "No CLAUDE.md found")
@@ -151,7 +146,7 @@ Based on ALL this context, provide:
 - Domain-aware suggestions (e.g., EdTech → session planning agents, E-commerce → inventory commands)
 - Non-duplicate suggestions: Only recommends agents/commands you don't already have
 
-**Want maximum depth?** Use [claude-setup-audit-prompt.md](./claude-setup-audit-prompt.md) with `claude --ultrathink`
+**Want maximum depth?** Use [tools/audit-prompt.md](./tools/audit-prompt.md) with `claude --ultrathink`
 
 ### 🧠 Knowledge Quiz
 
@@ -208,7 +203,7 @@ Explanation:
 Exit code 2 blocks the operation. Exit code 0 allows it to proceed.
 Other exit codes are treated as errors and logged but don't block.
 
-See: english-ultimate-claude-code-guide.md#72-creating-hooks
+See: guide/ultimate-guide.md#72-creating-hooks
 
 ------------------------------------------------------------
    QUIZ COMPLETE
@@ -248,22 +243,22 @@ Weak Areas (< 75%):
 
 **Junior Developer** (Foundation path)
 
-1. [Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1) — Install & first workflow
-2. [Essential Commands](./english-ultimate-claude-code-guide.md#13-essential-commands) — The 7 commands
-3. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) — Critical concept
-4. [Memory Files](./english-ultimate-claude-code-guide.md#31-memory-files-claudemd) — Your first CLAUDE.md
-5. [Cheat Sheet](./cheatsheet-en.md) — Print this
+1. [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — Install & first workflow
+2. [Essential Commands](./guide/ultimate-guide.md#13-essential-commands) — The 7 commands
+3. [Context Management](./guide/ultimate-guide.md#22-context-management) — Critical concept
+4. [Memory Files](./guide/ultimate-guide.md#31-memory-files-claudemd) — Your first CLAUDE.md
+5. [Cheat Sheet](./guide/cheatsheet.md) — Print this
 
 </td>
 <td width="50%">
 
 **Senior Developer** (Intermediate path)
 
-1. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) — Mental model
-2. [Plan Mode](./english-ultimate-claude-code-guide.md#23-plan-mode) — Safe exploration
-3. [Agents](./english-ultimate-claude-code-guide.md#4-agents) — Custom AI personas
-4. [Hooks](./english-ultimate-claude-code-guide.md#7-hooks) — Event automation
-5. [CI/CD Integration](./english-ultimate-claude-code-guide.md#93-cicd-integration) — Pipelines
+1. [Core Concepts](./guide/ultimate-guide.md#2-core-concepts) — Mental model
+2. [Plan Mode](./guide/ultimate-guide.md#23-plan-mode) — Safe exploration
+3. [Agents](./guide/ultimate-guide.md#4-agents) — Custom AI personas
+4. [Hooks](./guide/ultimate-guide.md#7-hooks) — Event automation
+5. [CI/CD Integration](./guide/ultimate-guide.md#93-cicd-integration) — Pipelines
 
 </td>
 </tr>
@@ -272,10 +267,10 @@ Weak Areas (< 75%):
 
 **Power User** (Comprehensive path)
 
-1. [Complete Guide](./english-ultimate-claude-code-guide.md) — End-to-end
-2. [MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers) — Extended capabilities
-3. [Trinity Pattern](./english-ultimate-claude-code-guide.md#91-the-trinity) — Advanced workflows
-4. [Audit](./claude-setup-audit-prompt.md) — Optimize setup
+1. [Complete Guide](./guide/ultimate-guide.md) — End-to-end
+2. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
+3. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
+4. [Audit](./tools/audit-prompt.md) — Optimize setup
 5. [Examples](./examples/) — Production templates
 
 </td>
@@ -285,8 +280,8 @@ Weak Areas (< 75%):
 
 1. [What's Inside](#-complete-toolkit) — Scope
 2. [Golden Rules](#-golden-rules) — Key principles
-3. [Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts) — High-level
-4. [Context Management](./english-ultimate-claude-code-guide.md#22-context-management) — Why it matters
+3. [Core Concepts](./guide/ultimate-guide.md#2-core-concepts) — High-level
+4. [Context Management](./guide/ultimate-guide.md#22-context-management) — Why it matters
 
 </td>
 </tr>
@@ -300,20 +295,54 @@ Weak Areas (< 75%):
 
 | File | Purpose | Time Investment |
 |------|---------|-----------------|
-| **[Ultimate Guide](./english-ultimate-claude-code-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
-| **[Cheat Sheet](./cheatsheet-en.md)** | 1-page printable reference | 5 minutes |
-| **[LLM Reference](./claude-code-reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
-| **[Setup Audit](./claude-setup-audit-prompt.md)** | Optimize your configuration | ~10 minutes |
+| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
+| **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 minutes |
+| **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
+| **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
 
 <details>
 <summary><strong>Alternative Formats</strong> (Interactive AI, PDFs)</summary>
 
 - **[DeepWiki](https://deepwiki.com/FlorianBruniaux/claude-code-ultimate-guide/1-overview)** — AI-powered Q&A, semantic search, instant summaries
-- **[NotebookLM Slides](./claude-code-ultimate-guide_notebooklm.pdf)** — Visual overview (~20 min)
-- **[Kimi PDF](./claude-code-ultimate-guide_kimi.pdf)** — Full text export (~3 hours)
+- **[NotebookLM Slides](./exports/notebooklm.pdf)** — Visual overview (~20 min)
+- **[Kimi PDF](./exports/kimi.pdf)** — Full text export (~3 hours)
 
 </details>
+
+### Repository Structure
+
+```
+claude-code-ultimate-guide/
+├── guide/                    # 📖 Core documentation
+│   ├── ultimate-guide.md     # Complete reference (8500+ lines)
+│   ├── cheatsheet.md         # 1-page printable reference
+│   └── adoption-approaches.md # Team implementation strategies
+│
+├── tools/                    # 🔧 Interactive utilities
+│   ├── audit-prompt.md       # Setup audit with recommendations
+│   ├── onboarding-prompt.md  # Personalized guided tour
+│   └── mobile-access.md      # Mobile access setup (ttyd + Tailscale)
+│
+├── machine-readable/         # 🤖 LLM/AI consumption
+│   ├── reference.yaml        # Structured index (~2K tokens)
+│   └── llms.txt              # Standard LLM context file
+│
+├── exports/                  # 📄 Generated outputs
+│   ├── notebooklm.pdf        # Visual slides
+│   └── kimi.pdf              # Full PDF export
+│
+├── examples/                 # 📦 Production templates
+│   ├── agents/               # Custom AI personas
+│   ├── commands/             # Slash commands (/pr, /commit, /diagnose...)
+│   ├── hooks/                # Security & automation (bash + PowerShell)
+│   ├── skills/               # Reusable knowledge modules
+│   ├── scripts/              # Setup & diagnostic utilities
+│   ├── github-actions/       # CI/CD workflows
+│   └── ...
+│
+└── quiz/                     # 🧠 Interactive knowledge quiz (159 questions)
+```
 
 ---
 
@@ -353,20 +382,20 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 
 ## 📖 Guide Navigation
 
-Jump directly to any section in the [Ultimate Guide](./english-ultimate-claude-code-guide.md):
+Jump directly to any section in the [Ultimate Guide](./guide/ultimate-guide.md):
 
 | Section | After this, you can... | When |
 |---------|------------------------|------|
-| **[1. Quick Start](./english-ultimate-claude-code-guide.md#1-quick-start-day-1)** | Run Claude Code and complete your first AI-assisted task | Day 1 |
-| **[2. Core Concepts](./english-ultimate-claude-code-guide.md#2-core-concepts)** | Manage context efficiently and avoid common pitfalls | Week 1 |
-| **[3. Memory & Settings](./english-ultimate-claude-code-guide.md#3-memory--settings)** | Create CLAUDE.md files that improve AI responses | First project |
-| **[4. Agents](./english-ultimate-claude-code-guide.md#4-agents)** | Build custom AI personas for specialized workflows | Advanced |
-| **[5. Skills](./english-ultimate-claude-code-guide.md#5-skills)** | Package reusable knowledge modules for your team | Scaling |
-| **[6. Commands](./english-ultimate-claude-code-guide.md#6-commands)** | Create custom slash commands with variable interpolation | Automation |
-| **[7. Hooks](./english-ultimate-claude-code-guide.md#7-hooks)** | Automate security checks and formatting on every action | Production |
-| **[8. MCP Servers](./english-ultimate-claude-code-guide.md#8-mcp-servers)** | Extend Claude with databases, browsers, and external tools | Extended |
-| **[9. Advanced Patterns](./english-ultimate-claude-code-guide.md#9-advanced-patterns)** | Orchestrate Trinity workflows and CI/CD pipelines | Power user |
-| **[10. Reference](./english-ultimate-claude-code-guide.md#10-reference)** | Look up commands, shortcuts, and troubleshooting tips | Daily |
+| **[1. Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1)** | Run Claude Code and complete your first AI-assisted task | Day 1 |
+| **[2. Core Concepts](./guide/ultimate-guide.md#2-core-concepts)** | Manage context efficiently and avoid common pitfalls | Week 1 |
+| **[3. Memory & Settings](./guide/ultimate-guide.md#3-memory--settings)** | Create CLAUDE.md files that improve AI responses | First project |
+| **[4. Agents](./guide/ultimate-guide.md#4-agents)** | Build custom AI personas for specialized workflows | Advanced |
+| **[5. Skills](./guide/ultimate-guide.md#5-skills)** | Package reusable knowledge modules for your team | Scaling |
+| **[6. Commands](./guide/ultimate-guide.md#6-commands)** | Create custom slash commands with variable interpolation | Automation |
+| **[7. Hooks](./guide/ultimate-guide.md#7-hooks)** | Automate security checks and formatting on every action | Production |
+| **[8. MCP Servers](./guide/ultimate-guide.md#8-mcp-servers)** | Extend Claude with databases, browsers, and external tools | Extended |
+| **[9. Advanced Patterns](./guide/ultimate-guide.md#9-advanced-patterns)** | Orchestrate Trinity workflows and CI/CD pipelines | Power user |
+| **[10. Reference](./guide/ultimate-guide.md#10-reference)** | Look up commands, shortcuts, and troubleshooting tips | Daily |
 
 ---
 
@@ -482,7 +511,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.0.5 | January 2026 | Crafted with Claude*
+*Version 3.1.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

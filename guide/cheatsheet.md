@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.0.7 | **Last Updated**: January 2026
+**Version**: 3.1.0 | **Last Updated**: January 2026
 
 ---
 
@@ -370,7 +370,7 @@ where.exe claude; claude doctor; claude mcp list
 
 - **Official docs**: [docs.anthropic.com/claude-code](https://docs.anthropic.com/en/docs/claude-code)
 - **Advanced guide**: [Claudelog.com](https://claudelog.com/) - Tips & patterns
-- **Full guide**: `english-ultimate-claude-code-guide.md` (this repo)
+- **Full guide**: `ultimate-guide.md` (this repo)
 - **Project memory**: Create `CLAUDE.md` at project root
 - **DeepSeek (cost-effective)**: Configure via `ANTHROPIC_BASE_URL`
 

@@ -27,7 +27,7 @@ export async function loadQuestions(questionsDir) {
             ...q,
             category: parsed.category || 'Unknown',
             category_id: parsed.category_id || 0,
-            source_file: parsed.source_file || 'english-ultimate-claude-code-guide.md'
+            source_file: parsed.source_file || 'guide/ultimate-guide.md'
           }));
           allQuestions.push(...questionsWithCategory);
         }

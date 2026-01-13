@@ -4,7 +4,7 @@
 
 **Author**: [Florian BRUNIAUX](https://github.com/FlorianBruniaux) | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
-**Reference**: [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md)
+**Reference**: [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
 
 ---
 
@@ -80,7 +80,7 @@ Claude will present findings and ask for validation before making any changes.
 ## Context
 
 Perform a comprehensive audit of my Claude Code configuration against best practices from "The Ultimate Claude Code Guide":
-https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md
+https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md
 
 ## Instructions
 
@@ -359,7 +359,7 @@ For each ❌ or ⚠️ item, provide:
 ### [Element Name]
 **Current State**: [what exists or doesn't]
 **Why It Matters**: [impact on workflow]
-**Guide Reference**: [Section X.X](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md#section-anchor)
+**Guide Reference**: [Section X.X](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md#section-anchor)
 ```
 
 **Efficient Guide Reference Lookup**:
@@ -367,19 +367,19 @@ Instead of reading the entire guide, use these line ranges for targeted extracti
 
 ```bash
 # Memory Files best practices
-sed -n '2184,2314p' english-ultimate-claude-code-guide.md
+sed -n '2184,2314p' guide/ultimate-guide.md
 
 # Hooks section
-sed -n '3962,4528p' english-ultimate-claude-code-guide.md
+sed -n '3962,4528p' guide/ultimate-guide.md
 
 # MCP Servers section
-sed -n '4529,5076p' english-ultimate-claude-code-guide.md
+sed -n '4529,5076p' guide/ultimate-guide.md
 
 # Context Management
-sed -n '910,1423p' english-ultimate-claude-code-guide.md
+sed -n '910,1423p' guide/ultimate-guide.md
 
 # Plan Mode
-sed -n '1424,1601p' english-ultimate-claude-code-guide.md
+sed -n '1424,1601p' guide/ultimate-guide.md
 ```
 
 **Suggested Templates**:
@@ -547,8 +547,8 @@ Here's an example of what the audit report looks like:
 
 ## 8. Related Resources
 
-- [The Ultimate Claude Code Guide](./english-ultimate-claude-code-guide.md) - Full reference
-- [Cheatsheet](./cheatsheet-en.md) - Quick daily reference
+- [The Ultimate Claude Code Guide](../guide/ultimate-guide.md) - Full reference
+- [Cheatsheet](../guide/cheatsheet.md) - Quick daily reference
 - [Claude Code Official Docs](https://docs.anthropic.com/en/docs/claude-code) - Anthropic documentation
 
 ---

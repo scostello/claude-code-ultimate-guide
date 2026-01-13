@@ -133,7 +133,7 @@ Explanation:
 Exit code 2 blocks the operation. Exit code 0 allows it to proceed.
 Other exit codes are treated as errors and logged but don't block.
 
-See: https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/english-ultimate-claude-code-guide.md#72-creating-hooks
+See: https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md#72-creating-hooks
      (Line 4164)
 
 Progress: ██░░░░░░░░░░░░░░░░░░ 2/20 | Score: 1/2 (50%)
@@ -156,7 +156,7 @@ Weak Areas (< 75%):
   - Agents: Review section 4 in the guide
 
 Recommended Reading:
-  4. english-ultimate-claude-code-guide.md#4-agents
+  4. guide/ultimate-guide.md#4-agents
 
 Time: 9 minutes 2 seconds
 

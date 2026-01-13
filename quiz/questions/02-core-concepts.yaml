@@ -1,6 +1,6 @@
 category: "Core Concepts"
 category_id: 2
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "02-001"
@@ -16,7 +16,7 @@ questions:
     explanation: |
       Use /compact when context reaches 70-90% (the red zone). The context zones are: Green (0-50%) - work freely; Yellow (50-75%) - start being selective; Red (75-90%) - use /compact; Critical (90%+) - must /clear or risk errors. Using /compact at 70% reduces usage by approximately 50% while preserving key context.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#context-zones"
 
@@ -33,7 +33,7 @@ questions:
     explanation: |
       Claude has a 200,000 token context window. Think of it like RAM - when it fills up, things slow down or fail. This context includes all messages, files read, command outputs, and tool results. Effective context management is described as "the most important concept in Claude Code."
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#the-context-budget"
 
@@ -50,7 +50,7 @@ questions:
     explanation: |
       The statusline metric 'Ctx(u): 45%' shows you've used 45% of your context window. The full statusline format is: `Claude Code | Ctx(u): 45% | Cost: $0.23 | Session: 1h 23m`. Monitoring this helps you know when to use /compact or /clear before context-related issues occur.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#reading-the-statusline"
 
@@ -67,7 +67,7 @@ questions:
     explanation: |
       /compact summarizes the conversation, preserving key context while reducing usage by approximately 50%. Use it when running low on context. /clear starts completely fresh, losing all context - use it when changing topics or context is severely bloated. Choose based on whether you need to maintain continuity.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#context-recovery-strategies"
 
@@ -84,7 +84,7 @@ questions:
     explanation: |
       Reading large files (5K+ tokens) and multi-file searches (3K+ tokens) consume the most context. A small file costs ~500 tokens, running commands ~1K tokens. Long conversations accumulate over time. To optimize, be specific in queries, use symbol references like "read the calculateTotal function" instead of entire files.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#what-consumes-context"
 
@@ -101,7 +101,7 @@ questions:
     explanation: |
       The Last 20% Rule recommends reserving approximately 20% of your context for: multi-file operations at end of session, last-minute corrections, and generating summary/checkpoint documents. This buffer ensures you can complete your work properly even as context fills up.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#context-inspection"
 
@@ -118,7 +118,7 @@ questions:
     explanation: |
       Context poisoning occurs when information from one task contaminates another. Examples include: style bleeding (blue button style applies to unrelated forms), instruction contamination (conflicting rules cause confusion), and temporal confusion (Claude uses outdated file names). Use explicit task boundaries and clarify priorities to prevent it.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#context-poisoning-bleeding"
 
@@ -135,7 +135,7 @@ questions:
     explanation: |
       The interaction loop is: 1) DESCRIBE - explain what you need, 2) ANALYZE - Claude explores the codebase, 3) PROPOSE - Claude suggests changes (diff), 4) REVIEW - you read and evaluate, 5) DECIDE - Accept/Reject/Modify, 6) VERIFY - run tests, check behavior, 7) COMMIT - save changes (optional). The key insight: you remain in control throughout.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.1 The Interaction Loop"
       anchor: "#21-the-interaction-loop"
 
@@ -152,7 +152,7 @@ questions:
     explanation: |
       Use /execute to exit Plan Mode and begin implementing changes. While in Plan Mode, Claude can only read and analyze - no modifications are allowed. You can also respond to Claude's prompt "Ready to implement this plan?" to transition. This staged approach ensures you understand the plan before execution.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.3 Plan Mode"
       anchor: "#exiting-plan-mode"
 
@@ -169,7 +169,7 @@ questions:
     explanation: |
       OpusPlan uses Opus for planning (with superior reasoning capabilities) and automatically switches to Sonnet for implementation (more cost-efficient). Enable with `/model opusplan`. This provides Opus-quality planning while preserving tokens through Sonnet-speed execution. Particularly valuable for Pro subscribers with limited Opus tokens.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.3 Plan Mode"
       anchor: "#opusplan-mode"
 
@@ -186,7 +186,7 @@ questions:
     explanation: |
       Context depletion symptoms include: shorter responses than usual (warning), forgetting CLAUDE.md instructions (serious), inconsistencies with earlier conversation (critical), errors on code already discussed (critical), and "I can't access that file" for files already read (critical). When critical symptoms appear, start a new session immediately.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#context-depletion-symptoms"
 
@@ -203,7 +203,7 @@ questions:
     explanation: |
       /rewind reverts file changes made by Claude. It works across multiple files but only on Claude's changes (not manual edits), only within the current session, and does NOT automatically revert git commits. For risky operations, create a git checkpoint first: "Let's commit what we have before trying this experimental approach."
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.4 Rewind"
       anchor: "#24-rewind"
 
@@ -220,7 +220,7 @@ questions:
     explanation: |
       Claude knows: file structure, code content, git state, and project rules (CLAUDE.md). Claude does NOT know: runtime state (can't see running processes), external services (can't access databases directly), your intent (needs clear instructions), and hidden files (respects .gitignore by default). Understanding this mental model helps you communicate effectively.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.5 Mental Model"
       anchor: "#what-claude-doesnt-know"
 
@@ -237,7 +237,7 @@ questions:
     explanation: |
       The Sanity Check Technique verifies Claude loaded your configuration. Add identifiable info to CLAUDE.md (like your name, project name, tech stack), then ask Claude "What is my name? What project am I working on?" Correct answers confirm configuration is loaded. For advanced checking, add multiple checkpoints throughout long CLAUDE.md files.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#sanity-check-technique"
 
@@ -254,7 +254,7 @@ questions:
     explanation: |
       Use XML-structured prompts when requests have 3+ distinct aspects (instruction + context + constraints), when ambiguity causes misunderstanding, when creating reusable templates, or for complex hierarchy. Don't use them for simple one-liner requests or quick typo fixes - the overhead outweighs the benefit. Tags like <instruction>, <context>, <constraints> help Claude understand different aspects.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.6 Structured Prompting with XML Tags"
       anchor: "#when-to-use-xml-structured-prompts"
 
@@ -271,7 +271,7 @@ questions:
     explanation: |
       The Session Handoff Pattern creates a document to bridge gaps between sessions. It includes: what was accomplished, current state, decisions made, next steps, and context for the next session. Create handoffs at end of work day, before context limit, when switching focus areas, or during interruptions. Store in `claudedocs/handoffs/handoff-YYYY-MM-DD.md`.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#session-handoff-pattern"
 
@@ -288,7 +288,7 @@ questions:
     explanation: |
       A typical 1-hour session costs $0.10 - $0.50 depending on usage patterns. The guide provides cost budgets: quick task (5-10 min) $0.05-$0.10, feature work (1-2 hours) $0.20-$0.50, deep refactor (half day) $1.00-$2.00. Spending $0.50 to save 30 minutes provides 60x ROI if your time is worth $30/hour - don't over-optimize!
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.2 Context Management"
       anchor: "#cost-awareness--optimization"
 
@@ -305,6 +305,6 @@ questions:
     explanation: |
       Auto Plan Mode makes Claude present a plan and wait for explicit user approval before executing ANY tool. Configure via `~/.claude/auto-plan-mode.txt` and launch with `claude --append-system-prompt "$(cat ~/.claude/auto-plan-mode.txt)"`. Results in 76% fewer tokens with better results because plans are validated before execution.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "2.3 Plan Mode"
       anchor: "#auto-plan-mode"

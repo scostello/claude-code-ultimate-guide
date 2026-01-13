@@ -19,7 +19,7 @@ Silently fetch the troubleshooting reference:
 
 ```bash
 # Fetch the latest troubleshooting guide from the repo
-curl -sL "https://raw.githubusercontent.com/flobby41/claude-code-ultimate-guide/main/english-ultimate-claude-code-guide.md" | head -n 3000
+curl -sL "https://raw.githubusercontent.com/flobby41/claude-code-ultimate-guide/main/guide/ultimate-guide.md" | head -n 3000
 ```
 
 Use Section 10.4 (Troubleshooting) as your primary reference.

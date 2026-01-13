@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.1.0] - 2026-01-13
+
+### Changed
+- **Major repository restructuring** - Reorganized 15 root files into 4 thematic directories
+  - `guide/` - Core documentation (ultimate-guide.md, cheatsheet.md, adoption-approaches.md)
+  - `tools/` - Interactive utilities (audit-prompt.md, onboarding-prompt.md, mobile-access.md)
+  - `machine-readable/` - LLM/AI consumption (reference.yaml, llms.txt)
+  - `exports/` - Generated outputs (notebooklm.pdf, kimi.pdf)
+- **File renaming** for cleaner paths:
+  - `english-ultimate-claude-code-guide.md` → `guide/ultimate-guide.md`
+  - `cheatsheet-en.md` → `guide/cheatsheet.md`
+  - `claude-setup-audit-prompt.md` → `tools/audit-prompt.md`
+  - `personalized-onboarding-prompt.md` → `tools/onboarding-prompt.md`
+  - `mobile-access-setup.md` → `tools/mobile-access.md`
+  - `claude-code-reference.yaml` → `machine-readable/reference.yaml`
+- **README.md** - Added "Repository Structure" section with visual tree
+- **150+ internal links updated** across all documentation files
+- **Deleted** empty `to-ignore/` directory
+
+### Added
+- `guide/README.md` - Index for core documentation folder
+- `tools/README.md` - Index for interactive utilities folder
+- `machine-readable/README.md` - Index for LLM consumption folder
+- `exports/README.md` - Index for generated outputs folder
+
+### Stats
+- 10 files moved to new locations
+- 4 new README.md files created
+- 150+ links updated
+- Navigation significantly improved
+
 ## [3.0.7] - 2026-01-13
 
 ### Added

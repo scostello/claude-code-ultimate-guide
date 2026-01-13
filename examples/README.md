@@ -122,4 +122,4 @@ Ready-to-use templates for Claude Code configuration.
 
 ---
 
-*See the [main guide](../english-ultimate-claude-code-guide.md) for detailed explanations.*
+*See the [main guide](../guide/ultimate-guide.md) for detailed explanations.*

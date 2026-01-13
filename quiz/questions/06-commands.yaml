@@ -1,6 +1,6 @@
 category: "Commands"
 category_id: 6
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "06-001"
@@ -23,7 +23,7 @@ questions:
       - `.claude/commands/tech/` for development workflows
       - `.claude/commands/product/` for product workflows
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.2 Creating Custom Commands"
       anchor: "#62-creating-custom-commands"
 
@@ -47,7 +47,7 @@ questions:
       - `.claude/commands/tech/pr.md` -> `/tech:pr`
       - `.claude/commands/product/scope.md` -> `/product:scope`
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.2 Creating Custom Commands"
       anchor: "#command-naming"
 
@@ -70,7 +70,7 @@ questions:
       This enables dynamic commands that can adapt based on user input.
       Commands should document how they handle arguments and what happens if none are provided.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.2 Creating Custom Commands"
       anchor: "#variable-interpolation"
 
@@ -96,7 +96,7 @@ questions:
 
       Custom commands from `.claude/commands/` are also listed here.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.1 Slash Commands"
       anchor: "#61-slash-commands"
 
@@ -122,7 +122,7 @@ questions:
 
       This comprehensive structure ensures consistent, reliable command execution.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.3 Command Template"
       anchor: "#63-command-template"
 
@@ -147,7 +147,7 @@ questions:
 
       Use `/execute` to exit Plan Mode when ready to make changes.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.1 Slash Commands"
       anchor: "#built-in-commands"
 
@@ -174,7 +174,7 @@ questions:
 
       This provides consistent, parseable commit history useful for changelogs and releases.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.4 Command Examples"
       anchor: "#example-1-commit-command"
 
@@ -200,7 +200,7 @@ questions:
 
       The command then reframes the problem as: "How might we [action] for [user] so that [outcome]?"
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.4 Command Examples"
       anchor: "#example-3-problem-framer-command"
 
@@ -225,7 +225,7 @@ questions:
       For committed changes, use `git revert` instead.
       The keyboard shortcut `Esc×2` (double-tap Escape) also triggers rewind.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.1 Slash Commands"
       anchor: "#built-in-commands"
 
@@ -250,7 +250,7 @@ questions:
       - Suggests corrective actions
       - Prevents accidental mistakes
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.4 Command Examples"
       anchor: "#example-2-pr-command"
 
@@ -276,7 +276,7 @@ questions:
 
       This thorough process ensures quality PRs with proper context.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "6.4 Command Examples"
       anchor: "#example-2-pr-command"
 
@@ -301,6 +301,6 @@ questions:
 
       This allows you to easily bring specific files into context for Claude to analyze.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "10.1 Commands Table"
       anchor: "#quick-actions"

@@ -1,6 +1,6 @@
 category: "Memory & Settings"
 category_id: 3
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "03-001"
@@ -16,7 +16,7 @@ questions:
     explanation: |
       The precedence is: Local (.claude/CLAUDE.md) > Project (/project/CLAUDE.md) > Global (~/.claude/CLAUDE.md). More specific beats more general. Local overrides are personal (gitignored), project settings are shared (committed), and global settings apply to all projects. This hierarchy allows personal preferences to override team conventions when needed.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.4 Precedence Rules"
       anchor: "#claudemd-precedence"
 
@@ -33,7 +33,7 @@ questions:
     explanation: |
       Team conventions should be stored in `/project/CLAUDE.md` (the project root). This file is committed to git and shared with the team. Local overrides go in `/project/.claude/CLAUDE.md` (gitignored), and personal global preferences go in `~/.claude/CLAUDE.md`. This separation ensures team standards are enforced while allowing personal customization.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.1 Memory Files (CLAUDE.md)"
       anchor: "#level-2-project-projectclaudemd"
 
@@ -50,7 +50,7 @@ questions:
     explanation: |
       settings.local.json stores personal permission overrides and is gitignored. It allows you to customize which tools are auto-allowed, denied, or require asking for your personal workflow without affecting team settings. For example, you might allow all git commands while the team requires confirmation for certain operations.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#settingslocaljson-personal-permissions"
 
@@ -67,7 +67,7 @@ questions:
     explanation: |
       The `.claude/` folder in your project contains: agents/ (custom agent definitions), commands/ (custom slash commands), hooks/ (event-driven scripts), skills/ (knowledge modules), rules/ (auto-loaded conventions), and settings files. This is your project's Claude Code configuration directory for all extensions.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.2 The .claude/ Folder Structure"
       anchor: "#full-structure"
 
@@ -84,7 +84,7 @@ questions:
     explanation: |
       Tools in the 'deny' category are blocked completely - Claude cannot use them at all. The three permission behaviors are: 'allow' (auto-approve without asking), 'deny' (block completely), and 'ask' (prompt for confirmation). For example, denying "Bash(rm -rf *)" prevents accidental destructive operations.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#permission-behavior"
 
@@ -101,7 +101,7 @@ questions:
     explanation: |
       The Single Source of Truth Pattern stores conventions in `/docs/conventions/` (coding-standards.md, architecture.md, testing.md, etc.) and references them from CLAUDE.md, CodeRabbit, and other tools. This prevents conflicts where one tool approves code that another flags. All tools enforce the same standards from one source.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.1 Memory Files (CLAUDE.md)"
       anchor: "#single-source-of-truth-pattern"
 
@@ -118,7 +118,7 @@ questions:
     explanation: |
       Project CLAUDE.md should include: tech stack (frameworks, versions), code conventions (naming, patterns), architecture (folder structure, layers), and common commands (dev, test, lint). This gives Claude project context. Never include API keys or secrets. Keep it concise with examples, and update when conventions change.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.1 Memory Files (CLAUDE.md)"
       anchor: "#level-2-project-projectclaudemd"
 
@@ -135,7 +135,7 @@ questions:
     explanation: |
       The pattern 'Bash(git *)' matches any git command. Permission patterns use wildcards: 'Bash(git *)' matches any git command, 'Bash(pnpm *)' matches any pnpm command, 'mcp__serena__*' matches all Serena MCP tools. You can also use specific patterns like 'Bash(git status:*)' to match only git status.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#permission-patterns"
 
@@ -152,7 +152,7 @@ questions:
     explanation: |
       Dynamic Memory means temporarily modifying CLAUDE.md for specific tasks then restoring it. Techniques include: git stash (stash original, modify, restore), profile library (keep profiles like security-audit.md, debugging.md in ~/.claude/profiles/), or parallel instances (different CLAUDE.md in different worktrees). Switch profiles with a script: `claude-profile security-audit`.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#dynamic-memory-profile-switching"
 
@@ -169,7 +169,7 @@ questions:
     explanation: |
       Files in `.claude/rules/` are automatically loaded and combined. You can create multiple files like code-conventions.md, git-workflow.md, and architecture.md - all are loaded automatically without manual imports. This allows modular organization of project conventions that Claude will follow.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.4 Precedence Rules"
       anchor: "#rules-auto-loading"
 
@@ -186,7 +186,7 @@ questions:
     explanation: |
       Files that should be gitignored are: .claude/CLAUDE.md (local personal instructions) and .claude/settings.local.json (personal permissions). Files that should be committed include: agents/, commands/, hooks/, skills/, rules/, and settings.json. This separation allows personal customization while sharing team configurations.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.2 The .claude/ Folder Structure"
       anchor: "#what-goes-where"
 
@@ -203,7 +203,7 @@ questions:
     explanation: |
       The allowedTools configuration in ~/.claude.json provides granular control with specific patterns. For example: 'Read(*)' allows all reads, 'Bash(git status:*)' allows only git status, 'Bash(pnpm *:*)' allows pnpm commands. You can set progressive permission levels from beginner (very restrictive) to advanced. Never use --dangerously-skip-permissions.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#allowedtools-configuration-alternative"
 
@@ -220,7 +220,7 @@ questions:
     explanation: |
       On macOS/Linux, the global config path is ~/.claude/. On Windows, it's %USERPROFILE%\.claude\ or C:\Users\YourName\.claude\. This directory contains your global CLAUDE.md, settings, and can include a profiles/ subdirectory for dynamic memory switching.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "1.1 Installation"
       anchor: "#platform-specific-paths"
 
@@ -237,7 +237,7 @@ questions:
     explanation: |
       The three progressive permission levels are: Beginner (very restrictive - only Read, Grep, Glob), Intermediate (adds Bash git/pnpm, TodoRead/Write), and Advanced (adds Edit, Write, WebFetch, Task). Start restrictive and expand as you gain confidence. This prevents accidents while learning.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#progressive-permission-levels"
 
@@ -254,7 +254,7 @@ questions:
     explanation: |
       Never use --dangerously-skip-permissions because it can lead to destructive operations. Horror stories include: `rm -rf node_modules` followed by `rm -rf .` (path error), `git push --force` to main unintentionally, `DROP TABLE users` in poorly generated migrations, and deletion of .env files with credentials. Always prefer granular allowedTools instead.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#-warning-never-use---dangerously-skip-permissions"
 
@@ -271,7 +271,7 @@ questions:
     explanation: |
       Global CLAUDE.md (~/.claude/CLAUDE.md) should contain personal preferences that apply to all your projects: communication style (be concise, use code examples), preferred tools (TypeScript over JavaScript, pnpm over npm), and safety rules (always run tests, never force push). Project-specific settings go in project CLAUDE.md.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.1 Memory Files (CLAUDE.md)"
       anchor: "#level-1-global-claudeclaudemd"
 
@@ -288,6 +288,6 @@ questions:
     explanation: |
       settings.json stores hook configurations and is committed to the repo for team sharing. It defines hooks for PreToolUse, PostToolUse, UserPromptSubmit events - specifying matchers and hook scripts. Personal permission overrides go in settings.local.json (gitignored). This separation allows team automation while respecting personal preferences.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "3.3 Settings & Permissions"
       anchor: "#settingsjson-team-configuration"

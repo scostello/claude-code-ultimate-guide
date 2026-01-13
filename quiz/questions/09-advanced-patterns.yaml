@@ -1,6 +1,6 @@
 category: "Advanced Patterns"
 category_id: 9
-source_file: "english-ultimate-claude-code-guide.md"
+source_file: "guide/ultimate-guide.md"
 
 questions:
   - id: "09-001"
@@ -23,7 +23,7 @@ questions:
       Combined, these provide maximum understanding before taking action.
       Use for architecture decisions, complex debugging, and legacy modernization.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.1 The Trinity"
       anchor: "#91-the-trinity"
 
@@ -48,7 +48,7 @@ questions:
 
       Higher levels increase latency and cost - use the smallest level that works.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.1 The Trinity"
       anchor: "#ultrathink-levels"
 
@@ -75,7 +75,7 @@ questions:
 
       Essential for CI/CD integration, automated pipelines, and scripted workflows.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.3 CI/CD Integration"
       anchor: "#headless-mode"
 
@@ -100,7 +100,7 @@ questions:
 
       This enables powerful shell integration for automated code analysis.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.3 CI/CD Integration"
       anchor: "#unix-piping-workflows"
 
@@ -132,7 +132,7 @@ questions:
 
       Typically 3 rounds are recommended for quality work.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.2 Composition Patterns"
       anchor: "#the-rev-the-engine-pattern"
 
@@ -160,7 +160,7 @@ questions:
       git log --oneline -10 | claude -p 'Categorize commits' --output-format json
       ```
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.3 CI/CD Integration"
       anchor: "#output-format-control"
 
@@ -188,7 +188,7 @@ questions:
       - Focus on learning
       - Signal clearly: "This is vibe code, not for production"
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.8 Vibe Coding & Skeleton Projects"
       anchor: "#vibe-coding"
 
@@ -217,7 +217,7 @@ questions:
 
       This prevents wasted CI cycles and review time.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.3 CI/CD Integration"
       anchor: "#verify-gate-pattern"
 
@@ -242,7 +242,7 @@ questions:
 
       Well-crafted todos guide Claude's execution with precision.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.6 Todo as Instruction Mirrors"
       anchor: "#the-mirror-principle"
 
@@ -267,7 +267,7 @@ questions:
 
       The meta-skill: instead of fixing code, fix the system that produces the code.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.10 Continuous Improvement Mindset"
       anchor: "#the-key-question"
 
@@ -292,7 +292,7 @@ questions:
 
       Progression: Skeleton (Day 1) -> MVP (Week 1) -> Full (Month 1)
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.8 Vibe Coding & Skeleton Projects"
       anchor: "#skeleton-projects"
 
@@ -321,7 +321,7 @@ questions:
       # Implement the plan...
       ```
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.13 Cost Optimization Strategies"
       anchor: "#model-selection-matrix"
 
@@ -350,7 +350,7 @@ questions:
 
       The flag bypasses all permission prompts, creating security risks.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.11 Common Pitfalls & Best Practices"
       anchor: "#security-pitfalls"
 
@@ -380,7 +380,7 @@ questions:
       VERIFY: Empty email shows error, invalid format shows error
       ```
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.11 Common Pitfalls & Best Practices"
       anchor: "#effective-prompt-format"
 
@@ -405,7 +405,7 @@ questions:
       Start with simple, low-risk tasks and build up complexity gradually.
       This avoids overwhelm and builds solid fundamentals.
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.11 Common Pitfalls & Best Practices"
       anchor: "#learning--adoption-pitfalls"
 
@@ -433,6 +433,6 @@ questions:
       git worktree add ../myproject-feature-a feature-a
       ```
     doc_reference:
-      file: "english-ultimate-claude-code-guide.md"
+      file: "guide/ultimate-guide.md"
       section: "9.12 Git Best Practices & Workflows"
       anchor: "#git-worktrees-for-parallel-development"

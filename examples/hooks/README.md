@@ -440,10 +440,10 @@ exit 0
 
 ## Resources
 
-- [Main Guide - Section 7: Hooks](../../english-ultimate-claude-code-guide.md#7-hooks)
+- [Main Guide - Section 7: Hooks](../../guide/ultimate-guide.md#7-hooks)
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
-- [Hook Event Reference](../../english-ultimate-claude-code-guide.md#71-hook-events)
+- [Hook Event Reference](../../guide/ultimate-guide.md#71-hook-events)
 
 ---
 
-*See the [main guide](../../english-ultimate-claude-code-guide.md) for detailed explanations and advanced patterns.*
+*See the [main guide](../../guide/ultimate-guide.md) for detailed explanations and advanced patterns.*
