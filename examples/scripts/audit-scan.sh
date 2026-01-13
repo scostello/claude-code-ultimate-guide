@@ -133,6 +133,7 @@ STACK_TEST=""
 STACK_BUNDLER=""
 STACK_DB=""
 STACK_INTEGRATIONS=""
+ALL_DEPS=""  # Initialize to avoid unbound variable
 
 # Detect by manifest file
 if [[ -f "package.json" ]]; then
@@ -192,31 +193,77 @@ if [[ -f "package.json" ]]; then
   [[ "$ALL_DEPS" == *"next-auth"* || "$ALL_DEPS" == *"@auth/"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}NextAuth, "
   [[ "$ALL_DEPS" == *"@supabase"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Supabase, "
   [[ "$ALL_DEPS" == *"firebase"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Firebase, "
+  [[ "$ALL_DEPS" == *"@kinde"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Kinde, "
   # Payments
   [[ "$ALL_DEPS" == *"stripe"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Stripe, "
+  [[ "$ALL_DEPS" == *"@lemonsqueezy"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}LemonSqueezy, "
   # AI/ML
   [[ "$ALL_DEPS" == *"openai"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}OpenAI, "
   [[ "$ALL_DEPS" == *"@anthropic"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Anthropic, "
   [[ "$ALL_DEPS" == *"langchain"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}LangChain, "
-  # Communication
+  [[ "$ALL_DEPS" == *"@ai-sdk"* || "$ALL_DEPS" == *"ai "* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Vercel AI SDK, "
+  # Communication / Chat
   [[ "$ALL_DEPS" == *"@daily-co"* || "$ALL_DEPS" == *"daily-js"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Daily.co, "
   [[ "$ALL_DEPS" == *"twilio"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Twilio, "
   [[ "$ALL_DEPS" == *"sendgrid"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}SendGrid, "
   [[ "$ALL_DEPS" == *"resend"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Resend, "
-  # Monitoring
+  [[ "$ALL_DEPS" == *"talkjs"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}TalkJS, "
+  [[ "$ALL_DEPS" == *"@knocklabs"* || "$ALL_DEPS" == *"knock"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Knock, "
+  [[ "$ALL_DEPS" == *"stream-chat"* || "$ALL_DEPS" == *"@stream-io"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Stream, "
+  # Maps
+  [[ "$ALL_DEPS" == *"maplibre"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}MapLibre, "
+  [[ "$ALL_DEPS" == *"mapbox"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Mapbox, "
+  [[ "$ALL_DEPS" == *"@react-google-maps"* || "$ALL_DEPS" == *"google-maps"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Google Maps, "
+  # File Upload
+  [[ "$ALL_DEPS" == *"bytescale"* || "$ALL_DEPS" == *"@bytescale"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Bytescale, "
+  [[ "$ALL_DEPS" == *"uploadthing"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}UploadThing, "
+  [[ "$ALL_DEPS" == *"cloudinary"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Cloudinary, "
+  # Admin Panels
+  [[ "$ALL_DEPS" == *"forest-admin"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Forest Admin, "
+  [[ "$ALL_DEPS" == *"@refinedev"* || "$ALL_DEPS" == *"refine"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Refine, "
+  # Monitoring / Analytics
   [[ "$ALL_DEPS" == *"@sentry"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Sentry, "
   [[ "$ALL_DEPS" == *"posthog"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}PostHog, "
+  [[ "$ALL_DEPS" == *"@vercel/analytics"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Vercel Analytics, "
+  [[ "$ALL_DEPS" == *"mixpanel"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Mixpanel, "
+  [[ "$ALL_DEPS" == *"@hotjar"* || "$ALL_DEPS" == *"hotjar"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Hotjar, "
+  [[ "$ALL_DEPS" == *"@amplitude"* || "$ALL_DEPS" == *"amplitude"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Amplitude, "
   # CMS/Content
   [[ "$ALL_DEPS" == *"sanity"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Sanity, "
   [[ "$ALL_DEPS" == *"contentful"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Contentful, "
+  [[ "$ALL_DEPS" == *"@payloadcms"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Payload CMS, "
   # State management
   [[ "$ALL_DEPS" == *"zustand"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Zustand, "
   [[ "$ALL_DEPS" == *"@tanstack/react-query"* || "$ALL_DEPS" == *"react-query"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}TanStack Query, "
   [[ "$ALL_DEPS" == *"trpc"* || "$ALL_DEPS" == *"@trpc"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}tRPC, "
-  # UI
+  [[ "$ALL_DEPS" == *"jotai"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Jotai, "
+  # Validation
+  [[ "$ALL_DEPS" == *"zod"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Zod, "
+  [[ "$ALL_DEPS" == *"yup"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Yup, "
+  [[ "$ALL_DEPS" == *"valibot"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Valibot, "
+  # UI Libraries
   [[ "$ALL_DEPS" == *"tailwindcss"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Tailwind, "
   [[ "$ALL_DEPS" == *"@radix-ui"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Radix UI, "
-  [[ "$ALL_DEPS" == *"shadcn"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}shadcn/ui, "
+  [[ "$ALL_DEPS" == *"@chakra-ui"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Chakra UI, "
+  [[ "$ALL_DEPS" == *"@mui"* || "$ALL_DEPS" == *"@material-ui"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Material UI, "
+  [[ "$ALL_DEPS" == *"daisyui"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}DaisyUI, "
+  [[ "$ALL_DEPS" == *"@mantine"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Mantine, "
+  # shadcn/ui special case: not in package.json, check for components/ui folder
+  if [[ "$ALL_DEPS" == *"shadcn"* ]] || [[ -d "components/ui" ]] || [[ -d "src/components/ui" ]]; then
+    echo "$INTEGRATIONS_LIST" | grep -q "shadcn" || INTEGRATIONS_LIST="${INTEGRATIONS_LIST}shadcn/ui, "
+  fi
+  # Database providers (extends existing DB detection)
+  [[ "$ALL_DEPS" == *"@neondatabase"* || "$ALL_DEPS" == *"@neon"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Neon, "
+  [[ "$ALL_DEPS" == *"@planetscale"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}PlanetScale, "
+  [[ "$ALL_DEPS" == *"@vercel/postgres"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Vercel Postgres, "
+  [[ "$ALL_DEPS" == *"@upstash"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Upstash, "
+  [[ "$ALL_DEPS" == *"@libsql"* || "$ALL_DEPS" == *"turso"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Turso, "
+  # Feature flags
+  [[ "$ALL_DEPS" == *"@vercel/flags"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Vercel Flags, "
+  [[ "$ALL_DEPS" == *"launchdarkly"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}LaunchDarkly, "
+  # Forms
+  [[ "$ALL_DEPS" == *"react-hook-form"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}React Hook Form, "
+  [[ "$ALL_DEPS" == *"formik"* ]] && INTEGRATIONS_LIST="${INTEGRATIONS_LIST}Formik, "
 
   # Clean up trailing comma
   STACK_INTEGRATIONS=$(echo "$INTEGRATIONS_LIST" | sed 's/, $//')
@@ -266,70 +313,208 @@ if [[ -d "./.claude/hooks" ]]; then
   grep -l "PreToolUse" ./.claude/hooks/* 2>/dev/null >/dev/null && HAS_SECURITY_HOOKS="true"
 fi
 
+# P1.2: Test framework detection (also detect absence)
+HAS_TEST_FRAMEWORK="false"
+if [[ -n "$STACK_TEST" ]]; then
+  HAS_TEST_FRAMEWORK="true"
+elif [[ -f "jest.config.js" ]] || [[ -f "jest.config.ts" ]] || [[ -f "jest.config.mjs" ]]; then
+  HAS_TEST_FRAMEWORK="true"
+  STACK_TEST="Jest"
+elif [[ -f "vitest.config.ts" ]] || [[ -f "vitest.config.js" ]] || [[ -f "vitest.config.mts" ]]; then
+  HAS_TEST_FRAMEWORK="true"
+  STACK_TEST="Vitest"
+elif [[ -f "playwright.config.ts" ]] || [[ -f "playwright.config.js" ]]; then
+  HAS_TEST_FRAMEWORK="true"
+  STACK_TEST="Playwright"
+elif [[ -f "cypress.config.ts" ]] || [[ -f "cypress.config.js" ]]; then
+  HAS_TEST_FRAMEWORK="true"
+  STACK_TEST="Cypress"
+else
+  # Last resort: check for test files
+  TEST_FILES=$(find . -maxdepth 4 \( -name "*.test.*" -o -name "*.spec.*" -o -name "__tests__" \) 2>/dev/null | head -1)
+  if [[ -n "$TEST_FILES" ]]; then
+    HAS_TEST_FRAMEWORK="true"
+    STACK_TEST="(detected from test files)"
+  fi
+fi
+
 # MCP servers detection
 # Claude Code stores MCP config in multiple locations:
-# 1. ~/.claude.json under projects.<cwd>.mcpServers (per-project, most common)
-# 2. ~/.claude/mcp.json (legacy global)
+# 1. ~/.claude.json under projects.<cwd>.mcpServers (per-project)
+# 2. ~/.claude.json under mcpServers (global - applies to ALL projects)
 # 3. ./.claude/mcp.json (project-level)
-MCP_SERVERS=""
-MCP_SOURCE=""
+# 4. ~/.claude/mcp.json (legacy global)
+MCP_PROJECT_SERVERS=""
+MCP_GLOBAL_SERVERS=""
+MCP_PROJECT_SOURCE=""
+MCP_GLOBAL_SOURCE=""
 CURRENT_DIR=$(pwd)
 
-# Check 1: Project-specific MCP in ~/.claude.json
+# Check 1: ~/.claude.json (project-specific AND global)
 if [[ -f "${HOME}/.claude.json" ]]; then
   if command -v jq &> /dev/null; then
-    # Get MCP servers for current project path
-    MCP_SERVERS=$(jq -r --arg path "$CURRENT_DIR" '.projects[$path].mcpServers // {} | keys[]' "${HOME}/.claude.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
-    if [[ -n "$MCP_SERVERS" ]]; then
-      MCP_SOURCE="~/.claude.json (project)"
+    # Get project-specific MCP servers
+    MCP_PROJECT_SERVERS=$(jq -r --arg path "$CURRENT_DIR" '.projects[$path].mcpServers // {} | keys[]' "${HOME}/.claude.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+      MCP_PROJECT_SOURCE="~/.claude.json (project)"
+    fi
+    # Get global MCP servers (top-level mcpServers key)
+    MCP_GLOBAL_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "${HOME}/.claude.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+      MCP_GLOBAL_SOURCE="~/.claude.json (global)"
     fi
   else
-    # Fallback: Try to find the project section and extract mcpServers keys
-    # This is a simplified grep-based approach
+    # Fallback grep for project-specific
     if grep -q "\"$CURRENT_DIR\"" "${HOME}/.claude.json" 2>/dev/null; then
-      MCP_SERVERS=$(grep -A 100 "\"$CURRENT_DIR\"" "${HOME}/.claude.json" 2>/dev/null | grep -A 50 "mcpServers" | grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' | head -10 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
-      if [[ -n "$MCP_SERVERS" ]]; then
-        MCP_SOURCE="~/.claude.json (project)"
+      MCP_PROJECT_SERVERS=$(grep -A 100 "\"$CURRENT_DIR\"" "${HOME}/.claude.json" 2>/dev/null | grep -A 50 "mcpServers" | grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' | head -10 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+      if [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+        MCP_PROJECT_SOURCE="~/.claude.json (project)"
       fi
+    fi
+    # Fallback grep for global (look for mcpServers before "projects" key)
+    MCP_GLOBAL_SERVERS=$(sed -n '1,/"projects"/p' "${HOME}/.claude.json" 2>/dev/null | grep -A 50 '"mcpServers"' | grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:[[:space:]]*\{' | head -10 | sed 's/"//g;s/://g;s/{//g' | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+      MCP_GLOBAL_SOURCE="~/.claude.json (global)"
     fi
   fi
 fi
 
 # Check 2: Project-level .claude/mcp.json
-if [[ -z "$MCP_SERVERS" && -f "./.claude/mcp.json" ]]; then
+if [[ -z "$MCP_PROJECT_SERVERS" && -f "./.claude/mcp.json" ]]; then
   if command -v jq &> /dev/null; then
-    MCP_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "./.claude/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
-    if [[ -n "$MCP_SERVERS" ]]; then
-      MCP_SOURCE=".claude/mcp.json (project)"
+    MCP_PROJECT_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "./.claude/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+      MCP_PROJECT_SOURCE=".claude/mcp.json (project)"
     fi
   else
-    MCP_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "./.claude/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
-    if [[ -n "$MCP_SERVERS" ]]; then
-      MCP_SOURCE=".claude/mcp.json (project)"
+    MCP_PROJECT_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "./.claude/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+      MCP_PROJECT_SOURCE=".claude/mcp.json (project)"
     fi
   fi
 fi
 
 # Check 3: Legacy global ~/.claude/mcp.json
-if [[ -z "$MCP_SERVERS" && -f "${GLOBAL_DIR}/mcp.json" ]]; then
+if [[ -z "$MCP_GLOBAL_SERVERS" && -f "${GLOBAL_DIR}/mcp.json" ]]; then
   if command -v jq &> /dev/null; then
-    MCP_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
-    if [[ -n "$MCP_SERVERS" ]]; then
-      MCP_SOURCE="~/.claude/mcp.json (global)"
+    MCP_GLOBAL_SERVERS=$(jq -r '.mcpServers // {} | keys[]' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+      MCP_GLOBAL_SOURCE="~/.claude/mcp.json (legacy global)"
     fi
   else
-    MCP_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
-    if [[ -n "$MCP_SERVERS" ]]; then
-      MCP_SOURCE="~/.claude/mcp.json (global)"
+    MCP_GLOBAL_SERVERS=$(grep -oE '"[a-zA-Z0-9_-]+"[[:space:]]*:' "${GLOBAL_DIR}/mcp.json" 2>/dev/null | head -20 | sed 's/"//g;s/://g' | tr '\n' ',' | sed 's/,$//')
+    if [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+      MCP_GLOBAL_SOURCE="~/.claude/mcp.json (legacy global)"
     fi
   fi
 fi
 
-# Count MCP servers
-MCP_COUNT=0
-if [[ -n "$MCP_SERVERS" ]]; then
-  MCP_COUNT=$(echo "$MCP_SERVERS" | tr ',' '\n' | grep -c . || echo "0")
+# Merge all MCP servers (project + global)
+MCP_ALL_SERVERS=""
+if [[ -n "$MCP_PROJECT_SERVERS" && -n "$MCP_GLOBAL_SERVERS" ]]; then
+  MCP_ALL_SERVERS="$MCP_PROJECT_SERVERS,$MCP_GLOBAL_SERVERS"
+elif [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+  MCP_ALL_SERVERS="$MCP_PROJECT_SERVERS"
+elif [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+  MCP_ALL_SERVERS="$MCP_GLOBAL_SERVERS"
 fi
+
+# For backward compatibility
+MCP_SERVERS="$MCP_ALL_SERVERS"
+MCP_SOURCE=""
+if [[ -n "$MCP_PROJECT_SOURCE" && -n "$MCP_GLOBAL_SOURCE" ]]; then
+  MCP_SOURCE="$MCP_PROJECT_SOURCE + $MCP_GLOBAL_SOURCE"
+elif [[ -n "$MCP_PROJECT_SOURCE" ]]; then
+  MCP_SOURCE="$MCP_PROJECT_SOURCE"
+elif [[ -n "$MCP_GLOBAL_SOURCE" ]]; then
+  MCP_SOURCE="$MCP_GLOBAL_SOURCE"
+fi
+
+# Count MCP servers (unique)
+MCP_COUNT=0
+MCP_PROJECT_COUNT=0
+MCP_GLOBAL_COUNT=0
+if [[ -n "$MCP_ALL_SERVERS" ]]; then
+  MCP_COUNT=$(echo "$MCP_ALL_SERVERS" | tr ',' '\n' | sort -u | grep -c . || echo "0")
+fi
+if [[ -n "$MCP_PROJECT_SERVERS" ]]; then
+  MCP_PROJECT_COUNT=$(echo "$MCP_PROJECT_SERVERS" | tr ',' '\n' | grep -c . || echo "0")
+fi
+if [[ -n "$MCP_GLOBAL_SERVERS" ]]; then
+  MCP_GLOBAL_COUNT=$(echo "$MCP_GLOBAL_SERVERS" | tr ',' '\n' | grep -c . || echo "0")
+fi
+
+# === P0.2: Detect MCPs mentioned in CLAUDE.md but not configured ===
+MCP_DOCUMENTED=""
+MCP_MISSING=""
+KNOWN_MCPS="serena context7 sequential playwright morphllm magic filesystem"
+
+# Scan CLAUDE.md files for MCP mentions
+scan_for_mcps() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    for mcp in $KNOWN_MCPS; do
+      if grep -qi "$mcp" "$file" 2>/dev/null; then
+        if [[ -z "$MCP_DOCUMENTED" ]]; then
+          MCP_DOCUMENTED="$mcp"
+        else
+          echo "$MCP_DOCUMENTED" | grep -q "$mcp" || MCP_DOCUMENTED="$MCP_DOCUMENTED,$mcp"
+        fi
+      fi
+    done
+  fi
+}
+
+scan_for_mcps "./CLAUDE.md"
+scan_for_mcps "./.claude/CLAUDE.md"
+scan_for_mcps "${GLOBAL_DIR}/CLAUDE.md"
+
+# Find MCPs documented but not configured
+if [[ -n "$MCP_DOCUMENTED" ]]; then
+  for mcp in $(echo "$MCP_DOCUMENTED" | tr ',' '\n'); do
+    if ! echo "$MCP_ALL_SERVERS" | grep -qi "$mcp" 2>/dev/null; then
+      if [[ -z "$MCP_MISSING" ]]; then
+        MCP_MISSING="$mcp"
+      else
+        MCP_MISSING="$MCP_MISSING,$mcp"
+      fi
+    fi
+  done
+fi
+
+# P1.3: MCP Recommendations based on detected stack
+MCP_RECOMMENDATIONS=""
+
+# Context7 for modern frameworks (official docs lookup)
+if [[ -n "$STACK_FRAMEWORK" ]]; then
+  if ! echo "$MCP_ALL_SERVERS" | grep -qi "context7" 2>/dev/null; then
+    MCP_RECOMMENDATIONS="${MCP_RECOMMENDATIONS}context7 ($STACK_FRAMEWORK docs), "
+  fi
+fi
+
+# Sequential for complex architectures (reasoning)
+if [[ -n "$STACK_DB" ]] || [[ "$STACK_FRAMEWORK" == "NestJS" ]] || [[ "$STACK_FRAMEWORK" == "Next.js" ]]; then
+  if ! echo "$MCP_ALL_SERVERS" | grep -qi "sequential" 2>/dev/null; then
+    MCP_RECOMMENDATIONS="${MCP_RECOMMENDATIONS}sequential-thinking (complex reasoning), "
+  fi
+fi
+
+# Playwright for E2E testing (if no E2E framework)
+if [[ "$HAS_TEST_FRAMEWORK" == "false" ]] || [[ -z "$STACK_TEST" ]]; then
+  if ! echo "$MCP_ALL_SERVERS" | grep -qi "playwright" 2>/dev/null; then
+    MCP_RECOMMENDATIONS="${MCP_RECOMMENDATIONS}playwright (E2E testing), "
+  fi
+fi
+
+# Serena for large TypeScript projects (symbol navigation)
+if [[ "$ALL_DEPS" == *"typescript"* ]] || [[ -f "tsconfig.json" ]]; then
+  if ! echo "$MCP_ALL_SERVERS" | grep -qi "serena" 2>/dev/null; then
+    MCP_RECOMMENDATIONS="${MCP_RECOMMENDATIONS}serena (TypeScript symbols), "
+  fi
+fi
+
+# Clean up trailing comma
+MCP_RECOMMENDATIONS=$(echo "$MCP_RECOMMENDATIONS" | sed 's/, $//')
 
 # Memory file quality (if exists)
 CLAUDE_MD_LINES="0"
@@ -342,11 +527,23 @@ fi
 # Single Source of Truth pattern
 HAS_SSOT="false"
 NEEDS_SSOT_REFACTOR="false"
+CODEBASE_REFS="0"
+
 if [[ -f "./CLAUDE.md" ]]; then
   grep -qE "^@|/docs/|/conventions/" "./CLAUDE.md" 2>/dev/null && HAS_SSOT="true"
   # Warning: large CLAUDE.md without @references should use SSoT pattern
   if [[ $CLAUDE_MD_LINES -gt 100 && $CLAUDE_MD_REFS -eq 0 ]]; then
     NEEDS_SSOT_REFACTOR="true"
+  fi
+fi
+
+# P2.1: Also check for implicit SSoT in codebase (even without CLAUDE.md)
+# Look for @file.md references in code comments or markdown files
+if [[ "$HAS_SSOT" == "false" ]]; then
+  CODEBASE_REFS=$(find . -maxdepth 3 \( -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.md" \) \
+    -exec grep -l "@[a-zA-Z0-9_/-]*\.md" {} \; 2>/dev/null | wc -l | tr -d ' ')
+  if [[ $CODEBASE_REFS -gt 5 ]]; then
+    HAS_SSOT="true"
   fi
 fi
 
@@ -385,6 +582,7 @@ if [[ "$OUTPUT_MODE" == "json" ]]; then
   },
   "quality": {
     "has_security_hooks": $HAS_SECURITY_HOOKS,
+    "has_test_framework": $HAS_TEST_FRAMEWORK,
     "has_ssot_references": $HAS_SSOT,
     "needs_ssot_refactor": $NEEDS_SSOT_REFACTOR,
     "claude_md_lines": $CLAUDE_MD_LINES,
@@ -394,7 +592,12 @@ if [[ "$OUTPUT_MODE" == "json" ]]; then
     "configured": $([ -n "$MCP_SERVERS" ] && echo "true" || echo "false"),
     "count": $MCP_COUNT,
     "servers": "$MCP_SERVERS",
-    "source": "$MCP_SOURCE"
+    "source": "$MCP_SOURCE",
+    "project_servers": "$MCP_PROJECT_SERVERS",
+    "global_servers": "$MCP_GLOBAL_SERVERS",
+    "documented": "$MCP_DOCUMENTED",
+    "missing": "$MCP_MISSING",
+    "recommendations": "$MCP_RECOMMENDATIONS"
   }
 }
 EOF
@@ -434,6 +637,7 @@ else
 
   echo -e "\n${BLUE}✨ QUALITY PATTERNS${NC}"
   [[ "$HAS_SECURITY_HOOKS" == "true" ]] && echo -e "  ${GREEN}✅${NC} Security hooks (PreToolUse)" || echo -e "  ${RED}❌${NC} Security hooks (recommended)"
+  [[ "$HAS_TEST_FRAMEWORK" == "true" ]] && echo -e "  ${GREEN}✅${NC} Test framework: $STACK_TEST" || echo -e "  ${RED}❌${NC} No test framework detected"
   [[ "$HAS_SSOT" == "true" ]] && echo -e "  ${GREEN}✅${NC} Single Source of Truth (@refs)" || echo -e "  ${YELLOW}⚠️${NC}  SSoT pattern (recommended)"
 
   if [[ "$PROJECT_CLAUDE_MD" == "true" ]]; then
@@ -445,11 +649,24 @@ else
     fi
   fi
 
-  if [[ -n "$MCP_SERVERS" ]]; then
-    echo -e "  ${GREEN}✅${NC} MCP servers ($MCP_COUNT): $MCP_SERVERS"
-    echo -e "      ${BLUE}Source:${NC} $MCP_SOURCE"
+  echo -e "\n${BLUE}🔌 MCP SERVERS${NC}"
+  if [[ -n "$MCP_ALL_SERVERS" ]]; then
+    echo -e "  ${GREEN}✅${NC} Configured ($MCP_COUNT total): $MCP_ALL_SERVERS"
+    [[ -n "$MCP_PROJECT_SERVERS" ]] && echo -e "      ${BLUE}Project:${NC} $MCP_PROJECT_SERVERS (from $MCP_PROJECT_SOURCE)"
+    [[ -n "$MCP_GLOBAL_SERVERS" ]] && echo -e "      ${BLUE}Global:${NC} $MCP_GLOBAL_SERVERS (from $MCP_GLOBAL_SOURCE)"
   else
-    echo -e "  ${YELLOW}⚠️${NC}  No MCP servers configured for this project"
+    echo -e "  ${YELLOW}⚠️${NC}  No MCP servers configured"
+  fi
+
+  # Show MCPs documented but not configured
+  if [[ -n "$MCP_MISSING" ]]; then
+    echo -e "  ${RED}⚠️${NC}  Documented but NOT configured: ${YELLOW}$MCP_MISSING${NC}"
+    echo -e "      Add to ~/.claude.json or .claude/mcp.json to use them"
+  fi
+
+  # Show MCP recommendations
+  if [[ -n "$MCP_RECOMMENDATIONS" ]]; then
+    echo -e "  ${CYAN}💡${NC} Recommended for your stack: $MCP_RECOMMENDATIONS"
   fi
 
   echo -e "\n${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
