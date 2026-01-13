@@ -63,6 +63,7 @@ claude
 | Already use AI coding tools | [Senior Path](#-by-role-tailored-learning-paths) | 40 min |
 | Need to configure a team setup | [Power User Path](#-by-role-tailored-learning-paths) | 2h |
 | Need to evaluate/approve adoption | [PM Path](#-by-role-tailored-learning-paths) | 20 min |
+| Choosing turnkey vs. autonomous approach | [Adoption Guide](./adoption-approaches.md) | 5 min |
 | Want to check your current setup | [Audit Your Setup](#-audit-your-setup) | 2 sec |
 | Want AI assistants to know Claude Code | [LLM Reference](#-llm-reference) | 1 curl |
 | Want personalized recommendations | [Deep Audit](#-deep-audit-personalized-recommendations) | 30 sec |
@@ -478,7 +479,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.0.4 | January 2026 | Crafted with Claude*
+*Version 3.0.5 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

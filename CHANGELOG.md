@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.5] - 2026-01-13
+
+### Added
+- **adoption-approaches.md** - Comprehensive adoption philosophy guide (NEW, ~355 lines)
+  - Addresses community feedback: "turnkey setup" vs "autonomous learning" approaches
+  - **Decision Tree** for immediate routing based on context (time, team size, uniqueness)
+  - **Turnkey Quickstart** (15 min) with 3 verifiable steps
+  - **Autonomous Learning Path** with 4 phases + time estimates + line references
+  - **Adoption Checkpoints** with pass/fail criteria (Day 1, Week 1, Week 2, Month 1)
+  - **Anti-patterns** table with symptoms and solutions
+  - **Team Size Guidelines** with config structures for solo/4-10/10+ developers
+  - **Scenario Decisions**: CTO evaluation, team disagreements, inherited configs, upgrade triggers
+  - **Quick Reference**: daily commands table + cost-conscious model selection
+  - Aligns with `claude-code-reference.yaml` patterns (decision trees, line refs, context zones)
+
+### Changed
+- **README.md** - Added adoption guide to "Not Sure Where to Start?" navigation table
+  - New row: "Choosing turnkey vs. autonomous approach" → Adoption Guide → 5 min
+
+### Stats
+- 1 new file created (adoption-approaches.md, ~355 lines)
+- 1 file modified (README.md, +1 line)
+- Focus on helping users choose the right adoption strategy for their context
+
 ## [3.0.4] - 2026-01-13
 
 ### Added
