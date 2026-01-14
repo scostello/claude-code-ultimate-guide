@@ -129,4 +129,4 @@ Ready-to-use templates for Claude Code configuration.
 
 ---
 
-*See the [main guide](../guide/ultimate-guide.md) for detailed explanations.*
+*See the [main guide](../guide/ultimate-guide.md) for detailed explanations, or the [architecture guide](../guide/architecture.md) for how Claude Code works internally.*

@@ -227,6 +227,7 @@ Tu veux approfondir ou passer au sujet suivant ?
 ## 7. Related Resources
 
 - [The Ultimate Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md) - Full reference
+- [Architecture & Internals](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/architecture.md) - How Claude Code works
 - [Claude Code Setup Audit](./audit-prompt.md) - Analyze your configuration
 - [Quick Reference Cheatsheet](../guide/cheatsheet.md) - Commands at a glance
 

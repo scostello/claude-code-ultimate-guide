@@ -579,6 +579,7 @@ Here's an example of what the audit report looks like:
 ## 8. Related Resources
 
 - [The Ultimate Claude Code Guide](../guide/ultimate-guide.md) - Full reference
+- [Architecture & Internals](../guide/architecture.md) - How Claude Code works
 - [Cheatsheet](../guide/cheatsheet.md) - Quick daily reference
 - [Claude Code Official Docs](https://docs.anthropic.com/en/docs/claude-code) - Anthropic documentation
 

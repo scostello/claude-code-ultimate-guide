@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.3.1
+**Version**: 3.4.0
 
 ---
 
@@ -113,6 +113,7 @@ Context full → /compact or /clear
   - [2.4 Rewind](#24-rewind)
   - [2.5 Mental Model](#25-mental-model)
   - [2.6 Data Flow & Privacy](#26-data-flow--privacy)
+  - [2.7 Under the Hood](#27-under-the-hood)
 - [3. Memory & Settings](#3-memory--settings)
   - [3.1 Memory Files (CLAUDE.md)](#31-memory-files-claudemd)
   - [3.2 The .claude/ Folder Structure](#32-the-claude-folder-structure)
@@ -2375,6 +2376,111 @@ When you use Claude Code, the following data leaves your machine:
 **3. Use security hooks** to block reading of sensitive files (see [Section 7.4](#74-hooks-automating-workflows)).
 
 > **Full guide**: For complete privacy documentation including known risks, community incidents, and enterprise considerations, see [Data Privacy & Retention Guide](./data-privacy.md).
+
+## 2.7 Under the Hood
+
+> **Reading time**: 5 minutes
+> **Goal**: Understand the core architecture that powers Claude Code
+
+This section provides a summary of Claude Code's internal mechanisms. For the complete technical deep-dive with diagrams and source citations, see the [Architecture & Internals Guide](./architecture.md).
+
+### The Master Loop
+
+At its core, Claude Code is a simple `while` loop:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MASTER LOOP (simplified)                 │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   Your Prompt                                               │
+│       │                                                     │
+│       ▼                                                     │
+│   ┌────────────────────────────────────────────────────┐    │
+│   │   Claude Reasons (no classifier, no router)        │    │
+│   └───────────────────────┬────────────────────────────┘    │
+│                           │                                 │
+│              Tool needed? │                                 │
+│                     ┌─────┴─────┐                           │
+│                    YES         NO                           │
+│                     │           │                           │
+│                     ▼           ▼                           │
+│              Execute Tool    Text Response (done)           │
+│                     │                                       │
+│                     └──────── Feed result back to Claude    │
+│                                        │                    │
+│                               (loop continues)              │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Source**: [Anthropic Engineering Blog](https://www.anthropic.com/engineering/claude-code-best-practices)
+
+There is no:
+- Intent classifier or task router
+- RAG/embedding pipeline
+- DAG orchestrator
+- Planner/executor split
+
+The model itself decides when to call tools, which tools to call, and when it's done.
+
+### The Tool Arsenal
+
+Claude Code has 8 core tools:
+
+| Tool | Purpose |
+|------|---------|
+| `Bash` | Execute shell commands (universal adapter) |
+| `Read` | Read file contents (max 2000 lines) |
+| `Edit` | Modify existing files (diff-based) |
+| `Write` | Create/overwrite files |
+| `Grep` | Search file contents (ripgrep-based) |
+| `Glob` | Find files by pattern |
+| `Task` | Spawn sub-agents (isolated context) |
+| `TodoWrite` | Track progress |
+
+### Context Management
+
+Claude Code operates within a ~200K token context window:
+
+| Component | Approximate Size |
+|-----------|------------------|
+| System prompt | 5-15K tokens |
+| CLAUDE.md files | 1-10K tokens |
+| Conversation history | Variable |
+| Tool results | Variable |
+| Reserved for response | 40-45K tokens |
+
+When context fills up (~75-92% depending on model), older content is automatically summarized. Use `/compact` proactively to manage this.
+
+### Sub-Agent Isolation
+
+The `Task` tool spawns sub-agents with:
+- Their own fresh context window
+- Access to the same tools (except Task itself)
+- **Maximum depth of 1** (cannot spawn sub-sub-agents)
+- Only their summary text returns to the main context
+
+This prevents context pollution during exploratory tasks.
+
+### The Philosophy
+
+> "Do more with less. Smart architecture choices, better training efficiency, and focused problem-solving can compete with raw scale."
+> — Daniela Amodei, Anthropic CEO
+
+Claude Code trusts the model's reasoning instead of building complex orchestration systems. This means:
+- Fewer components = fewer failure modes
+- Model-driven decisions = better generalization
+- Simple loop = easy debugging
+
+### Learn More
+
+| Topic | Where |
+|-------|-------|
+| Full architecture details | [Architecture & Internals Guide](./architecture.md) |
+| Permission system | [Section 7 - Hooks](#7-hooks) |
+| MCP integration | [Section 8.6 - MCP Security](#86-mcp-security) |
+| Context management tips | [Section 2.2](#22-context-management) |
 
 ---
 

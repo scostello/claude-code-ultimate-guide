@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.3.1 | **Last Updated**: January 2026
+**Version**: 3.4.0 | **Last Updated**: January 2026
 
 ---
 
@@ -150,6 +150,20 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | `/rewind` | Undo recent changes |
 | `claude -c` | Resume last session (CLI flag) |
 | `claude -r <id>` | Resume specific session (CLI flag) |
+
+---
+
+## Under the Hood (Quick Facts)
+
+| Concept | Key Point |
+|---------|-----------|
+| **Master Loop** | Simple `while(tool_call)` — no DAGs, no classifiers |
+| **Tools** | 8 core: Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite |
+| **Context** | ~200K tokens, auto-compacts at 75-92% |
+| **Sub-agents** | Isolated context, max depth=1 |
+| **Philosophy** | "Less scaffolding, more model" — trust Claude's reasoning |
+
+**Deep dive**: [Architecture & Internals](./architecture.md)
 
 ---
 

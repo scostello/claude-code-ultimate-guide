@@ -303,6 +303,7 @@ Weak Areas (< 75%):
 |------|---------|-----------------|
 | **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference, 10 sections | ~3 hours (or by section) |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 minutes |
+| **[Architecture & Internals](./guide/architecture.md)** | How Claude Code works under the hood | ~25 minutes |
 | **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
@@ -323,6 +324,7 @@ claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
 │   ├── ultimate-guide.md     # Complete reference (8500+ lines)
 │   ├── cheatsheet.md         # 1-page printable reference
+│   ├── architecture.md       # How Claude Code works internally
 │   └── adoption-approaches.md # Team implementation strategies
 │
 ├── tools/                    # 🔧 Interactive utilities
@@ -517,7 +519,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.3.1 | January 2026 | Crafted with Claude*
+*Version 3.4.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

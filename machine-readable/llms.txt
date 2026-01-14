@@ -8,7 +8,8 @@ This repository provides everything needed to go from Claude Code beginner to po
 
 1. **Complete Guide** (`guide/ultimate-guide.md`) - 4700+ lines covering all aspects of Claude Code
 2. **Cheatsheet** (`guide/cheatsheet.md`) - 1-page printable daily reference
-3. **Audit Prompt** (`tools/audit-prompt.md`) - Self-contained prompt to analyze your Claude Code setup against best practices
+3. **Architecture Internals** (`guide/architecture.md`) - How Claude Code works under the hood (master loop, tools, context)
+4. **Audit Prompt** (`tools/audit-prompt.md`) - Self-contained prompt to analyze your Claude Code setup against best practices
 
 ## Target Audience
 
@@ -56,6 +57,7 @@ claude-code-ultimate-guide/
 ├── guide/                              # Core documentation
 │   ├── ultimate-guide.md               # Complete guide (main content)
 │   ├── cheatsheet.md                   # 1-page reference
+│   ├── architecture.md                 # How Claude Code works internally
 │   └── adoption-approaches.md          # Implementation strategy
 ├── tools/                              # Interactive utilities
 │   ├── audit-prompt.md                 # Setup audit tool
@@ -77,8 +79,16 @@ claude-code-ultimate-guide/
 └── quiz/                               # Interactive knowledge quiz
 ```
 
-## Guide Structure (10 Sections)
+## Guide Structure (10 Sections + Architecture)
 
+**Architecture Deep Dive** (`guide/architecture.md`):
+- Master Loop: `while(tool_call)` - no DAGs, no classifiers, no RAG
+- 8 Core Tools: Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite
+- Context: ~200K tokens, auto-compact at 75-92%
+- Sub-agents: isolated context, max depth=1
+- Philosophy: "less scaffolding, more model"
+
+**Main Guide Sections** (`guide/ultimate-guide.md`):
 1. **Quick Start** - Installation, first workflow, essential commands
 2. **Core Concepts** - Context management, Plan Mode, Rewind, Mental Model
 3. **Memory & Settings** - CLAUDE.md files, .claude/ folder, precedence rules

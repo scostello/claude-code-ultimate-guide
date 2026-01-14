@@ -6,6 +6,60 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-01-14
+
+### Added - Architecture & Internals Documentation
+
+New comprehensive documentation explaining how Claude Code works internally, based on official Anthropic sources and verified community analysis.
+
+#### New Files
+- **guide/architecture.md** (NEW, ~800 lines) - Complete technical deep-dive:
+  - The Master Loop (`while(tool_call)` architecture)
+  - The Tool Arsenal (8 core tools: Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite)
+  - Context Management Internals (~200K token budget, auto-compaction)
+  - Sub-Agent Architecture (isolated context, max depth=1)
+  - Permission & Security Model (interactive prompts + allow/deny + hooks)
+  - MCP Integration (JSON-RPC 2.0, treated as native tools)
+  - The Edit Tool internals (exact match → fuzzy matching)
+  - Session Persistence (--resume, --continue)
+  - Philosophy: "Less Scaffolding, More Model"
+  - Claude Code vs Alternatives comparison table
+  - Sources with explicit confidence levels (Tier 1/2/3)
+  - Appendix: What We Don't Know (transparency about gaps)
+  - 5 ASCII diagrams (Master Loop, Context Budget, Sub-Agent, Permission Layers, MCP)
+
+#### Guide Updates
+- **guide/ultimate-guide.md** - Section 2.7 "Under the Hood" (NEW, ~100 lines):
+  - Summary of architecture concepts with ASCII diagram
+  - Links to full architecture.md for deep dives
+  - Cross-references to existing sections (7-Hooks, 8.6-MCP Security)
+  - Updated Table of Contents
+
+- **guide/cheatsheet.md** - "Under the Hood (Quick Facts)" section (NEW):
+  - 5-row table with key architecture concepts
+  - Link to architecture.md for deep dive
+
+#### Navigation Updates
+- **README.md** - Core Documentation table + Repository Structure updated
+- **guide/README.md** - Contents table updated with architecture.md
+- **machine-readable/reference.yaml** - New `architecture:` section + deep_dive refs
+- **machine-readable/llms.txt** - Guide structure + file list updated
+- **tools/audit-prompt.md** - Related Resources updated
+- **tools/onboarding-prompt.md** - Related Resources updated
+- **examples/README.md** - Footer reference added
+
+### Sources
+- Tier 1 (Official): anthropic.com/engineering/claude-code-best-practices, code.claude.com/docs
+- Tier 2 (Verified): PromptLayer analysis, community observations
+- Tier 3 (Inferred): Marked with confidence levels
+
+### Stats
+- 1 new file created (architecture.md, ~800 lines)
+- 10 files modified (navigation, versioning)
+- Focus on transparency about Claude Code internals with source citations
+
+---
+
 ## [3.3.1] - 2026-01-14
 
 ### Changed
