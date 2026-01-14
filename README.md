@@ -519,7 +519,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.4.0 | January 2026 | Crafted with Claude*
+*Version 3.5.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

@@ -6,6 +6,53 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-01-14
+
+### Added - Development Methodologies & Workflows
+
+Comprehensive documentation covering 15 structured development methodologies for AI-assisted development (2025-2026), with practical workflow guides.
+
+#### New Files
+- **guide/methodologies.md** (NEW, ~400 lines) - Complete methodology reference:
+  - 15 methodologies organized in 6-tier pyramid (Orchestration → Optimization)
+  - BMAD, SDD, TDD, BDD, DDD, ATDD, CDD, FDD, Context Engineering, Eval-Driven, Multi-Agent, Iterative Loops, Prompt Engineering
+  - Decision tree for choosing the right approach
+  - SDD tools reference (Spec Kit, OpenSpec, Specmatic)
+  - Combination patterns by project type
+  - Claude Fit ratings for each methodology
+
+- **guide/workflows/** (NEW directory, 4 files, ~700 lines total):
+  - **tdd-with-claude.md** - Test-Driven Development workflow with Claude-specific prompting patterns
+  - **spec-first.md** - Spec-First Development (SDD) adapted for CLAUDE.md
+  - **plan-driven.md** - Effective use of /plan mode
+  - **iterative-refinement.md** - Prompt → Observe → Reprompt loops
+
+#### Guide Updates
+- **guide/ultimate-guide.md** - Section 9.14 "Development Methodologies" (NEW, ~60 lines):
+  - Quick decision tree for workflow selection
+  - 4 core workflows summary table
+  - 15 methodologies reference table
+  - SDD tools overview
+  - Combination patterns by situation
+
+#### Navigation Updates
+- **guide/README.md** - Contents table updated with methodologies.md and workflows/
+
+### Sources
+- Anthropic Engineering Blog (claude-code-best-practices, context-engineering)
+- GitHub (Spec Kit official announcement)
+- Martin Fowler (SDD essays)
+- Fission AI (OpenSpec)
+- Specmatic.io
+- Community production reports (2025-2026)
+
+### Stats
+- 5 new files created (~1,100 lines total)
+- 2 files modified (ultimate-guide.md, guide/README.md)
+- Focus on practical, actionable workflows over theory
+
+---
+
 ## [3.4.0] - 2026-01-14
 
 ### Added - Architecture & Internals Documentation

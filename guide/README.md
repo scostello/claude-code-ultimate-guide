@@ -12,6 +12,19 @@ Core documentation for mastering Claude Code.
 | [adoption-approaches.md](./adoption-approaches.md) | Implementation strategies for teams | 15 min |
 | [data-privacy.md](./data-privacy.md) | Data retention and privacy guide | 10 min |
 | [observability.md](./observability.md) | Session monitoring and cost tracking | 15 min |
+| [methodologies.md](./methodologies.md) | 15 development methodologies reference (TDD, SDD, BDD, etc.) | 20 min |
+| [workflows/](./workflows/) | Practical workflow guides for Claude Code | 30 min |
+
+### Workflows
+
+Hands-on guides for effective development patterns:
+
+| File | Description |
+|------|-------------|
+| [workflows/tdd-with-claude.md](./workflows/tdd-with-claude.md) | Test-Driven Development with Claude |
+| [workflows/spec-first.md](./workflows/spec-first.md) | Spec-First Development (SDD) |
+| [workflows/plan-driven.md](./workflows/plan-driven.md) | Using /plan mode effectively |
+| [workflows/iterative-refinement.md](./workflows/iterative-refinement.md) | Iterative improvement loops |
 
 ## Recommended Reading Order
 

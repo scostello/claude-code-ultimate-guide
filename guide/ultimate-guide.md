@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.4.0
+**Version**: 3.5.0
 
 ---
 
@@ -8106,6 +8106,67 @@ Time savings from effective Claude Code usage typically far outweigh API costs f
 
 ---
 
+## 9.14 Development Methodologies
+
+> **Full reference**: [methodologies.md](./methodologies.md) | **Hands-on workflows**: [workflows/](./workflows/)
+
+15 structured development methodologies have emerged for AI-assisted development (2025-2026). This section provides quick navigation; detailed workflows are in dedicated files.
+
+### Quick Decision Tree
+
+```
+┌─ "I want quality code" ────────────→ workflows/tdd-with-claude.md
+├─ "I want to spec before code" ─────→ workflows/spec-first.md
+├─ "I need to plan architecture" ────→ workflows/plan-driven.md
+├─ "I'm iterating on something" ─────→ workflows/iterative-refinement.md
+└─ "I need methodology theory" ──────→ methodologies.md
+```
+
+### The 4 Core Workflows for Claude Code
+
+| Workflow | When to Use | Key Prompt Pattern |
+|----------|-------------|-------------------|
+| **TDD** | Quality-critical code | "Write FAILING tests first, then implement" |
+| **Spec-First** | New features, APIs | Define in CLAUDE.md before asking |
+| **Plan-Driven** | Multi-file changes | Use `/plan` mode |
+| **Iterative** | Refinement | Specific feedback: "Change X because Y" |
+
+### The 15 Methodologies (Reference)
+
+| Tier | Methodologies | Claude Fit |
+|------|--------------|------------|
+| Orchestration | BMAD | ⭐⭐ Enterprise governance |
+| Specification | SDD, Doc-Driven, Req-Driven, DDD | ⭐⭐⭐ Core patterns |
+| Behavior | BDD, ATDD, CDD | ⭐⭐⭐ Testing focus |
+| Delivery | FDD, Context Engineering | ⭐⭐ Process |
+| Implementation | TDD, Eval-Driven, Multi-Agent | ⭐⭐⭐ Core workflows |
+| Optimization | Iterative Loops, Prompt Engineering | ⭐⭐⭐ Foundation |
+
+→ Full descriptions with examples: [methodologies.md](./methodologies.md)
+
+### SDD Tools (External)
+
+| Tool | Use Case | Integration |
+|------|----------|-------------|
+| **Spec Kit** | Greenfield projects | `/speckit.*` slash commands |
+| **OpenSpec** | Brownfield/existing | `/openspec:*` slash commands |
+| **Specmatic** | API contract testing | MCP agent available |
+
+→ See official documentation for installation and detailed usage.
+
+### Combination Patterns
+
+| Situation | Recommended Stack |
+|-----------|-------------------|
+| Solo MVP | SDD + TDD |
+| Team 5-10, greenfield | Spec Kit + TDD + BDD |
+| Microservices | CDD + Specmatic |
+| Existing SaaS | OpenSpec + BDD |
+| Enterprise 10+ | BMAD + Spec Kit |
+| LLM-native product | Eval-Driven + Multi-Agent |
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -8126,6 +8187,7 @@ Before moving to Section 10 (Reference), verify you understand:
 - [ ] **Common Pitfalls**: Understand security, performance, workflow mistakes
 - [ ] **Continuous Improvement**: Refine over multiple sessions with learning mindset
 - [ ] **Best Practices**: Do/Don't patterns for professional work
+- [ ] **Development Methodologies**: TDD, SDD, BDD, and other structured approaches
 
 ### What's Next?
 
