@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.3.1] - 2026-01-14
+
+### Changed
+- **IDEAS.md** - Consolidated and curated research topics
+  - High Priority: Unified "MCP Security Hardening" (merged 3 overlapping topics)
+  - Medium Priority: Kept CI/CD Workflows Gallery + MCP Server Catalog
+  - Lower Priority: CLAUDE.md Patterns Library (templates by stack)
+  - Discarded: Added 6 topics already covered in guide (prompt engineering, context optimization, task decomposition, agent architecture, case studies, tool comparisons)
+  - Technical writer agent validation of all ideas against reference.yaml
+
+### Stats
+- IDEAS.md reduced from 12 research topics to 4 actionable items
+- Discarded section expanded from 3 to 16 entries with clear justifications
+- Focus on actionable research vs theoretical exploration
+
+---
+
 ## [3.3.0] - 2026-01-14
 
 ### Added - LLM Handbook Integration + Google Agent Whitepaper

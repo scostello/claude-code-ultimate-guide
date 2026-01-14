@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.2.0
+**Version**: 3.3.1
 
 ---
 
