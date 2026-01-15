@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added - Version Sync Infrastructure
+
+Single source of truth for versioning across all documentation.
+
+#### New Files
+- **VERSION** - Canonical version file (single source of truth)
+- **scripts/sync-version.sh** - Automated version synchronization script
+  - `--check` mode for CI validation (exit 1 if mismatch)
+  - Auto-fixes all 3.x.x versions across docs
+  - macOS/Linux compatible
+
+#### Fixed
+- **Version inconsistencies resolved**:
+  - guide/cheatsheet.md: 3.5.0 → 3.6.0
+  - guide/ultimate-guide.md: 3.0.7, 3.5.0 → 3.6.0
+  - machine-readable/reference.yaml: 3.5.0 → 3.6.0
+
+---
+
 ### Improved - README.md Navigation & Structure
 
 Documentation alignment and navigation improvements.
