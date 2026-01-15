@@ -28,6 +28,11 @@
         "postgresql://user:password@localhost:5432/database"
       ],
       "description": "PostgreSQL database queries"
+    },
+    "grepai": {
+      "command": "grepai",
+      "args": ["mcp-serve"],
+      "description": "Semantic code search and call graph analysis (requires Ollama)"
     }
   }
 }

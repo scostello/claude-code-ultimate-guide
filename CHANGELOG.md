@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **grepai MCP Server documentation** in `guide/ultimate-guide.md` (Section 8.3)
+  - Privacy-first semantic code search using Ollama embeddings
+  - Call graph analysis: trace callers, callees, and dependency graphs
+  - Combined workflow with Serena for exploration + precise editing
+  - Setup instructions with Ollama and grepai CLI
+  - MCP tools reference: `grepai_search`, `grepai_trace_callers`, `grepai_trace_callees`, `grepai_trace_graph`
+  - Source: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
+- Updated MCP server decision tree and comparison table to include grepai
+- Added grepai configuration to `examples/config/mcp.json`
+
 ---
 
 ## [3.7.1] - 2026-01-15

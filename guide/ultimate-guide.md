@@ -5079,6 +5079,84 @@ mgrep "code that handles user authentication"
 > **Note**: I haven't tested mgrep personally. Consider it an alternative worth exploring.
 > **Source**: [mgrep GitHub](https://github.com/mixedbread-ai/mgrep)
 
+### grepai (Semantic Search + Call Graph)
+
+**Purpose**: Privacy-first semantic code search with call graph analysis.
+
+**Why consider grepai**: Unlike mgrep, grepai is **fully open-source** and runs entirely locally using Ollama embeddings. Its killer feature is **call graph analysis** — trace who calls what function and visualize dependencies.
+
+**Key Features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Semantic search** | Find code by natural language description |
+| **Call graph** | Trace callers, callees, and full dependency graphs |
+| **Privacy-first** | Uses Ollama locally (no cloud) |
+| **Background indexing** | `grepai watch` daemon keeps index fresh |
+
+**Example**:
+
+```bash
+# Semantic search (finds code by meaning, not exact text)
+grepai search "user authentication flow"
+
+# Who calls this function?
+grepai trace callers "createSession"
+# → Lists all 23 files that call createSession with context
+
+# What does this function call?
+grepai trace callees "SessionProvider"
+
+# Full dependency graph
+grepai trace graph "createSession" --depth 3
+```
+
+**MCP Tools Available**:
+
+| Tool | Description |
+|------|-------------|
+| `grepai_search` | Natural language semantic search |
+| `grepai_trace_callers` | Find all callers of a function |
+| `grepai_trace_callees` | Find all functions called by a function |
+| `grepai_trace_graph` | Generate call graph |
+| `grepai_index_status` | Check indexation status |
+
+**Setup**:
+
+```bash
+# 1. Install Ollama and embedding model
+brew install ollama
+brew services start ollama
+ollama pull nomic-embed-text
+
+# 2. Install grepai
+curl -sSL https://raw.githubusercontent.com/yoanbernabeu/grepai/main/install.sh | sh
+
+# 3. Initialize in your project
+cd your-project
+grepai init  # Choose: ollama, nomic-embed-text, gob
+
+# 4. Start indexing daemon
+grepai watch &
+```
+
+**Combined Workflow with Serena**:
+
+```
+1. grepai search "payment validation"     → Discover relevant files
+2. Serena get_symbols_overview            → Understand file structure
+3. grepai trace callers "validatePayment" → See all dependencies
+4. Serena find_symbol + replace_symbol_body → Precise editing
+```
+
+**Use when**:
+- Exploring unfamiliar codebases by intent
+- Understanding call dependencies before refactoring
+- Privacy is required (no cloud, all local)
+- Need to trace "who calls what" across the codebase
+
+> **Source**: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
+
 ### Context7 (Documentation Lookup)
 
 **Purpose**: Access official library documentation.
@@ -5224,6 +5302,12 @@ What do you need?
 ├─ Deep code understanding?
 │  └─ Use Serena
 │
+├─ Explore code by intent / semantic search?
+│  └─ Use grepai
+│
+├─ Trace who calls what? (call graph)
+│  └─ Use grepai
+│
 ├─ Library documentation?
 │  └─ Use Context7
 │
@@ -5246,7 +5330,8 @@ What do you need?
 |------|-------------|-----|
 | "Find all usages of this function" | Serena | Semantic symbol analysis |
 | "Remember this for next session" | Serena | Persistent memory |
-| "Find code that handles payments" | mgrep | Intent-based semantic search |
+| "Find code that handles payments" | grepai / mgrep | Intent-based semantic search |
+| "Who calls this function?" | grepai | Call graph analysis |
 | "How does React useEffect work?" | Context7 | Official docs |
 | "Why is this failing?" | Sequential | Structured debugging |
 | "What's in the users table?" | Postgres | Direct query |
