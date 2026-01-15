@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Dev With AI community reference** in README.md
+  - French-speaking community for developers of all levels and tech stacks
+  - ~1500 members on Slack, meetups in Paris, Bordeaux, Lyon
+  - Link: https://www.devw.ai/
+
+- **Whitepaper #6 Privacy & Compliance - Expanded IP Section**
+  - Comprehensive "Intellectual Property Considerations" section
+  - Copyright du code généré par IA: ownership ambiguity, registrability, derived works
+  - License contamination risks: GPL, AGPL, MIT/BSD, Apache 2.0 analysis
+  - Enterprise indemnification coverage by plan tier
+  - Best practices for IP risk mitigation (documentation, review, scanning, policy)
+  - File: `whitepapers/06-privacy.qmd`
+
 - **Onboarding Prompt v2: Adaptive Pedagogy & Multi-LLM Support**
   - **New "Communication Tone" question** in Phase 0 (after goal)
     - 4 options: Pedagogical, Direct, Coaching, Adaptive

@@ -10,6 +10,12 @@
 
 ---
 
+> 🇫🇷 **Communauté francophone** | Tu veux parler de dev et d'IA ? Challenger des idées ? Présenter des outils ? En découvrir ?
+> **[Dev With AI](https://www.devw.ai/)** rassemble près de 1500 devs sur Slack, tous niveaux et toutes technos confondus — enthousiastes comme sceptiques.
+> Meetups à Paris, Bordeaux et Lyon.
+
+---
+
 > **Privacy Notice**: Claude Code sends your prompts, file contents, and MCP results to Anthropic servers.
 > - **Default**: 5 years retention (training enabled) | **Opt-out**: 30 days | **Enterprise**: 0
 > - **Action**: [Disable training](https://claude.ai/settings/data-privacy-controls) | [Full privacy guide](./guide/data-privacy.md)
