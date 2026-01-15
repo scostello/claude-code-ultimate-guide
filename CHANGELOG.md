@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Onboarding Prompt v2: Adaptive Pedagogy & Multi-LLM Support**
+  - **New "Communication Tone" question** in Phase 0 (after goal)
+    - 4 options: Pedagogical, Direct, Coaching, Adaptive
+    - Adapts HOW content is delivered (not just WHAT)
+  - **Style preference now universal** - offered to all goals when time >= 15min (was 30min, learn_everything only)
+  - **"Reset" option in depth control** - users can restart with different preferences anytime
+  - **"Skip" now shows what's skipped** - brief note about skipped content for future reference
+  - **Fallback handling** if reference.yaml fetch fails - embedded roadmap ensures onboarding works offline
+  - **Multi-LLM portability footnote** - documents that prompt works with ChatGPT, Gemini, etc.
+  - **Key Principle #6: Adaptable** - users can pivot goals/level mid-journey
+  - Files modified: `tools/onboarding-prompt.md`, `machine-readable/reference.yaml`
+  - Inspired by community feedback (Greg Lhotellier testing on ChatGPT)
+
 - **grepai MCP Server documentation** in `guide/ultimate-guide.md` (Section 8.3)
   - Privacy-first semantic code search using Ollama embeddings
   - Call graph analysis: trace callers, callees, and dependency graphs

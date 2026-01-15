@@ -355,6 +355,14 @@ onboarding_questions:
         intermediate: "🟡 Intermediate (daily use)"
         power: "🔴 Power User (know basics, want advanced)"
 
+    tone:
+      ask: "How do you prefer me to communicate?"
+      options:
+        pedagogical: "🎓 Pedagogical - Detailed explanations, understand why"
+        direct: "⚡ Direct - Straight to the point"
+        coaching: "🧭 Coaching - Guide me with questions"
+        adaptive: "🔄 Adaptive - Mix based on complexity"
+
   optional:
     time:
       ask: "How much time do you have?"
@@ -373,12 +381,12 @@ onboarding_questions:
         examples: "💻 Examples (show me code)"
         reference: "🎯 Quick reference (just the facts)"
         handson: "🏋️ Hands-on (let me try)"
-      trigger: "Only ask if time >= 30min"
+      trigger: "Only ask if time >= 15min"
 
   # Logic for progressive questioning
   question_flow:
     fix_problem: "goal only → skip to troubleshooting"
-    get_started: "goal → level"
-    optimize: "goal → level → time"
-    build_agents: "goal → level → time"
-    learn_everything: "goal → level → time → style"
+    get_started: "goal → tone → level"
+    optimize: "goal → tone → level → time → style (if time >= 15min)"
+    build_agents: "goal → tone → level → time → style (if time >= 15min)"
+    learn_everything: "goal → tone → level → time → style"
