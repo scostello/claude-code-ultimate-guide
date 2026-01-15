@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.5.0 | **Last Updated**: January 2026
+**Version**: 3.6.0 | **Last Updated**: January 2026
 
 ---
 
