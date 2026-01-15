@@ -86,9 +86,17 @@ echo "3.7.0" > VERSION && ./scripts/sync-version.sh
 
 Check `IDEAS.md` for planned improvements and `CHANGELOG.md [Unreleased]` for work in progress.
 
+## Research Resources
+
+**Perplexity Pro disponible**: Pour toute recherche nécessitant des sources fiables ou des informations récentes sur Claude Code, Anthropic, ou les pratiques de développement assisté par IA:
+- Demande-moi de faire une recherche Perplexity (plus efficace que WebSearch basique)
+- Je te fournirai les résultats avec les sources
+- Utile pour: nouvelles features Claude Code, best practices communauté, comparaisons d'outils, documentation officielle mise à jour
+
 ## Quick Lookups
 
 For answering questions about Claude Code:
 1. Search `machine-readable/reference.yaml` first (has line numbers to full guide)
 2. Use those line numbers to read relevant sections from `guide/ultimate-guide.md`
 3. Check `examples/` for ready-to-use templates
+4. Si info manquante ou incertaine → demander une recherche Perplexity
