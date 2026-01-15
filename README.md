@@ -23,11 +23,27 @@
 claude "Fetch and follow the onboarding instructions from: https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md"
 ```
 
+<details>
+<summary>📸 <strong>Preview: Interactive Onboarding Flow</strong></summary>
+
+<table>
+<tr>
+<td width="50%"><img src="./assets/screenshots/onboarding-01-language.png" alt="Language selection"/><br/><em>1. Choose your language</em></td>
+<td width="50%"><img src="./assets/screenshots/onboarding-02-goal.png" alt="Goal selection"/><br/><em>2. Select your goal</em></td>
+</tr>
+<tr>
+<td width="50%"><img src="./assets/screenshots/onboarding-03-level.png" alt="Level selection"/><br/><em>3. Pick your experience level</em></td>
+<td width="50%"><img src="./assets/screenshots/onboarding-04-content.png" alt="Time selection"/><br/><em>4. Set available time</em></td>
+</tr>
+</table>
+
+</details>
+
 **Option B: From cloned repo**
 1. Copy the prompt from [tools/onboarding-prompt.md](./tools/onboarding-prompt.md#4-the-prompt)
 2. Run `claude` → Paste → Enter
 
-Claude asks 2 questions (goal + level) then guides you through personalized content.
+Claude asks 2-4 questions then guides you through personalized content based on your profile.
 
 **Or browse directly:** [Cheat Sheet](./guide/cheatsheet.md) | [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) | [Full Guide](./guide/ultimate-guide.md)
 
