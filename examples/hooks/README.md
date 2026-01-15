@@ -8,8 +8,12 @@ Hooks are scripts that execute automatically on Claude Code events. They enable 
 |------|-------|---------|----------|
 | [dangerous-actions-blocker.sh](./bash/dangerous-actions-blocker.sh) | PreToolUse | Block dangerous commands/edits | Bash |
 | [security-check.sh](./bash/security-check.sh) | PreToolUse | Block secrets in commands | Bash |
+| [prompt-injection-detector.sh](./bash/prompt-injection-detector.sh) | PreToolUse | Detect injection attempts (+ANSI, null bytes, nested cmd) | Bash |
+| [unicode-injection-scanner.sh](./bash/unicode-injection-scanner.sh) | PreToolUse | Detect zero-width, RTL override, ANSI escape, null bytes | Bash |
+| [repo-integrity-scanner.sh](./bash/repo-integrity-scanner.sh) | PreToolUse | Scan README/package.json for hidden injection | Bash |
+| [mcp-config-integrity.sh](./bash/mcp-config-integrity.sh) | SessionStart | Verify MCP config hash (CVE-2025-54135/54136) | Bash |
 | [claudemd-scanner.sh](./bash/claudemd-scanner.sh) | SessionStart | Detect CLAUDE.md injection attacks | Bash |
-| [output-secrets-scanner.sh](./bash/output-secrets-scanner.sh) | PostToolUse | Detect secrets in tool outputs | Bash |
+| [output-secrets-scanner.sh](./bash/output-secrets-scanner.sh) | PostToolUse | Detect secrets + env leakage in tool outputs | Bash |
 | [auto-format.sh](./bash/auto-format.sh) | PostToolUse | Auto-format after edits | Bash |
 | [notification.sh](./bash/notification.sh) | Notification | Contextual macOS sound alerts | Bash (macOS) |
 | [security-check.ps1](./powershell/security-check.ps1) | PreToolUse | Block secrets in commands | PowerShell |

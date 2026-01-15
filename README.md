@@ -405,11 +405,14 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 |------|-------|---------|
 | [dangerous-actions-blocker.sh](./examples/hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block `rm -rf /`, force push, secrets |
 | [prompt-injection-detector.sh](./examples/hooks/bash/prompt-injection-detector.sh) | PreToolUse | Detect injection attempts |
+| [unicode-injection-scanner.sh](./examples/hooks/bash/unicode-injection-scanner.sh) | PreToolUse | Detect zero-width, RTL, ANSI escape |
+| [repo-integrity-scanner.sh](./examples/hooks/bash/repo-integrity-scanner.sh) | PreToolUse | Scan README/package.json for injection |
+| [mcp-config-integrity.sh](./examples/hooks/bash/mcp-config-integrity.sh) | SessionStart | Verify MCP config hash (CVE protection) |
 | [output-secrets-scanner.sh](./examples/hooks/bash/output-secrets-scanner.sh) | PostToolUse | Detect exposed secrets |
 | [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts |
 | [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
 
-**[See All 11 Hooks](./examples/hooks/)** — Includes session-logger, security-check, claudemd-scanner, and more
+**[See All 14 Hooks](./examples/hooks/)** — Includes session-logger, security-check, claudemd-scanner, and more
 
 ### GitHub Actions (CI/CD)
 
@@ -554,7 +557,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.5.0 | January 2026 | Crafted with Claude*
+*Version 3.6.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

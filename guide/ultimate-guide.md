@@ -4786,6 +4786,8 @@ exit 0
 
 Security hooks are critical for protecting your system.
 
+> **Advanced patterns**: For comprehensive security including Unicode injection detection, MCP config integrity verification, and CVE-specific mitigations, see [Security Hardening Guide](./security-hardening.md).
+
 ### Recommended Security Rules
 
 ```bash
@@ -5479,6 +5481,8 @@ claude plugin uninstall <conflicting-plugin>
 ## 8.6 MCP Security
 
 MCP servers extend Claude Code's capabilities, but they also expand its attack surface. Before installing any MCP server, especially community-created ones, apply the same security scrutiny you'd use for any third-party code dependency.
+
+> **CVE details & advanced vetting**: For documented CVEs (2025-53109/53110, 54135, 54136), MCP Safe List, and incident response procedures, see [Security Hardening Guide](./security-hardening.md).
 
 ### Pre-Installation Checklist
 

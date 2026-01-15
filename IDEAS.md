@@ -2,25 +2,25 @@
 
 > Research topics for future guide improvements. Curated and validated.
 
-## High Priority
+## Done
 
-### MCP Security Hardening
+### MCP Security Hardening ✅
 Unified security research covering MCP vulnerabilities, prompt injection, and secret detection.
 
-**Topics:**
-- Real-world Tool Shadowing and Confused Deputy incidents
-- Prompt injection bypass techniques (Unicode, encoding, obfuscation)
-- Secret detection regex patterns (compare GitHub, Gitleaks, TruffleHog)
-- Supply chain risks in MCP server ecosystem
+**Completed**: [Security Hardening Guide](./guide/security-hardening.md) covers:
+- CVE-2025-53109/53110, 54135, 54136 with mitigations
+- MCP vetting workflow with 5-minute audit checklist
+- MCP Safe List (community vetted)
+- Prompt injection evasion techniques (Unicode, ANSI, null bytes)
+- Secret detection tool comparison (Gitleaks, TruffleHog, GitGuardian)
+- Incident response procedures (secret exposed, MCP compromised)
+- 3 new hooks: `unicode-injection-scanner.sh`, `repo-integrity-scanner.sh`, `mcp-config-integrity.sh`
 
-**Perplexity Query:**
-```
-MCP Model Context Protocol security vulnerabilities 2024-2025:
-- Tool shadowing attacks
-- Prompt injection bypass techniques for coding assistants
-- Secret detection regex patterns comparison (GitHub vs Gitleaks vs TruffleHog)
-Include real incidents if documented.
-```
+---
+
+## High Priority
+
+*(No items currently)*
 
 ---
 

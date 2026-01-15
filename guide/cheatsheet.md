@@ -393,4 +393,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 3.5.0*
+*Last updated: January 2026 | Version 3.6.0*

@@ -72,14 +72,18 @@ Ready-to-use templates for Claude Code configuration.
 |------|-------|---------|
 | [dangerous-actions-blocker.sh](./hooks/bash/dangerous-actions-blocker.sh) | PreToolUse | Block dangerous commands/edits |
 | [security-check.*](./hooks/) | PreToolUse | Block secrets in commands |
+| [prompt-injection-detector.sh](./hooks/bash/prompt-injection-detector.sh) | PreToolUse | Detect injection attempts (+ANSI, null bytes) |
+| [unicode-injection-scanner.sh](./hooks/bash/unicode-injection-scanner.sh) | PreToolUse | Detect zero-width, RTL, ANSI escape |
+| [repo-integrity-scanner.sh](./hooks/bash/repo-integrity-scanner.sh) | PreToolUse | Scan README/package.json for injection |
+| [mcp-config-integrity.sh](./hooks/bash/mcp-config-integrity.sh) | SessionStart | Verify MCP config hash (CVE protection) |
+| [output-secrets-scanner.sh](./hooks/bash/output-secrets-scanner.sh) | PostToolUse | Detect secrets + env leakage |
 | [auto-format.*](./hooks/) | PostToolUse | Auto-format after edits |
 | [notification.sh](./hooks/bash/notification.sh) | Notification | Contextual macOS sound alerts |
-| [prompt-injection-detector.sh](./hooks/bash/prompt-injection-detector.sh) | PreToolUse | Detect prompt injection attempts |
 | [output-validator.sh](./hooks/bash/output-validator.sh) | PostToolUse | Heuristic output validation |
 | [session-logger.sh](./hooks/bash/session-logger.sh) | PostToolUse | Log operations for monitoring |
 | [pre-commit-evaluator.sh](./hooks/bash/pre-commit-evaluator.sh) | Git hook | LLM-as-a-Judge pre-commit |
 
-> **See [hooks/README.md](./hooks/README.md) for complete documentation and examples**
+> **See [hooks/README.md](./hooks/README.md) for complete documentation and security hardening patterns**
 
 ### Config
 | File | Purpose |
