@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.6.0
+**Version**: 3.6.1
 
 ---
 
@@ -396,7 +396,7 @@ Check @./CLAUDE.md for project conventions
 **Why use `@`**:
 - **Precision**: Target exact files instead of letting Claude search
 - **Speed**: Skip file discovery phase
-- **Context**: Claude loads file content automatically
+- **Context**: Signals Claude to read these files on-demand via tools
 - **Clarity**: Makes your intent explicit
 
 **Example**:
@@ -407,7 +407,7 @@ Claude: Which file contains the authentication logic? [Wastes time searching]
 
 # With @
 You: Fix the authentication bug in @src/auth/middleware.ts
-Claude: [Immediately loads file and proposes fix]
+Claude: [Reads file on-demand and proposes fix]
 ```
 
 #### Working with Images and Screenshots
@@ -505,13 +505,23 @@ Claude Code allows you to **continue previous conversations** across terminal se
 **Finding session IDs**:
 
 ```bash
-# List recent sessions with IDs
+# Native: Interactive session picker
+claude --resume
+
+# Native: List via Serena MCP (if configured)
 claude mcp call serena list_sessions
+
+# Recommended: Fast search with ready-to-use resume commands
+# See examples/scripts/session-search.sh (zero dependencies, 15ms list, 400ms search)
+cs                    # List 10 most recent sessions
+cs "authentication"   # Full-text search across all sessions
 
 # Sessions are also shown when you exit
 You: /exit
 Session ID: abc123def (saved for resume)
 ```
+
+> **Session Search Tool**: For fast session search with copy-paste resume commands, see [Observability Guide](./observability.md#session-search--resume) and [session-search.sh](../examples/scripts/session-search.sh).
 
 **Common use cases**:
 
@@ -670,9 +680,9 @@ Switching from GitHub Copilot, Cursor, or other AI assistants? Here's what you n
 
 #### What Claude Code Does Better
 
-- **Multi-file refactoring** - Copilot: one file at a time | Claude: entire codebase
+- **Multi-file refactoring** - Copilot: one file at a time | Claude: reads and edits across files
 - **Complex tasks** - Copilot: suggests lines | Claude: implements features
-- **Understanding context** - Copilot: current file | Claude: project-wide awareness
+- **Understanding context** - Copilot: current file | Claude: can search and read project-wide
 - **Explaining code** - Copilot: limited | Claude: detailed explanations
 - **Debugging** - Copilot: weak | Claude: systematic root cause analysis
 
@@ -2363,13 +2373,27 @@ When you use Claude Code, the following data leaves your machine:
 
 ### Protecting Sensitive Data
 
-**1. Exclude sensitive files** in `.claude/settings.json`:
+**1. Block access to sensitive files** in `.claude/settings.json`:
 
 ```json
 {
-  "excludePatterns": [".env*", "**/credentials*", "**/*.pem"]
+  "permissions": {
+    "deny": [
+      "Read(./.env*)",
+      "Edit(./.env*)",
+      "Write(./.env*)",
+      "Bash(cat .env*)",
+      "Bash(head .env*)",
+      "Read(./secrets/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/credentials*)"
+    ]
+  }
 }
 ```
+
+> **Warning**: `permissions.deny` has known limitations. See [Security Hardening Guide](./security-hardening.md#known-limitations-of-permissionsdeny) for details.
 
 **2. Never connect production databases** to MCP servers. Use dev/staging with anonymized data.
 
@@ -5035,7 +5059,7 @@ uvx --from git+https://github.com/oraios/serena serena project index
 | **Semantic search** | Find code by natural language description |
 | **Background indexing** | `mgrep watch` indexes respecting `.gitignore` |
 | **Multi-format** | Search code, PDFs, images, text |
-| **Web integration** | `--web` flag for web search fallback |
+| **Web integration** | Web search fallback capability |
 
 **Example**:
 
@@ -5657,13 +5681,15 @@ The most powerful Claude Code pattern combines three techniques:
 | Architectural decision | ✅ Yes |
 | Legacy system modernization | ✅ Yes |
 
-### Ultrathink Levels
+### Extended Thinking Techniques
 
-| Flag | Thinking Depth | Token Usage | Best For |
-|------|----------------|-------------|----------|
-| `--think` | Standard | ~4K | Multi-component analysis |
-| `--think-hard` | Deep | ~10K | Architectural decisions |
-| `--ultrathink` | Maximum | ~32K | Critical redesign |
+> ⚠️ **Note**: `--think`, `--think-hard`, and `--ultrathink` are **NOT official Claude Code CLI flags**. They do not exist in `claude --help`. The techniques below use **prompt keywords** to encourage deeper analysis, not CLI flags.
+
+| Prompt Keyword | Thinking Depth | Estimated Tokens | Best For |
+|----------------|----------------|------------------|----------|
+| "Think" | Standard | ~4K (estimate) | Multi-component analysis |
+| "Think hard" | Deep | ~10K (estimate) | Architectural decisions |
+| "Ultrathink" | Maximum | ~32K (estimate) | Critical redesign |
 
 #### Inline Thinking Keywords
 
@@ -5785,13 +5811,13 @@ Run Claude Code without interactive prompts:
 
 ```bash
 # Basic headless execution
-claude --headless "Run the tests and report results"
+claude -p "Run the tests and report results"
 
 # With timeout
-claude --headless --timeout 300 "Build the project"
+claude -p --timeout 300 "Build the project"
 
 # With specific model
-claude --headless --model sonnet "Analyze code quality"
+claude -p --model sonnet "Analyze code quality"
 ```
 
 ### Unix Piping Workflows
@@ -5868,9 +5894,9 @@ cat large-file.txt | claude -p 'Analyze line by line' --output-format stream-jso
   cat entire-codebase/* | claude -p 'review'
   ```
 
-- **Use non-interactive mode**: Add `--headless` for automation
+- **Use non-interactive mode**: Add `-p` for automation
   ```bash
-  cat file.txt | claude --headless -p 'fix linting errors' > output.txt
+  cat file.txt | claude -p -p 'fix linting errors' > output.txt
   ```
 
 - **Combine with jq for JSON**: Parse Claude's JSON output
@@ -5911,9 +5937,9 @@ git log --oneline -10 | claude -p 'Categorize commits by type' --output-format j
 {
   "scripts": {
     "claude-review": "git diff main | claude -p 'Review for security issues' --output-format json > review.json",
-    "claude-test-summary": "npm test 2>&1 | claude --headless -p 'Summarize failures and suggest fixes'",
+    "claude-test-summary": "npm test 2>&1 | claude -p -p 'Summarize failures and suggest fixes'",
     "claude-docs": "cat src/**/*.ts | claude -p 'Generate API documentation' > API.md",
-    "precommit-check": "git diff --cached | claude --headless -p 'Check for secrets or anti-patterns' && git diff --cached | prettier --check"
+    "precommit-check": "git diff --cached | claude -p -p 'Check for secrets or anti-patterns' && git diff --cached | prettier --check"
   }
 }
 ```
@@ -5941,7 +5967,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           git diff origin/main...HEAD | \
-            claude --headless -p 'Review this PR diff for security issues, performance problems, and code quality. Format as JSON.' \
+            claude -p -p 'Review this PR diff for security issues, performance problems, and code quality. Format as JSON.' \
             --output-format json > review.json
 
       - name: Comment on PR
@@ -5961,7 +5987,7 @@ jobs:
 **Limitations**:
 
 - **Context size**: Large pipes may exceed token limits (monitor with `/status`)
-- **Interactive prompts**: Use `--headless` for automation to avoid blocking
+- **Interactive prompts**: Use `-p` for automation to avoid blocking
 - **Error handling**: Pipe failures don't always propagate; add `set -e` for strict mode
 - **API costs**: Automated pipes consume API credits; monitor usage with `ccusage`
 
@@ -5986,7 +6012,7 @@ jobs:
 
 # Run Claude Code for commit message validation
 COMMIT_MSG=$(cat "$1")
-claude --headless "Is this commit message good? '$COMMIT_MSG'. Reply YES or NO with reason."
+claude -p "Is this commit message good? '$COMMIT_MSG'. Reply YES or NO with reason."
 ```
 
 **Pre-push hook**:
@@ -5996,7 +6022,7 @@ claude --headless "Is this commit message good? '$COMMIT_MSG'. Reply YES or NO w
 # .git/hooks/pre-push
 
 # Security check before push
-claude --headless "Scan staged files for secrets and security issues. Exit 1 if found."
+claude -p "Scan staged files for secrets and security issues. Exit 1 if found."
 EXIT_CODE=$?
 
 if [ $EXIT_CODE -ne 0 ]; then
@@ -6028,7 +6054,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          claude --headless "Review the changes in this PR. \
+          claude -p "Review the changes in this PR. \
             Focus on security, performance, and code quality. \
             Output as markdown."
 ```
@@ -6080,7 +6106,7 @@ gh run view $FAILED_RUN --log-failed | claude -p "Analyze this CI failure and su
 
 ```bash
 # Fetch failures and auto-fix
-gh run view --log-failed | claude --headless "
+gh run view --log-failed | claude -p "
   Analyze these test failures.
   Identify the root cause.
   Propose fixes for each failing test.
@@ -6313,7 +6339,7 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
 
           # Generate with Claude
-          claude --headless "Generate release notes for $VERSION. \
+          claude -p "Generate release notes for $VERSION. \
             Analyze commits since last tag. \
             Output in GitHub Release format. \
             Save to release-notes.md"
@@ -6502,7 +6528,7 @@ alias cce='claude --execute'
 
 # Quick code question
 cq() {
-    claude --headless "$*"
+    claude -p "$*"
 }
 ```
 
@@ -6521,7 +6547,7 @@ function cce { claude --execute $args }
 
 function cq {
     param([Parameter(ValueFromRemainingArguments)]$question)
-    claude --headless ($question -join ' ')
+    claude -p ($question -join ' ')
 }
 ```
 
@@ -7052,22 +7078,22 @@ exit 0  # Allow
 - Load entire monorepo when you only need one package
 - Max out thinking/turn budgets for simple tasks (wastes time and money)
 - Ignore session cleanup - old sessions accumulate and slow down Claude Code
-- Use `--ultrathink` for trivial edits like typo fixes
+- Use deep thinking prompts for trivial edits like typo fixes
 - Keep context at 90%+ for extended periods
 - Load large binary files or generated code into context
 - Run expensive MCP operations in tight loops
 
 **✅ Do:**
 
-- Use `--add-dir` for focused context on specific directories
-- Right-size thinking levels to task complexity:
-  - Simple edits: No flags
-  - Medium analysis: `--think`
-  - Complex architecture: `--think-hard`
-  - Critical redesign: `--ultrathink`
+- Use `--add-dir` to allow tool access to directories outside the current working directory
+- Right-size thinking depth to task complexity:
+  - Simple edits: Standard prompts
+  - Medium analysis: "Think about this"
+  - Complex architecture: "Think hard about this"
+  - Critical redesign: "Ultrathink" in your prompt
 - Set `cleanupPeriodDays` in config to prune old sessions automatically
 - Use `/compact` proactively when context reaches 70%
-- Exclude irrelevant directories with `.claudeignore`
+- Block sensitive files with `permissions.deny` in settings.json
 - Monitor cost with `/status` and adjust model/thinking levels accordingly
 - Cache expensive computations in memory with Serena MCP
 
@@ -7177,7 +7203,7 @@ VERIFY:
 **❌ Don't:**
 
 - Use Opus for simple tasks that Sonnet can handle
-- Leave `--ultrathink` on by default
+- Use deep thinking prompts for every task by default
 - Ignore the cost metrics in `/status`
 - Use MCP servers that make external API calls excessively
 - Load entire codebase for focused tasks
@@ -7204,7 +7230,7 @@ VERIFY:
 | Feature implementation | Sonnet | Best balance |
 | Code review | Haiku/Sonnet | Depends on depth |
 | Architecture design | Opus (plan) → Sonnet (execute) | OpusPlan mode |
-| Complex debugging | Opus with `--think` | Worth the cost |
+| Complex debugging | Opus with thinking prompts | Worth the cost |
 | Batch operations | Sonnet | Efficient at scale |
 
 ### Learning & Adoption Pitfalls
@@ -7772,46 +7798,30 @@ You: "Implement the caching layer following the plan"
 
 ### Token-Saving Techniques
 
-**1. Selective context loading:**
+> **Important**: Claude Code uses lazy loading - it doesn't "load" your entire codebase at startup. Files are read on-demand when you ask Claude to analyze them. The main context consumers at startup are your CLAUDE.md files and auto-loaded rules.
 
-```bash
-# ❌ Load entire monorepo (wastes tokens)
-cd monorepo
-claude
+**1. Keep CLAUDE.md files concise:**
 
-# ✅ Load only needed directory
-cd monorepo
-claude --add-dir packages/api
+```markdown
+# ❌ Bloated CLAUDE.md (wastes tokens on every session)
+- 500+ lines of instructions
+- Multiple @includes importing other files
+- Rarely-used guidelines
+
+# ✅ Lean CLAUDE.md
+- Essential project context only (<200 lines)
+- Move rarely-used rules to .claude/rules/ (loaded on-demand)
+- Split by concern: team rules in project CLAUDE.md, personal prefs in ~/.claude/CLAUDE.md
 ```
 
-**2. Use .claudeignore:**
+**2. Use targeted file references:**
 
-```gitignore
-# .claudeignore - Exclude from context
+```bash
+# ❌ Vague request (Claude reads many files to find context)
+"Fix the authentication bug"
 
-# Dependencies
-node_modules/
-vendor/
-.venv/
-
-# Generated files
-dist/
-build/
-*.min.js
-*.bundle.js
-
-# Large data
-*.sql
-*.csv
-*.json.gz
-
-# IDE files
-.vscode/
-.idea/
-
-# Logs
-*.log
-logs/
+# ✅ Specific request (Claude reads only what's needed)
+"Fix the JWT validation in @src/auth/middleware.ts line 45"
 ```
 
 **3. Compact proactively:**
@@ -8008,7 +8018,7 @@ Daily practices:
 □ Use /status to monitor context and cost
 □ Compact at 70% context usage
 □ Close sessions after task completion
-□ Use .claudeignore to exclude unnecessary files
+□ Use `permissions.deny` to block sensitive files
 
 Model selection:
 □ Default to Sonnet for most work
@@ -8017,7 +8027,7 @@ Model selection:
 □ Try OpusPlan mode for strategic work
 
 Context management:
-□ Load only needed directories (--add-dir)
+□ Use specific file references (@path/to/file.ts)
 □ Batch similar tasks in single session
 □ Reuse context for multiple related tasks
 □ Create specialized agents with focused context
@@ -8300,7 +8310,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 |-------|---------|---------|
 | `-c -p "msg"` | Resume session + single prompt | `claude -c -p "run tests"` |
 | `-r <id> -p` | Resume specific session + prompt | `claude -r abc123 -p "check status"` |
-| `--headless -p` | Non-interactive automation | `claude --headless -p "lint fix" < errors.txt` |
+| `-p -p` | Non-interactive automation | `claude -p -p "lint fix" < errors.txt` |
 
 > **Note**: Combine resume flags with `-p` for scripting and CI/CD workflows.
 
@@ -8352,7 +8362,7 @@ Complete reference for all Claude Code command-line flags.
 | `--permission-mode` | Permission mode (default/auto/plan) | `claude --permission-mode plan` |
 | `--model` | Model selection | `claude --model sonnet` |
 | `--max-budget-usd` | Maximum API spend limit (with `--print` only) | `claude -p "analyze" --max-budget-usd 5.00` |
-| `--add-dir` | Add additional directories to context | `claude --add-dir ../shared ../utils` |
+| `--add-dir` | Allow tool access to additional directories | `claude --add-dir ../shared ../utils` |
 | `--continue` | Continue last conversation | `claude --continue` |
 | `-r, --resume` | Resume session by ID | `claude --resume abc123` |
 | `--dangerously-skip-permissions` | Skip all permission prompts | `claude --dangerously-skip-permissions` |
@@ -8373,7 +8383,7 @@ claude -p "analyze code quality" --output-format json
 # Economic analysis with Haiku
 claude -p "review this file" --model haiku
 
-# Focused context (performance)
+# Allow access to a directory outside CWD
 claude --add-dir ./src/components
 
 # Plan mode for safety
@@ -8815,11 +8825,11 @@ Get the scripts from:
 ║  hooks/     Event scripts     rules/     Auto-load rules  ║
 ║  skills/    Knowledge modules                             ║
 ║                                                           ║
-║  ULTRATHINK LEVELS                                        ║
-║  ─────────────────                                        ║
-║  --think        ~4K tokens    Standard analysis           ║
-║  --think-hard   ~10K tokens   Deep analysis               ║
-║  --ultrathink   ~32K tokens   Maximum depth               ║
+║  THINKING PROMPTS (keywords, not CLI flags)               ║
+║  ─────────────────────────────────────────                ║
+║  "Think"        Standard      Multi-component analysis    ║
+║  "Think hard"   Deep          Architecture decisions      ║
+║  "Ultrathink"   Maximum       Critical redesign           ║
 ║                                                           ║
 ║  MCP SERVERS                                              ║
 ║  ───────────                                              ║
@@ -9139,6 +9149,8 @@ SuperClaude transforms Claude Code into a structured development platform throug
 
 #### SuperClaude Behavioral Modes
 
+> ⚠️ **Non-official Extension**: SuperClaude flags (`--learn`, `--uc`, `--think`, etc.) are **NOT Claude Code CLI flags**. They work via prompt injection in CLAUDE.md files and require installing the SuperClaude framework.
+
 SuperClaude includes configurable behavioral modes stored in `~/.claude/MODE_*.md` files:
 
 | Mode | Purpose | Activation |
@@ -9306,7 +9318,7 @@ Use the included audit prompt to analyze your current Claude Code configuration:
 
 **How to use**:
 1. Copy the prompt from the file
-2. Run `claude --ultrathink` in your project directory
+2. Run `claude` in your project directory
 3. Paste the prompt and review findings
 4. Choose which recommendations to implement
 
@@ -9515,4 +9527,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.6.0
+**Last updated**: January 2026 | **Version**: 3.6.1

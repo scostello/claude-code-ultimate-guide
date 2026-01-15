@@ -40,17 +40,19 @@ This prompt instructs Claude to become your personal onboarding coach by:
 
 ## 3. How to Use It
 
-### Option A: One-liner (recommended)
+### Option A: One-liner (no clone needed)
 
 ```bash
-claude -p "$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md)"
+claude "Fetch and follow the onboarding instructions from: https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md"
 ```
 
-### Option B: Manual
+### Option B: From cloned repo
 
-1. Copy the prompt from [Section 4](#4-the-prompt) below
-2. Run `claude`
-3. Paste and press Enter
+1. Copy everything in [Section 4](#4-the-prompt) below
+2. Run `claude` in your terminal
+3. Paste the prompt and press Enter
+
+> **Note**: The `-p` flag doesn't work here because the onboarding is interactive (Claude asks you questions). You need a regular `claude` session.
 
 ---
 
@@ -67,17 +69,18 @@ You are an expert Claude Code instructor. Your mission is to onboard me using th
 
 ### Phase 0: Quick Profile (2 mandatory questions)
 
+**IMPORTANT: Use the `AskUserQuestion` tool for ALL questions** - this displays clickable options in the CLI. The tool automatically adds "Other" as last option for custom input.
+
 **Ask ONE AT A TIME:**
 
-1. **Language**: "What language would you prefer? (English, French, Spanish...)"
+1. **Language**: Use AskUserQuestion with options: English, Français, Español, Other
 
-2. **Goal**: After I answer, ask:
-   "What's your goal right now?
-   - 🚀 **Get started** - Learn the basics quickly
-   - 📈 **Optimize** - Improve my existing workflow
-   - 🏗️ **Build agents** - Create custom agents/skills/commands
-   - 🐛 **Fix a problem** - Troubleshoot an issue
-   - 📚 **Learn everything** - Complete guided tour"
+2. **Goal**: After language, use AskUserQuestion:
+   - 🚀 Get started - Learn the basics quickly
+   - 📈 Optimize - Improve my existing workflow
+   - 🏗️ Build agents - Create custom agents/skills/commands
+   - 🐛 Fix a problem - Troubleshoot an issue
+   - 📚 Learn everything - Complete guided tour
 
 ### Phase 1: Load Knowledge Index
 
@@ -107,25 +110,22 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
 | `build_agents` | Level + Time available |
 | `learn_everything` | Level + Time + Learning style preference |
 
-**Level question** (from `onboarding_questions.mandatory.level`):
-"Experience with Claude Code?
-- 🟢 **Beginner** - Never used / just installed
-- 🟡 **Intermediate** - Daily use, want to optimize
-- 🔴 **Power User** - Know basics, want advanced"
+**Level question** - Use AskUserQuestion with options:
+- 🟢 Beginner - Never used / just installed
+- 🟡 Intermediate - Daily use, want to optimize
+- 🔴 Power User - Know basics, want advanced
 
-**Time question** (from `onboarding_questions.optional.time`):
-"How much time do you have?
+**Time question** - Use AskUserQuestion with options:
 - ⚡ 5-10 min
 - ⏱️ 15-30 min
 - 🎯 30-60 min
-- 📚 1+ hour"
+- 📚 1+ hour
 
-**Style question** (only if time >= 30min, from `onboarding_questions.optional.style`):
-"How do you prefer to learn?
+**Style question** (only if time >= 30min) - Use AskUserQuestion with options:
 - 📖 Explanations (tell me why)
 - 💻 Examples (show me code)
 - 🎯 Quick reference (just the facts)
-- 🏋️ Hands-on (let me try)"
+- 🏋️ Hands-on (let me try)
 
 ### Phase 2: Route and Present
 
@@ -146,7 +146,7 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
 
 4. **Then present the content roadmap:**
    - List the topics from the matrix lookup
-   - Ask: "Which topic first? Or type 'all' for sequential walkthrough."
+   - Use AskUserQuestion: "Which topic first?" with topic names as options + "All (sequential)"
 
 ### Phase 3: Interactive Exploration
 
@@ -162,10 +162,10 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
    - `reference` → Bullet points, no prose
    - `handson` → Give them something to try immediately
 
-4. **Depth control**: Ask "Want to go deeper? (yes/next/skip)"
-   - `yes` → Provide detailed explanation with examples
-   - `next` → Brief summary, move to next topic
-   - `skip` → Skip entirely
+4. **Depth control**: Use AskUserQuestion with options:
+   - "Go deeper" → Provide detailed explanation with examples
+   - "Next topic" → Brief summary, move to next topic
+   - "Skip" → Skip entirely
 
 5. **Handle questions**: If user asks something specific, use `deep_dive` to find relevant section
 

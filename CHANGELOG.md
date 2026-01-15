@@ -6,6 +6,168 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [3.6.1] - 2026-01-15
+
+### Fixed - Critical Factual Corrections
+
+Major audit identifying and correcting factual errors that could mislead users about Claude Code's actual behavior.
+
+#### 1. `--add-dir` Flag (Wrong Description → Permissions, Not Context Loading)
+
+**Before**: Documented as "loading directories into context" / "focused context"
+**Reality**: Grants tool access to directories outside CWD (permissions only, no token impact)
+
+| File | Correction |
+|------|------------|
+| guide/ultimate-guide.md | "focused context" → "allow tool access outside CWD" |
+| guide/cheatsheet.md | "Add directory" → "Allow access outside CWD" |
+| machine-readable/reference.yaml | "limit loaded dirs" → "access dirs outside CWD" |
+| quiz/questions/10-reference.yaml | Question + explanation corrected |
+
+#### 2. `excludePatterns` → `permissions.deny` (Never Existed)
+
+**Before**: Documented `excludePatterns` as a valid settings key
+**Reality**: Never existed - the correct syntax is `permissions.deny`
+
+| File | Correction |
+|------|------------|
+| guide/ultimate-guide.md | New syntax + warning |
+| guide/data-privacy.md | New syntax + deprecation note |
+| examples/scripts/audit-scan.sh | Detection + message fixed |
+| tools/audit-prompt.md | 3 references corrected |
+
+#### 3. `.claudeignore` Removed (Does Not Exist)
+
+**Before**: Documented as a file exclusion mechanism like `.gitignore`
+**Reality**: Not an official feature - use `permissions.deny` instead
+
+| File | Correction |
+|------|------------|
+| guide/ultimate-guide.md | References → `permissions.deny` |
+| guide/data-privacy.md | Section removed |
+| CHANGELOG.md:1244 | Historical reference corrected |
+
+#### 4. "Selective Context Loading" Myth → Lazy Loading Reality
+
+**Before**: Implied Claude loads entire codebase or selectively loads directories
+**Reality**: Claude uses lazy loading - reads files on-demand via Read/Grep tools
+
+| File | Correction |
+|------|------------|
+| guide/ultimate-guide.md | New section explaining lazy loading |
+| guide/cheatsheet.md | "Giant context loads" → "Vague prompts" |
+| machine-readable/reference.yaml | "load giant context" → "bloated CLAUDE.md" |
+
+#### 5. Invented CLI Flags (SuperClaude Extension Confusion)
+
+**Before**: `--think`, `--think-hard`, `--ultrathink`, `--headless`, `--learn`, `--uc`, `--web` documented as official CLI flags
+**Reality**: These are SuperClaude framework extensions (prompt injection), NOT official Claude Code flags
+
+| Correction Type | Details |
+|-----------------|---------|
+| `--headless` | Replaced with `-p` (the actual flag for non-interactive mode) |
+| `--think` variants | Clarified as "prompt keywords", not CLI flags |
+| SuperClaude section | Added warning: "Non-official Extension" |
+| Cheatsheet | Think flags table reformatted as prompt keywords |
+| Decision tree | "Use --think" → "Use extended thinking prompts" |
+
+#### 6. `@` File Reference Behavior
+
+**Before**: "Claude loads file content automatically"
+**After**: "Signals Claude to read files on-demand via tools"
+
+### Added - Session Search Tool (`cs`)
+
+**Problem solved**: After weeks of Claude Code usage, finding past conversations becomes painful:
+- `claude --resume` is interactive (no search)
+- Sessions accumulate in `~/.claude/projects/`
+- No quick way to search "that session where I talked about auth"
+
+**Solution**: `cs` — Zero-dependency bash script for searching and resuming sessions.
+
+```bash
+cs                    # List 10 recent sessions (15ms)
+cs "authentication"   # Full-text search (400ms)
+cs -n 20              # More results
+
+# Output:
+# 2026-01-15 08:32 │ my-project │ Implement OAuth flow for...
+#   claude --resume 84287c0d-8778-4a8d-abf1-eb2807e327a8
+```
+
+**Performance comparison**:
+
+| Tool | List | Search | Deps | Resume cmd |
+|------|------|--------|------|------------|
+| `cs` (this script) | 15ms | 400ms | None | ✅ Shown |
+| claude-conversation-extractor | 230ms | 1.7s | Python | ❌ |
+| `claude --resume` native | 500ms+ | ❌ | None | Interactive |
+
+**Files created/modified**:
+
+| File | Description |
+|------|-------------|
+| `examples/scripts/session-search.sh` | Script in repo (source) |
+| `examples/README.md` | Entry in Scripts table |
+| `guide/observability.md` | Section "Session Search & Resume" |
+| `guide/ultimate-guide.md:505-524` | Examples in "Finding session IDs" |
+| `README.md:398-403` | Section "Utility Scripts" |
+| `machine-readable/reference.yaml` | `deep_dive.session_search` entry |
+
+**Installation** (local):
+```bash
+# Copy script
+cp examples/scripts/session-search.sh ~/.claude/scripts/cs
+chmod +x ~/.claude/scripts/cs
+
+# Add alias to shell
+echo 'alias cs="~/.claude/scripts/cs"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### Added - Security Documentation
+
+| File | Addition |
+|------|----------|
+| guide/security-hardening.md | Section 1.2 "Known Limitations of permissions.deny" |
+
+**Content**:
+- Blocking matrix (Read/Edit/Write/Bash)
+- Security gaps documented (GitHub #4160)
+- Recommended exhaustive config
+- Defense-in-depth strategy
+
+### Files Modified (15 total)
+
+```
+guide/ultimate-guide.md
+guide/cheatsheet.md
+guide/data-privacy.md
+guide/security-hardening.md
+guide/observability.md
+machine-readable/reference.yaml
+examples/scripts/audit-scan.sh
+examples/scripts/session-search.sh (NEW)
+examples/README.md
+tools/audit-prompt.md
+quiz/questions/01-quick-start.yaml
+quiz/questions/10-reference.yaml
+CHANGELOG.md
+```
+
+### Root Cause Analysis
+
+The factual errors originated from:
+1. **SuperClaude framework confusion**: User had `~/.claude/FLAGS.md` with custom flags that were documented as if official
+2. **Assumption propagation**: "selective loading" concept was assumed from other AI tools
+3. **Outdated syntax**: `excludePatterns` may have been planned but never implemented
+
+---
+
+## [3.6.0] - 2026-01-15
+
 ### Added - Version Sync Infrastructure
 
 Single source of truth for versioning across all documentation.
@@ -1241,7 +1403,7 @@ quiz/
 - **Section 9.13: Cost Optimization Strategies** (~350 lines)
   - Model selection matrix (Haiku/Sonnet/Opus use cases and costs)
   - OpusPlan mode (Opus for planning, Sonnet for execution)
-  - Token-saving techniques (selective loading, .claudeignore, proactive compacting)
+  - Token-saving techniques (concise CLAUDE.md, targeted @references, proactive compacting)
   - Agent specialization for efficiency
   - Cost tracking with /status command and budget alerts
   - Economic workflows (Haiku for tests, Sonnet for implementation)

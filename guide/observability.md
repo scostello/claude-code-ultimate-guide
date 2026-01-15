@@ -5,11 +5,12 @@
 ## Table of Contents
 
 1. [Why Monitor Sessions](#why-monitor-sessions)
-2. [Setting Up Session Logging](#setting-up-session-logging)
-3. [Analyzing Session Data](#analyzing-session-data)
-4. [Cost Tracking](#cost-tracking)
-5. [Patterns & Best Practices](#patterns--best-practices)
-6. [Limitations](#limitations)
+2. [Session Search & Resume](#session-search--resume)
+3. [Setting Up Session Logging](#setting-up-session-logging)
+4. [Analyzing Session Data](#analyzing-session-data)
+5. [Cost Tracking](#cost-tracking)
+6. [Patterns & Best Practices](#patterns--best-practices)
+7. [Limitations](#limitations)
 
 ---
 
@@ -22,6 +23,88 @@ Claude Code usage can accumulate quickly, especially in active development. Moni
 - **Optimize workflow**: Find inefficiencies (e.g., repeatedly reading the same large file)
 - **Track projects**: Compare usage across different codebases
 - **Team visibility**: Aggregate usage for team budgeting (when combining logs)
+
+---
+
+## Session Search & Resume
+
+After weeks of using Claude Code, finding past conversations becomes challenging. This section covers native options and community tools.
+
+### Native Commands
+
+| Command | Use Case |
+|---------|----------|
+| `claude -c` / `claude --continue` | Resume most recent session |
+| `claude -r <id>` / `claude --resume <id>` | Resume specific session by ID |
+| `claude --resume` | Interactive session picker |
+
+Sessions are stored locally at `~/.claude/projects/<project>/` as JSONL files.
+
+### Community Tools Comparison
+
+| Tool | Install | List Speed | Search Speed | Dependencies | Resume Command |
+|------|---------|------------|--------------|--------------|----------------|
+| **session-search.sh** (this repo) | Copy script | **10ms** | **400ms** | None (bash) | ✅ Displayed |
+| claude-conversation-extractor | `pip install` | 230ms | 1.7s | Python | ❌ |
+| claude-code-transcripts | `uvx` | N/A | N/A | Python | ❌ |
+| ran CLI | `npm -g` | N/A | Fast | Node.js | ❌ (commands only) |
+
+### Recommended: session-search.sh
+
+Zero-dependency bash script optimized for speed with ready-to-use resume commands.
+
+**Install:**
+```bash
+cp examples/scripts/session-search.sh ~/.claude/scripts/cs
+chmod +x ~/.claude/scripts/cs
+echo "alias cs='~/.claude/scripts/cs'" >> ~/.zshrc
+source ~/.zshrc
+```
+
+**Usage:**
+```bash
+cs                    # List 10 most recent sessions (10ms)
+cs "authentication"   # Full-text search (400ms)
+cs -n 20              # Show 20 results
+cs --rebuild          # Force index rebuild
+```
+
+**Output:**
+```
+2026-01-15 08:32 │ my-project             │ Implement OAuth flow for...
+  claude --resume 84287c0d-8778-4a8d-abf1-eb2807e327a8
+
+2026-01-14 21:13 │ other-project          │ Fix database migration...
+  claude --resume 1340c42e-eac5-4181-8407-cc76e1a76219
+```
+
+Copy-paste the `claude --resume` command to continue any session.
+
+### How It Works
+
+1. **Index mode** (no keyword): Builds/uses cached TSV index of all sessions. Refreshes every hour. ~10ms lookup.
+2. **Search mode** (with keyword): Greps full JSONL content. ~400ms for 200+ sessions.
+3. **Filters**: Automatically excludes agent/subagent sessions (internal automation, not user conversations).
+
+### Alternative: Python Tools
+
+If you prefer richer features (HTML export, multiple formats):
+
+```bash
+# Install
+pip install claude-conversation-extractor
+
+# Interactive UI
+claude-start
+
+# Direct search
+claude-search "keyword"
+
+# Export to markdown
+claude-extract --format markdown
+```
+
+See [session-search.sh](../examples/scripts/session-search.sh) for the complete script.
 
 ---
 
@@ -288,6 +371,7 @@ find ~/.claude/logs -name "*.jsonl" -mtime +30 -delete
 
 ## Related Resources
 
+- [Session Search Script](../examples/scripts/session-search.sh) - Fast session search & resume
 - [Session Logger Hook](../examples/hooks/bash/session-logger.sh)
 - [Stats Analysis Script](../examples/scripts/session-stats.sh)
 - [Data Privacy Guide](./data-privacy.md) - What data leaves your machine

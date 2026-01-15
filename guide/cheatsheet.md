@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.6.0 | **Last Updated**: January 2026
+**Version**: 3.6.1 | **Last Updated**: January 2026
 
 ---
 
@@ -167,15 +167,20 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 
 ---
 
-## Plan Mode & Think Levels
+## Plan Mode & Thinking Depth
 
 | Feature | Activation | Usage |
 |---------|------------|-------|
 | **Plan Mode** | `Shift+Tab × 2` or `/plan` | Explore without modifying |
 | **OpusPlan** | `/model opusplan` | Opus for planning, Sonnet for execution |
-| **Think** | `--think` flag | Standard analysis (~4K tokens) |
-| **Think Hard** | `--think-hard` flag | Deep analysis (~10K tokens) |
-| **Ultrathink** | `--ultrathink` flag | Maximum depth (~32K tokens) |
+
+> ⚠️ **Note**: Extended thinking uses **prompt keywords** (e.g., "think hard"), not CLI flags.
+
+| Prompt Keyword | Thinking Depth | Use For |
+|----------------|----------------|---------|
+| "Think" | Standard | Multi-component analysis |
+| "Think hard" | Deep | Architectural decisions |
+| "Ultrathink" | Maximum | Critical redesign |
 
 **OpusPlan workflow**: `/model opusplan` → `Shift+Tab × 2` (plan with Opus) → `Shift+Tab` (execute with Sonnet)
 
@@ -243,11 +248,10 @@ exit 0  # 0=continue, 2=block
 
 | ❌ Don't | ✅ Do |
 |----------|-------|
-| Vague prompts | Specify file + line |
+| Vague prompts | Specify file + line with @references |
 | Accept without reading | Read every diff |
-| Ignore warnings | Use `/compact` |
+| Ignore warnings | Use `/compact` at 70% |
 | Skip permissions | Never in production |
-| Giant context loads | Load only what's needed |
 | Negative constraints only | Provide alternatives |
 
 ---
@@ -275,12 +279,11 @@ VERIFY: Empty email shows error, invalid format shows error
 
 | Flag | Usage |
 |------|-------|
-| `-p "query"` | Non-interactive mode |
+| `-p "query"` | Non-interactive mode (CI/CD) |
 | `-c` / `--continue` | Continue last session |
 | `-r` / `--resume <id>` | Resume specific session |
-| `--headless` | Non-interactive (CI/CD) |
 | `--model sonnet` | Change model |
-| `--add-dir ../lib` | Add directory |
+| `--add-dir ../lib` | Allow access outside CWD |
 | `--permission-mode plan` | Plan mode |
 | `--dangerously-skip-permissions` | Auto-accept (use carefully) |
 | `--debug` | Debug output |
@@ -341,7 +344,7 @@ Risky change      → Plan Mode first
 Repeating task    → Create agent or command
 Context full      → /compact or /clear
 Need docs         → Use Context7 MCP
-Deep analysis     → Use --think or --ultrathink
+Deep analysis     → Use extended thinking prompts
 ```
 
 ---
@@ -377,7 +380,7 @@ where.exe claude; claude doctor; claude mcp list
 | Opus | Architecture, complex bugs | $$$ |
 | OpusPlan | Plan (Opus) + Execute (Sonnet) | $$ |
 
-**Tip**: Use `--add-dir` to load only needed directories (saves tokens)
+**Tip**: Use `--add-dir` to allow tool access to directories outside your current working directory
 
 ---
 
@@ -393,4 +396,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 3.6.0*
+*Last updated: January 2026 | Version 3.6.1*

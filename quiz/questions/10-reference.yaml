@@ -390,7 +390,7 @@ questions:
   - id: "10-016"
     difficulty: "senior"
     profiles: ["senior", "power"]
-    question: "What flag adds additional directories to context?"
+    question: "What flag allows Claude's tools to access directories outside the current working directory?"
     options:
       a: "--include-dir"
       b: "--add-dir"
@@ -398,15 +398,15 @@ questions:
       d: "--load-dir"
     correct: "b"
     explanation: |
-      Use `--add-dir` to add additional directories to context:
+      Use `--add-dir` to allow tool access to additional directories:
 
       ```bash
       claude --add-dir ../shared ../utils
       claude --add-dir packages/api
       ```
 
-      This is more efficient than loading the entire monorepo.
-      Multiple directories can be specified for multi-package projects.
+      By default, Claude can only access files in the current working directory.
+      Use --add-dir to extend permissions to other directories (e.g., shared libraries in a monorepo).
     doc_reference:
       file: "guide/ultimate-guide.md"
       section: "10.3 Configuration Reference"

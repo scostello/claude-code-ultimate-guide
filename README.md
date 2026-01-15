@@ -18,10 +18,16 @@
 
 ## Get Started in 60 Seconds
 
+**Option A: One-liner** (no clone needed)
 ```bash
-# Interactive onboarding - adapts to your level and goals
-claude -p "$(curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md)"
+claude "Fetch and follow the onboarding instructions from: https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/main/tools/onboarding-prompt.md"
 ```
+
+**Option B: From cloned repo**
+1. Copy the prompt from [tools/onboarding-prompt.md](./tools/onboarding-prompt.md#4-the-prompt)
+2. Run `claude` → Paste → Enter
+
+Claude asks 2 questions (goal + level) then guides you through personalized content.
 
 **Or browse directly:** [Cheat Sheet](./guide/cheatsheet.md) | [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) | [Full Guide](./guide/ultimate-guide.md)
 
@@ -389,6 +395,13 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/git-worktree](./examples/commands/git-worktree.md) | Manage git worktrees | Parallel development |
 | [/validate-changes](./examples/commands/validate-changes.md) | Validate code changes | Pre-commit checks |
 
+### Utility Scripts
+
+| Script | Purpose | Performance |
+|--------|---------|-------------|
+| [session-search.sh](./examples/scripts/session-search.sh) | Fast session search & resume | 15ms list, 400ms search |
+| [audit-scan.sh](./examples/scripts/audit-scan.sh) | Setup audit scanner | ~2s |
+
 ### Security & Automation Hooks
 
 | Hook | Event | Purpose |
@@ -547,7 +560,7 @@ If this guide saved you time, helped you master Claude Code, or inspired your wo
 
 ---
 
-*Version 3.6.0 | January 2026 | Crafted with Claude*
+*Version 3.6.1 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

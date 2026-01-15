@@ -118,7 +118,65 @@ Before adding any MCP server, complete this checklist:
 - Use read-only database credentials
 - Minimize environment variables exposed
 
-### 1.2 Repository Pre-Scan
+### 1.2 Known Limitations of permissions.deny
+
+The `permissions.deny` setting in `.claude/settings.json` is the official method to block Claude from accessing sensitive files. However, security researchers have documented architectural limitations.
+
+#### What permissions.deny Blocks
+
+| Operation | Blocked? | Notes |
+|-----------|----------|-------|
+| `Read()` tool calls | ✅ Yes | Primary blocking mechanism |
+| `Edit()` tool calls | ✅ Yes | With explicit deny rule |
+| `Write()` tool calls | ✅ Yes | With explicit deny rule |
+| `Bash(cat .env)` | ✅ Yes | With explicit deny rule |
+| `Glob()` patterns | ✅ Yes | Handled by Read rules |
+| `ls .env*` (filenames) | ⚠️ Partial | Exposes file existence, not contents |
+
+#### Known Security Gaps
+
+| Gap | Description | Source |
+|-----|-------------|--------|
+| **System reminders** | Background indexing may expose file contents via internal "system reminder" mechanism before tool permission checks | [GitHub #4160](https://github.com/anthropics/claude-code/issues/4160) |
+| **Bash wildcards** | Generic bash commands without explicit deny rules may access files | Security research |
+| **Indexing timing** | File watching operates at a layer below tool permissions | [GitHub #4160](https://github.com/anthropics/claude-code/issues/4160) |
+
+#### Recommended Configuration
+
+Block **all** access vectors, not just `Read`:
+
+```json
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env*)",
+      "Edit(./.env*)",
+      "Write(./.env*)",
+      "Bash(cat .env*)",
+      "Bash(head .env*)",
+      "Bash(tail .env*)",
+      "Bash(grep .env*)",
+      "Read(./secrets/**)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)"
+    ]
+  }
+}
+```
+
+#### Defense-in-Depth Strategy
+
+Because `permissions.deny` alone cannot guarantee complete protection:
+
+1. **Store secrets outside project directories** — Use `~/.secrets/` or external vault
+2. **Use external secrets management** — AWS Secrets Manager, 1Password, HashiCorp Vault
+3. **Add PreToolUse hooks** — Secondary blocking layer (see [Section 2.3](#23-hook-stack-setup))
+4. **Never commit secrets** — Even "blocked" files can leak through other vectors
+5. **Review bash commands** — Manually inspect before approving execution
+
+> **Bottom line**: `permissions.deny` is necessary but not sufficient. Treat it as one layer in a defense-in-depth strategy, not a complete solution.
+
+### 1.3 Repository Pre-Scan
 
 Before opening untrusted repositories, scan for injection vectors:
 

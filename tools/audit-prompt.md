@@ -212,7 +212,7 @@ if [ -f "./.claude/settings.json" ]; then
   if grep -q "\.env" ./.claude/settings.json 2>/dev/null; then
     echo "✅ .env excluded in settings"
   else
-    echo "⚠️  .env NOT in excludePatterns"
+    echo "⚠️  .env NOT blocked in permissions.deny"
   fi
 else
   echo "⚠️  No settings.json - .env files may be read"
@@ -298,7 +298,7 @@ For each category, evaluate against these criteria based on Phase 1 scan results
 
 **Privacy Configuration (Guide Section 2.6)**
 - [ ] Training opt-out verified at claude.ai/settings
-- [ ] excludePatterns includes `.env*`, `credentials*`, `*.pem`
+- [ ] `permissions.deny` blocks `.env*`, `credentials*`, `*.pem`
 - [ ] MCP database servers NOT connected to production
 - [ ] Team aware data is sent to Anthropic (5 years default, 30 days opt-out)
 
@@ -514,7 +514,7 @@ Here's an example of what the audit report looks like:
 | **Verify Gate** | CI/CD pattern: build → lint → test → typecheck before merge |
 | **Context Zones** | Green (0-50%), Yellow (50-70%), Red (70%+) - context usage thresholds |
 | **Data Retention** | Anthropic stores conversations: 5 years (default), 30 days (opt-out), 0 days (Enterprise ZDR) |
-| **excludePatterns** | Settings to prevent Claude from reading sensitive files like `.env`, credentials |
+| **permissions.deny** | Settings to block Claude from reading sensitive files like `.env`, credentials |
 
 ### Priority Levels Explained
 

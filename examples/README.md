@@ -107,8 +107,11 @@ Ready-to-use templates for Claude Code configuration.
 | [clean-reinstall-claude.sh](./scripts/clean-reinstall-claude.sh) | Clean reinstall procedure (macOS/Linux) | Human |
 | [clean-reinstall-claude.ps1](./scripts/clean-reinstall-claude.ps1) | Clean reinstall procedure (Windows) | Human |
 | [session-stats.sh](./scripts/session-stats.sh) | Analyze session logs & costs | JSON / Human |
+| [session-search.sh](./scripts/session-search.sh) | Fast session search & resume | Human |
 
 > **Usage**: `./audit-scan.sh` for human output, `./audit-scan.sh --json` for JSON output
+>
+> **Session search**: `./session-search.sh "keyword"` to find past conversations, outputs ready-to-use `claude --resume` commands
 
 ### GitHub Actions
 | File | Trigger | Purpose |

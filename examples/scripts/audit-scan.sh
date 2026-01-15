@@ -656,13 +656,13 @@ else
   fi
 
   echo -e "\n${BLUE}🔐 PRIVACY CHECK${NC}"
-  # Check excludePatterns for sensitive files
+  # Check permissions.deny for sensitive files
   HAS_ENV_EXCLUSION="false"
   if [[ -f "./.claude/settings.json" ]]; then
-    grep -q '\.env' "./.claude/settings.json" 2>/dev/null && HAS_ENV_EXCLUSION="true"
+    grep -q 'Read.*\.env' "./.claude/settings.json" 2>/dev/null && HAS_ENV_EXCLUSION="true"
   fi
 
-  [[ "$HAS_ENV_EXCLUSION" == "true" ]] && echo -e "  ${GREEN}✅${NC} .env excluded in settings" || echo -e "  ${RED}⚠️${NC}  .env NOT excluded (add to excludePatterns)"
+  [[ "$HAS_ENV_EXCLUSION" == "true" ]] && echo -e "  ${GREEN}✅${NC} .env blocked via permissions.deny" || echo -e "  ${RED}⚠️${NC}  .env NOT blocked (add Read(./.env*) to permissions.deny)"
 
   # Check for database MCP servers (production risk)
   if echo "$MCP_ALL_SERVERS" | grep -qiE "postgres|neon|supabase|mysql|database" 2>/dev/null; then

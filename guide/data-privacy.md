@@ -144,38 +144,30 @@ STRIPE_SECRET_KEY=sk_live_...
 
 #### 4.2 Configure File Exclusions
 
-In `.claude/settings.json`:
+In `.claude/settings.json`, use `permissions.deny` to block access to sensitive files:
 
 ```json
 {
-  "excludePatterns": [
-    ".env",
-    ".env.*",
-    "**/.env",
-    "**/.env.*",
-    "**/credentials*",
-    "**/secrets*",
-    "**/*.pem",
-    "**/*.key",
-    "**/service-account*.json"
-  ]
+  "permissions": {
+    "deny": [
+      "Read(./.env*)",
+      "Edit(./.env*)",
+      "Write(./.env*)",
+      "Bash(cat .env*)",
+      "Bash(head .env*)",
+      "Read(./secrets/**)",
+      "Read(./**/credentials*)",
+      "Read(./**/*.pem)",
+      "Read(./**/*.key)",
+      "Read(./**/service-account*.json)"
+    ]
+  }
 }
 ```
 
-Or create `.claudeignore` in project root:
+> **Note**: The old `excludePatterns` and `ignorePatterns` settings were deprecated in October 2025. Use `permissions.deny` instead.
 
-```gitignore
-# Secrets
-.env
-.env.*
-*.pem
-*.key
-credentials.json
-secrets/
-
-# Sensitive configs
-**/config/production.*
-```
+> **Warning**: `permissions.deny` has [known limitations](./security-hardening.md#known-limitations-of-permissionsdeny). For defense-in-depth, combine with security hooks and external secrets management.
 
 #### 4.3 Use Security Hooks
 
@@ -277,7 +269,7 @@ claude /status
 ### Quick Checklist
 
 - [ ] Training opt-out enabled at claude.ai/settings
-- [ ] `.env*` files in excludePatterns or .claudeignore
+- [ ] `.env*` files blocked via `permissions.deny` in settings.json
 - [ ] No production database connections via MCP
 - [ ] Security hooks installed for sensitive file access
 - [ ] Team aware of data flow to Anthropic
