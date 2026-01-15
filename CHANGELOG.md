@@ -30,6 +30,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Source: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
 - Updated MCP server decision tree and comparison table to include grepai
 - Added grepai configuration to `examples/config/mcp.json`
+- **grepai vs grep/rg benchmark comparison** in Section 8.4
+  - Performance comparison table: rg (~20ms) vs grep (~45ms) vs grepai (~500ms)
+  - Key insight documented: grepai finds what pattern-based tools cannot
+  - Decision tree updated with "Know exact pattern?" branch (use rg/Grep)
+  - Server Comparison table updated with exact match recommendation
 
 ---
 

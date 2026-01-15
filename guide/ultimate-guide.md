@@ -5155,6 +5155,24 @@ grepai watch &
 - Privacy is required (no cloud, all local)
 - Need to trace "who calls what" across the codebase
 
+**Performance vs Traditional Tools**:
+
+| Search Type | Tool | Time | Results |
+|-------------|------|------|---------|
+| Exact match | `rg` (ripgrep) | ~20ms | Exact hits only |
+| Exact match | `grep` | ~45ms | Exact hits only |
+| Semantic | `grepai` | ~500ms | Intent-based matches |
+
+**Key insight**: grepai is ~25x slower than rg for exact matches, but finds results that pattern-based tools cannot discover.
+
+```bash
+# Know exact pattern → use rg (fast)
+rg "createSession" --type ts
+
+# Don't know exact name → use grepai (semantic)
+grepai search "session creation logic"
+```
+
 > **Source**: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
 
 ### Context7 (Documentation Lookup)
@@ -5299,11 +5317,14 @@ claude mcp add --help
 ```
 What do you need?
 │
+├─ Know exact pattern/text?
+│  └─ Use native Grep tool or rg (~20ms)
+│
 ├─ Deep code understanding?
 │  └─ Use Serena
 │
 ├─ Explore code by intent / semantic search?
-│  └─ Use grepai
+│  └─ Use grepai (~500ms)
 │
 ├─ Trace who calls what? (call graph)
 │  └─ Use grepai
@@ -5326,8 +5347,9 @@ What do you need?
 
 ### Server Comparison
 
-| Need | Best Server | Why |
-|------|-------------|-----|
+| Need | Best Tool | Why |
+|------|-----------|-----|
+| "Find exact string 'validateUser'" | Native Grep / rg | Fast exact match (~20ms) |
 | "Find all usages of this function" | Serena | Semantic symbol analysis |
 | "Remember this for next session" | Serena | Persistent memory |
 | "Find code that handles payments" | grepai / mgrep | Intent-based semantic search |
