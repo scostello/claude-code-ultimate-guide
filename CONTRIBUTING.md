@@ -1,46 +1,93 @@
-# Contributing to The Ultimate Claude Code Guide
+# Contributing to Claude Code Ultimate Guide
 
-Thank you for your interest in improving this guide! Every contribution helps make Claude Code more accessible to developers worldwide.
+**Welcome!** Whether you're fixing a typo or adding a new section, every contribution helps developers worldwide master Claude Code.
 
-## How to Contribute
+## Quick Links
 
-### Reporting Issues
+- [Report an Issue](../../issues/new)
+- [Start a Discussion](../../discussions)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
 
-Found an error, outdated information, or have a suggestion?
+---
 
-1. **Check existing issues** - Someone may have reported it already
+## Ways to Contribute
+
+| Type | Examples | Effort |
+|------|----------|--------|
+| **Report** | Bugs, outdated info, broken links | 2 min |
+| **Improve** | Fix typos, clarify explanations | 5-15 min |
+| **Add Examples** | New templates, workflows, hooks | 15-60 min |
+| **Translate** | Help reach non-English speakers | Varies |
+| **Share** | Your workflows, success stories | 5 min |
+
+**Not sure where to start?** Check [issues labeled `good first issue`](../../issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+
+---
+
+## Reporting Issues
+
+Found something wrong or have a suggestion?
+
+1. **Search existing issues** — Someone may have reported it
 2. **Open a new issue** with:
-   - Clear description of the problem or suggestion
-   - Location in the guide (section, line if applicable)
+   - Clear description
+   - Location (file, section, line)
    - Your platform (macOS/Linux/Windows)
-   - For Windows issues: PowerShell version
+   - For Windows: PowerShell version
 
-### Pull Requests
+---
 
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b fix/typo-in-section-3`
-3. **Make your changes**
-4. **Test on your platform** (especially commands and code snippets)
-5. **Submit a PR** with:
-   - Clear description of changes
-   - Why the change is needed
-   - Any testing performed
+## Pull Request Process
+
+### 1. Fork & Clone
+
+```bash
+git clone https://github.com/YOUR_USERNAME/claude-code-ultimate-guide.git
+cd claude-code-ultimate-guide
+```
+
+### 2. Create a Branch
+
+```bash
+git checkout -b fix/typo-in-section-3
+# or
+git checkout -b feature/add-debugging-guide
+```
+
+### 3. Make Changes
+
+Follow [Content Guidelines](#content-guidelines) below.
+
+### 4. Test Your Changes
+
+- Preview markdown rendering
+- Test code snippets on your platform
+- Verify all links work
+
+### 5. Submit PR
+
+Include:
+- Clear description of changes
+- Why the change is needed
+- What you tested
+
+---
 
 ## Content Guidelines
 
 ### Writing Style
 
-- **Be concise** - Prefer bullet points over long paragraphs
-- **Be practical** - Include examples for every concept
-- **Be inclusive** - Support both macOS/Linux AND Windows users
-- **Be accurate** - Test all code snippets before submitting
+- **Concise**: Bullet points > long paragraphs
+- **Practical**: Include examples for every concept
+- **Cross-platform**: Support macOS/Linux AND Windows
+- **Accurate**: Test all code before submitting
 
 ### Documentation Structure
 
 ```markdown
 ## Section Title
 
-Brief introduction (1-2 sentences max).
+Brief intro (1-2 sentences).
 
 ### Subsection
 
@@ -49,15 +96,14 @@ Brief introduction (1-2 sentences max).
 | Data     | Data     |
 
 **Example:**
-```code
-example here
+```bash
+code example here
 ```
 ```
 
-### Code Snippets
+### Platform-Specific Code
 
-- **Test before submitting** - All code must work
-- **Include both platforms** when commands differ:
+Always provide both when commands differ:
 
 ```bash
 # macOS/Linux
@@ -67,86 +113,60 @@ example here
 %USERPROFILE%\.claude\settings.json
 ```
 
-### Formatting
-
-- Use tables for comparisons
-- Use code blocks with language hints
-- Use `**bold**` for emphasis
-- Use `backticks` for inline code
-- Reference sections with anchors: `[Section Name](#section-anchor)`
-
-## Platform-Specific Contributions
-
-### Windows Contributions (Especially Welcome!)
-
-The author works on macOS and hasn't tested Windows commands. If you're a Windows user:
-
-- **Test all PowerShell scripts** with PS 5.1+
-- **Test batch file alternatives** when possible
-- **Verify paths** work correctly
-- **Report issues** with Windows-specific instructions
-
-Your contributions are especially valuable!
-
-### Cross-Platform Guidelines
-
-- Use `npm` commands (cross-platform) over `curl` (Unix-only)
-- Specify paths for both platforms
-- Note differences in shell syntax
-- Test on your platform, note what you tested
+---
 
 ## Quality Checklist
 
-Before submitting a PR, verify:
+Before submitting:
 
-- [ ] Markdown renders correctly (preview in GitHub)
+- [ ] Markdown renders correctly (preview on GitHub)
 - [ ] All links work
-- [ ] Code snippets are tested
+- [ ] Code snippets tested on your platform
 - [ ] Windows equivalents provided (if applicable)
-- [ ] No typos (run spell check)
+- [ ] Spell-checked
 - [ ] Follows existing style
-- [ ] Adds value (not just reformatting)
 
-## Types of Contributions
+---
 
-### Quick Fixes (< 5 minutes)
-- Typo corrections
-- Broken link fixes
-- Minor clarifications
+## Windows Contributions (Especially Welcome!)
 
-### Enhancements (5-30 minutes)
-- Add missing examples
-- Improve explanations
-- Add Windows equivalents
-- Update outdated information
+The maintainer works on macOS. If you're a Windows user:
 
-### New Content (30+ minutes)
-- New sections or guides
-- New example templates
-- Translations
-- Comprehensive rewrites
+- Test PowerShell scripts with PS 5.1+
+- Verify path handling
+- Report Windows-specific issues
+- Add batch file alternatives when possible
 
-## Not Accepted
+**Your contributions are especially valuable!**
+
+---
+
+## What We Don't Accept
 
 - Marketing language or promotional content
-- Unverified or speculative information
-- Breaking changes to structure without discussion
-- Large changes without prior issue discussion
+- Unverified or speculative claims
+- Large structural changes without prior discussion
+- Breaking changes to existing examples
+
+---
 
 ## Recognition
 
 Contributors are recognized through:
 
-- **Git history** - Your commits are permanently attributed
-- **GitHub contributors** - Visible on the repository page
+- **Git history** — Your commits are permanently attributed
+- **GitHub contributors** — Visible on repository page
 
-For significant contributions, we may add you to a "Contributors" section.
-
-## Questions?
-
-- Open an issue for general questions
-- Reach out on [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/) for direct contact
+Significant contributions may be highlighted in release notes.
 
 ---
 
-Thank you for helping improve this guide!
+## Questions?
+
+- **General questions**: [GitHub Discussions](../../discussions)
+- **Bug reports**: [Issues](../../issues)
+- **Direct contact**: [LinkedIn](https://www.linkedin.com/in/florian-bruniaux-43408b83/)
+
+---
+
+**Thank you for helping improve this guide!**

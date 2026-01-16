@@ -14,6 +14,44 @@
 
 ---
 
+## ⚡ TL;DR (Under 5 Minutes)
+
+**In a hurry?** Pick one:
+
+| I need... | Go here | Time |
+|-----------|---------|------|
+| **Quick reference** | [Cheat Sheet](./guide/cheatsheet.md) | 2 min |
+| **Starter CLAUDE.md** | Copy below ↓ | 30 sec |
+| **Key principles** | [5 Rules](#5-rules-to-remember) | 1 min |
+
+<details>
+<summary><strong>📋 Minimal CLAUDE.md Template (click to expand & copy)</strong></summary>
+
+```markdown
+# Project: [NAME]
+
+## Tech Stack
+- Language: [e.g., TypeScript]
+- Framework: [e.g., Next.js 14]
+- Testing: [e.g., Vitest]
+
+## Commands
+- Build: `npm run build`
+- Test: `npm test`
+- Lint: `npm run lint`
+
+## Rules
+- Run tests before marking tasks complete
+- Follow existing code patterns
+- Keep commits atomic and conventional
+```
+
+Save as `CLAUDE.md` in your project root. Claude reads it automatically.
+
+</details>
+
+---
+
 **Transparency note**: This guide reflects my personal experience after several months of daily Claude Code usage. I'm sharing what I've learned, not claiming expertise. The tool evolves constantly, and so does my understanding. [Feedback welcome](./CONTRIBUTING.md).
 
 ---
@@ -351,6 +389,23 @@ Weak Areas (< 75%):
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
 
+### 🇫🇷 Whitepapers (French)
+
+8 standalone documents covering Claude Code from zero to production (~185 pages total):
+
+| # | Title | Audience | Pages |
+|---|-------|----------|-------|
+| **[#0](./whitepapers/00-introduction-serie.qmd)** | De Zéro à Productif | Everyone | ~8 |
+| **[#1](./whitepapers/01-prompts-efficaces.qmd)** | Prompts qui Marchent | Dev Junior/Senior | ~12 |
+| **[#2](./whitepapers/02-personnalisation.qmd)** | Personnaliser Claude | Senior/Power | ~15 |
+| **[#3](./whitepapers/03-securite.qmd)** | Sécurité en Production | DevSecOps/TechLead | ~15 |
+| **[#4](./whitepapers/04-architecture.qmd)** | L'Architecture Démystifiée | Architects | ~12 |
+| **[#5](./whitepapers/05-equipe.qmd)** | Déployer en Équipe | TechLead/PM | ~12 |
+| **[#6](./whitepapers/06-privacy.qmd)** | Privacy & Compliance | Compliance/Legal | ~10 |
+| **[#7](./whitepapers/07-guide-reference.qmd)** | Guide de Référence Complet | Everyone | ~100 |
+
+> **Reading paths by profile**: Junior (WP #0→#1, 25 min) | Senior (#0→#1→#2→#3, 1h15) | Tech Lead (#0→#5→#3→#2, 1h15)
+
 <details>
 <summary><strong>Alternative Formats</strong> (Interactive AI, PDFs)</summary>
 
@@ -402,6 +457,12 @@ claude-code-ultimate-guide/
 │   ├── memory/               # CLAUDE.md templates
 │   ├── modes/                # Behavioral modes (SuperClaude)
 │   └── workflows/            # Advanced workflow guides
+│
+├── whitepapers/              # 🇫🇷 French whitepaper series (8 docs, ~185 pages)
+│   ├── 00-introduction-serie.qmd
+│   ├── 01-prompts-efficaces.qmd
+│   ├── ...
+│   └── 07-guide-reference.qmd
 │
 └── quiz/                     # 🧠 Interactive knowledge quiz (159 questions)
 ```

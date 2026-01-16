@@ -6,48 +6,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [3.8.0] - 2026-01-16
+
 ### Added
 
-- **Dev With AI community reference** in README.md
-  - French-speaking community for developers of all levels and tech stacks
-  - ~1500 members on Slack, meetups in Paris, Bordeaux, Lyon
-  - Link: https://www.devw.ai/
+- **TL;DR Quick Start section** in README.md
+  - Quick reference table: Cheat Sheet (2 min), Starter CLAUDE.md (30 sec), 5 Rules (1 min)
+  - Copy-paste CLAUDE.md template directly in README
+  - Optimized for TTFV (Time-to-First-Value) < 5 minutes
+  - Prominent badges at top: version, license, Claude Code support
 
-- **Whitepaper #6 Privacy & Compliance - Expanded IP Section**
-  - Comprehensive "Intellectual Property Considerations" section
-  - Copyright du code généré par IA: ownership ambiguity, registrability, derived works
-  - License contamination risks: GPL, AGPL, MIT/BSD, Apache 2.0 analysis
-  - Enterprise indemnification coverage by plan tier
-  - Best practices for IP risk mitigation (documentation, review, scanning, policy)
-  - File: `whitepapers/06-privacy.qmd`
+- **French Whitepapers documentation** in README.md
+  - New section documenting 8 whitepapers in French (~185 pages total)
+  - Learning paths by profile: Junior (25 min), Senior (1h15), Tech Lead (1h15)
+  - Files in `whitepapers/` directory using Quarto (.qmd) format
 
-- **Onboarding Prompt v2: Adaptive Pedagogy & Multi-LLM Support**
-  - **New "Communication Tone" question** in Phase 0 (after goal)
-    - 4 options: Pedagogical, Direct, Coaching, Adaptive
-    - Adapts HOW content is delivered (not just WHAT)
-  - **Style preference now universal** - offered to all goals when time >= 15min (was 30min, learn_everything only)
-  - **"Reset" option in depth control** - users can restart with different preferences anytime
-  - **"Skip" now shows what's skipped** - brief note about skipped content for future reference
-  - **Fallback handling** if reference.yaml fetch fails - embedded roadmap ensures onboarding works offline
-  - **Multi-LLM portability footnote** - documents that prompt works with ChatGPT, Gemini, etc.
-  - **Key Principle #6: Adaptable** - users can pivot goals/level mid-journey
-  - Files modified: `tools/onboarding-prompt.md`, `machine-readable/reference.yaml`
-  - Inspired by community feedback (Greg Lhotellier testing on ChatGPT)
+- **CODE_OF_CONDUCT.md** (new file)
+  - Contributor Covenant v2.1
+  - Standard OSS community guidelines
 
-- **grepai MCP Server documentation** in `guide/ultimate-guide.md` (Section 8.3)
-  - Privacy-first semantic code search using Ollama embeddings
-  - Call graph analysis: trace callers, callees, and dependency graphs
-  - Combined workflow with Serena for exploration + precise editing
-  - Setup instructions with Ollama and grepai CLI
-  - MCP tools reference: `grepai_search`, `grepai_trace_callers`, `grepai_trace_callees`, `grepai_trace_graph`
-  - Source: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
-- Updated MCP server decision tree and comparison table to include grepai
-- Added grepai configuration to `examples/config/mcp.json`
-- **grepai vs grep/rg benchmark comparison** in Section 8.4
-  - Performance comparison table: rg (~20ms) vs grep (~45ms) vs grepai (~500ms)
-  - Key insight documented: grepai finds what pattern-based tools cannot
-  - Decision tree updated with "Know exact pattern?" branch (use rg/Grep)
-  - Server Comparison table updated with exact match recommendation
+- **Distribution playbooks** (internal, gitignored)
+  - `claudedocs/distribution-playbook.md`: Ready-to-use content for awesome-claude-code PR, Reddit, dev.to, Twitter
+  - `claudedocs/github-discussions-setup.md`: Step-by-step GitHub Discussions setup
+  - French distribution strategy: Dev With AI Slack, LinkedIn FR
+
+### Changed
+
+- **CONTRIBUTING.md completely rewritten**
+  - Added welcome message and contribution types table
+  - Clear PR process with checklist
+  - Quality checklist before submitting
+  - References to GitHub Discussions and Code of Conduct
+
+- **README.md restructured**
+  - "Why This Guide" section rewritten for clarity
+  - Repository structure updated to include whitepapers/
+  - Dev With AI community reference added
+
+### Internal
+
+- Added `claudedocs/` and `whitepapers/` to `.gitignore` (internal docs)
 
 ---
 
