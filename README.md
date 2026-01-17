@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Lines-9,800+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-57-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-53-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-159_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -129,7 +129,7 @@ Claude asks 2-4 questions then guides you through personalized content based on 
 - You read official docs → dense, no progression
 - You search tutorials → scattered, outdated in weeks
 
-**This guide:** Structured learning path with 57 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
+**This guide:** Structured learning path with 53 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
 
 | Traditional Docs | This Guide |
 |------------------|------------|

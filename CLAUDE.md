@@ -136,9 +136,9 @@ Après ces modifications, **rappeler** de mettre à jour le landing:
    OK
 
 2. Templates Count
-   Guide:         57 files
-   index.html:    57
-   examples.html: 57
+   Guide:         53 files
+   index.html:    53
+   examples.html: 53
    OK
 
 3. Quiz Questions
