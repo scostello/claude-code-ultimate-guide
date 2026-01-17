@@ -14,6 +14,7 @@ Ready-to-use templates for Claude Code configuration.
 | [`hooks/`](./hooks/) | Event-driven automation scripts |
 | [`config/`](./config/) | Configuration file templates |
 | [`memory/`](./memory/) | CLAUDE.md memory file templates |
+| [`claude-md/`](./claude-md/) | Specialized CLAUDE.md configurations |
 | [`scripts/`](./scripts/) | Utility scripts for setup and diagnostics |
 | [`github-actions/`](./github-actions/) | CI/CD workflows for GitHub Actions |
 | [`workflows/`](./workflows/) | Advanced development workflow guides |
@@ -69,6 +70,7 @@ Ready-to-use templates for Claude Code configuration.
 | [git-worktree.md](./commands/git-worktree.md) | `/git-worktree` | Isolated git worktree setup |
 | [diagnose.md](./commands/diagnose.md) | `/diagnose` | Interactive troubleshooting assistant (FR/EN) |
 | [validate-changes.md](./commands/validate-changes.md) | `/validate-changes` | LLM-as-a-Judge pre-commit validation |
+| [quiz.md](./commands/quiz.md) | `/quiz` | Self-testing for learning concepts |
 
 ### Hooks
 | File | Event | Purpose |
@@ -85,6 +87,7 @@ Ready-to-use templates for Claude Code configuration.
 | [output-validator.sh](./hooks/bash/output-validator.sh) | PostToolUse | Heuristic output validation |
 | [session-logger.sh](./hooks/bash/session-logger.sh) | PostToolUse | Log operations for monitoring |
 | [pre-commit-evaluator.sh](./hooks/bash/pre-commit-evaluator.sh) | Git hook | LLM-as-a-Judge pre-commit |
+| [learning-capture.sh](./hooks/bash/learning-capture.sh) | Stop | Prompt for daily learning capture |
 
 > **See [hooks/README.md](./hooks/README.md) for complete documentation and security hardening patterns**
 
@@ -100,6 +103,13 @@ Ready-to-use templates for Claude Code configuration.
 |------|---------|
 | [CLAUDE.md.project-template](./memory/CLAUDE.md.project-template) | Team project memory |
 | [CLAUDE.md.personal-template](./memory/CLAUDE.md.personal-template) | Personal global memory |
+
+### CLAUDE.md Configurations
+| File | Purpose |
+|------|---------|
+| [learning-mode.md](./claude-md/learning-mode.md) | Learning-focused development configuration |
+
+> **See [guide/learning-with-ai.md](../guide/learning-with-ai.md) for complete documentation**
 
 ### Scripts
 | File | Purpose | Output |

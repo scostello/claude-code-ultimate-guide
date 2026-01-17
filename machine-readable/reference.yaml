@@ -19,6 +19,17 @@ deep_dive:
   pdf_generation: "guide/workflows/pdf-generation.md"
   pdf_generator_skill: "examples/skills/pdf-generator.md"
   whitepapers_example: "whitepapers/README.md"
+  # Learning with AI (guide/learning-with-ai.md)
+  learning_quick_check: "guide/learning-with-ai.md:31"
+  learning_uval_protocol: "guide/learning-with-ai.md:127"
+  learning_claude_config: "guide/learning-with-ai.md:353"
+  learning_breaking_dependency: "guide/learning-with-ai.md:470"
+  learning_embracing_ai: "guide/learning-with-ai.md:518"
+  learning_30day_plan: "guide/learning-with-ai.md:710"
+  learning_red_flags: "guide/learning-with-ai.md:770"
+  learning_mode_template: "examples/claude-md/learning-mode.md"
+  quiz_command: "examples/commands/quiz.md"
+  learning_capture_hook: "examples/hooks/bash/learning-capture.sh"
   # Architecture internals (guide/architecture.md)
   architecture_master_loop: "guide/architecture.md:60"
   architecture_tools: "guide/architecture.md:130"

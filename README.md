@@ -1,9 +1,13 @@
 # Claude Code Guide
 
 <p align="center">
+  <a href="https://florianbruniaux.github.io/claude-code-ultimate-guide-landing/"><img src="https://img.shields.io/badge/🌐_Interactive_Guide-Visit_Website-ff6b35?style=for-the-badge&logoColor=white" alt="Website"/></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Lines-9,800+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-53-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-55-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-159_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -129,7 +133,7 @@ Claude asks 2-4 questions then guides you through personalized content based on 
 - You read official docs → dense, no progression
 - You search tutorials → scattered, outdated in weeks
 
-**This guide:** Structured learning path with 53 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
+**This guide:** Structured learning path with 55 copy-paste templates. Your mileage may vary—but this saves you the exploration time.
 
 | Traditional Docs | This Guide |
 |------------------|------------|
@@ -328,14 +332,15 @@ Weak Areas (< 75%):
 ### 🎯 By Role (Tailored Learning Paths)
 
 <details>
-<summary><strong>Junior Developer</strong> — Foundation path (6 steps)</summary>
+<summary><strong>Junior Developer</strong> — Foundation path (7 steps)</summary>
 
 1. [Quick Start](./guide/ultimate-guide.md#1-quick-start-day-1) — Install & first workflow
 2. [Essential Commands](./guide/ultimate-guide.md#13-essential-commands) — The 7 commands
 3. [Context Management](./guide/ultimate-guide.md#22-context-management) — Critical concept
 4. [Memory Files](./guide/ultimate-guide.md#31-memory-files-claudemd) — Your first CLAUDE.md
-5. [TDD Workflow](./guide/workflows/tdd-with-claude.md) — Test-first development
-6. [Cheat Sheet](./guide/cheatsheet.md) — Print this
+5. [Learning with AI](./guide/learning-with-ai.md) — Use AI without becoming dependent ⭐
+6. [TDD Workflow](./guide/workflows/tdd-with-claude.md) — Test-first development
+7. [Cheat Sheet](./guide/cheatsheet.md) — Print this
 
 </details>
 

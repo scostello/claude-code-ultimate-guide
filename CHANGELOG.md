@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Learning with AI guide** for junior developers (`guide/learning-with-ai.md`, ~900 lines)
+  - **Quick Self-Check** (L31-81): 5 diagnostic questions to assess AI dependency
+  - **Three Developer Patterns** (L82-126): Dependent, Avoidant, Augmented profiles with action paths
+  - **UVAL Protocol** (L127-352): Understand → Verify → Apply → Learn framework with Claude Code implementations
+  - **Claude Code for Learning** (L353-469): CLAUDE.md configuration, slash commands, hooks for learning mode
+  - **Breaking Dependency** (L470-517): Recovery plan for over-reliant developers
+  - **Embracing AI** (L518-709): Onboarding for AI-skeptical developers
+  - **30-Day Progression Plan** (L710-769): Week-by-week AI ratio progression
+  - **Red Flags Checklist** (L770-850): Warning signs and corrective actions
+  - Case study: Méthode Aristote principles (human supervision + AI assistance)
+
+- **Learning mode templates** (3 new files)
+  - `examples/claude-md/learning-mode.md`: CLAUDE.md template for learning-focused development
+  - `examples/commands/quiz.md`: /quiz slash command for self-testing (5 difficulty levels)
+  - `examples/hooks/bash/learning-capture.sh`: Stop event hook for daily learning capture
+
 - **Wireframing & Figma MCP documentation** in `guide/ultimate-guide.md` (+143 lines)
   - **Wireframing Tools for AI Development** (L483-518): Comparison table for Excalidraw, tldraw, Frame0, Paper+Photo with MCP support indicators
   - **Figma MCP Integration** (L520-583): Official Anthropic MCP server setup, available tools (`get_design_context`, `get_variable_defs`, `get_code_connect_map`), workflow examples
@@ -16,6 +32,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Updated `machine-readable/reference.yaml` with new entries and shifted line numbers
 
 ### Changed
+
+- **README.md**: Added prominent "Visit Website" badge linking to landing page
+- **Templates count**: 52 → 55 in README.md badges (3 new learning templates)
+- **Navigation updated**: `guide/README.md`, `examples/hooks/README.md` with new learning resources
+- **Reference index expanded**: `machine-readable/reference.yaml` with 10 new deep_dive entries for learning topics
 
 - **Semantic search tools priority**: grepai now recommended over mgrep
   - `guide/ultimate-guide.md`: Sections reordered (grepai first as "Recommended", mgrep as "Alternative")

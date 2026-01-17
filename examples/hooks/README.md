@@ -15,6 +15,7 @@ Hooks are scripts that execute automatically on Claude Code events. They enable 
 | [claudemd-scanner.sh](./bash/claudemd-scanner.sh) | SessionStart | Detect CLAUDE.md injection attacks | Bash |
 | [output-secrets-scanner.sh](./bash/output-secrets-scanner.sh) | PostToolUse | Detect secrets + env leakage in tool outputs | Bash |
 | [auto-format.sh](./bash/auto-format.sh) | PostToolUse | Auto-format after edits | Bash |
+| [learning-capture.sh](./bash/learning-capture.sh) | Stop | Prompt for daily learning capture | Bash |
 | [notification.sh](./bash/notification.sh) | Notification | Contextual macOS sound alerts | Bash (macOS) |
 | [security-check.ps1](./powershell/security-check.ps1) | PreToolUse | Block secrets in commands | PowerShell |
 | [auto-format.ps1](./powershell/auto-format.ps1) | PostToolUse | Auto-format after edits | PowerShell |
