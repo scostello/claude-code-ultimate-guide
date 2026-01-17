@@ -480,6 +480,149 @@ This suggests the form field reference is incorrect. Let me check your form hand
 
 > **💡 Pro tip**: Take screenshots of error messages, design mockups, and documentation instead of describing them textually. Visual input is often faster and more precise than written descriptions.
 
+##### Wireframing Tools for AI Development
+
+When designing UI before implementation, low-fidelity wireframes help Claude understand intent without over-constraining the output. Here are recommended tools that work well with Claude Code:
+
+| Tool | Type | Price | MCP Support | Best For |
+|------|------|-------|-------------|----------|
+| **Excalidraw** | Hand-drawn style | Free | ✓ Community | Quick wireframes, architecture diagrams |
+| **tldraw** | Minimalist canvas | Free | Emerging | Real-time collaboration, custom integrations |
+| **Frame0** | Low-fi + AI | Free | ✓ | Modern Balsamiq alternative, AI-assisted |
+| **Paper sketch** | Physical | Free | N/A | Fastest iteration, zero setup |
+
+**Excalidraw** (excalidraw.com):
+- Open-source, hand-drawn aesthetic reduces over-specification
+- MCP available: `github.com/yctimlin/mcp_excalidraw`
+- Export: PNG recommended (1000-1200px), also SVG/JSON
+- Best for: Architecture diagrams, quick UI sketches
+
+**tldraw** (tldraw.com):
+- Infinite canvas with minimal UI, excellent SDK for custom apps
+- Agent starter kit available for building AI-integrated tools
+- Export: JSON native, PNG via screenshot
+- Best for: Collaborative wireframing, embedding in custom tools
+
+**Frame0** (frame0.app):
+- Modern Balsamiq alternative (2025), offline-first desktop app
+- Built-in AI: text-to-wireframe, screenshot-to-wireframe conversion
+- Native MCP integration for Claude workflows
+- Best for: Teams wanting low-fi wireframes with AI assistance
+
+**Paper + Photo**:
+- Seriously, this works extremely well
+- Snap a photo with your smartphone → paste directly in Claude Code
+- Tips: Good lighting, tight crop, avoid reflections/shadows
+- Claude handles rotations and hand-drawn artifacts well
+
+**Recommended export settings**: PNG format, 1000-1200px on longest side, high contrast
+
+##### Figma MCP Integration
+
+Figma provides an **official MCP server** (announced 2025) that gives Claude direct access to your design files, dramatically reducing token usage compared to screenshots alone.
+
+**Setup options**:
+
+```bash
+# Remote MCP (all Figma plans, any machine)
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+
+# Desktop MCP (requires Figma desktop app with Dev Mode)
+claude mcp add --transport http figma-desktop http://127.0.0.1:3845/mcp
+```
+
+**Available tools via Figma MCP**:
+
+| Tool | Purpose | Tokens |
+|------|---------|--------|
+| `get_design_context` | Extracts React+Tailwind structure from frames | Low |
+| `get_variable_defs` | Retrieves design tokens (colors, spacing, typography) | Very low |
+| `get_code_connect_map` | Maps Figma components → your codebase | Low |
+| `get_screenshot` | Captures visual screenshot of frame | High |
+| `get_metadata` | Returns node properties, IDs, positions | Very low |
+
+**Why use Figma MCP over screenshots?**
+- **3-10x fewer tokens**: Structured data vs. image analysis
+- **Direct token access**: Colors, spacing values are extracted, not interpreted
+- **Component mapping**: Code Connect links Figma → actual code files
+- **Iterative workflow**: Small changes don't require new screenshots
+
+**Recommended workflow**:
+```
+1. get_metadata          → Understand overall structure
+2. get_design_context    → Get component hierarchy for specific frames
+3. get_variable_defs     → Extract design tokens once per project
+4. get_screenshot        → Only when visual reference needed
+```
+
+**Example session**:
+```bash
+You: Implement the dashboard header from Figma
+Claude: [Calls get_design_context for header frame]
+→ Returns: React structure with Tailwind classes, exact spacing
+Claude: [Calls get_variable_defs]
+→ Returns: --color-primary: #3B82F6, --spacing-md: 16px
+Claude: [Implements component matching Figma exactly]
+```
+
+**Prerequisites**:
+- Figma account (Free tier works for remote MCP)
+- Dev Mode seat for desktop MCP features
+- Design file must be accessible to your account
+
+**MCP config file** (`examples/mcp-configs/figma.json`):
+```json
+{
+  "mcpServers": {
+    "figma": {
+      "transport": "http",
+      "url": "https://mcp.figma.com/mcp"
+    }
+  }
+}
+```
+
+##### Image Optimization for Claude Vision
+
+Understanding Claude's image processing helps optimize for speed and accuracy.
+
+**Resolution guidelines**:
+
+| Range | Effect |
+|-------|--------|
+| **< 200px** | Loss of precision, text unreadable |
+| **200-1000px** | Sweet spot for most wireframes |
+| **1000-1568px** | Optimal quality/token balance |
+| **1568-8000px** | Auto-downscaled (wastes upload time) |
+| **> 8000px** | Rejected by API |
+
+**Token calculation**: `(width × height) / 750 ≈ tokens consumed`
+
+| Image Size | Approximate Tokens |
+|------------|-------------------|
+| 200×200 | ~54 tokens |
+| 500×500 | ~334 tokens |
+| 1000×1000 | ~1,334 tokens |
+| 1568×1568 | ~3,279 tokens |
+
+**Format recommendations**:
+
+| Format | Use When |
+|--------|----------|
+| **PNG** | Wireframes, diagrams, text, sharp lines |
+| **WebP** | General screenshots, good compression |
+| **JPEG** | Photos only—compression artifacts harm line detection |
+| **GIF** | Avoid (static only, poor quality) |
+
+**Optimization checklist**:
+- [ ] Crop to relevant area only
+- [ ] Resize to 1000-1200px if larger
+- [ ] Use PNG for wireframes/diagrams
+- [ ] Check `/status` after pasting to monitor context usage
+- [ ] Consider text description if context is >70%
+
+> **💡 Token tip**: A 1000×1000 wireframe uses ~1,334 tokens. The same information as structured text (via Figma MCP) might use 200-400 tokens. Use screenshots for visual context, structured data for implementation.
+
 #### Session Continuation and Resume
 
 Claude Code allows you to **continue previous conversations** across terminal sessions, maintaining full context and conversation history.

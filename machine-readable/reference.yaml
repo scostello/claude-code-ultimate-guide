@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.8.1"
+version: "3.8.2"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -28,52 +28,53 @@ deep_dive:
   architecture_mcp: "guide/architecture.md:450"
   architecture_philosophy: "guide/architecture.md:580"
   # Main guide (guide/ultimate-guide.md)
-  installation: 185
-  first_workflow: 266
-  essential_commands: 315
-  permission_modes: 596
-  interaction_loop: 908
-  context_management: 944
-  context_triage: 1058
-  session_vs_memory: 1091
-  plan_mode: 1458
-  rewind: 1636
-  mental_model: 1675
-  xml_prompting: 1731
-  memory_files: 2218
-  claude_folder: 2349
-  settings: 2400
-  claudemd_injection_warning: 2510
-  precedence_rules: 2622
-  agents: 2720
-  agent_template: 2793
-  agent_examples: 2901
-  agent_validation_checklist: 3116
-  skills: 3279
-  skill_template: 3357
-  skill_examples: 3425
-  commands: 3704
-  command_template: 3774
-  hooks: 4027
-  hook_templates: 4172
-  security_hooks: 4434
-  mcp_servers: 4573
-  mcp_config: 4771
-  mcp_security: 5373
-  cicd: 5329
-  ide_integration: 6018
-  feedback_loops: 6088
-  batch_operations: 6426
-  pitfalls: 6545
-  git_best_practices: 6814
-  cost_optimization: 7280
-  commands_table: 7733
-  shortcuts_table: 7766
-  troubleshooting: 7892
-  cheatsheet: 8265
-  daily_workflow: 8341
-  superclaude_modes: 8634
-  learning_mode: 8645
+  installation: 187
+  first_workflow: 268
+  essential_commands: 317
+  working_with_images: 413
+  wireframing_tools: 483
+  figma_mcp: 520
+  image_optimization: 585
+  permission_modes: 751
+  interaction_loop: 1063
+  context_management: 1099
+  context_triage: 1212
+  session_vs_memory: 1245
+  fresh_context_pattern: 1289
+  plan_mode: 1822
+  rewind: 2000
+  mental_model: 2082
+  xml_prompting: 2139
+  memory_files: 2787
+  claude_folder: 2938
+  settings: 2989
+  precedence_rules: 3211
+  agents: 3309
+  agent_template: 3382
+  agent_examples: 3520
+  skills: 3898
+  skill_template: 3976
+  skill_examples: 4044
+  commands: 4323
+  command_template: 4393
+  hooks: 4646
+  hook_templates: 4791
+  security_hooks: 5053
+  mcp_servers: 5194
+  mcp_config: 5488
+  mcp_security: 5856
+  cicd: 6157
+  ide_integration: 6846
+  feedback_loops: 6916
+  batch_operations: 7254
+  pitfalls: 7373
+  git_best_practices: 7642
+  cost_optimization: 8108
+  commands_table: 8598
+  shortcuts_table: 8631
+  troubleshooting: 8757
+  cheatsheet: 9132
+  daily_workflow: 9208
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -160,6 +161,7 @@ context:
     yellow: "50-70% → be selective"
     orange: "70-90% → /compact NOW"
     red: "90%+ → /clear required"
+  fresh_context: "Reset per task for long autonomous sessions - see Section 2.2 Fresh Context Pattern"
   symptoms:
     short_responses: "/compact"
     forgetting_instructions: "/clear"
@@ -205,6 +207,7 @@ mcp:
   context7: "library docs lookup"
   sequential: "structured multi-step reasoning"
   playwright: "browser automation / E2E"
+  figma: "design file access, tokens, structure (official)"
   check: "/mcp"
   config: ".claude/mcp.json or ~/.claude.json"
 

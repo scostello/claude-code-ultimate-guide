@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Wireframing & Figma MCP documentation** in `guide/ultimate-guide.md` (+143 lines)
+  - **Wireframing Tools for AI Development** (L483-518): Comparison table for Excalidraw, tldraw, Frame0, Paper+Photo with MCP support indicators
+  - **Figma MCP Integration** (L520-583): Official Anthropic MCP server setup, available tools (`get_design_context`, `get_variable_defs`, `get_code_connect_map`), workflow examples
+  - **Image Optimization for Claude Vision** (L585-624): Resolution guidelines, token calculation formula, format recommendations
+  - New config template: `examples/mcp-configs/figma.json`
+  - Updated `machine-readable/reference.yaml` with new entries and shifted line numbers
+
 ### Changed
 
 - **Semantic search tools priority**: grepai now recommended over mgrep
