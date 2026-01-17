@@ -436,3 +436,88 @@ questions:
       file: "guide/ultimate-guide.md"
       section: "9.12 Git Best Practices & Workflows"
       anchor: "#git-worktrees-for-parallel-development"
+
+  - id: "09-017"
+    difficulty: "intermediate"
+    profiles: ["senior", "power"]
+    question: "What is SDD (Spec-Driven Development) and its key claim?"
+    options:
+      a: "Speed-based Development - fastest approach"
+      b: "Spec-Driven Development - one well-structured iteration equals 8 unstructured ones"
+      c: "Standard Driven Development - follows industry standards"
+      d: "Sequential Driven Development - linear workflow"
+    correct: "b"
+    explanation: |
+      SDD (Spec-Driven Development) means specifications BEFORE code. The key claim: one well-structured iteration equals 8 unstructured ones. CLAUDE.md IS your spec file. Best for APIs and contracts. High Claude fit (⭐⭐⭐).
+    doc_reference:
+      file: "guide/methodologies.md"
+      section: "Tier 2: Specification & Architecture"
+      anchor: "#tier-2-specification--architecture"
+
+  - id: "09-018"
+    difficulty: "intermediate"
+    profiles: ["senior", "power"]
+    question: "What format does BDD (Behavior-Driven Development) use for test scenarios?"
+    options:
+      a: "Arrange-Act-Assert"
+      b: "Given-When-Then (Gherkin)"
+      c: "Setup-Execute-Verify"
+      d: "Input-Process-Output"
+    correct: "b"
+    explanation: |
+      BDD uses Given-When-Then format (Gherkin). BDD is beyond testing - it's a collaboration process: (1) Discovery with devs/business, (2) Formulation with examples, (3) Automation via Cucumber. Example: Given product with 0 stock → When customer attempts purchase → Then system refuses.
+    doc_reference:
+      file: "guide/methodologies.md"
+      section: "Tier 3: Behavior & Acceptance"
+      anchor: "#tier-3-behavior--acceptance"
+
+  - id: "09-019"
+    difficulty: "junior"
+    profiles: ["junior", "senior", "power"]
+    question: "What are the three steps of the TDD cycle?"
+    options:
+      a: "Plan-Develop-Test"
+      b: "Red-Green-Refactor"
+      c: "Write-Run-Fix"
+      d: "Design-Code-Review"
+    correct: "b"
+    explanation: |
+      The classic TDD cycle: (1) Red - write failing test, (2) Green - minimal code to pass, (3) Refactor - clean up while tests stay green. With Claude: be explicit "Write FAILING tests that don't exist yet." TDD is a core workflow (⭐⭐⭐).
+    doc_reference:
+      file: "guide/methodologies.md"
+      section: "Tier 5: Implementation"
+      anchor: "#tier-5-implementation"
+
+  - id: "09-020"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "How many development methodologies are documented in the methodologies reference?"
+    options:
+      a: "5 methodologies"
+      b: "10 methodologies"
+      c: "15 methodologies"
+      d: "20 methodologies"
+    correct: "c"
+    explanation: |
+      15 methodologies organized in a 6-tier pyramid: Tier 1 (Strategic - BMAD), Tier 2 (Specification - SDD, Doc-Driven, Req-Driven, DDD), Tier 3 (Behavior - BDD, ATDD, CDD), Tier 4 (Feature - FDD, Context Engineering), Tier 5 (Implementation - TDD, Eval-Driven, Multi-Agent), Tier 6 (Optimization).
+    doc_reference:
+      file: "guide/methodologies.md"
+      section: "The 15 Methodologies"
+      anchor: "#the-15-methodologies"
+
+  - id: "09-021"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is 'Context Engineering' as a methodology?"
+    options:
+      a: "Engineering team context"
+      b: "Treating context as first-class design element: progressive disclosure, memory management, dynamic refresh"
+      c: "Building context menus"
+      d: "Managing environment variables"
+    correct: "b"
+    explanation: |
+      Context Engineering treats context as a design element. Key concepts: Progressive Disclosure (let agent discover incrementally), Memory Management (conversation vs persistent memory), Dynamic Refresh (rewrite TODO list before response). High Claude fit (⭐⭐⭐) for long sessions.
+    doc_reference:
+      file: "guide/methodologies.md"
+      section: "Tier 4: Feature Delivery"
+      anchor: "#tier-4-feature-delivery"

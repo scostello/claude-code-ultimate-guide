@@ -7,8 +7,8 @@
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="#"><img src="https://img.shields.io/badge/Lines-9,800+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-55-green?style=for-the-badge" alt="Templates"/></a>
-  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-159_questions-orange?style=for-the-badge" alt="Quiz"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-56-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-217_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
 <p align="center">
@@ -244,7 +244,7 @@ Based on ALL this context, provide:
 
 ### 🧠 Knowledge Quiz
 
-Test your Claude Code knowledge with an interactive CLI quiz. **159 curated questions** covering all 10 guide sections, with immediate feedback and documentation links.
+Test your Claude Code knowledge with an interactive CLI quiz. **217 curated questions** covering all 14 guide sections, with immediate feedback and documentation links.
 
 ```bash
 # Quick start
@@ -476,7 +476,7 @@ claude-code-ultimate-guide/
 │   ├── ...
 │   └── 07-guide-reference.qmd
 │
-└── quiz/                     # 🧠 Interactive knowledge quiz (159 questions)
+└── quiz/                     # 🧠 Interactive knowledge quiz (217 questions)
 ```
 
 ---
