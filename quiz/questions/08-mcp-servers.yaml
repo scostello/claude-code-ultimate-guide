@@ -311,32 +311,33 @@ questions:
   - id: "08-013"
     difficulty: "power"
     profiles: ["power"]
-    question: "What is mgrep's key differentiator compared to Serena?"
+    question: "What is grepai's key differentiator compared to Serena?"
     options:
       a: "It's faster"
-      b: "It provides semantic search by intent, not just patterns"
+      b: "It provides semantic search by intent plus call graph analysis"
       c: "It supports more languages"
       d: "It has better documentation"
     correct: "b"
     explanation: |
-      mgrep excels at intent-based search using natural language:
+      grepai excels at intent-based search using natural language, plus offers
+      call graph analysis to trace function dependencies:
 
       ```bash
-      # Traditional grep (exact match required)
-      grep -r "authenticate.*user" .
+      # Semantic search (finds code by meaning, not exact text)
+      grepai search "user authentication flow"
 
-      # mgrep (intent-based)
-      mgrep "code that handles user authentication"
+      # Who calls this function?
+      grepai trace callers "createSession"
       ```
 
-      While Serena focuses on symbol-level analysis, mgrep finds code by
-      describing what it does rather than exact patterns.
+      While Serena focuses on symbol-level analysis, grepai finds code by
+      describing what it does and traces caller/callee relationships.
 
-      Use mgrep for onboarding to unfamiliar codebases or exploring by intent.
+      Use grepai for exploring unfamiliar codebases or understanding dependencies.
     doc_reference:
       file: "guide/ultimate-guide.md"
       section: "8.2 Available Servers"
-      anchor: "#mgrep-semantic-search-alternative"
+      anchor: "#grepai-recommended-semantic-search"
 
   - id: "08-014"
     difficulty: "senior"

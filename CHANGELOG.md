@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Semantic search tools priority**: grepai now recommended over mgrep
+  - `guide/ultimate-guide.md`: Sections reordered (grepai first as "Recommended", mgrep as "Alternative")
+  - `guide/cheatsheet.md`: MCP Servers table updated (mgrep → grepai)
+  - `quiz/questions/08-mcp-servers.yaml`: Question 08-013 updated to reference grepai
+  - Rationale: grepai is fully open-source, runs locally (privacy), and offers call graph analysis
+
 ---
 
 ## [3.8.2] - 2026-01-17

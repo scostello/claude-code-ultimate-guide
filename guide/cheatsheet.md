@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.8.1 | **Last Updated**: January 2026
+**Version**: 3.8.2 | **Last Updated**: January 2026
 
 ---
 
@@ -193,7 +193,7 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | Server | Purpose |
 |--------|---------|
 | **Serena** | Indexation + session memory + symbol search |
-| **mgrep** | Semantic search by intent (alternative) |
+| **grepai** | Semantic search + call graph analysis |
 | **Context7** | Library documentation |
 | **Sequential** | Structured reasoning |
 | **Playwright** | Browser automation |
@@ -396,4 +396,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 3.8.1*
+*Last updated: January 2026 | Version 3.8.2*

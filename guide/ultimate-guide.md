@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.8.1
+**Version**: 3.8.2
 
 ---
 
@@ -1142,6 +1142,107 @@ Claude Code has two distinct memory systems. Understanding the difference is cru
 - **Session memory**: Active problem-solving, debugging, exploration
 - **Persistent memory**: Decisions you'll need in future sessions
 - **CLAUDE.md**: Team conventions, project structure (versioned with git)
+
+### Fresh Context Pattern (Ralph Loop)
+
+#### The Problem: Context Rot
+
+Research shows LLM performance degrades significantly with accumulated context:
+- **20-30% performance gap** between focused and polluted prompts ([Chroma, 2025](https://research.trychroma.com/context-rot))
+- Degradation starts at ~16K tokens for Claude models
+- Failed attempts, error traces, and iteration history dilute attention
+
+Instead of managing context within a session, you can **restart with a fresh session per task** while persisting state externally.
+
+#### The Pattern
+
+```bash
+# Canonical "Ralph Loop" (Geoffrey Huntley)
+while :; do cat TASK.md PROGRESS.md | claude -p ; done
+```
+
+**State persists via**:
+- `TASK.md` — Current task definition with acceptance criteria
+- `PROGRESS.md` — Learnings, completed tasks, blockers
+- Git commits — Each iteration commits atomically
+
+| Traditional | Fresh Context |
+|-------------|---------------|
+| Accumulate in chat history | Reset per task |
+| `/compact` to compress | State in files + git |
+| Context bleeds across tasks | Each task gets full attention |
+
+#### When to Use
+
+| Situation | Use |
+|-----------|-----|
+| Context 70-90%, staying interactive | `/compact` |
+| Context 90%+, need fresh start | `/clear` then continue |
+| Long autonomous run, task-based | Fresh Context Pattern |
+| Overnight/AFK execution | Fresh Context Pattern |
+
+**Good fit**:
+- Autonomous sessions >1 hour
+- Migrations, large refactorings
+- Tasks with clear success criteria (tests pass, build succeeds)
+
+**Poor fit**:
+- Interactive exploration
+- Design without clear spec
+- Tasks with slow/ambiguous feedback loops
+
+#### Practical Implementation
+
+**Option 1: Manual loop**
+
+```bash
+# Simple fresh-context loop
+for i in {1..10}; do
+    echo "=== Iteration $i ==="
+    claude -p "$(cat TASK.md PROGRESS.md)"
+    git diff --stat  # Check progress
+    read -p "Continue? (y/n) " -n 1 -r
+    [[ ! $REPLY =~ ^[Yy]$ ]] && break
+done
+```
+
+**Option 2: Script** (see `examples/scripts/fresh-context-loop.sh`)
+
+```bash
+./fresh-context-loop.sh 10 TASK.md PROGRESS.md
+```
+
+**Option 3: External orchestrators**
+
+- [AFK CLI](https://github.com/m0nkmaster/afk) — Zero-config orchestration across task sources
+
+#### Task Definition Template
+
+```markdown
+# TASK.md
+
+## Current Focus
+[Single atomic task with clear deliverable]
+
+## Acceptance Criteria
+- [ ] Tests pass
+- [ ] Build succeeds
+- [ ] [Specific verification]
+
+## Context
+- Related files: [paths]
+- Constraints: [rules]
+
+## Do NOT
+- Start other tasks
+- Refactor unrelated code
+```
+
+#### Key Insight
+
+`/compact` preserves conversation flow. Fresh context maximizes per-task attention at the cost of continuity.
+
+> **Sources**: [Chroma Research - Context Rot](https://research.trychroma.com/context-rot) | [Ralph Loop Origin](https://block.github.io/goose/docs/tutorials/ralph-loop/) | [METR - Long Task Capability](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/) | [Anthropic - Context Engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 
 ### What Consumes Context?
 
@@ -5046,44 +5147,11 @@ uvx --from git+https://github.com/oraios/serena serena project index
 
 > **Source**: [Serena GitHub](https://github.com/oraios/serena)
 
-### mgrep (Semantic Search Alternative)
-
-**Purpose**: Natural language semantic search across code, docs, PDFs, and images.
-
-**Why consider mgrep**: While Serena focuses on symbol-level analysis, mgrep excels at **intent-based search** — finding code by describing what it does rather than exact patterns. Their benchmarks show ~2x fewer tokens used compared to grep-based workflows.
-
-**Key Features**:
-
-| Feature | Description |
-|---------|-------------|
-| **Semantic search** | Find code by natural language description |
-| **Background indexing** | `mgrep watch` indexes respecting `.gitignore` |
-| **Multi-format** | Search code, PDFs, images, text |
-| **Web integration** | Web search fallback capability |
-
-**Example**:
-
-```bash
-# Traditional grep (exact match required)
-grep -r "authenticate.*user" .
-
-# mgrep (intent-based)
-mgrep "code that handles user authentication"
-```
-
-**Use when**:
-- Onboarding to unfamiliar codebases
-- Exploring code by intent, not exact patterns
-- Searching across mixed content (code + docs)
-
-> **Note**: I haven't tested mgrep personally. Consider it an alternative worth exploring.
-> **Source**: [mgrep GitHub](https://github.com/mixedbread-ai/mgrep)
-
-### grepai (Semantic Search + Call Graph)
+### grepai (Recommended Semantic Search)
 
 **Purpose**: Privacy-first semantic code search with call graph analysis.
 
-**Why consider grepai**: Unlike mgrep, grepai is **fully open-source** and runs entirely locally using Ollama embeddings. Its killer feature is **call graph analysis** — trace who calls what function and visualize dependencies.
+**Why grepai is recommended**: It's **fully open-source**, runs entirely locally using Ollama embeddings (no cloud/privacy concerns), and offers **call graph analysis** — trace who calls what function and visualize dependencies. This combination makes it the best choice for most semantic search needs.
 
 **Key Features**:
 
@@ -5174,6 +5242,39 @@ grepai search "session creation logic"
 ```
 
 > **Source**: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
+
+### mgrep (Alternative Semantic Search)
+
+**Purpose**: Natural language semantic search across code, docs, PDFs, and images.
+
+**Why consider mgrep**: If you need **multi-format search** (code + PDFs + images) or prefer a cloud-based solution, mgrep is an alternative to grepai. Their benchmarks show ~2x fewer tokens used compared to grep-based workflows.
+
+**Key Features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Semantic search** | Find code by natural language description |
+| **Background indexing** | `mgrep watch` indexes respecting `.gitignore` |
+| **Multi-format** | Search code, PDFs, images, text |
+| **Web integration** | Web search fallback capability |
+
+**Example**:
+
+```bash
+# Traditional grep (exact match required)
+grep -r "authenticate.*user" .
+
+# mgrep (intent-based)
+mgrep "code that handles user authentication"
+```
+
+**Use when**:
+- Need to search across mixed content (code + PDFs + images)
+- Prefer cloud-based embeddings over local Ollama setup
+- grepai's call graph analysis isn't needed
+
+> **Note**: I haven't tested mgrep personally. Consider it an alternative worth exploring.
+> **Source**: [mgrep GitHub](https://github.com/mixedbread-ai/mgrep)
 
 ### Context7 (Documentation Lookup)
 
@@ -9634,4 +9735,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.8.1
+**Last updated**: January 2026 | **Version**: 3.8.2
