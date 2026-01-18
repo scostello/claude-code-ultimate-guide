@@ -167,20 +167,21 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 
 ---
 
-## Plan Mode & Thinking Depth
+## Plan Mode & Thinking
 
 | Feature | Activation | Usage |
 |---------|------------|-------|
 | **Plan Mode** | `Shift+Tab × 2` or `/plan` | Explore without modifying |
 | **OpusPlan** | `/model opusplan` | Opus for planning, Sonnet for execution |
 
-> ⚠️ **Note**: Extended thinking uses **prompt keywords** (e.g., "think hard"), not CLI flags.
+> **⚠️ Opus 4.5+ Change**: Thinking mode is now **ON by default at max budget**. Keywords like "ultrathink" are cosmetic only.
 
-| Prompt Keyword | Thinking Depth | Use For |
-|----------------|----------------|---------|
-| "Think" | Standard | Multi-component analysis |
-| "Think hard" | Deep | Architectural decisions |
-| "Ultrathink" | Maximum | Critical redesign |
+| Control | Action | Persistence |
+|---------|--------|-------------|
+| **Alt+T** | Toggle thinking on/off | Session |
+| **/config** | Enable/disable globally | Permanent |
+
+**Cost tip**: For simple tasks, Alt+T to disable thinking → faster & cheaper.
 
 **OpusPlan workflow**: `/model opusplan` → `Shift+Tab × 2` (plan with Opus) → `Shift+Tab` (execute with Sonnet)
 
@@ -344,7 +345,7 @@ Risky change      → Plan Mode first
 Repeating task    → Create agent or command
 Context full      → /compact or /clear
 Need docs         → Use Context7 MCP
-Deep analysis     → Use extended thinking prompts
+Deep analysis     → Use Opus (thinking on by default)
 ```
 
 ---

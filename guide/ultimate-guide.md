@@ -3743,7 +3743,7 @@ Launch all agents in parallel.
 │   SPLIT ROLE ANALYSIS                                       │
 │                                                             │
 │   Step 1: Setup                                             │
-│   └─ Activate Plan Mode + ultrathink                        │
+│   └─ Activate Plan Mode (thinking enabled by default)       │
 │                                                             │
 │   Step 2: Role Suggestion                                   │
 │   └─ "What expert roles would analyze this code?"           │
@@ -3858,7 +3858,7 @@ Evaluate this interface with perspectives:
 |------|-------|---------------|
 | Read and summarize a file | Haiku | Simple, fast |
 | Write a standard component | Sonnet | Good balance |
-| Debug complex issue | Sonnet + ultrathink | Depth needed |
+| Debug complex issue | Opus (thinking default) | Depth needed |
 | System architecture | Opus | Maximum reasoning |
 | Critical security review | Opus | High stakes |
 | Generate tests | Haiku | Repetitive pattern |
@@ -5963,7 +5963,7 @@ _Quick jump:_ [The Trinity](#91-the-trinity) · [Composition Patterns](#92-compo
 
 ### Pattern Categories:
 
-**🎯 The Trinity (9.1)** — Ultimate workflow: Plan Mode → Ultrathink → Sequential MCP
+**🎯 The Trinity (9.1)** — Ultimate workflow: Plan Mode → Extended Thinking → Sequential MCP
 - When: Architecture decisions, complex refactoring, critical systems
 - Why: Maximum reasoning power + safe exploration
 
@@ -6009,7 +6009,7 @@ The most powerful Claude Code pattern combines three techniques:
 │          │                                              │
 │          ▼                                              │
 │   ┌─────────────┐                                       │
-│   │ Ultrathink  │  Deep analysis with extended thinking │
+│   │ Ext.Thinking│  Deep analysis (default in Opus 4.5) │
 │   └──────┬──────┘                                       │
 │          │                                              │
 │          ▼                                              │
@@ -6032,40 +6032,57 @@ The most powerful Claude Code pattern combines three techniques:
 | Architectural decision | ✅ Yes |
 | Legacy system modernization | ✅ Yes |
 
-### Extended Thinking Techniques
+### Extended Thinking (Opus 4.5+)
 
-> ⚠️ **Note**: `--think`, `--think-hard`, and `--ultrathink` are **NOT official Claude Code CLI flags**. They do not exist in `claude --help`. The techniques below use **prompt keywords** to encourage deeper analysis, not CLI flags.
+> **⚠️ Important Change (v2.0.67+)**: With Opus 4.5, **thinking mode is enabled by default at maximum budget**. The keywords "think", "think hard", "ultrathink" are now **cosmetic only** — they no longer control behavior.
 
-| Prompt Keyword | Thinking Depth | Estimated Tokens | Best For |
-|----------------|----------------|------------------|----------|
-| "Think" | Standard | ~4K (estimate) | Multi-component analysis |
-| "Think hard" | Deep | ~10K (estimate) | Architectural decisions |
-| "Ultrathink" | Maximum | ~32K (estimate) | Critical redesign |
+#### What Changed
 
-#### Inline Thinking Keywords
+| Aspect | Before v2.0.67 | After v2.0.67 (Opus 4.5) |
+|--------|----------------|--------------------------|
+| Default state | Thinking off (opt-in) | Thinking on at max budget |
+| Keywords effect | Activated/boosted thinking | No effect (cosmetic) |
+| Control method | Prompt keywords | Alt+T toggle, `/config` |
+| Budget control | Variable (~4K/10K/32K) | Always maximum |
 
-You can also trigger extended thinking by adding keywords directly in your prompt:
+#### Controlling Thinking Mode
 
+| Method | Action | Persistence |
+|--------|--------|-------------|
+| **Alt+T** (Option+T on macOS) | Toggle thinking on/off | Current session |
+| **/config** → Thinking mode | Enable/disable globally | Across sessions |
+| **Ctrl+O** | View thinking blocks (verbose) | Display only |
+
+#### Cost Implications
+
+Thinking tokens are billed. With thinking enabled by default:
+- **Simple tasks**: Consider Alt+T to disable → faster responses, lower cost
+- **Complex tasks**: Leave enabled → better reasoning, worth the cost
+- **Sonnet/Haiku**: No extended thinking available (Opus 4.5 only)
+
+#### Migration for Existing Users
+
+**Before** (no longer needed):
 ```bash
-# Minimal boost - standard analysis
-claude -p "Think. Outline a plan to refactor the auth module."
-
-# Medium boost - deeper consideration
-claude -p "Think hard. Draft a migration plan from REST to gRPC."
-
-# Strong boost - thorough analysis
-claude -p "Think harder. Evaluate trade-offs for our caching strategy."
-
-# Maximum boost - comprehensive reasoning
-claude -p "Ultrathink. Propose a step-by-step strategy to fix flaky payment tests and add guardrails."
+claude -p "Ultrathink. Analyze this architecture."
 ```
 
-**How it works:**
-- **think** → Claude spends more time planning before responding
-- **think hard/harder** → Progressively deeper analysis with more consideration of alternatives
-- **ultrathink** → Maximum pre-answer reasoning about implications, edge cases, and trade-offs
+**After** (thinking is already max by default):
+```bash
+claude -p "Analyze this architecture."
+```
 
-**Higher levels increase latency and token usage** - use the smallest level that works for your task.
+**To disable thinking for simple tasks**: Press Alt+T before sending, or use Sonnet.
+
+#### Legacy Keywords Reference
+
+> These keywords were functional before v2.0.67. They are now recognized visually but have **no behavioral effect**.
+
+| Keyword | Previous Effect | Current Effect |
+|---------|-----------------|----------------|
+| "Think" | ~4K tokens | Cosmetic only |
+| "Think hard" | ~10K tokens | Cosmetic only |
+| "Ultrathink" | ~32K tokens | Cosmetic only |
 
 ### Example: Using the Trinity
 
@@ -6073,7 +6090,7 @@ claude -p "Ultrathink. Propose a step-by-step strategy to fix flaky payment test
 You: /plan
 
 Let's analyze this legacy authentication system before we touch anything.
-Use --ultrathink to understand all the implications.
+[Thinking mode is enabled by default with Opus 4.5 - no keyword needed]
 
 [Claude enters Plan Mode and does deep analysis]
 
@@ -6147,7 +6164,7 @@ Final check: [Verification]
 For critical work, combine everything:
 
 ```
-1. Plan Mode + Ultrathink → Deep exploration
+1. Plan Mode + Extended Thinking → Deep exploration
 2. Multiple Agents → Specialized analysis
 3. Sequential Thinking → Structured reasoning
 4. Rev the Engine → Iterative improvement
@@ -7437,11 +7454,10 @@ exit 0  # Allow
 **✅ Do:**
 
 - Use `--add-dir` to allow tool access to directories outside the current working directory
-- Right-size thinking depth to task complexity:
-  - Simple edits: Standard prompts
-  - Medium analysis: "Think about this"
-  - Complex architecture: "Think hard about this"
-  - Critical redesign: "Ultrathink" in your prompt
+- Manage thinking mode for cost efficiency:
+  - Simple tasks: Alt+T to disable thinking → faster, cheaper
+  - Complex tasks: Leave thinking enabled (default in Opus 4.5)
+  - Note: Keywords like "ultrathink" no longer have effect
 - Set `cleanupPeriodDays` in config to prune old sessions automatically
 - Use `/compact` proactively when context reaches 70%
 - Block sensitive files with `permissions.deny` in settings.json
@@ -8537,7 +8553,7 @@ Time savings from effective Claude Code usage typically far outweigh API costs f
 Before moving to Section 10 (Reference), verify you understand:
 
 **Core Patterns**:
-- [ ] **Trinity Pattern**: Plan Mode → Ultrathink → Sequential MCP for critical work
+- [ ] **Trinity Pattern**: Plan Mode → Extended Thinking → Sequential MCP for critical work
 - [ ] **Composition**: Agents + Skills + Hooks working together seamlessly
 - [ ] **CI/CD Integration**: Automated reviews and quality gates in pipelines
 - [ ] **IDE Integration**: VS Code + Claude Code = seamless development flow
@@ -9176,11 +9192,11 @@ Get the scripts from:
 ║  hooks/     Event scripts     rules/     Auto-load rules  ║
 ║  skills/    Knowledge modules                             ║
 ║                                                           ║
-║  THINKING PROMPTS (keywords, not CLI flags)               ║
+║  THINKING MODE (Opus 4.5+ default: ON at max)             ║
 ║  ─────────────────────────────────────────                ║
-║  "Think"        Standard      Multi-component analysis    ║
-║  "Think hard"   Deep          Architecture decisions      ║
-║  "Ultrathink"   Maximum       Critical redesign           ║
+║  Alt+T          Toggle on/off   Current session           ║
+║  /config        Global setting  Persists across sessions  ║
+║  Note: "ultrathink" keywords are now cosmetic only        ║
 ║                                                           ║
 ║  MCP SERVERS                                              ║
 ║  ───────────                                              ║

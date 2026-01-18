@@ -50,10 +50,10 @@ Copy everything inside the code block in [Section 4](#4-the-prompt) below.
 
 ```bash
 cd your-project-directory
-claude --ultrathink
+claude
 ```
 
-> **Note**: `--ultrathink` enables maximum analysis depth (~32K tokens). You can also use `--think` for lighter analysis.
+> **Note**: With Opus 4.5, thinking mode is enabled by default at maximum depth. Use Alt+T to toggle if needed.
 
 ### Step 3: Paste and Execute
 
@@ -307,8 +307,8 @@ For each category, evaluate against these criteria based on Phase 1 scan results
 - [ ] Context7 configured if using external libraries
 - [ ] Other relevant MCPs for the project needs
 
-**Think Levels & Trinity (Guide Section 9.1)**
-- [ ] Understanding of --think / --think-hard / --ultrathink
+**Thinking Mode & Trinity (Guide Section 9.1)**
+- [ ] Understanding of thinking mode (enabled by default in Opus 4.5, Alt+T to toggle)
 - [ ] Trinity pattern documented for complex workflows
 
 **CI/CD Integration (Guide Section 9.3)**
@@ -509,7 +509,7 @@ Here's an example of what the audit report looks like:
 | **PreToolUse** | Hook that runs BEFORE Claude executes a tool - great for security checks |
 | **PostToolUse** | Hook that runs AFTER Claude executes a tool - great for formatting |
 | **Plan Mode** | Read-only exploration mode for safe analysis before making changes |
-| **Think Levels** | `--think`, `--think-hard`, `--ultrathink` - different analysis depths |
+| **Thinking Mode** | Extended thinking (Opus 4.5: ON by default). Toggle with Alt+T, configure in /config |
 | **Trinity Pattern** | Combining Plan Mode + Think Levels + MCP for complex tasks |
 | **Verify Gate** | CI/CD pattern: build → lint → test → typecheck before merge |
 | **Context Zones** | Green (0-50%), Yellow (50-70%), Red (70%+) - context usage thresholds |

@@ -9,7 +9,7 @@ questions:
     question: "What are the three components of 'The Trinity' pattern?"
     options:
       a: "Git, VSCode, Terminal"
-      b: "Plan Mode, Ultrathink, Sequential Thinking"
+      b: "Plan Mode, Extended Thinking, Sequential Thinking"
       c: "Serena, Context7, Playwright"
       d: "Agent, Skill, Command"
     correct: "b"
@@ -17,7 +17,7 @@ questions:
       The Trinity is the most powerful Claude Code pattern combining:
 
       1. **Plan Mode** - Safe exploration without changes
-      2. **Ultrathink** - Deep analysis with extended thinking
+      2. **Extended Thinking** - Deep analysis (enabled by default in Opus 4.5)
       3. **Sequential Thinking (MCP)** - Structured multi-step reasoning
 
       Combined, these provide maximum understanding before taking action.
@@ -30,27 +30,29 @@ questions:
   - id: "09-002"
     difficulty: "power"
     profiles: ["power"]
-    question: "What is the approximate token usage for --ultrathink?"
+    question: "How do you toggle thinking mode in Claude Code (Opus 4.5+)?"
     options:
-      a: "~1K tokens"
-      b: "~4K tokens"
-      c: "~10K tokens"
-      d: "~32K tokens"
-    correct: "d"
+      a: "Use 'ultrathink' keyword in your prompt"
+      b: "Alt+T (or Option+T on macOS)"
+      c: "--think CLI flag"
+      d: "/thinking command"
+    correct: "b"
     explanation: |
-      Ultrathink levels and token usage:
+      With Opus 4.5 (v2.0.67+), thinking mode is enabled by default at maximum budget.
 
-      | Flag | Thinking Depth | Token Usage | Best For |
-      |------|----------------|-------------|----------|
-      | `--think` | Standard | ~4K | Multi-component analysis |
-      | `--think-hard` | Deep | ~10K | Architectural decisions |
-      | `--ultrathink` | Maximum | ~32K | Critical redesign |
+      **Controlling Thinking Mode:**
+      | Method | Action | Persistence |
+      |--------|--------|-------------|
+      | **Alt+T** | Toggle on/off | Session |
+      | **/config** | Enable/disable globally | Permanent |
 
-      Higher levels increase latency and cost - use the smallest level that works.
+      **Note**: Keywords like "ultrathink" are now cosmetic only - they no longer control thinking behavior.
+
+      Use Alt+T to disable thinking for simple tasks (faster, cheaper).
     doc_reference:
       file: "guide/ultimate-guide.md"
-      section: "9.1 The Trinity"
-      anchor: "#ultrathink-levels"
+      section: "9.1 Extended Thinking"
+      anchor: "#extended-thinking-opus-45"
 
   - id: "09-003"
     difficulty: "senior"
