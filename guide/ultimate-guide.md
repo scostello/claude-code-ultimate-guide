@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.1
+**Version**: 3.9.4
 
 ---
 
@@ -174,6 +174,7 @@ Context full → /compact or /clear
   - [11.2 Tool Matrix](#112-tool-matrix)
   - [11.3 Practical Workflows](#113-practical-workflows)
   - [11.4 Integration Patterns](#114-integration-patterns)
+  - [For Non-Developers: Claude Cowork](#for-non-developers-claude-cowork)
 - [Appendix: Templates Collection](#appendix-templates-collection)
   - [Appendix A: File Locations Reference](#appendix-a-file-locations-reference)
 
@@ -9219,6 +9220,111 @@ Add the logout button only. Don't add session management or remember-me features
 
 ---
 
+## 9.16 Session Teleportation
+
+**Reading time**: 5 minutes
+**Skill level**: Week 2+
+**Status**: Research Preview (as of January 2026)
+
+Session teleportation allows migrating coding sessions between cloud (claude.ai/code) and local (CLI) environments. This enables workflows where you start work on mobile/web and continue locally with full filesystem access.
+
+### Evolution Timeline
+
+| Version | Feature |
+|---------|---------|
+| **2.0.24** | Initial Web → CLI teleport capability |
+| **2.0.41** | Teleporting auto-sets upstream branch |
+| **2.0.45** | `&` prefix for background tasks to web |
+| **2.1.0** | `/teleport` and `/remote-env` commands |
+
+### Commands Reference
+
+| Command | Usage |
+|---------|-------|
+| `%` or `&` prefix | Send task to cloud (e.g., `% Fix the auth bug`) |
+| `claude --teleport` | Interactive picker for available sessions |
+| `claude --teleport <id>` | Teleport specific session by ID |
+| `/teleport` | In-REPL command to teleport current session |
+| `/tasks` | Monitor background tasks status |
+| `/remote-env` | Configure cloud environment settings |
+| `Ctrl+B` | Background all running tasks (unified in 2.1.0) |
+
+### Prerequisites
+
+**Required for teleportation:**
+- GitHub account connected + Claude GitHub App installed
+- Clean git state (0 uncommitted changes)
+- Same repository (not a fork)
+- Branch exists on remote
+- Same Claude.ai account on both environments
+- CLI version 2.1.0+
+
+### Workflow Example
+
+```bash
+# 1. Start task on web (claude.ai/code)
+#    "Refactor the authentication middleware"
+
+# 2. Session works in cloud sandbox
+
+# 3. Later, on local machine:
+claude --teleport
+# → Interactive picker shows available sessions
+
+# 4. Select session, Claude syncs:
+#    - Conversation context
+#    - File changes (via git)
+#    - Task state
+
+# 5. Continue work locally with full filesystem access
+```
+
+### Environment Support
+
+| Environment | Teleport Support |
+|-------------|------------------|
+| CLI/Terminal | Full bidirectional |
+| VS Code | Via terminal (not Chat view) |
+| Cursor | Via terminal |
+| Web (claude.ai/code) | Outbound only (web → local) |
+| iOS app | Monitoring only |
+
+### Current Limitations (Research Preview)
+
+> **⚠️ Important**: Session teleportation is in research preview. Expect rough edges.
+
+- **Unidirectional**: Web → local only (cannot teleport local → web)
+- **GitHub only**: No GitLab or Bitbucket support yet
+- **Subscription required**: Pro, Max, Team Premium, or Enterprise Premium
+- **Rate limits**: Parallel sessions consume proportional rate limits
+- **Git dependency**: Requires clean git state for sync
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "Uncommitted changes" | Commit or stash changes before teleporting |
+| "Branch not found" | Push local branch to remote first |
+| "Session not found" | Verify same Claude.ai account on both |
+| "Teleport failed" | Check internet connectivity, try again |
+| Connection timeout | Use `claude --teleport <id>` with explicit ID |
+
+### Best Practices
+
+1. **Commit frequently** — Clean git state is required
+2. **Use meaningful branch names** — Helps identify sessions
+3. **Check `/tasks`** — Verify background task status before teleporting
+4. **Same account** — Ensure CLI and web use same Claude.ai login
+5. **Push branches** — Remote must have the branch for sync
+
+### Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` | Disable background task functionality (v2.1.4+) |
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -9244,6 +9350,10 @@ Before moving to Section 10 (Reference), verify you understand:
 **Communication Patterns**:
 - [ ] **Named Prompting Patterns**: As If, Constraint, Explain First, Rubber Duck, Incremental, Boundary
 - [ ] **Mermaid Diagrams**: Generate visual documentation for architecture and flows
+
+**Advanced Workflows**:
+- [ ] **Session Teleportation**: Migrate sessions between cloud and local environments
+- [ ] **Background Tasks**: Run tasks in cloud while working locally (`%` prefix)
 
 ### What's Next?
 
@@ -10403,6 +10513,22 @@ claude
 
 > **📖 Deep Dive**: For detailed integration patterns, ready-to-use prompts, and tool comparisons, see the [complete AI Ecosystem guide](./ai-ecosystem.md).
 
+### For Non-Developers: Claude Cowork
+
+If you work with non-technical team members, **Cowork** brings Claude's agentic capabilities to knowledge workers without requiring terminal access.
+
+| Aspect | Claude Code | Cowork |
+|--------|-------------|--------|
+| Target | Developers | Knowledge workers |
+| Interface | Terminal | Desktop app |
+| Execute code | Yes | No (files only) |
+| Outputs | Code, scripts | Excel, PPT, docs |
+| Status | Production | Research preview |
+
+**Collaboration pattern**: Developers use Claude Code for specs → PMs use Cowork for stakeholder summaries. Shared context via `~/Shared/CLAUDE.md`.
+
+> **Availability**: Max subscribers only (~$200/mo), macOS only (Jan 2026).
+> See [AI Ecosystem Section 9](./ai-ecosystem.md#9-claude-cowork-research-preview) for details.
 
 ## Further Reading
 
@@ -10816,4 +10942,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.1
+**Last updated**: January 2026 | **Version**: 3.9.4

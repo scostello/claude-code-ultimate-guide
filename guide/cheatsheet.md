@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.9.1 | **Last Updated**: January 2026
+**Version**: 3.9.4 | **Last Updated**: January 2026
 
 ---
 
@@ -22,6 +22,9 @@
 | `/plan` | Enter Plan Mode (no changes) |
 | `/execute` | Exit Plan Mode (apply changes) |
 | `/model` | Switch model (sonnet/opus/opusplan) |
+| `/teleport` | Teleport session from web |
+| `/tasks` | Monitor background tasks |
+| `/remote-env` | Configure cloud environment |
 | `/exit` | Quit (or Ctrl+D) |
 
 ---
@@ -37,6 +40,7 @@
 | `Ctrl+L` | Clear screen (keeps context) |
 | `Tab` | Autocomplete |
 | `Shift+Enter` | New line |
+| `Ctrl+B` | Background tasks |
 | `Ctrl+D` | Exit |
 
 ---
@@ -283,6 +287,7 @@ VERIFY: Empty email shows error, invalid format shows error
 | `-p "query"` | Non-interactive mode (CI/CD) |
 | `-c` / `--continue` | Continue last session |
 | `-r` / `--resume <id>` | Resume specific session |
+| `--teleport` | Teleport session from web |
 | `--model sonnet` | Change model |
 | `--add-dir ../lib` | Allow access outside CWD |
 | `--permission-mode plan` | Plan mode |
@@ -397,4 +402,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: January 2026 | Version 3.9.1*
+*Last updated: January 2026 | Version 3.9.4*

@@ -17,6 +17,7 @@ Core documentation for mastering Claude Code.
 | [methodologies.md](./methodologies.md) | 15 development methodologies reference (TDD, SDD, BDD, etc.) | 20 min |
 | [security-hardening.md](./security-hardening.md) | Security threats, MCP vetting, injection defense | 25 min |
 | [ai-ecosystem.md](./ai-ecosystem.md) | Complementary AI tools (Perplexity, Gemini, Kimi, NotebookLM) | 25 min |
+| [cowork.md](./cowork.md) | Claude Cowork: Agentic Desktop for Knowledge Workers | 15 min |
 | [workflows/](./workflows/) | Practical workflow guides for Claude Code | 30 min |
 
 ### Workflows

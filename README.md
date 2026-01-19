@@ -6,8 +6,8 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/Lines-10,500+-blueviolet?style=for-the-badge" alt="Lines"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-63-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Lines-10,900+-blueviolet?style=for-the-badge" alt="Lines"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-61-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -185,7 +185,8 @@ curl -sL https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-
 
 **What's inside**: Decision trees, command reference, context zones, MCP servers, agent templates, troubleshooting—optimized for machine consumption. Points to line numbers in the [full guide](./guide/ultimate-guide.md) for deep dives.
 
-### 🔬 Deep Audit (Personalized Recommendations)
+<details>
+<summary><strong>🔬 Deep Audit (Personalized Recommendations)</strong></summary>
 
 Get a comprehensive, **context-aware** audit that analyzes your project's README, CLAUDE.md files, and business domain to provide tailored recommendations:
 
@@ -241,6 +242,8 @@ Based on ALL this context, provide:
 - Non-duplicate suggestions: Only recommends agents/commands you don't already have
 
 **Want maximum depth?** Use [tools/audit-prompt.md](./tools/audit-prompt.md) (thinking is enabled by default with Opus 4.5)
+
+</details>
 
 ### 🧠 Knowledge Quiz
 
@@ -397,27 +400,10 @@ Weak Areas (< 75%):
 | **[Data Privacy](./guide/data-privacy.md)** | Data retention and privacy guide | ~10 minutes |
 | **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense, CVEs | ~25 minutes |
 | **[Observability](./guide/observability.md)** | Session monitoring and cost tracking | ~15 minutes |
-| **[AI Ecosystem](./guide/ai-ecosystem.md)** | Complementary tools (Perplexity, Gemini, Kimi) | ~25 minutes |
+| **[AI Ecosystem](./guide/ai-ecosystem.md)** | Complementary tools (Perplexity, Gemini, Kimi, Cowork) | ~25 minutes |
 | **[LLM Reference](./machine-readable/reference.yaml)** | Machine-optimized index (~2K tokens) | For Claude/AI assistants |
 | **[Setup Audit](./tools/audit-prompt.md)** | Optimize your configuration | ~10 minutes |
 | **[Examples Library](./examples/)** | Production-ready templates | Browse as needed |
-
-### 🇫🇷 Whitepapers (French)
-
-8 standalone documents covering Claude Code from zero to production (~185 pages total):
-
-| # | Title | Audience | Pages |
-|---|-------|----------|-------|
-| **[#0](./whitepapers/00-introduction-serie.qmd)** | De Zéro à Productif | Everyone | ~8 |
-| **[#1](./whitepapers/01-prompts-efficaces.qmd)** | Prompts qui Marchent | Dev Junior/Senior | ~12 |
-| **[#2](./whitepapers/02-personnalisation.qmd)** | Personnaliser Claude | Senior/Power | ~15 |
-| **[#3](./whitepapers/03-securite.qmd)** | Sécurité en Production | DevSecOps/TechLead | ~15 |
-| **[#4](./whitepapers/04-architecture.qmd)** | L'Architecture Démystifiée | Architects | ~12 |
-| **[#5](./whitepapers/05-equipe.qmd)** | Déployer en Équipe | TechLead/PM | ~12 |
-| **[#6](./whitepapers/06-privacy.qmd)** | Privacy & Compliance | Compliance/Legal | ~10 |
-| **[#7](./whitepapers/07-guide-reference.qmd)** | Guide de Référence Complet | Everyone | ~100 |
-
-> **Reading paths by profile**: Junior (WP #0→#1, 25 min) | Senior (#0→#1→#2→#3, 1h15) | Tech Lead (#0→#5→#3→#2, 1h15)
 
 <details>
 <summary><strong>Alternative Formats</strong> (Interactive AI, PDFs)</summary>
@@ -433,7 +419,7 @@ Weak Areas (< 75%):
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~10300 lines)
+│   ├── ultimate-guide.md     # Complete reference (~10900 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── adoption-approaches.md # Team implementation strategies
@@ -469,14 +455,9 @@ claude-code-ultimate-guide/
 │   ├── github-actions/       # CI/CD workflows
 │   ├── config/               # Configuration templates
 │   ├── memory/               # CLAUDE.md templates
+│   ├── mcp-configs/          # MCP server configurations
 │   ├── modes/                # Behavioral modes (SuperClaude)
 │   └── workflows/            # Advanced workflow guides
-│
-├── whitepapers/              # 🇫🇷 French whitepaper series (8 docs, ~185 pages)
-│   ├── 00-introduction-serie.qmd
-│   ├── 01-prompts-efficaces.qmd
-│   ├── ...
-│   └── 07-guide-reference.qmd
 │
 └── quiz/                     # 🧠 Interactive knowledge quiz (227 questions)
 ```
@@ -487,7 +468,8 @@ claude-code-ultimate-guide/
 
 Copy-paste templates from [`examples/`](./examples/) for immediate use:
 
-### Slash Commands
+<details>
+<summary><strong>Slash Commands</strong> (15 commands)</summary>
 
 | Command | Purpose | Highlights |
 |---------|---------|------------|
@@ -507,6 +489,8 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [/optimize](./examples/commands/optimize.md) | Performance analysis | Runtime, memory, bundle |
 | [/ship](./examples/commands/ship.md) | Pre-deploy checklist | Tests, security, migrations |
 
+</details>
+
 ### Utility Scripts
 
 | Script | Purpose | Performance |
@@ -515,7 +499,8 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [audit-scan.sh](./examples/scripts/audit-scan.sh) | Setup audit scanner | ~2s |
 | [update-cc-releases.sh](./scripts/update-cc-releases.sh) | Check for new Claude Code releases | ~1s |
 
-### Security & Automation Hooks
+<details>
+<summary><strong>Security & Automation Hooks</strong> (8 highlighted, 15 total)</summary>
 
 | Hook | Event | Purpose |
 |------|-------|---------|
@@ -528,7 +513,9 @@ Copy-paste templates from [`examples/`](./examples/) for immediate use:
 | [notification.sh](./examples/hooks/bash/notification.sh) | Notification | macOS sound alerts |
 | [auto-format.sh](./examples/hooks/bash/auto-format.sh) | PostToolUse | Auto-format with Prettier |
 
-**[See All 14 Hooks](./examples/hooks/)** — Includes session-logger, security-check, claudemd-scanner, and more
+**[See All 15 Hooks](./examples/hooks/)** — Includes session-logger, security-check, claudemd-scanner, and more
+
+</details>
 
 ### GitHub Actions (CI/CD)
 
@@ -630,7 +617,8 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 ---
 
-## 📚 Related Resources
+<details>
+<summary><strong>📚 Related Resources</strong></summary>
 
 ### Complementary Guides
 
@@ -654,6 +642,8 @@ Found an error? Have a suggestion? See [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 ### Official Documentation
 
 - [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code) — Anthropic official reference
+
+</details>
 
 ---
 
@@ -743,7 +733,7 @@ Get notified about major updates, new templates, and Claude Code best practices:
 
 ---
 
-*Version 3.9.1 | January 2026 | Crafted with Claude*
+*Version 3.9.4 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

@@ -17,7 +17,9 @@
 - [6. UI Prototypers (v0, Bolt, Lovable)](#6-ui-prototypers-v0-bolt-lovable)
 - [7. Workflow Orchestration](#7-workflow-orchestration)
 - [8. Cost & Subscription Strategy](#8-cost--subscription-strategy)
-- [Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
+- [9. Claude Cowork (Research Preview)](#9-claude-cowork-research-preview)
+- [Appendix: Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
+- [Alternative Providers (Community Workarounds)](#alternative-providers-community-workarounds)
 
 ---
 
@@ -696,6 +698,96 @@ claude
 
 ---
 
+## 9. Claude Cowork (Research Preview)
+
+> **Research Preview** (January 2026) — Limited documentation, expect bugs, local-only access. No production use recommended yet.
+
+Cowork extends Claude's agentic capabilities to non-technical users via the Claude Desktop app. Instead of terminal commands, it accesses local folders to manipulate files.
+
+**Official source**: [claude.com/blog/cowork-research-preview](https://claude.com/blog/cowork-research-preview)
+
+### Quick Comparison
+
+| Aspect | Claude Code | Cowork | Projects |
+|--------|-------------|--------|----------|
+| **Target** | Developers | Knowledge workers | Everyone |
+| **Interface** | Terminal/CLI | Desktop app | Chat |
+| **Access** | Shell + code | Folder sandbox | Documents |
+| **Execute code** | Yes | **No** | No |
+| **Outputs** | Code, scripts | Excel, PPT, docs | Conversations |
+| **Maturity** | Production | **Preview** | Production |
+| **Connectors** | MCP servers | **Local only** | Integrations |
+| **Platform** | All | macOS only | All |
+| **Subscription** | Usage-based | Max only (~$200/mo) | All tiers |
+
+### When to Use What
+
+```
+Need code execution?        → Claude Code
+File/doc manipulation?      → Cowork (if local files)
+Cloud files/collaboration?  → Wait (no connectors yet)
+Ideation/planning?          → Projects
+```
+
+### Key Use Cases
+
+| Use Case | Input | Output |
+|----------|-------|--------|
+| **File organization** | Messy Downloads folder | Structured folders by type/date |
+| **Expense tracking** | Receipt screenshots | Excel with formulas + totals |
+| **Report synthesis** | Scattered notes + PDFs | Formatted Word/PDF document |
+| **Meeting prep** | Company docs + LinkedIn | Briefing document |
+
+### Security Considerations
+
+> **No official security documentation exists yet.**
+
+**Best practices**:
+1. Create dedicated `~/Cowork-Workspace/` folder — never grant access to Documents/Desktop
+2. Review task plans before execution (especially file deletions/moves)
+3. Avoid files with instruction-like text from unknown sources
+4. No credentials, API keys, or sensitive data in workspace
+5. Backup before destructive operations
+
+**Risk matrix**:
+| Risk | Level | Mitigation |
+|------|-------|------------|
+| Prompt injection via files | HIGH | Dedicated folder, no untrusted content |
+| Browser action abuse | HIGH | Review each web action |
+| Local file exposure | MEDIUM | Minimal permission scope |
+
+### Developer ↔ Non-Developer Workflows
+
+**Pattern**: Dev specs in Claude Code → PM review in Cowork
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ DEVELOPER (Claude Code)                                      │
+│ > "Generate a technical spec. Output to ~/Shared/specs/"    │
+└──────────────────────────────┬──────────────────────────────┘
+                               ↓
+┌─────────────────────────────────────────────────────────────┐
+│ PROJECT MANAGER (Cowork)                                     │
+│ > "Create stakeholder summary from ~/Shared/specs/.         │
+│    Output as Word doc with timeline and risks."             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+Shared context via `~/Shared/CLAUDE.md` file.
+
+### Availability
+
+| Aspect | Status |
+|--------|--------|
+| Subscription | Max only (~$200/month) |
+| Platform | macOS only (Windows/Linux announced) |
+| Waitlist | Available for Pro/Team plans |
+| Stability | Research preview |
+
+> **Deep Dive**: For complete security practices, troubleshooting, and detailed use cases, see [guide/cowork.md](./cowork.md).
+
+---
+
 ## Appendix: Ready-to-Use Prompts
 
 ### Perplexity: Technical Spec Research
@@ -803,6 +895,63 @@ Prototype → Prod:    v0/Bolt → Claude Code
 Code → Slides:       Claude Code → Kimi
 Docs → Understanding: NotebookLM → Claude Code
 ```
+
+---
+
+## Alternative Providers (Community Workarounds)
+
+> ⚠️ **Disclaimer**: This section documents techniques that exist in the community
+> for **completeness only**. These methods are:
+> - **Not tested** by the guide author
+> - **Not recommended** for production use
+> - **Not supported** by Anthropic
+> - Subject to **ToS restrictions** from various providers
+>
+> **Our recommendation**: Use Claude Code with Claude models as intended,
+> or use tools designed for multi-provider support (Aider, Continue.dev).
+
+### What Exists
+
+Claude Code reads `ANTHROPIC_BASE_URL` from environment variables, following
+Anthropic SDK conventions. This is intended for enterprise gateways but can
+technically point to any Anthropic-compatible API proxy.
+
+### Known Environment Variables
+
+| Variable | Purpose | Status |
+|----------|---------|--------|
+| `ANTHROPIC_BASE_URL` | API endpoint override | Undocumented for CC |
+| `ANTHROPIC_MODEL` | Default model name | Semi-documented |
+| `ANTHROPIC_AUTH_TOKEN` | API authentication | Official |
+
+### Why We Recommend Against This
+
+1. **Feature degradation**: WebSearch, MCP, extended thinking modes are
+   optimized for Claude and degrade with other models
+2. **ToS risks**: Reverse-engineering proxies (e.g., for GitHub Copilot)
+   explicitly violate provider terms
+3. **No support**: Anthropic cannot help debug non-Claude setups
+4. **Maintenance burden**: Proxies break when providers change APIs
+5. **Misleading outputs**: Non-Claude responses may not match expected behavior
+
+### Better Alternatives
+
+If you need local models or multi-provider flexibility:
+
+| Need | Recommended Tool |
+|------|------------------|
+| Local models (Ollama, vLLM) | [Aider](https://aider.chat) |
+| Multi-provider IDE | [Continue.dev](https://continue.dev) |
+| Claude + local flexibility | Aider (supports both) |
+
+### Further Reading (External)
+
+For those who understand the risks and want to explore anyway:
+- Community discussions on r/LocalLLaMA
+- LiteLLM documentation for proxy setups
+- GitHub search: "claude-code proxy"
+
+*We intentionally do not provide step-by-step instructions.*
 
 ---
 

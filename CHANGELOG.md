@@ -6,6 +6,70 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.4] - 2026-01-19
+
+### Added
+
+- **Session Teleportation documentation** — New Section 9.16 in Ultimate Guide (~105 lines)
+  - Evolution timeline (2.0.24 → 2.1.0)
+  - Commands reference (`%`, `--teleport`, `/teleport`, `/tasks`, `/remote-env`, `Ctrl+B`)
+  - Prerequisites (GitHub App, clean git state, same account)
+  - Workflow example with step-by-step
+  - Environment support table (CLI, VS Code, Cursor, Web, iOS)
+  - Current limitations (research preview, unidirectional, GitHub only)
+  - Troubleshooting table
+  - Best practices
+  - Environment variables (`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS`)
+- Updated Section 9 Recap with "Advanced Workflows" category
+- Updated `guide/cheatsheet.md` with teleportation commands
+  - Essential Commands: `/teleport`, `/tasks`, `/remote-env`
+  - Keyboard Shortcuts: `Ctrl+B`
+  - CLI Flags: `--teleport`
+- Updated `machine-readable/reference.yaml`
+  - New `session_teleportation` deep_dive entry
+  - Commands: `/teleport`, `/tasks`, `/remote-env`
+  - Shortcuts: `Ctrl+B`
+  - CLI: `--teleport`
+  - Line numbers updated for sections after 9.15
+
+## [3.9.3] - 2026-01-19
+
+### Added
+
+- **Claude Cowork documentation** — Complete guide for the new agentic desktop feature
+  - `guide/cowork.md` (NEW, ~460 lines) — Full documentation
+    - Architecture overview (local-first, sub-agents, no code execution)
+    - Comparison: Claude Code vs Cowork vs Projects
+    - 5 detailed use cases (file org, expenses, reports, travel, meetings)
+    - Security best practices (no official docs exist yet)
+    - Developer ↔ Non-Developer workflow patterns
+    - Known issues & troubleshooting
+    - Availability & roadmap
+  - `guide/ai-ecosystem.md` Section 9 (~90 lines) — Condensed integration guide
+    - Quick comparison table
+    - When to use what decision flow
+    - Security considerations summary
+    - Cross-reference to full guide
+  - `guide/ultimate-guide.md` — Cowork subsection in Section 11
+    - Comparison table and collaboration pattern
+    - Table of Contents updated
+  - `machine-readable/reference.yaml` — 8 new deep_dive entries for Cowork
+  - Updated `guide/README.md` navigation table
+  - Updated main `README.md` AI Ecosystem entry
+
+## [3.9.2] - 2026-01-19
+
+### Added
+
+- **Alternative Providers section** in `guide/ai-ecosystem.md` (~55 lines)
+  - Documents existence of community workarounds (ANTHROPIC_BASE_URL, etc.)
+  - Clear disclaimer: not tested, not recommended, not supported
+  - Reasons to avoid: feature degradation, ToS risks, no support
+  - Better alternatives table: Aider for local models, Continue.dev for multi-provider
+  - External reading pointers (no step-by-step instructions intentionally)
+  - Updated Table of Contents
+  - Added `ai_ecosystem_alternative_providers` reference in `reference.yaml`
+
 ## [3.9.1] - 2026-01-19
 
 ### Added
