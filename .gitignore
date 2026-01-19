@@ -26,3 +26,4 @@ to-ignore/
 .grepai/
 whitepapers/
 claudedocs/
+.mcp.json
