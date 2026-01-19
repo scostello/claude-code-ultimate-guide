@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="#"><img src="https://img.shields.io/badge/Lines-10,200+-blueviolet?style=for-the-badge" alt="Lines"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Lines-10,300+-blueviolet?style=for-the-badge" alt="Lines"/></a>
   <a href="./examples/"><img src="https://img.shields.io/badge/Templates-62-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-217_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
@@ -432,7 +432,7 @@ Weak Areas (< 75%):
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~10200 lines)
+│   ├── ultimate-guide.md     # Complete reference (~10300 lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── adoption-approaches.md # Team implementation strategies

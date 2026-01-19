@@ -10,6 +10,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Semantic Anchors** — New concept integrated for better LLM prompting
+  - Section 2.7 "Semantic Anchors" in `guide/ultimate-guide.md` (~93 lines)
+    - Explains how precise vocabulary helps LLMs activate correct patterns
+    - Common anchors table (vague → precise) with explanations
+    - Integration examples with CLAUDE.md and XML tags
+  - `examples/semantic-anchors/anchor-catalog.md` (NEW, ~320 lines)
+    - Comprehensive catalog organized by domain (Testing, Architecture, Design, etc.)
+    - Before/after examples showing prompt improvement
+    - CLAUDE.md template with anchors integrated
+  - Source attribution: Alexandre Soyer, [github.com/LLM-Coding/Semantic-Anchors](https://github.com/LLM-Coding/Semantic-Anchors) (Apache-2.0)
+  - Section numbering fixed: 2.6 Data Flow → 2.8, 2.7 Under the Hood → 2.9
+
+- **Subscription Plans & Limits** — New section documenting subscription concepts
+  - Section "#### Subscription Plans & Limits" in `guide/ultimate-guide.md` (~42 lines)
+    - Explains message windows, hybrid counting, weekly caps, model weighting
+    - Tier-specific strategies (limited → unlimited quota)
+    - Links to official pricing page (concepts only, no volatile numbers)
+  - Updated `machine-readable/reference.yaml` with `subscription_limits: 1750`
+  - Fixed drifted line numbers in reference.yaml (commands_table, shortcuts_table, etc.)
+
 - **6 new slash commands** (Sprint 1 + Sprint 2 implementation)
   - `examples/commands/catchup.md` - Restore context after `/clear` (137 lines)
     - Git history analysis (last 10 commits, recent diffs)

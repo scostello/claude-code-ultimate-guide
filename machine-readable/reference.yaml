@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.8.2"
+version: "3.9.0"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -86,13 +86,14 @@ deep_dive:
   feedback_loops: 7140
   batch_operations: 7570
   pitfalls: 7689
-  git_best_practices: 7957
-  cost_optimization: 8423
-  commands_table: 9076
-  shortcuts_table: 9109
-  troubleshooting: 9235
-  cheatsheet: 9610
-  daily_workflow: 9686
+  git_best_practices: 8190
+  subscription_limits: 1750
+  cost_optimization: 8047
+  commands_table: 9267
+  shortcuts_table: 9300
+  troubleshooting: 9426
+  cheatsheet: 9801
+  daily_workflow: 9877
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)

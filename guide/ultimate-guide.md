@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.8.2
+**Version**: 3.9.0
 
 ---
 
@@ -1747,6 +1747,48 @@ Monthly cost estimate: $50-$200 for 5-10 developers
 | >$5/day for hobby project | Over-using or inefficient queries | Review query specificity |
 | Haiku failing simple tasks | Using wrong model tier | Use Sonnet for anything non-trivial |
 
+#### Subscription Plans & Limits
+
+> **Note**: Anthropic's plans evolve frequently. Always verify current pricing and limits at [claude.com/pricing](https://claude.com/pricing).
+
+**How Subscription Limits Work**
+
+Unlike API usage (pay-per-token), subscriptions use a different model:
+
+| Concept | Description |
+|---------|-------------|
+| **Message windows** | Limits reset periodically (e.g., every few hours), not daily |
+| **Hybrid counting** | Advertised as "messages" but actual capacity varies by message length, attachments, and context size |
+| **Weekly caps** | Higher tiers may have weekly limits to prevent continuous 24/7 usage |
+| **Model weighting** | Opus consumes quota faster than Sonnet; Haiku is lightest |
+
+**Tier-Specific Strategies**
+
+| If you have... | Recommended approach |
+|----------------|---------------------|
+| **Limited Opus quota** | OpusPlan essential: Opus for planning, Sonnet for execution |
+| **Moderate quota** | Sonnet default, Opus only for architecture/complex debugging |
+| **Generous quota** | More Opus freedom, but still monitor weekly usage |
+| **Unlimited/high tier** | Use Opus freely, focus on productivity over optimization |
+
+**The Pro User Pattern** (validated by community):
+
+```
+1. Opus → Create detailed plan (high-quality thinking)
+2. Sonnet/Haiku → Execute the plan (cost-effective implementation)
+3. Result: Best reasoning where it matters, lower cost overall
+```
+
+This is exactly what OpusPlan mode does automatically (see Section 2.3).
+
+**Monitoring Your Usage**
+
+```bash
+/status    # Shows current session: cost, context %, model
+```
+
+For subscription usage history: Check your [Anthropic Console](https://console.anthropic.com/settings/usage) or Claude.ai settings.
+
 ### Context Poisoning (Bleeding)
 
 **Definition**: When information from one task contaminates another.
@@ -2973,6 +3015,34 @@ CLAUDE.md files are persistent instructions that Claude reads at the start of ev
 └─────────────────────────────────────────────────────────┘
 ```
 
+### Minimum Viable CLAUDE.md
+
+Most projects only need three things in their CLAUDE.md:
+
+```markdown
+# Project Name
+
+Brief one-sentence description of what this project does.
+
+## Commands
+- `pnpm dev` - Start development server
+- `pnpm test` - Run tests
+- `pnpm lint` - Check code style
+```
+
+**That's it for most projects.** Claude automatically detects:
+- Tech stack (from package.json, go.mod, Cargo.toml, etc.)
+- Directory structure (via exploration)
+- Existing conventions (from the code itself)
+
+**Add more only when needed**:
+- Non-standard package manager (yarn, bun, pnpm instead of npm)
+- Custom commands that differ from standard (`npm run build` → `make build`)
+- Project-specific conventions that conflict with common patterns
+- Architecture decisions that aren't obvious from the code
+
+**Rule of thumb**: If Claude makes a mistake twice because of missing context, add that context to CLAUDE.md. Don't preemptively document everything.
+
 ### Level 1: Global (~/.claude/CLAUDE.md)
 
 Personal preferences that apply to all your projects:
@@ -3099,6 +3169,76 @@ knowledge_base:
 **Why this matters**: Without a single source, your local agent might approve code that CodeRabbit then flags — wasting cycles. With aligned conventions, all tools enforce the same standards.
 
 > Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
+
+### CLAUDE.md in Monorepos
+
+Claude Code automatically discovers and merges CLAUDE.md files in monorepo hierarchies:
+
+```
+monorepo/
+├── CLAUDE.md                    # Root: org-wide standards
+├── packages/
+│   ├── api/
+│   │   ├── CLAUDE.md            # API-specific conventions
+│   │   └── src/
+│   ├── web/
+│   │   ├── CLAUDE.md            # Frontend conventions
+│   │   └── src/
+│   └── shared/
+│       └── src/
+└── tools/
+    └── cli/
+        ├── CLAUDE.md            # CLI tool specifics
+        └── src/
+```
+
+**How it works**:
+- Claude reads the root CLAUDE.md first
+- When you work in `packages/api/`, it merges root + api CLAUDE.md
+- More specific files add to (don't replace) parent context
+
+**What goes where**:
+
+| Location | Content |
+|----------|---------|
+| Root CLAUDE.md | Org standards, monorepo commands (`pnpm -w`), cross-package patterns |
+| Package CLAUDE.md | Package-specific stack, local commands, unique conventions |
+
+**Example root CLAUDE.md for monorepo**:
+
+```markdown
+# Acme Monorepo
+
+pnpm workspace. Turborepo for builds.
+
+## Commands
+- `pnpm install` - Install all dependencies
+- `pnpm build` - Build all packages
+- `pnpm -F @acme/api dev` - Run API dev server
+- `pnpm -F @acme/web dev` - Run web dev server
+
+## Cross-Package Rules
+- Shared types in @acme/shared
+- All packages use ESM
+```
+
+**Example package CLAUDE.md**:
+
+```markdown
+# @acme/api
+
+Express + Prisma backend.
+
+## Commands
+- `pnpm dev` - Start with hot reload
+- `pnpm db:migrate` - Run migrations
+- `pnpm db:seed` - Seed test data
+
+## Conventions
+- Controllers in /routes
+- Business logic in /services
+- Prisma queries in /repositories
+```
 
 ## 3.2 The .claude/ Folder Structure
 
@@ -3432,9 +3572,45 @@ Files in `.claude/rules/` are automatically loaded and combined:
 ```
 .claude/rules/
 ├── code-conventions.md    ──┐
-├── git-workflow.md        ──┼──→  All loaded automatically
+├── git-workflow.md        ──┼──→  All loaded at session start
 └── architecture.md        ──┘
 ```
+
+### Memory Loading Comparison
+
+Understanding when each memory method loads is critical for token optimization:
+
+| Method | When Loaded | Token Cost | Use Case |
+|--------|-------------|------------|----------|
+| `CLAUDE.md` | Session start | Always | Core project context |
+| `.claude/rules/*.md` | Session start (ALL files) | Always | Conventions that always apply |
+| `@path/to/file.md` | On-demand (when referenced) | Only when used | Optional/conditional context |
+| `.claude/commands/*.md` | Invocation only | Only when invoked | Workflow templates |
+| `.claude/skills/*.md` | Invocation only | Only when invoked | Domain knowledge modules |
+
+**Key insight**: `.claude/rules/` is NOT on-demand. Every `.md` file in that directory loads at session start, consuming tokens. Reserve it for always-relevant conventions, not rarely-used guidelines.
+
+### Path-Specific Rules (December 2025)
+
+Since December 2025, rules can target specific file paths using YAML frontmatter:
+
+```markdown
+---
+paths:
+  - "src/api/**/*.ts"
+  - "lib/handlers/**/*.ts"
+---
+
+# API Endpoint Conventions
+
+These rules only apply when working with API files:
+
+- All endpoints must have OpenAPI documentation
+- Use zod for request/response validation
+- Include rate limiting middleware
+```
+
+This enables progressive context loading—rules only appear when Claude works with matching files.
 
 ---
 
@@ -4056,6 +4232,10 @@ _Quick jump:_ [Understanding Skills](#51-understanding-skills) · [Creating Skil
 
 ---
 
+> **Note (January 2026)**: Skills and Commands are being unified. Both now use the same invocation mechanism (`/skill-name` or `/command-name`), share YAML frontmatter syntax, and can be triggered identically. The conceptual distinction (skills = knowledge modules, commands = workflow templates) remains useful for organization, but technically they're converging. Create new ones based on purpose, not mechanism.
+
+---
+
 **Reading time**: 15 minutes
 **Skill level**: Week 2
 **Goal**: Create reusable knowledge modules
@@ -4520,6 +4700,10 @@ If you create specialized skills for other domains (DevOps, data science, ML/AI,
 # 6. Commands
 
 _Quick jump:_ [Slash Commands](#61-slash-commands) · [Creating Custom Commands](#62-creating-custom-commands) · [Command Template](#63-command-template) · [Command Examples](#64-command-examples)
+
+---
+
+> **Note (January 2026)**: Skills and Commands are being unified. Both now use the same invocation mechanism (`/skill-name` or `/command-name`), share YAML frontmatter syntax, and can be triggered identically. The conceptual distinction (skills = knowledge modules, commands = workflow templates) remains useful for organization, but technically they're converging. Create new ones based on purpose, not mechanism.
 
 ---
 
@@ -8466,6 +8650,17 @@ You: "Implement the caching layer following the plan"
 
 > **Important**: Claude Code uses lazy loading - it doesn't "load" your entire codebase at startup. Files are read on-demand when you ask Claude to analyze them. The main context consumers at startup are your CLAUDE.md files and auto-loaded rules.
 
+**CLAUDE.md Token Cost Estimation:**
+
+| File Size | Approximate Tokens | Impact |
+|-----------|-------------------|--------|
+| 50 lines | 500-1,000 tokens | Minimal (recommended) |
+| 100 lines | 1,000-2,000 tokens | Acceptable |
+| 200 lines | 2,000-3,500 tokens | Upper limit |
+| 500+ lines | 5,000+ tokens | Consider splitting |
+
+Note: These are loaded **once at session start**, not per request. A 200-line CLAUDE.md costs ~2K tokens upfront but doesn't grow during the session. The concern is the cumulative effect when combined with multiple `@includes` and all files in `.claude/rules/`.
+
 **1. Keep CLAUDE.md files concise:**
 
 ```markdown
@@ -8476,7 +8671,7 @@ You: "Implement the caching layer following the plan"
 
 # ✅ Lean CLAUDE.md
 - Essential project context only (<200 lines)
-- Move rarely-used rules to .claude/rules/ (loaded on-demand)
+- Move specialized rules to .claude/rules/ (auto-loaded at session start)
 - Split by concern: team rules in project CLAUDE.md, personal prefs in ~/.claude/CLAUDE.md
 ```
 
@@ -10356,4 +10551,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.8.2
+**Last updated**: January 2026 | **Version**: 3.9.0
