@@ -83,6 +83,27 @@ CLAUDE.md configuration examples by framework:
 
 ---
 
+## Watching (Waiting for Demand)
+
+### Multi-LLM Consultation Patterns
+Using external LLMs (Gemini, GPT-4) as "second opinion" from Claude Code.
+
+**Status:** No proven demand. Add if 3+ reader requests.
+
+**Research done (Jan 2026):**
+- Simple approach: Bash script calling Gemini API
+- Production approach: [Plano](https://github.com/katanemo/plano) (overkill for solo devs)
+- Community adoption: Near zero in Claude Code users
+
+**If implementing:**
+- `examples/scripts/gemini-second-opinion.sh`
+- 3-line mention in "See Also" section
+- No full guide (maintenance burden, scope creep)
+
+**Source:** [daily.dev article](https://app.daily.dev/posts/make-claude-code-opus-talk-to-gemini-pro-b7pyiq394)
+
+---
+
 ## Discarded Ideas
 
 | Idea | Reason Discarded |

@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.4"
+version: "3.9.5"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -23,7 +23,7 @@ deep_dive:
   # PDF Generation
   pdf_generation: "guide/workflows/pdf-generation.md"
   pdf_generator_skill: "examples/skills/pdf-generator.md"
-  whitepapers_example: "whitepapers/README.md"
+  whitepapers_example: "whitepapers/README.md"  # Local example only (gitignored)
   # Learning with AI (guide/learning-with-ai.md)
   learning_quick_check: "guide/learning-with-ai.md:31"
   learning_uval_protocol: "guide/learning-with-ai.md:127"

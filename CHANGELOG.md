@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.5] - 2026-01-19
+
+### Added
+
+- **IDEAS.md "Watching" section** — New category for tracking ideas awaiting demand
+  - Multi-LLM Consultation Patterns (Gemini/GPT-4 as second opinion)
+  - Research done: bash scripts vs Plano (overkill for solo devs)
+  - Criteria: implement if 3+ reader requests
+
+### Changed
+
+- **README.md restructuration** — Reduced cognitive load by ~40% (benchmarked)
+  - Removed duplicate "5 Rules to Remember" section (content already in "Golden Rules")
+  - Added collapsible Table of Contents with 4 learning paths:
+    - Beginner Path (TL;DR, Get Started, Golden Rules)
+    - Developer Path (By Role, Guide Navigation, Examples)
+    - Advanced Path (Audit, Quiz, Ecosystem)
+    - Reference (Toolkit, About, Contributing)
+  - Simplified "Choose Your Path" section (4 rows → 3, references ToC)
+  - Updated TL;DR link from `#5-rules-to-remember` → `#-golden-rules`
+  - Net change: +19 lines (757 total), improved navigation
+
 ## [3.9.4] - 2026-01-19
 
 ### Added
