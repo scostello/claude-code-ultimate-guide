@@ -331,10 +331,23 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 💡 **Architecture**: Separate repos for clear audience separation (devs vs non-devs), bidirectional cross-links for easy navigation.
 
-**Complementary guides**:
-- [claude-code-templates](https://github.com/davila7/claude-code-templates) — Install templates via CLI (17k⭐)
-- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Community tool library
-- [Claude-Code-Everything](https://github.com/wesammustafa/Claude-Code-Everything) — Visual walkthrough
+**Complementary resources**:
+
+| Project | Focus | Best For |
+|---------|-------|----------|
+| [claude-code-templates](https://github.com/davila7/claude-code-templates) | **Distribution** - Install & use | Getting 200+ templates via CLI (17k⭐) |
+| [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | **Curation** - Discover & link | Exploring community resources |
+| [Claude-Code-Everything](https://github.com/wesammustafa/Claude-Code-Everything) | **Visual walkthrough** | Learning through screenshots |
+| [AI Coding Agents Matrix](https://coding-agents-matrix.dev) | **Technical comparison** | Comparing Claude Code vs 22+ alternatives |
+
+**AI Coding Agents Matrix** (by [Packmind](https://packmind.com)):
+- Interactive comparison: **23 AI coding agents** across **11 technical criteria**
+- Criteria: CLI, MCP Support, Skills, Commands, Subagents, Plan Mode, AGENTS.md, and more
+- Sortable/filterable matrix for precision discovery
+- Open source ([Apache-2.0](https://github.com/PackmindHub/coding-agents-matrix)), community-driven
+- **Use case**: Discovery (Matrix: "Which agent has X feature?") → Mastery (This Guide: "How to use Claude Code?")
+
+**Positioning**: Use Matrix to **discover and compare** → Choose Claude Code → Use this guide to **master it**.
 
 **Community**: 🇫🇷 [Dev With AI](https://www.devw.ai/) — 1500+ devs on Slack, meetups in Paris, Bordeaux, Lyon
 
@@ -369,7 +382,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.7 | January 2026 | Crafted with Claude*
+*Version 3.9.8 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

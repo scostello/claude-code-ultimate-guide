@@ -6,15 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.8] - 2026-01-20
+
 ### Added
 
-- **AI Ecosystem: AI Coding Agents Matrix reference** — External comparison resource
-  - Added link to coding-agents-matrix.dev in `guide/ai-ecosystem.md` (IDE-Based Tools section)
-  - Added `coding_agents_matrix` entry in `machine-readable/reference.yaml` (ecosystem.complementary)
-  - Provides objective comparison of Claude Code vs 22+ alternatives across 11 technical criteria
-  - Criteria include: MCP support, Skills, Commands, Subagents, Plan Mode
-  - Minimal integration (1-line note) to acknowledge ecosystem without diluting focus
-  - Source: [coding-agents-matrix.dev](https://coding-agents-matrix.dev/) (updated Jan 19, 2026)
+- **AI Ecosystem: AI Coding Agents Matrix integration** — Comprehensive ecosystem resource
+  - **New Section 11** in `guide/ai-ecosystem.md` (~60 lines): "AI Coding Agents Matrix"
+    - Interactive comparison of 23 AI coding agents across 11 technical criteria
+    - What Is It, Why It's Useful, Complementarity table, Interactive Features, Limitations
+    - Positioning: Discovery (Matrix) → Mastery (This Guide)
+    - Maintainers: Packmind (Cédric Teyton, Arthur Magne)
+  - **Enhanced `machine-readable/reference.yaml`** (lines 397-412):
+    - Added: GitHub repo, maintainers, license (Apache-2.0), tech stack (React, Vite, Tailwind)
+    - Added: 4 features (11 criteria, sortable/filterable, community-driven, JSON-based)
+    - Added: positioning note, data freshness warning
+  - **Updated `README.md`** (Section 8: Ecosystem):
+    - Converted complementary resources to comparison table (4 projects)
+    - Added dedicated paragraph for AI Coding Agents Matrix with use case
+    - Positioning: "Use Matrix to discover/compare → Choose Claude Code → Use this guide to master it"
+  - Cross-promotion with [coding-agents-matrix.dev](https://coding-agents-matrix.dev/) (updated Jan 19, 2026)
 
 ## [3.9.7] - 2026-01-20
 

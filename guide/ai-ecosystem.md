@@ -958,6 +958,71 @@ Docs → Understanding: NotebookLM → Claude Code
 
 ---
 
+## 11. AI Coding Agents Matrix
+
+**URL**: [coding-agents-matrix.dev](https://coding-agents-matrix.dev) | **GitHub**: [PackmindHub/coding-agents-matrix](https://github.com/PackmindHub/coding-agents-matrix) | **License**: Apache-2.0
+
+**Maintainers**: [Packmind](https://packmind.com) (Cédric Teyton, Arthur Magne)
+
+### What Is It?
+
+An **interactive comparison matrix** of 23 AI coding agents across 11 technical criteria:
+
+| Category | Criteria |
+|----------|----------|
+| **Identity** | Open Source status, GitHub stars, first release date |
+| **Packaging** | CLI, Dedicated IDE, IDE Extension, BYO LLM, MCP Support |
+| **Features** | Custom Rules, AGENTS.md, Skills, Commands, Subagents, Plan Mode |
+
+**Agents compared**: Aider, Claude Code, Cursor, GitHub Copilot, Continue, Goose, Windsurf, and 16 others.
+
+### Why It's Useful
+
+**Discovery tool**: When you're choosing which coding agent to adopt, the Matrix helps you filter by specific technical requirements:
+
+- "Show me open source CLI agents with MCP support"
+- "Which agents support the AGENTS.md standard?"
+- "Compare Claude Code vs Cursor features side-by-side"
+
+**Objective data**: No marketing fluff, just feature presence/absence (Yes/No/Partial). Community-driven updates via GitHub issue templates.
+
+### Complementarity with This Guide
+
+| Matrix (Discovery) | This Guide (Mastery) |
+|-------------------|---------------------|
+| "Which agents exist?" | "How to use Claude Code effectively?" |
+| Feature comparison (11 criteria) | Workflows, architecture, TDD/SDD methodologies |
+| 23 agents × shallow | 1 agent × deep (11K lines) |
+| Technical specs | Practical templates (66+), quiz (227 questions) |
+
+**Use case**: Use Matrix to **discover and compare** → Choose Claude Code → Use this guide to **master it**.
+
+### Interactive Features
+
+- **Sortable columns**: Click any criterion to sort ascending/descending
+- **Multi-filter**: Combine filters with AND logic (e.g., "Open Source + MCP Support + Plan Mode")
+- **Search**: Find agents by name, type, or description
+- **Community-driven**: Propose new agents/criteria via GitHub issues
+
+### Limitations
+
+- **Snapshot, not live**: Agents evolve, criteria change. Verify data freshness (last updated: Jan 19, 2026).
+- **Presence/absence only**: Doesn't explain *how* features work or quality differences.
+  - Example: "Claude Code has Plan Mode" (Yes) vs "How Plan Mode works in practice" (not covered)
+- **No workflows**: Doesn't teach you how to use the agents effectively (that's what this guide does).
+- **No performance metrics**: Doesn't benchmark speed, accuracy, or cost.
+
+### Related Resources
+
+- [Packmind](https://packmind.com): Context engineering & governance for AI coding agents
+- [Packmind OSS](https://github.com/PackmindHub/packmind): Framework for versioning AI coding context
+- [Claude Code Templates](https://github.com/davila7/claude-code-templates): 200+ templates for Claude Code (17k⭐)
+- [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code): Curated tool library
+
+**Positioning**: Matrix complements this guide by helping you **choose** the right agent. Once you choose Claude Code, this guide teaches you how to **master** it.
+
+---
+
 ## Alternative Providers (Community Workarounds)
 
 > ⚠️ **Disclaimer**: This section documents techniques that exist in the community

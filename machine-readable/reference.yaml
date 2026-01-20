@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.7"
+version: "3.9.8"
 updated: "2026-01-20"
 
 # ════════════════════════════════════════════════════════════════
@@ -396,10 +396,20 @@ ecosystem:
       focus: "Visual walkthrough - Screenshots, BMAD method"
     coding_agents_matrix:
       url: "coding-agents-matrix.dev"
-      focus: "Technical comparison - 23 agents, 11 criteria"
+      github: "github.com/PackmindHub/coding-agents-matrix"
+      maintainer: "Packmind (Cédric Teyton, Arthur Magne)"
+      license: "Apache-2.0"
+      focus: "Interactive comparison of 23 AI coding agents across 11 criteria"
       updated: "2026-01-19"
-      agents: 23
-      criteria: ["MCP", "Skills", "Commands", "Subagents", "Plan Mode"]
+      tech_stack: "React, Vite, Tailwind CSS"
+      features:
+        - "11 technical criteria (CLI, MCP, Skills, Commands, Subagents, Plan Mode, AGENTS.md, BYO LLM, Custom Rules, Dedicated IDE, IDE Extension)"
+        - "Sortable columns and multi-filter (AND logic)"
+        - "Community-driven updates (GitHub issue templates)"
+        - "Open source data structure (JSON-based)"
+      agents_snapshot: 23  # As of 2026-01-19 (evolves over time)
+      positioning: "Discovery tool - Use Matrix to find/compare agents, use this guide to master Claude Code"
+      note: "External resource - verify data freshness as agents/criteria evolve"
   install_templates: "scripts/install-templates.sh"
   cowork:
     description: "Claude Code for non-developers (desktop app)"
@@ -438,7 +448,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.9.7, 66 templates, cross-links"
+        event: "Code Landing sync v3.9.8, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
