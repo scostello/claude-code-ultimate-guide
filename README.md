@@ -281,14 +281,31 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Cowork** is Claude's agentic desktop feature for knowledge workers — same AI, files-only interface.
 
-| Resource | Description |
-|----------|-------------|
-| **[Cowork Documentation](./cowork/README.md)** | Complete guide hub |
-| [Getting Started](./cowork/guide/01-getting-started.md) | Setup and first workflow |
-| [Prompt Library](./cowork/prompts/) | 50+ ready-to-use prompts |
-| [Cheatsheet](./cowork/reference/cheatsheet.md) | 1-page reference |
+**📦 Complete Documentation** (23 files, v1.0):
 
-**Status**: Research preview (Pro or Max subscription, macOS only)
+| Guide | Description |
+|-------|-------------|
+| **[Hub](./cowork/README.md)** | Complete documentation index |
+| **[Getting Started](./cowork/guide/01-getting-started.md)** | Setup, first workflow, CTOC framework |
+| **[Capabilities](./cowork/guide/02-capabilities.md)** | What Cowork can/cannot do |
+| **[Security](./cowork/guide/03-security.md)** | Safe usage practices |
+| **[Troubleshooting](./cowork/guide/04-troubleshooting.md)** | Error messages + solutions |
+| **[Cheatsheet](./cowork/reference/cheatsheet.md)** | 1-page printable reference |
+| **[FAQ](./cowork/reference/faq.md)** | 20+ frequently asked questions |
+| **[Comparison](./cowork/reference/comparison.md)** | Cowork vs Copilot/Gemini/ChatGPT |
+
+**📝 Ready-to-Use Prompts** (60+):
+- [File Operations](./cowork/prompts/file-ops.md) — Organization, renaming, cleanup
+- [Document Creation](./cowork/prompts/document-creation.md) — Reports, presentations, Excel
+- [Data Extraction](./cowork/prompts/data-extraction.md) — OCR, receipts, invoices
+- [Research](./cowork/prompts/research.md) — Competitive analysis, web research
+
+**🔧 Workflows** (5 guides):
+- File organization, expense tracking, report synthesis, meeting prep, team handoff
+
+**Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
+
+**New in v1.0**: Exact error messages, competitive matrix, enterprise validation, token budgets, VPN issue documentation
 
 </details>
 
@@ -333,7 +350,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.6 | January 2026 | Crafted with Claude*
+*Version 3.9.7 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.6"
-updated: "2026-01"
+version: "3.9.7"
+updated: "2026-01-20"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -119,7 +119,8 @@ deep_dive:
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
   voice_refine_skill: "examples/skills/voice-refine/SKILL.md"
-  # Cowork documentation (expanded - see cowork/)
+  # Cowork documentation (v1.0 - complete)
+  cowork_reference: "machine-readable/cowork-reference.yaml"  # Dedicated YAML index
   cowork_hub: "cowork/README.md"
   cowork_summary: "guide/cowork.md"
   cowork_overview: "cowork/guide/00-overview.md"
