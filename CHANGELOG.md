@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.7] - 2026-01-20
+
+### Changed
+
+- **CLAUDE.md: Model Configuration** — OpusPlan workflow recommendation (replaces thinking mode disable)
+  - Hybrid intelligence: Opus (planning) → Sonnet (execution)
+  - Task breakdown table: doc edits, version sync, restructuring, research, consistency checks
+  - Cost optimization: 10-20% Opus planning, 80-90% Sonnet execution
+  - Workflow: `/model opusplan` → `Shift+Tab × 2` (plan) → `Shift+Tab` (execute)
+
 ## [3.9.6] - 2026-01-20
 
 ### Added
