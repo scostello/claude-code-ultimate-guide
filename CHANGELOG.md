@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **AI Ecosystem: AI Coding Agents Matrix reference** — External comparison resource
+  - Added link to coding-agents-matrix.dev in `guide/ai-ecosystem.md` (IDE-Based Tools section)
+  - Added `coding_agents_matrix` entry in `machine-readable/reference.yaml` (ecosystem.complementary)
+  - Provides objective comparison of Claude Code vs 22+ alternatives across 11 technical criteria
+  - Criteria include: MCP support, Skills, Commands, Subagents, Plan Mode
+  - Minimal integration (1-line note) to acknowledge ecosystem without diluting focus
+  - Source: [coding-agents-matrix.dev](https://coding-agents-matrix.dev/) (updated Jan 19, 2026)
+
 ## [3.9.7] - 2026-01-20
 
 ### Changed
