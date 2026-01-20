@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.6] - 2026-01-20
+
 ### Added
+
+- **ultimate-guide.md: Section 5.5 "Infrastructure as Code Skills"** — New community skill repository (~50 lines)
+  - Anton Babenko's terraform-skill (creator of terraform-aws-modules, 1B+ downloads)
+  - Covers testing, module development, CI/CD, security, patterns
+  - Notable for marketplace distribution (.claude-plugin/), structured references, test coverage
+  - Source: [GitHub repo](https://github.com/antonbabenko/terraform-skill)
 
 - **ultimate-guide.md: Section 1.7 "Trust Calibration: When and How Much to Verify"** — New section (~155 lines)
   - Research-backed stats table (ACM, Veracode, CodeRabbit, Cortex.io sources)
@@ -15,29 +23,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - "Prove It Works" checklist (functional, security, integration, quality)
   - Anti-patterns table (6 common mistakes)
   - Attribution to Addy Osmani's "AI Code Review" (Jan 2026)
-- **ultimate-guide.md: New pitfall in Learning & Adoption section** — "Trust AI output without proportional verification"
-- **reference.yaml: trust_calibration deep_dive entry** — Line 1039
 
-### Changed
+- **ultimate-guide.md: New pitfall** — "Trust AI output without proportional verification"
 
-- **ultimate-guide.md: Section renumbering** — "Eight Beginner Mistakes" moved from 1.7 → 1.8
-- **reference.yaml: pitfalls line number** — Updated 7689 → 8050 (shifted by new content)
-
----
-
-- **learning-with-ai.md: "The Reality of AI Productivity" section** — New §3 (~55 lines)
+- **learning-with-ai.md: Section 3 "The Reality of AI Productivity"** — New section (~55 lines)
   - Productivity curve phases (Wow Effect → Targeted Gains → Sustainable Plateau)
   - High-gain vs low/negative-gain task categorization
   - Team success factors (guidelines, code review, mentorship)
-  - Cross-references to other sections for coherent narrative
+
+- **reference.yaml**: `trust_calibration` (line 1039), `community_skills_cybersec` (4786), `community_skills_iac` (4871), `vibe_coding_trap` (81)
+
+- **learning-with-ai.md: "The Vibe Coding Trap" section** — New anti-pattern documentation (~15 lines)
+  - Term coined by Andrej Karpathy (Feb 2025, Collins Word of the Year 2025)
+  - Symptoms checklist + Karpathy's caveat ("throwaway projects" vs production)
+  - Links to UVAL Protocol as antidote
+
+- **IDEAS.md: "Vibe Coding Discourse"** — New Watching entry
+  - Tracks "developer as architect" narrative evolution
+  - Source: Craig Adam "Agile is Out, Architecture is Back" (Medium)
+
+- **learning-with-ai.md: External Resources** — Added [leerob.com/ai](https://leerob.com/ai) link
+  - AI fundamentals for engineers (ML, neural networks, transformers, tokenization)
+  - Score 3/5 eval: complement utile, not deep integration
+  - Source: Lee Robinson (Nov 2024)
 
 ### Changed
 
-- **learning-with-ai.md: Three Patterns productivity trajectory table** — Shows productivity by pattern over time
-- **learning-with-ai.md: 70/30 Split research callout** — Links ratio to productivity research
-- **learning-with-ai.md: Case Study organizational link** — Connects to team success factors
-- **learning-with-ai.md: Sources section** — Added "Productivity Research" subsection with 5 sources (GitHub, McKinsey, Stack Overflow, Uplevel, DORA)
-- **learning-with-ai.md: ToC renumbered** — 14 sections (was 13)
+- **reference.yaml**: Complete line number synchronization (~55 entries updated)
+  - Guide grew from ~9900 to 11154 lines; all deep_dive references now accurate
+  - Added "Updated 2026-01-20" comment for tracking
+  - Major corrections: cost_optimization (8047→8833), interaction_loop (1063→1299), etc.
+
+- **ultimate-guide.md**: Section renumbering — "Eight Beginner Mistakes" moved 1.7 → 1.8
+- **learning-with-ai.md**: Three Patterns productivity trajectory table, 70/30 Split research callout, Sources section (+5 sources)
+- **learning-with-ai.md**: ToC renumbered (14 sections, was 13)
 
 ## [3.9.5] - 2026-01-19
 

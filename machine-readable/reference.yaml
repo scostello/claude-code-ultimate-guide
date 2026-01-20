@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.5"
+version: "3.9.6"
 updated: "2026-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -44,6 +44,8 @@ deep_dive:
   learn_teach_command: "examples/commands/learn/teach.md"
   learn_alternatives_command: "examples/commands/learn/alternatives.md"
   learning_capture_hook: "examples/hooks/bash/learning-capture.sh"
+  # Anti-patterns
+  vibe_coding_trap: "guide/learning-with-ai.md:81"
   # Architecture internals (guide/architecture.md)
   architecture_master_loop: "guide/architecture.md:60"
   architecture_tools: "guide/architecture.md:130"
@@ -52,75 +54,84 @@ deep_dive:
   architecture_permissions: "guide/architecture.md:350"
   architecture_mcp: "guide/architecture.md:450"
   architecture_philosophy: "guide/architecture.md:580"
-  # Main guide (guide/ultimate-guide.md)
-  installation: 187
-  first_workflow: 268
-  essential_commands: 317
+  # Main guide (guide/ultimate-guide.md) - Updated 2026-01-20
+  installation: 196
+  first_workflow: 277
+  essential_commands: 326
   trust_calibration: 1039
-  working_with_images: 413
-  wireframing_tools: 483
-  figma_mcp: 520
-  image_optimization: 585
-  permission_modes: 751
-  interaction_loop: 1063
-  context_management: 1099
-  context_triage: 1212
-  session_vs_memory: 1245
-  fresh_context_pattern: 1289
-  plan_mode: 1822
-  rewind: 2000
-  mental_model: 2154
-  xml_prompting: 2211
-  semantic_anchors: 2664
+  working_with_images: 422
+  wireframing_tools: 492
+  figma_mcp: 529
+  image_optimization: 594
+  permission_modes: 760
+  interaction_loop: 1299
+  context_management: 1335
+  context_triage: 1448
+  session_vs_memory: 1481
+  fresh_context_pattern: 1525
+  subscription_limits: 1914
+  plan_mode: 2100
+  rewind: 2278
+  mental_model: 2360
+  xml_prompting: 2419
+  semantic_anchors: 2872
   semantic_anchors_catalog: "examples/semantic-anchors/anchor-catalog.md"
-  memory_files: 2952
-  claude_folder: 3103
-  settings: 3154
-  precedence_rules: 3376
-  agents: 3474
-  agent_template: 3547
-  agent_examples: 3685
-  skills: 4063
-  skill_template: 4183
-  skill_examples: 4251
-  commands: 4530
-  command_template: 4600
-  hooks: 4853
-  hook_templates: 4998
-  security_hooks: 5260
-  mcp_servers: 5401
-  mcp_config: 5695
-  mcp_security: 6063
-  cicd: 6381
-  ide_integration: 7070
-  feedback_loops: 7140
-  batch_operations: 7570
-  pitfalls: 8050
-  git_best_practices: 8190
-  subscription_limits: 1750
-  cost_optimization: 8047
-  session_teleportation: 9223
-  commands_table: 9399
-  shortcuts_table: 9432
-  troubleshooting: 9558
-  cheatsheet: 9933
-  daily_workflow: 10009
-  # AI Ecosystem (Section 11, ~line 10271)
-  ai_ecosystem: 10271
-  ai_ecosystem_complementarity: 10285
-  ai_ecosystem_tool_matrix: 10311
-  ai_ecosystem_workflows: 10336
-  ai_ecosystem_integration: 10462
+  memory_files: 3160
+  claude_folder: 3413
+  settings: 3464
+  precedence_rules: 3686
+  agents: 3827
+  agent_template: 3900
+  agent_examples: 4038
+  skills: 4420
+  skill_template: 4540
+  skill_examples: 4608
+  community_skills_cybersec: 4788
+  community_skills_iac: 4871
+  commands: 4939
+  command_template: 5009
+  hooks: 5262
+  hook_templates: 5407
+  security_hooks: 5669
+  mcp_servers: 5810
+  mcp_config: 6104
+  mcp_security: 6472
+  cicd: 6790
+  ide_integration: 7479
+  feedback_loops: 7549
+  batch_operations: 7979
+  pitfalls: 8098
+  git_best_practices: 8367
+  cost_optimization: 8833
+  session_teleportation: 9432
+  commands_table: 9608
+  shortcuts_table: 9641
+  troubleshooting: 9767
+  cheatsheet: 10142
+  daily_workflow: 10218
+  # AI Ecosystem (Section 11, ~line 10494)
+  ai_ecosystem: 10494
+  ai_ecosystem_complementarity: 10494
+  ai_ecosystem_tool_matrix: 10520
+  ai_ecosystem_workflows: 10545
+  ai_ecosystem_integration: 10671
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:902"
-  # Cowork documentation
-  cowork_full: "guide/cowork.md"
+  # Cowork documentation (expanded - see cowork/)
+  cowork_hub: "cowork/README.md"
+  cowork_summary: "guide/cowork.md"
+  cowork_overview: "cowork/guide/00-overview.md"
+  cowork_getting_started: "cowork/guide/01-getting-started.md"
+  cowork_capabilities: "cowork/guide/02-capabilities.md"
+  cowork_security: "cowork/guide/03-security.md"
+  cowork_troubleshooting: "cowork/guide/04-troubleshooting.md"
+  cowork_cheatsheet: "cowork/reference/cheatsheet.md"
+  cowork_comparison: "cowork/reference/comparison.md"
+  cowork_faq: "cowork/reference/faq.md"
+  cowork_prompts: "cowork/prompts/README.md"
+  cowork_workflows: "cowork/workflows/README.md"
   cowork_section: "guide/ai-ecosystem.md:701"
-  cowork_comparison: "guide/cowork.md:115"
-  cowork_use_cases: "guide/cowork.md:140"
-  cowork_security: "guide/cowork.md:200"
-  cowork_workflows: "guide/cowork.md:270"
-  cowork_ultimate_guide: 10521
+  cowork_ultimate_guide: 10725
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -385,7 +396,17 @@ ecosystem:
     description: "Claude Code for non-developers (desktop app)"
     status: "Research preview - Max/macOS only (Jan 2026)"
     blog: "https://claude.com/blog/cowork-research-preview"
-    guide: "guide/cowork.md"
+    guide_summary: "guide/cowork.md"
+    guide_full: "cowork/README.md"
+    getting_started: "cowork/guide/01-getting-started.md"
+    capabilities: "cowork/guide/02-capabilities.md"
+    security: "cowork/guide/03-security.md"
+    troubleshooting: "cowork/guide/04-troubleshooting.md"
+    cheatsheet: "cowork/reference/cheatsheet.md"
+    comparison: "cowork/reference/comparison.md"
+    faq: "cowork/reference/faq.md"
+    prompts: "cowork/prompts/"
+    workflows: "cowork/workflows/"
 
 # ════════════════════════════════════════════════════════════════
 # ONBOARDING MATRIX - Maps user profile → content sections

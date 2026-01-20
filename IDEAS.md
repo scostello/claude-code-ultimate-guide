@@ -102,6 +102,14 @@ Using external LLMs (Gemini, GPT-4) as "second opinion" from Claude Code.
 
 **Source:** [daily.dev article](https://app.daily.dev/posts/make-claude-code-opus-talk-to-gemini-pro-b7pyiq394)
 
+### Vibe Coding Discourse
+
+Evolution of the "developer as architect" narrative in AI-assisted development.
+
+**Reference:** [Craig Adam - "Agile is Out, Architecture is Back"](https://medium.com/@craig_32726/agile-is-out-architecture-is-back-7586910ab810)
+
+**Status:** Watching. Term "vibe coding" now mainstream (Collins Word of the Year 2025).
+
 ---
 
 ## Discarded Ideas

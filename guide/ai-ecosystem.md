@@ -718,7 +718,7 @@ Cowork extends Claude's agentic capabilities to non-technical users via the Clau
 | **Maturity** | Production | **Preview** | Production |
 | **Connectors** | MCP servers | **Local only** | Integrations |
 | **Platform** | All | macOS only | All |
-| **Subscription** | Usage-based | Max only (~$200/mo) | All tiers |
+| **Subscription** | Usage-based | Pro or Max | All tiers |
 
 ### When to Use What
 
@@ -779,9 +779,8 @@ Shared context via `~/Shared/CLAUDE.md` file.
 
 | Aspect | Status |
 |--------|--------|
-| Subscription | Max only (~$200/month) |
-| Platform | macOS only (Windows/Linux announced) |
-| Waitlist | Available for Pro/Team plans |
+| Subscription | Pro ($20/mo) or Max ($100-200/mo) |
+| Platform | macOS only (Windows planned, Linux not announced) |
 | Stability | Research preview |
 
 > **Deep Dive**: For complete security practices, troubleshooting, and detailed use cases, see [guide/cowork.md](./cowork.md).

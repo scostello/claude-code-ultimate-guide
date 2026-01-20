@@ -277,6 +277,22 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 </details>
 
 <details>
+<summary><strong>Claude Cowork (for Non-Developers)</strong></summary>
+
+**Cowork** is Claude's agentic desktop feature for knowledge workers — same AI, files-only interface.
+
+| Resource | Description |
+|----------|-------------|
+| **[Cowork Documentation](./cowork/README.md)** | Complete guide hub |
+| [Getting Started](./cowork/guide/01-getting-started.md) | Setup and first workflow |
+| [Prompt Library](./cowork/prompts/) | 50+ ready-to-use prompts |
+| [Cheatsheet](./cowork/reference/cheatsheet.md) | 1-page reference |
+
+**Status**: Research preview (Pro or Max subscription, macOS only)
+
+</details>
+
+<details>
 <summary><strong>Ecosystem & Related Resources</strong></summary>
 
 **Complementary guides**:
@@ -317,7 +333,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.5 | January 2026 | Crafted with Claude*
+*Version 3.9.6 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

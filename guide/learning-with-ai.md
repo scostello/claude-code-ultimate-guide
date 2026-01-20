@@ -78,6 +78,19 @@ AI-assisted (right): Problem → Attempt → AI guidance → Understanding → S
 
 The struggle isn't optional. It's where learning happens.
 
+### The "Vibe Coding" Trap
+
+Term coined by [Andrej Karpathy](https://x.com/karpathy/status/1886192184808149383) (Feb 2025, Collins Word of the Year 2025): coding by "fully giving in to the vibes" without understanding the generated code.
+
+**Symptoms:**
+- Accept All without reading diffs
+- Copy-paste errors without understanding root cause
+- Debug by asking AI for random changes until it works
+
+**Karpathy's caveat:** "Not too bad for throwaway weekend projects" — but dangerous for production code you'll need to maintain.
+
+**Antidote:** The UVAL Protocol (§5) forces understanding before acceptance.
+
 ---
 
 ## The Reality of AI Productivity
@@ -928,6 +941,7 @@ See [methodologies.md](./methodologies.md) for:
 
 - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) — Better prompts = better learning
 - [The Pragmatic Programmer](https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/) — Timeless principles for deliberate practice
+- [AI for Engineers](https://leerob.com/ai) — AI fundamentals (ML, transformers, tokenization)
 
 ---
 

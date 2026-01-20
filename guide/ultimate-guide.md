@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.5
+**Version**: 3.9.6
 
 ---
 
@@ -4867,6 +4867,54 @@ skills: ["sql-injection-testing"]
 > - **Contribute back** if you find issues or improvements
 
 The skills appear to follow proper ethical hacking guidelines and include appropriate legal prerequisites, but as with any security tooling, verification is essential.
+
+### Infrastructure as Code Skills
+
+**Repository**: [antonbabenko/terraform-skill](https://github.com/antonbabenko/terraform-skill)
+**Author**: Anton Babenko (creator of [terraform-aws-modules](https://github.com/terraform-aws-modules), 1B+ downloads, AWS Community Hero)
+**Documentation**: [terraform-best-practices.com](https://www.terraform-best-practices.com/)
+
+A production-grade Claude Code skill for **Terraform** and **OpenTofu** infrastructure management, covering:
+
+**Testing & Validation**
+- Test strategy decision frameworks (native tests vs Terratest)
+- Workflow examples for different testing scenarios
+
+**Module Development**
+- Naming conventions and versioning patterns
+- Structural best practices for reusable modules
+
+**CI/CD Integration**
+- GitHub Actions and GitLab CI templates
+- Cost estimation and compliance checks baked in
+
+**Security & Compliance**
+- Static analysis and policy-as-code integration
+- Security scanning workflows
+
+**Patterns & Anti-patterns**
+- Side-by-side examples of recommended vs problematic approaches
+- Decision frameworks over prescriptive rules
+
+#### Why This Skill is Notable
+
+This skill demonstrates several best practices for production-grade skill development:
+
+1. **Marketplace distribution**: Uses `.claude-plugin/marketplace.json` for easy installation
+2. **Structured references**: Organized `references/` directory with knowledge base
+3. **Test coverage**: Includes `tests/` directory for skill validation
+4. **Decision frameworks**: Emphasizes frameworks over rigid rules, enabling contextual decisions
+
+#### Installation
+
+```bash
+# Via marketplace (if available)
+/install terraform-skill@antonbabenko
+
+# Manual installation
+cd ~/.claude/skills/
+git clone https://github.com/antonbabenko/terraform-skill.git terraform
+```
 
 #### Contributing
 
@@ -10688,7 +10736,7 @@ If you work with non-technical team members, **Cowork** brings Claude's agentic 
 
 **Collaboration pattern**: Developers use Claude Code for specs → PMs use Cowork for stakeholder summaries. Shared context via `~/Shared/CLAUDE.md`.
 
-> **Availability**: Max subscribers only (~$200/mo), macOS only (Jan 2026).
+> **Availability**: Pro ($20/mo) or Max ($100-200/mo) subscribers, macOS only (Jan 2026).
 > See [AI Ecosystem Section 9](./ai-ecosystem.md#9-claude-cowork-research-preview) for details.
 
 ## Further Reading
@@ -11103,4 +11151,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.5
+**Last updated**: January 2026 | **Version**: 3.9.6
