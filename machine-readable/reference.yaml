@@ -411,6 +411,32 @@ ecosystem:
     faq: "https://github.com/FlorianBruniaux/claude-cowork-guide/blob/main/reference/faq.md"
     prompts: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/prompts"
     workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
+  landing_sites:
+    description: "Marketing sites for guide discovery and navigation"
+    architecture: "4-repo ecosystem: 2 sources (docs) + 2 landings (vitrine)"
+    code_landing:
+      local: "/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide-landing/"
+      purpose: "Marketing site for Claude Code guide"
+      audience: "Developers discovering the guide"
+      features: ["badges (version, templates, lines)", "quiz (227 questions)", "FAQ", "cross-links to Cowork"]
+      sync_with: "Guide Code (version, templates count, guide lines)"
+    cowork_landing:
+      local: "/Users/florianbruniaux/Sites/perso/claude-cowork-guide-landing/"
+      purpose: "Marketing site for Cowork guide"
+      audience: "Knowledge workers discovering Cowork"
+      features: ["prompts showcase", "workflows preview", "cross-links to Code"]
+      sync_with: "Cowork guide (version, prompts count)"
+    sync_triggers:
+      - "Version bump → Update corresponding landing"
+      - "Templates/prompts added → Update counts"
+      - "Cross-links modified → Update all 4 repos"
+    history:
+      - date: "2026-01-20"
+        event: "Code Landing sync v3.9.7, 66 templates, cross-links"
+        commit: "5b5ce62"
+      - date: "2026-01-20"
+        event: "Cowork Landing fix (paths, README, UI badges)"
+        commits: "cab83f5, af497b7, 539912b"
 
 # ════════════════════════════════════════════════════════════════
 # ONBOARDING MATRIX - Maps user profile → content sections

@@ -310,6 +310,17 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 <details>
 <summary><strong>Ecosystem & Related Resources</strong></summary>
 
+**This Guide's Ecosystem** (4 interconnected repositories):
+
+| Repository | Purpose | Audience |
+|------------|---------|----------|
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (11K lines, 66 templates) | Developers |
+| **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
+| **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
+| **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
+
+💡 **Architecture**: Separate repos for clear audience separation (devs vs non-devs), bidirectional cross-links for easy navigation.
+
 **Complementary guides**:
 - [claude-code-templates](https://github.com/davila7/claude-code-templates) — Install templates via CLI (17k⭐)
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — Community tool library

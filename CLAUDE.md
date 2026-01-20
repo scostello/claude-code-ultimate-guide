@@ -185,6 +185,125 @@ All synced!
 - Exit code = nombre d'issues trouvées
 - Consulter `landing/CLAUDE.md` pour les numéros de ligne exacts à modifier
 
+## Écosystème Complet (4 Repositories)
+
+Ce guide fait partie d'un écosystème de 4 repositories interconnectés, séparant les audiences (devs vs knowledge workers) et les use cases (documentation vs vitrine).
+
+### Architecture
+
+```
+        REPOS SOURCES (Documentation)
+        ┌──────────────────┬──────────────────┐
+        │                  │                  │
+    ┌───▼───┐          ┌───▼───┐
+    │ Guide │          │Cowork │
+    │ Code  │◄────────►│ Guide │
+    │ vX.Y  │ liens    │ v1.0  │
+    └───┬───┘          └───┬───┘
+        │                  │
+        │ source           │ source
+        │                  │
+        LANDING SITES (Vitrine)
+        ┌──────────────────┬──────────────────┐
+        │                  │                  │
+    ┌───▼───┐          ┌───▼───┐
+    │ Code  │◄────────►│Cowork │
+    │Landing│cross-links│Landing│
+    │ vX.Y  │          │ v1.0  │
+    └───────┘          └───────┘
+```
+
+### 1. Claude Code Ultimate Guide (ce repo)
+
+**Pour qui**: Développeurs utilisant Claude Code CLI
+
+| Aspect | Détails |
+|--------|---------|
+| **GitHub** | https://github.com/FlorianBruniaux/claude-code-ultimate-guide |
+| **Local** | `/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide/` |
+| **Contenu** | Guide 11K lignes, 66+ templates, workflows, architecture |
+| **Audience** | Développeurs, DevOps, tech leads |
+
+### 2. Claude Cowork Guide (repo dédié)
+
+**Pour qui**: Knowledge workers utilisant Claude Desktop (non-devs)
+
+| Aspect | Détails |
+|--------|---------|
+| **GitHub** | https://github.com/FlorianBruniaux/claude-cowork-guide |
+| **Local** | `/Users/florianbruniaux/Sites/perso/claude-cowork-guide/` |
+| **Contenu** | 6 guides, 67 prompts, 5 workflows, cheatsheet, FAQ |
+| **Audience** | Non-devs, assistants, managers, knowledge workers |
+
+**Migration**: Le dossier `cowork/` a été migré du repo principal vers ce repo dédié (v1.0.0, commit 7a686a8).
+
+### 3. Code Landing Site
+
+**Pour qui**: Visiteurs découvrant le guide Code
+
+| Aspect | Détails |
+|--------|---------|
+| **Local** | `/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide-landing/` |
+| **Contenu** | Page marketing, badges, FAQ, quiz (227 questions) |
+| **Sync avec** | Guide principal (version, templates, guide lines) |
+
+### 4. Cowork Landing Site
+
+**Pour qui**: Visiteurs découvrant le guide Cowork
+
+| Aspect | Détails |
+|--------|---------|
+| **Local** | `/Users/florianbruniaux/Sites/perso/claude-cowork-guide-landing/` |
+| **Contenu** | Page marketing Cowork, prompts showcase |
+| **Sync avec** | Cowork guide (version, prompts count) |
+
+### Synchronisation Inter-Repos
+
+**Déclencheurs de mise à jour multi-repos**:
+
+| Changement | Repos à mettre à jour |
+|------------|----------------------|
+| Version bump (Guide Code) | 1. Guide Code, 2. Code Landing |
+| Templates ajoutés/supprimés | 1. Guide Code, 2. Code Landing |
+| Version bump (Cowork) | 1. Cowork Guide, 2. Cowork Landing |
+| Prompts ajoutés/supprimés | 1. Cowork Guide, 2. Cowork Landing |
+| Cross-links modifiés | Tous les 4 repos |
+
+**Scripts de vérification**:
+
+```bash
+# Vérifier sync Code Landing
+./scripts/check-landing-sync.sh
+
+# Vérifier sync Cowork
+cd ../claude-cowork-guide && ./scripts/check-version-sync.sh
+```
+
+### Relations & Liens
+
+**Guide Code → Cowork Guide**:
+- `guide/cowork.md`: Summary avec liens vers repo dédié
+- `guide/README.md`: Table avec 6 liens vers guides Cowork
+- `machine-readable/reference.yaml`: 23 entrées pointant vers GitHub
+
+**Landing Code ↔ Landing Cowork**:
+- Cross-links bidirectionnels (hero, ecosystem, sections)
+- Navigation fluide entre les 2 audiences
+
+**Principe**: Séparation claire des audiences, navigation facilitée, synchronisation maintenue.
+
+### Historique de l'Écosystème
+
+| Date | Événement | Commits |
+|------|-----------|---------|
+| 2026-01-19 | Création repo Cowork dédié v1.0.0 | 7a686a8 |
+| 2026-01-19 | MAJ README Guide Code → liens GitHub | 9a743cd |
+| 2026-01-20 | Suppression cowork/ du guide principal | 9a29ba4 |
+| 2026-01-20 | Sync Code Landing (v3.9.7, 66 templates) | 5b5ce62 |
+| 2026-01-20 | Fix Cowork Landing (paths, README, UI) | cab83f5, af497b7, 539912b |
+
+**Résultat**: 7 commits, 4 repos synchronisés, -8,297 lignes (cleanup massif), écosystème opérationnel.
+
 ## Research Resources
 
 **Perplexity Pro disponible**: Pour toute recherche nécessitant des sources fiables ou des informations récentes sur Claude Code, Anthropic, ou les pratiques de développement assisté par IA:
