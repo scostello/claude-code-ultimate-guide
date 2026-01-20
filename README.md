@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-61-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-69-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -64,7 +64,7 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 
 **The problem**: Awesome-lists give links, not learning paths. Official docs are dense. Tutorials get outdated in weeks.
 
-**This guide**: Structured learning path with 60+ copy-paste templates, from first install to advanced workflows.
+**This guide**: Structured learning path with 69 copy-paste templates, from first install to advanced workflows.
 
 **Reading time**: Quick Start ~15 min. Full guide ~3 hours (most read by section).
 
@@ -133,6 +133,17 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 
 </details>
 
+<details>
+<summary><strong>DevOps / SRE</strong> — Infrastructure path (5 steps)</summary>
+
+1. [DevOps & SRE Guide](./guide/devops-sre.md) — FIRE framework for infrastructure diagnosis
+2. [K8s Troubleshooting](./guide/devops-sre.md#kubernetes-troubleshooting) — Prompts by symptom
+3. [Incident Response](./guide/devops-sre.md#pattern-incident-response) — Solo & multi-agent workflows
+4. [IaC Patterns](./guide/devops-sre.md#pattern-infrastructure-as-code) — Terraform, Ansible, GitOps
+5. [Guardrails](./guide/devops-sre.md#guardrails--adoption) — Security boundaries & team adoption
+
+</details>
+
 ---
 
 ## 📚 What's Inside
@@ -148,6 +159,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 | **[Workflows](./guide/workflows/)** | Practical guides (TDD, Plan-Driven) | 30 min |
 | **[Data Privacy](./guide/data-privacy.md)** | Retention & compliance | 10 min |
 | **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense | 25 min |
+| **[DevOps & SRE](./guide/devops-sre.md)** | FIRE framework, K8s troubleshooting, incident response | 30 min |
 | **[Claude Code Releases](./guide/claude-code-releases.md)** | Official release history | 10 min |
 
 <details>
@@ -183,7 +195,9 @@ claude-code-ultimate-guide/
 </details>
 
 <details>
-<summary><strong>Examples Library</strong> (61 templates)</summary>
+<summary><strong>Examples Library</strong> (69 templates)</summary>
+
+**Agents** (6): [code-reviewer](./examples/agents/code-reviewer.md), [test-writer](./examples/agents/test-writer.md), [security-auditor](./examples/agents/security-auditor.md), [refactoring-specialist](./examples/agents/refactoring-specialist.md), [output-evaluator](./examples/agents/output-evaluator.md), [devops-sre](./examples/agents/devops-sre.md) ⭐
 
 **Slash Commands** (18): [/pr](./examples/commands/pr.md), [/commit](./examples/commands/commit.md), [/release-notes](./examples/commands/release-notes.md), [/diagnose](./examples/commands/diagnose.md), [/security](./examples/commands/security.md), [/refactor](./examples/commands/refactor.md), [/explain](./examples/commands/explain.md), [/optimize](./examples/commands/optimize.md), [/ship](./examples/commands/ship.md)...
 
@@ -313,7 +327,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.9.8)
+**Archive**: Historical versions available in git history (pre-v3.9.9)
 
 </details>
 
@@ -324,7 +338,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | Repository | Purpose | Audience |
 |------------|---------|----------|
-| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (11K lines, 66 templates) | Developers |
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (11K lines, 69 templates) | Developers |
 | **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
 | **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
 | **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
@@ -382,7 +396,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.8 | January 2026 | Crafted with Claude*
+*Version 3.9.9 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

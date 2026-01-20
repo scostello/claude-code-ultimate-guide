@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.9.9] - 2026-01-20
+
+### Added
+
+- **DevOps & SRE Guide** — Comprehensive infrastructure diagnosis guide (~900 lines)
+  - **New file**: `guide/devops-sre.md` — The FIRE Framework for infrastructure troubleshooting
+    - **F**irst Response → **I**nvestigate → **R**emediate → **E**valuate
+    - Kubernetes troubleshooting with copy-paste prompts by symptom (CrashLoopBackOff, OOMKilled, ImagePullBackOff, etc.)
+    - Solo incident response workflow (designed for 3 AM scenarios)
+    - Multi-agent pattern for post-incident analysis
+    - IaC patterns: Terraform, Ansible, GitOps workflows
+    - Guardrails & team adoption checklist
+    - Claude limitations table (what Claude can't do for DevOps)
+    - Case studies: Production outage root cause, OpsWorker.ai MTTR reduction
+  - **New file**: `examples/agents/devops-sre.md` — DevOps/SRE agent persona (~130 lines)
+    - FIRE framework implementation
+    - Kubernetes, network, and resource debugging checklists
+    - Response templates (assessment, root cause, remediation)
+    - Safety rules for production environments
+  - **New file**: `examples/claude-md/devops-sre.md` — CLAUDE.md template for DevOps teams (~170 lines)
+    - Infrastructure context configuration
+    - Environment, service map, access patterns
+    - Team conventions and runbook format
+    - Customization guides (K8s-heavy, Terraform-heavy, multi-cloud)
+  - **Updated**: `guide/ultimate-guide.md` — Added DevOps & SRE Guide reference after Section 5.4
+  - **Updated**: `machine-readable/reference.yaml` — Added 11 DevOps/SRE entries
+  - **Updated**: `examples/README.md` — Added agent and CLAUDE.md template to indexes
+  - **Updated**: `README.md` — Added DevOps/SRE learning path, updated templates count (69)
+
 ## [3.9.8] - 2026-01-20
 
 ### Added

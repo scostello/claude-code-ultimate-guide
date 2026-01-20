@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.8"
+version: "3.9.9"
 updated: "2026-01-20"
 
 # ════════════════════════════════════════════════════════════════
@@ -88,33 +88,45 @@ deep_dive:
   skill_examples: 4608
   community_skills_cybersec: 4788
   community_skills_iac: 4871
-  commands: 4939
-  command_template: 5009
-  hooks: 5262
-  hook_templates: 5407
-  security_hooks: 5669
-  mcp_servers: 5810
-  mcp_config: 6104
-  mcp_security: 6472
-  cicd: 6790
-  ide_integration: 7479
-  feedback_loops: 7549
-  batch_operations: 7979
-  pitfalls: 8098
-  git_best_practices: 8367
-  cost_optimization: 8833
-  session_teleportation: 9432
-  commands_table: 9608
-  shortcuts_table: 9641
-  troubleshooting: 9767
-  cheatsheet: 10142
-  daily_workflow: 10218
-  # AI Ecosystem (Section 11, ~line 10494)
-  ai_ecosystem: 10494
-  ai_ecosystem_complementarity: 10494
-  ai_ecosystem_tool_matrix: 10520
-  ai_ecosystem_workflows: 10545
-  ai_ecosystem_integration: 10671
+  # DevOps/SRE Guide (guide/devops-sre.md)
+  devops_sre_guide: "guide/devops-sre.md"
+  devops_fire_framework: "guide/devops-sre.md:50"
+  devops_k8s_troubleshooting: "guide/devops-sre.md:120"
+  devops_k8s_prompts: "guide/devops-sre.md:160"
+  devops_incident_response: "guide/devops-sre.md:340"
+  devops_iac_patterns: "guide/devops-sre.md:520"
+  devops_guardrails: "guide/devops-sre.md:650"
+  devops_limitations: "guide/devops-sre.md:290"
+  devops_quick_reference: "guide/devops-sre.md:750"
+  devops_agent: "examples/agents/devops-sre.md"
+  devops_claude_md: "examples/claude-md/devops-sre.md"
+  commands: 4950
+  command_template: 5020
+  hooks: 5273
+  hook_templates: 5418
+  security_hooks: 5680
+  mcp_servers: 5821
+  mcp_config: 6115
+  mcp_security: 6483
+  cicd: 6801
+  ide_integration: 7490
+  feedback_loops: 7560
+  batch_operations: 7990
+  pitfalls: 8109
+  git_best_practices: 8378
+  cost_optimization: 8844
+  session_teleportation: 9443
+  commands_table: 9619
+  shortcuts_table: 9652
+  troubleshooting: 9778
+  cheatsheet: 10153
+  daily_workflow: 10229
+  # AI Ecosystem (Section 11, ~line 10491)
+  ai_ecosystem: 10491
+  ai_ecosystem_complementarity: 10493
+  ai_ecosystem_tool_matrix: 10531
+  ai_ecosystem_workflows: 10556
+  ai_ecosystem_integration: 10682
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
@@ -448,7 +460,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.9.8, 66 templates, cross-links"
+        event: "Code Landing sync v3.9.9, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

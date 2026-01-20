@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.8
+**Version**: 3.9.9
 
 ---
 
@@ -4919,6 +4919,17 @@ git clone https://github.com/antonbabenko/terraform-skill.git terraform
 #### Contributing
 
 If you create specialized skills for other domains (DevOps, data science, ML/AI, etc.), consider sharing them with the community through similar repositories or pull requests to existing collections.
+
+### DevOps & SRE Guide
+
+For comprehensive DevOps/SRE workflows, see **[DevOps & SRE Guide](./devops-sre.md)**:
+- **The FIRE Framework**: First Response → Investigate → Remediate → Evaluate
+- **Kubernetes troubleshooting**: Prompts by symptom (CrashLoopBackOff, OOMKilled, etc.)
+- **Incident response**: Solo and multi-agent patterns
+- **IaC patterns**: Terraform, Ansible, GitOps workflows
+- **Guardrails**: Security boundaries and team adoption checklist
+
+**Quick Start**: [Agent Template](../examples/agents/devops-sre.md) | [CLAUDE.md Template](../examples/claude-md/devops-sre.md)
 
 ---
 
@@ -11151,4 +11162,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.8
+**Last updated**: January 2026 | **Version**: 3.9.9

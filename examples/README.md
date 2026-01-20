@@ -51,6 +51,7 @@ Ready-to-use templates for Claude Code configuration.
 | [security-auditor.md](./agents/security-auditor.md) | Security vulnerability detection | Sonnet |
 | [refactoring-specialist.md](./agents/refactoring-specialist.md) | Clean code refactoring | Sonnet |
 | [output-evaluator.md](./agents/output-evaluator.md) | LLM-as-a-Judge quality gate | Haiku |
+| [devops-sre.md](./agents/devops-sre.md) | Infrastructure troubleshooting with FIRE framework | Sonnet |
 
 ### Skills
 | File | Purpose |
@@ -117,8 +118,10 @@ Ready-to-use templates for Claude Code configuration.
 | File | Purpose |
 |------|---------|
 | [learning-mode.md](./claude-md/learning-mode.md) | Learning-focused development configuration |
+| [devops-sre.md](./claude-md/devops-sre.md) | DevOps/SRE project configuration |
 
-> **See [guide/learning-with-ai.md](../guide/learning-with-ai.md) for complete documentation**
+> **See [guide/learning-with-ai.md](../guide/learning-with-ai.md) for learning mode documentation**
+> **See [guide/devops-sre.md](../guide/devops-sre.md) for DevOps/SRE guide**
 
 ### Scripts
 | File | Purpose | Output |
