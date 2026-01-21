@@ -339,7 +339,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | Repository | Purpose | Audience |
 |------------|---------|----------|
-| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 65 templates) | Developers |
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 66 templates) | Developers |
 | **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
 | **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
 | **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
@@ -397,7 +397,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.10.0 | January 2026 | Crafted with Claude*
+*Version 3.11.0 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
