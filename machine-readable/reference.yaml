@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.9.9"
+version: "3.9.11"
 updated: "2026-01-20"
 
 # ════════════════════════════════════════════════════════════════
@@ -470,7 +470,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.9.9, 66 templates, cross-links"
+        event: "Code Landing sync v3.9.11, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
@@ -562,3 +562,14 @@ onboarding_questions:
     optimize: "goal → tone → level → time → style (if time >= 15min)"
     build_agents: "goal → tone → level → time → style (if time >= 15min)"
     learn_everything: "goal → tone → level → time → style"
+
+deep_dive:
+  - file: "guide/production-safety.md"
+    lines: "1-550"
+    topics:
+      - "Port stability rules and implementation"
+      - "Database safety with backup enforcement"
+      - "Feature completeness (no TODOs for core functionality)"
+      - "Infrastructure lock patterns"
+      - "Dependency safety and npm install blocks"
+      - "Pattern following and CLAUDE.md conventions"

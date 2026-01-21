@@ -254,6 +254,8 @@ These are starting points, not rules. Team dynamics matter more than headcount.
 | Project conventions | Custom agents |
 | Commit format | Flag defaults |
 
+**Production teams**: Implement [Production Safety Rules](production-safety.md) for port/DB/infrastructure protection via hooks and permission deny rules.
+
 **Watch for**: Conventions that exist on paper but aren't followed.
 
 ### Larger Team (10+)
@@ -270,6 +272,7 @@ These are starting points, not rules. Team dynamics matter more than headcount.
 - Documented conventions with rationale
 - Standardized hooks across the team
 - Onboarding that covers basics like `/status`
+- **Production teams**: Enforce [Production Safety Rules](production-safety.md) via hooks and permission deny rules
 
 **Watch for**: Config drift. Without some coordination, setups diverge over time. Whether that matters depends on your team.
 

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.9.9
+**Version**: 3.9.11
 
 ---
 
@@ -3415,6 +3415,10 @@ Express + Prisma backend.
 - Business logic in /services
 - Prisma queries in /repositories
 ```
+
+**Production Safety**: For teams deploying Claude Code in production, see [Production Safety Rules](production-safety.md) for port stability, database safety, and infrastructure lock patterns.
+
+---
 
 ## 3.2 The .claude/ Folder Structure
 
@@ -11553,4 +11557,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.9.9
+**Last updated**: January 2026 | **Version**: 3.9.11

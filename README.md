@@ -159,6 +159,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 | **[Workflows](./guide/workflows/)** | Practical guides (TDD, Plan-Driven) | 30 min |
 | **[Data Privacy](./guide/data-privacy.md)** | Retention & compliance | 10 min |
 | **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense | 25 min |
+| **[Production Safety](./guide/production-safety.md)** | Port stability, DB safety, infrastructure lock | 20 min |
 | **[DevOps & SRE](./guide/devops-sre.md)** | FIRE framework, K8s troubleshooting, incident response | 30 min |
 | **[Claude Code Releases](./guide/claude-code-releases.md)** | Official release history | 10 min |
 
@@ -327,7 +328,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.9.9)
+**Archive**: Historical versions available in git history (pre-v3.9.11)
 
 </details>
 
@@ -396,7 +397,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.9.9 | January 2026 | Crafted with Claude*
+*Version 3.9.11 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

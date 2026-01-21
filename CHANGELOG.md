@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+---
+
+## [3.9.11] - 2026-01-21
+
+### Added
+- **Production Safety Rules Guide** (`guide/production-safety.md`): Comprehensive production safety rules for teams deploying Claude Code in production environments
+  - Port Stability: Prevent accidental port changes breaking local dev/Docker/deployed configs
+  - Database Safety: Backup enforcement via PreToolUse hooks to prevent data loss
+  - Feature Completeness: No TODOs for core functionality rules
+  - Infrastructure Lock: Protect docker-compose.yml, Dockerfile, .env.example, terraform/
+  - Dependency Safety: Block unapproved npm packages with permission deny rules
+  - Pattern Following: Enforce codebase conventions via CLAUDE.md and automated validation
+- Cross-references to production-safety.md in `ultimate-guide.md` section 3.1 and `adoption-approaches.md` (Medium/Large teams)
+- New deep_dive entry in `machine-readable/reference.yaml` for production safety topics
+
+### Context
+- Adapted from community "10 non-negotiable CLAUDE.md rules" (6/10 rules integrated, 4/10 already covered in existing guide)
+- Verified gaps using grepai searches: Rule #5 (ports) genuinely absent, Rule #6 (DB) partially covered
+- Target audience: 20% production teams (vs 80% learners in main guide)
+
+---
+
 ## [3.9.10] - 2026-01-21
 
 ### Added
