@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.12 | **Updated**: 2026-01-18
+**Latest**: v2.1.14 | **Updated**: 2026-01-21
 
 ---
 
@@ -18,6 +18,17 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.14 (2026-01-21)
+
+- **History-based autocomplete in bash mode** — Type `!` followed by a partial command and press Tab to complete from bash history
+- Search functionality in installed plugins list
+- Support for pinning plugins to specific git commit SHAs for exact version control
+- Fixed: Context window blocking limit calculated too aggressively (~65% instead of ~98%)
+- Fixed: Memory issues and leaks in long-running sessions with parallel subagents
+- Fixed: `@` symbol incorrectly triggering file autocomplete in bash mode
+- Fixed: Slash command autocomplete selecting wrong command for similar names
+- Improved: Backspace deletes pasted text as single token
 
 ### v2.1.12 (2026-01-18)
 
@@ -255,4 +266,4 @@
 
 ---
 
-*Last updated: 2026-01-18 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-01-21 | [Back to main guide](./ultimate-guide.md)*

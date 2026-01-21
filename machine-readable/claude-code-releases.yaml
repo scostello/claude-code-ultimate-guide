@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.12"
-updated: "2026-01-18"
+latest: "2.1.14"
+updated: "2026-01-21"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,15 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.14"
+    date: "2026-01-21"
+    highlights:
+      - "History-based autocomplete in bash mode (! + Tab)"
+      - "Search in installed plugins list"
+      - "Git commit SHA pinning for plugins"
+      - "Multiple fixes: context window, memory, autocomplete"
+    breaking: []
 
   - version: "2.1.12"
     date: "2026-01-18"
