@@ -144,6 +144,17 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 
 </details>
 
+<details>
+<summary><strong>Product Designer</strong> — Design-to-code path (5 steps)</summary>
+
+1. [Working with Images](./guide/ultimate-guide.md#24-working-with-images) — Image analysis basics
+2. [Wireframing Tools](./guide/ultimate-guide.md#wireframing-tools) — ASCII/Excalidraw workflows
+3. [Figma MCP](./guide/ultimate-guide.md#figma-mcp) — Design file access & tokens
+4. [Design-to-Code Workflow](./guide/workflows/design-to-code.md) — Figma Make → Claude handoff ⭐
+5. [Cheat Sheet](./guide/cheatsheet.md) — Print this
+
+</details>
+
 ---
 
 ## 📚 What's Inside

@@ -105,6 +105,11 @@ deep_dive:
   devops_quick_reference: "guide/devops-sre.md:750"
   devops_agent: "examples/agents/devops-sre.md"
   devops_claude_md: "examples/claude-md/devops-sre.md"
+  # Product Designer (design-to-code workflow)
+  product_designer_workflow: "guide/workflows/design-to-code.md"
+  product_designer_claudemd: "examples/claude-md/product-designer.md"
+  design_system_handoff: "guide/workflows/design-to-code.md:531"
+  figma_make_integration: "guide/workflows/design-to-code.md:26"
   commands: 4950
   command_template: 5020
   hooks: 5273
