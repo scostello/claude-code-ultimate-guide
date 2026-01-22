@@ -102,6 +102,9 @@ deep_dive:
   design_patterns_skill_stacks: "React, Angular, NestJS, Vue, Express, RxJS, Redux, ORMs"
   community_skills_cybersec: 4947
   community_skills_iac: 5030
+  # Automatic skill generation (meta-skill)
+  claudeception: "https://github.com/blader/Claudeception"
+  claudeception_guide: 5095
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"

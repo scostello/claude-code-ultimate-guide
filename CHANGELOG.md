@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Claudeception documentation** — Meta-skill for automatic skill generation
+  - **Repository**: [blader/Claudeception](https://github.com/blader/Claudeception) by Siqi Chen (@blader)
+  - **What it does**: Monitors Claude Code sessions and auto-extracts discoveries into reusable skills
+  - **Validated use case**: `pre-merge-code-review` skill auto-generated from debugging workflow
+  - **Documentation added**:
+    - `guide/ultimate-guide.md` Section 5.5: "Automatic Skill Generation: Claudeception" (~45 lines)
+    - `machine-readable/reference.yaml`: `claudeception` + `claudeception_guide` entries
+  - **Source**: Community contribution via Laurent Dosdat
+
 ---
 
 ## [3.11.1] - 2026-01-22

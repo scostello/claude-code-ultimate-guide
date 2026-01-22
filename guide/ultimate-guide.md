@@ -5093,6 +5093,49 @@ git clone https://github.com/antonbabenko/terraform-skill.git terraform
 
 If you create specialized skills for other domains (DevOps, data science, ML/AI, etc.), consider sharing them with the community through similar repositories or pull requests to existing collections.
 
+### Automatic Skill Generation: Claudeception
+
+**Repository**: [blader/Claudeception](https://github.com/blader/Claudeception)
+**Author**: Siqi Chen (@blader) | **Stars**: 1k+ | **License**: MIT
+
+Unlike traditional skill repositories, Claudeception is a **meta-skill** that generates new skills during Claude Code sessions. It addresses a fundamental limitation: *"Every time you use an AI coding agent, it starts from zero."*
+
+#### How It Works
+
+1. **Monitors** your Claude Code sessions via hook activation
+2. **Detects** non-obvious discoveries (debugging techniques, workarounds, project-specific patterns)
+3. **Writes** new skill files with Problem/Context/Solution/Verification structure
+4. **Retrieves** matching skills in future sessions when similar contexts arise
+
+#### Validated Use Case
+
+A user reported Claudeception auto-generated a `pre-merge-code-review` skill from their actual workflow—transforming an ad-hoc debugging session into a reusable, automatically-triggered skill.
+
+#### Installation
+
+```bash
+# User-level installation
+git clone https://github.com/blader/Claudeception.git ~/.claude/skills/claudeception
+
+# Project-level installation
+git clone https://github.com/blader/Claudeception.git .claude/skills/claudeception
+```
+
+See the [repository README](https://github.com/blader/Claudeception) for hook configuration.
+
+#### Considerations
+
+| Aspect | Recommendation |
+|--------|----------------|
+| **Governance** | Review generated skills periodically; archive or merge duplicates |
+| **Overhead** | Hook-based activation adds evaluation per prompt |
+| **Scope** | Start with non-critical projects to validate the workflow |
+| **Quality gates** | Claudeception only persists tested, discovery-driven knowledge |
+
+#### Why It's Notable
+
+This skill demonstrates the **skill-that-creates-skills** pattern—a meta-approach where Claude Code improves itself through session learning. Inspired by academic work on reusable skill libraries (Voyager, CASCADE, SEAgent, Reflexion).
+
 ### DevOps & SRE Guide
 
 For comprehensive DevOps/SRE workflows, see **[DevOps & SRE Guide](./devops-sre.md)**:
