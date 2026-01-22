@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.11.1"
-updated: "2026-01-21"
+version: "3.11.2"
+updated: "2026-01-22"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -330,6 +330,9 @@ mcp:
   figma: "design file access, tokens, structure (official)"
   check: "/mcp"
   config: ".claude/mcp.json or ~/.claude.json"
+  tool_search: "lazy loading MCP tools (v2.1.7+) - 85% token reduction - auto:N threshold config"
+  tool_search_config: "ENABLE_TOOL_SEARCH=auto|auto:N|true|false"
+  tool_search_deep_dive: "guide/architecture.md:534"
 
 # ════════════════════════════════════════════════════════════════
 # ARCHITECTURE INTERNALS - see guide/architecture.md

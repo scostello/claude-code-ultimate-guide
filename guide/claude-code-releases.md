@@ -47,7 +47,7 @@
 
 ### v2.1.9 (2026-01-16)
 
-- `auto:N` syntax for MCP tool search threshold configuration
+- **`auto:N` syntax for MCP tool search threshold** — Configure when Tool Search activates: `ENABLE_TOOL_SEARCH=auto:5` (5% context), `auto:10` (default), `auto:20` (conservative). See [architecture.md](./architecture.md#mcp-tool-search-lazy-loading) for details.
 - `plansDirectory` setting for custom plan file locations
 - Session URL attribution to commits/PRs from web sessions
 - PreToolUse hooks can return `additionalContext`
@@ -56,7 +56,7 @@
 ### v2.1.7 (2026-01-15)
 
 - `showTurnDuration` setting to hide turn duration messages
-- MCP tool search auto mode enabled by default
+- **MCP Tool Search auto mode enabled by default** — Lazy loading for MCP tools when definitions exceed 10% of context. Based on Anthropic's [Advanced Tool Use](https://www.anthropic.com/engineering/advanced-tool-use) API feature. Result: **85% token reduction** on tool definitions, improved tool selection accuracy (Opus 4: 49%→74%, Opus 4.5: 79.5%→88.1%)
 - Inline display of agent final response in task notifications
 
 **⚠️ Breaking**:

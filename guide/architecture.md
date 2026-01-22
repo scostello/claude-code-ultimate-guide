@@ -552,6 +552,71 @@ MCP (Model Context Protocol) servers extend Claude Code with additional tools.
 
 → **Cross-reference**: See [Section 8.6 - MCP Security](./ultimate-guide.md#86-mcp-security) for security considerations.
 
+### MCP Tool Search (Lazy Loading)
+
+**Confidence**: 100% (Tier 1 - Official)
+**Source**: [anthropic.com/engineering/advanced-tool-use](https://www.anthropic.com/engineering/advanced-tool-use)
+
+Since v2.1.7 (January 2026), Claude Code uses **lazy loading** for MCP tool definitions instead of preloading all tools into context. This is powered by Anthropic's [Advanced Tool Use](https://www.anthropic.com/engineering/advanced-tool-use) API feature.
+
+**The problem solved:**
+- MCP tool definitions consume significant context (e.g., GitHub MCP alone: ~46K tokens for 93 tools)
+- Developer Scott Spence documented 66,000+ tokens consumed before typing a single prompt
+- This "context pollution" limited practical MCP adoption
+
+**How Tool Search works:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   MCP TOOL SEARCH FLOW                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  WITHOUT Tool Search (eager loading):                       │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ All 100+ tool definitions loaded upfront (~55K tokens)│   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                             │
+│  WITH Tool Search (lazy loading):                           │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │ Step 1: Only search tool loaded (~500 tokens)        │   │
+│  │ Step 2: Claude determines needed capability          │   │
+│  │ Step 3: Tool Search finds matching tools (regex/BM25)│   │
+│  │ Step 4: Only matched tools loaded (~600 tokens each) │   │
+│  │ Step 5: Tool invoked normally                        │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                             │
+│  Result: 55K tokens → ~8.7K tokens (85% reduction)          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Measured improvements** (Anthropic benchmarks):
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Token overhead (5-server setup) | ~55K | ~8.7K | **85% reduction** |
+| Opus 4 tool selection accuracy | 49% | 74% | +25 points |
+| Opus 4.5 tool selection accuracy | 79.5% | 88.1% | +8.6 points |
+
+**Configuration** (v2.1.9+):
+
+```bash
+# Environment variable
+ENABLE_TOOL_SEARCH=auto      # Default (10% context threshold)
+ENABLE_TOOL_SEARCH=auto:5    # Aggressive (5% threshold)
+ENABLE_TOOL_SEARCH=auto:20   # Conservative (20% threshold)
+ENABLE_TOOL_SEARCH=true      # Always enabled
+ENABLE_TOOL_SEARCH=false     # Disabled (eager loading)
+```
+
+| Threshold | Recommended for |
+|-----------|-----------------|
+| `auto:20` | Lightweight setups (5-10 tools) |
+| `auto:10` | Balanced default (20-50 tools) |
+| `auto:5` | Power users (100+ tools) |
+
+→ As Simon Willison noted: "Context pollution is why I rarely used MCP. Now that it's solved, there's no reason not to hook up dozens or even hundreds of MCPs to Claude Code." — [X/Twitter, January 14, 2026](https://twitter.com/simonw)
+
 ---
 
 ## 7. The Edit Tool: How It Actually Works

@@ -4,18 +4,29 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [3.11.2] - 2026-01-22
 
 ### Added
 
-- **Claudeception documentation** — Meta-skill for automatic skill generation
-  - **Repository**: [blader/Claudeception](https://github.com/blader/Claudeception) by Siqi Chen (@blader)
-  - **What it does**: Monitors Claude Code sessions and auto-extracts discoveries into reusable skills
-  - **Validated use case**: `pre-merge-code-review` skill auto-generated from debugging workflow
-  - **Documentation added**:
-    - `guide/ultimate-guide.md` Section 5.5: "Automatic Skill Generation: Claudeception" (~45 lines)
-    - `machine-readable/reference.yaml`: `claudeception` + `claudeception_guide` entries
-  - **Source**: Community contribution via Laurent Dosdat
+- **MCP Tool Search documentation** (`guide/architecture.md`)
+  - New section "MCP Tool Search (Lazy Loading)" with complete technical details
+  - Explains how Claude Code uses Anthropic's Advanced Tool Use API feature (v2.1.7+)
+  - Includes ASCII diagram of Tool Search flow
+  - Documents 85% token reduction benchmark and accuracy improvements
+  - Configuration guide for `ENABLE_TOOL_SEARCH=auto:N` syntax
+  - Simon Willison quote on context pollution resolution
+  - **Sources**: Anthropic Engineering blog, Scott Spence documentation, Perplexity verification
+  - **machine-readable/reference.yaml**: Added `tool_search`, `tool_search_config`, `tool_search_deep_dive` entries
+
+### Changed
+
+- **Release notes enrichment** (`guide/claude-code-releases.md`)
+  - v2.1.7: Added 85% token reduction stats, accuracy improvements, Anthropic blog link
+  - v2.1.9: Added `auto:N` configuration examples and cross-reference to architecture.md
+
+### Fixed
+
+- **Template count**: Corrected from 83 to 82 (actual count in examples/)
 
 ---
 
