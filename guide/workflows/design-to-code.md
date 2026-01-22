@@ -444,6 +444,123 @@ Report any visual differences (color, spacing, typography).
 
 ---
 
+## Alternative: Pencil (IDE-Native Canvas)
+
+**Overview**: [Pencil](https://pencil.dev) brings infinite design canvas directly into Claude Code/Cursor/VSCode, eliminating external tool switching and enabling design-as-code workflows.
+
+### Architecture
+
+**Core Innovation**: Unlike Figma (cloud-based) or Excalidraw (standalone), Pencil embeds the design canvas directly in your IDE where Claude and your code live.
+
+```
+Traditional Workflow:
+Figma (design) → Export → Claude Code → Implementation → Manual sync
+
+Pencil Workflow:
+IDE Canvas (design + AI agents + code) → Git commit → Continuous alignment
+```
+
+**Key Features**:
+- **WebGL Canvas**: Infinite, performant, fully editable
+- **AI Multiplayer Agents**: Parallel agents process design collaboratively
+- **Git-Native**: `.pen` files (JSON format) version-controlled alongside code
+- **MCP Bi-Directional**: Full read+write access (not just read like Figma MCP)
+- **Figma Import**: Copy-paste directly from Figma preserving vectors and styles
+
+### Pencil vs. Figma MCP
+
+| Aspect | Pencil | Figma MCP |
+|--------|--------|-----------|
+| **Location** | IDE-native (Cursor/VSCode/Claude Code) | External cloud |
+| **Format** | `.pen` JSON (open) | Proprietary binary |
+| **Versioning** | Git-native (branch/merge/history) | Figma cloud versions |
+| **AI Agents** | Multiplayer parallel | Single-threaded via MCP |
+| **Collaboration** | Code-first (developers + designers) | Design-first (designers + devs) |
+| **MCP Access** | Bi-directional (read+write) | Read-only |
+| **Workflow** | Design → Commit → Code in same env | Design → Export → Handoff → Code |
+| **Best For** | Engineer-designers, code-centric teams | Traditional design-dev separation |
+| **Maturity** | Emerging (launched Jan 2026) | Mature (2024+) |
+| **Pricing** | Currently free, TBD future | Freemium (free tier available) |
+
+### When to Use Pencil
+
+✅ **Good Fit**:
+- Team uses Cursor or VSCode + Claude Code as primary environment
+- Engineer-designers comfortable with terminal/IDE workflows
+- Projects requiring tight design-code alignment (design-as-code paradigm)
+- Desire for git-native design versioning (branch protection, rollback, etc.)
+- Want to leverage parallel AI agents for design automation
+
+⚠️ **Consider Carefully**:
+- Traditional design team (non-technical) → Figma may be better
+- Need enterprise SLA/support → Pencil still maturing
+- Complex design system with 50+ components → Figma ecosystem more mature
+- Team not using Cursor/VSCode → Limited compatibility
+
+### Setup
+
+1. **Install Pencil extension**:
+   - Visit [pencil.dev](https://pencil.dev)
+   - Follow installation for Cursor/VSCode/Claude Code
+   - Create account (currently free)
+
+2. **Create first canvas**:
+   ```bash
+   # Open IDE, launch Pencil extension
+   # Create new .pen file in your repo
+   # Design on infinite canvas
+   ```
+
+3. **Git workflow**:
+   ```bash
+   git add design/homepage.pen
+   git commit -m "feat(design): add homepage hero section"
+   git push
+   ```
+
+4. **Claude integration**:
+   - Claude can read .pen files via MCP
+   - Prompt: "Implement the Button component from design/components.pen"
+   - Claude extracts design specs and generates code
+
+### Example Prompt
+
+```
+Read the "Hero Section" from design/homepage.pen.
+
+Implement as React component with:
+- Responsive behavior matching canvas breakpoints
+- Animations from design (fade-in, slide-up)
+- Copy exactly as specified in canvas
+- Use Tailwind for styling
+
+Ensure pixel-perfect match with design specs.
+```
+
+### Founder & Backing
+
+**Tom Krcha** (CEO, Pencil):
+- Co-founder Adobe XD (2014-2018), 10 years at Adobe
+- Prior exits: Alter Avatars (acquired by Google), Around (acquired by Miro)
+- 14+ years development experience
+
+**Funding**: a16z Speedrun (~$1M) + KAYA VC
+
+**Traction**: 1M+ views on launch, thousands of signups including Microsoft, Shopify, Uber executives.
+
+### Maturity Note
+
+**⚠️ Status**: Launched January 2026 (very recent). Strong early signals but documentation and ecosystem still maturing.
+
+**Recommendations**:
+- **Production projects**: Pilot with 1-2 non-critical features first
+- **New projects**: Safe to adopt for teams on Cursor/Claude Code
+- **Traditional workflows**: Stick with Figma MCP until Pencil matures (3-6 months)
+
+**Monitor**: Pricing announcement, public GitHub repo, mature documentation expected Q2 2026.
+
+---
+
 ## Example Prompts
 
 ### Component Implementation

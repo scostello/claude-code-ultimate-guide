@@ -110,6 +110,9 @@ deep_dive:
   product_designer_claudemd: "examples/claude-md/product-designer.md"
   design_system_handoff: "guide/workflows/design-to-code.md:531"
   figma_make_integration: "guide/workflows/design-to-code.md:26"
+  pencil_canvas: "guide/ultimate-guide.md:529"
+  pencil_workflow: "guide/workflows/design-to-code.md:447"
+  pencil_vs_figma: "guide/workflows/design-to-code.md:470"
   commands: 4950
   command_template: 5020
   hooks: 5273

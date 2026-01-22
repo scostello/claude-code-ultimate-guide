@@ -504,6 +504,7 @@ When designing UI before implementation, low-fidelity wireframes help Claude und
 |------|------|-------|-------------|----------|
 | **Excalidraw** | Hand-drawn style | Free | ✓ Community | Quick wireframes, architecture diagrams |
 | **tldraw** | Minimalist canvas | Free | Emerging | Real-time collaboration, custom integrations |
+| **Pencil** | IDE-native canvas | Free* | ✓ Native | Claude Code integrated, AI agents, git-based |
 | **Frame0** | Low-fi + AI | Free | ✓ | Modern Balsamiq alternative, AI-assisted |
 | **Paper sketch** | Physical | Free | N/A | Fastest iteration, zero setup |
 
@@ -524,6 +525,17 @@ When designing UI before implementation, low-fidelity wireframes help Claude und
 - Built-in AI: text-to-wireframe, screenshot-to-wireframe conversion
 - Native MCP integration for Claude workflows
 - Best for: Teams wanting low-fi wireframes with AI assistance
+
+**Pencil** (pencil.dev):
+- IDE-native infinite canvas (Cursor/VSCode/Claude Code)
+- AI multiplayer agents running in parallel for collaborative design
+- Format: `.pen` JSON, git-versionnable with branch/merge support
+- MCP: Bi-directional read+write access to design files
+- Founded by Tom Krcha (ex-Adobe XD), funded a16z Speedrun
+- Export: .pen JSON native, PNG via screenshot, Figma import (copy-paste)
+- Best for: Engineer-designers wanting design-as-code paradigm, teams on Cursor/Claude Code workflows
+
+**⚠️ Note**: Launched January 2026, strong traction (1M+ views, FAANG adoption) but still maturing. Currently free; pricing model TBD. Recommended for early adopters comfortable with rapid iteration.
 
 **Paper + Photo**:
 - Seriously, this works extremely well
