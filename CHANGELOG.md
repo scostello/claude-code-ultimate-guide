@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Context Packing Tools section** (`guide/ai-ecosystem.md:1114`)
+  - New section "12. Context Packing Tools" documenting gitingest, repo2txt usage patterns
+  - Clarifies when to use external context extraction vs native Claude Code file access
+  - Updated Table of Contents with sections 11 (AI Coding Agents Matrix) and 12
+  - **machine-readable/reference.yaml**: Added `ai_ecosystem_context_packing` entry
+
+- **Addy Osmani AI Coding Workflow reference** (`guide/methodologies.md:313`)
+  - Added "My AI Coding Workflow in 2026" article to SDD & Spec-First sources
+  - Validates spec-first, TDD, git checkpoints workflow patterns
+
 - **MCP Tool Search documentation** (`guide/architecture.md`)
   - New section "MCP Tool Search (Lazy Loading)" with complete technical details
   - Explains how Claude Code uses Anthropic's Advanced Tool Use API feature (v2.1.7+)

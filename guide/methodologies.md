@@ -310,6 +310,7 @@ Recommended stacks by situation:
 
 **SDD & Spec-First**
 - Addy Osmani: [How to Write Good Specs for AI Agents](https://addyosmani.com/blog/good-spec/)
+- Addy Osmani: [My AI Coding Workflow in 2026](https://addyosmani.com/blog/ai-coding-workflow/) — End-to-end workflow: spec-first, context packing, TDD, git checkpoints
 - Martin Fowler: [SDD Tools Analysis](https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html)
 - InfoQ: [Spec-Driven Development](https://www.infoq.com/articles/spec-driven-development/)
 - Kinde: [Beyond TDD - Why SDD is the Next Step](https://kinde.com/learn/ai-for-software-engineering/best-practice/beyond-tdd-why-spec-driven-development-is-the-next-step/)

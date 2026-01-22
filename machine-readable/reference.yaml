@@ -169,6 +169,7 @@ deep_dive:
   ai_ecosystem_workflows: 10590
   ai_ecosystem_integration: 10716
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
+  ai_ecosystem_context_packing: "guide/ai-ecosystem.md:1114"
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
   voice_refine_skill: "examples/skills/voice-refine/SKILL.md"

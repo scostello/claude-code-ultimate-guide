@@ -19,6 +19,8 @@
 - [8. Workflow Orchestration](#8-workflow-orchestration)
 - [9. Cost & Subscription Strategy](#9-cost--subscription-strategy)
 - [10. Claude Cowork (Research Preview)](#10-claude-cowork-research-preview)
+- [11. AI Coding Agents Matrix](#11-ai-coding-agents-matrix)
+- [12. Context Packing Tools](#12-context-packing-tools)
 - [Appendix: Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
 - [Alternative Providers (Community Workarounds)](#alternative-providers-community-workarounds)
 
@@ -1108,6 +1110,42 @@ An **interactive comparison matrix** of 23 AI coding agents across 11 technical 
 - [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code): Curated tool library
 
 **Positioning**: Matrix complements this guide by helping you **choose** the right agent. Once you choose Claude Code, this guide teaches you how to **master** it.
+
+---
+
+## 12. Context Packing Tools
+
+When working with LLMs on large codebases, **context packing** refers to techniques for extracting and feeding relevant code context to the model efficiently.
+
+### Why Context Matters
+
+Claude Code automatically reads files as needed, but external tools exist for:
+- **Pre-session preparation**: Dump relevant code before starting
+- **Cross-tool workflows**: Feed context to models outside Claude Code
+- **Offline analysis**: Prepare context for later use
+
+### Available Tools
+
+| Tool | Purpose | How It Works |
+|------|---------|--------------|
+| **gitingest** | Repo → text dump | Extracts relevant files into a single text file for LLM consumption |
+| **repo2txt** | Repo → formatted context | Similar to gitingest, with formatting options |
+| **Context7 MCP** | Docs lookup | Fetches library documentation on-demand (see [MCP section](./ultimate-guide.md#mcp-servers)) |
+
+### When to Use (and When Not)
+
+| Scenario | Best Approach |
+|----------|---------------|
+| Working in Claude Code | Let Claude read files naturally — no pre-dumping needed |
+| Feeding context to ChatGPT/Gemini | gitingest/repo2txt useful |
+| Preparing spec for team review | Export relevant files to share |
+| Very large monorepo (>1M LOC) | May help with selective extraction |
+
+> **Note**: Claude Code's native file access is usually sufficient. These tools are most useful for cross-tool workflows or when working with models that don't have file system access.
+
+### Source
+
+- Addy Osmani: [My AI Coding Workflow in 2026](https://addyosmani.com/blog/ai-coding-workflow/) — Discusses context packing as part of a broader AI development workflow
 
 ---
 
