@@ -504,6 +504,94 @@ See `/voice-refine` skill template in `examples/skills/`.
 
 ---
 
+## 5.1 Text-to-Speech Tools (Agent Vibes)
+
+**Philosophy**: Audible narration frees your eyes for multitasking
+
+Text-to-speech adds audio narration to Claude Code responses, enabling:
+- **Code reviews while multitasking** (listen while reviewing diffs visually)
+- **Long debugging sessions** (audio notifications keep you informed)
+- **Accessibility** (visual impairment, eye strain, RSI)
+- **Background monitoring** (alerts for errors/completion)
+
+### Tool: Agent Vibes (Community MCP Server)
+
+**Status**: Optional integration (not official Claude Code feature)
+**Cost**: 100% free (offline TTS)
+**Maintenance**: Community-driven (Paul Preibisch)
+
+| Feature | Value |
+|---------|-------|
+| **Provider** | Piper TTS (offline neural) + macOS Say (native) |
+| **Voices** | 15+ (12 English, 4 French including 124 multi-speakers) |
+| **Quality** | ⭐️⭐️⭐️⭐️ (Piper medium), ⭐️⭐️⭐️⭐️⭐️ (Piper high) |
+| **Latency** | ~280ms (Piper medium), ~50ms (macOS Say) |
+| **Disk Space** | ~1.3GB (Piper + voices + audio effects) |
+| **Installation** | ~18 minutes (5 phases, interactive) |
+
+### When TTS Shines
+
+| Scenario | Benefit |
+|----------|---------|
+| Code reviews | Listen to Claude's analysis while viewing code |
+| Long-running tasks | Audio notification when tests/builds complete |
+| Debugging sessions | Error alerts without constant screen checking |
+| Learning mode | Dual-language narration (main + target language) |
+| Pair programming | One person codes, both hear Claude's feedback |
+
+### Trade-offs
+
+| Advantage | Limitation |
+|-----------|------------|
+| 100% offline | No cloud-quality voices (vs ElevenLabs) |
+| Zero cost | ~280ms latency (vs instant macOS Say) |
+| Multi-language (50+) | ~1GB disk space for voice models |
+| 124 voice variety | Installation requires Homebrew, Bash 5.x |
+
+### Quick Start
+
+**Installation**: [TTS Setup Workflow](./workflows/tts-setup.md) (18 min)
+
+**Basic usage**:
+```bash
+# In Claude Code
+/agent-vibes:whoami          # Check current voice & provider
+/agent-vibes:list            # List all 15 voices
+/agent-vibes:switch fr_FR-tom-medium  # French male voice
+
+# Test
+> "Say hello in French"  # Audio narration plays
+```
+
+**Mute temporarily**:
+```bash
+/agent-vibes:mute    # Silent work
+# ... focus time ...
+/agent-vibes:unmute  # Re-enable
+```
+
+### Recommendation
+
+| Profile | Setup |
+|---------|-------|
+| **Code reviewer** | ✅ Install with `fr_FR-tom-medium`, `verbosity: low` |
+| **Focus worker** | ⚠️ Install but mute by default, unmute for notifications |
+| **Battery-conscious** | Use macOS Say provider (instant, lower quality) |
+| **Public workspace** | ❌ Skip TTS (audio distraction to others) |
+
+### Complete Documentation
+
+- **[Agent Vibes Integration Guide](../examples/integrations/agent-vibes/README.md)** - Overview, commands, use cases
+- **[Installation Guide](../examples/integrations/agent-vibes/installation.md)** - 18-minute setup procedure
+- **[Voice Catalog](../examples/integrations/agent-vibes/voice-catalog.md)** - 15 voices with audio samples
+- **[Troubleshooting](../examples/integrations/agent-vibes/troubleshooting.md)** - Common issues & solutions
+
+**Resources**:
+- GitHub: https://github.com/paulpreibisch/AgentVibes
+- Voice Samples: https://rhasspy.github.io/piper-samples/
+
+---
+
 ## 6. IDE-Based Tools (Cursor, Windsurf, Cline)
 
 > **Technical Comparison**: For an objective comparison of Claude Code vs 22+ alternatives across 11 criteria (MCP support, Skills, Commands, Subagents, Plan Mode), see the [AI Coding Agents Matrix](https://coding-agents-matrix.dev/) (updated Jan 2026).

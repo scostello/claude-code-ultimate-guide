@@ -17,7 +17,7 @@ Core documentation for mastering Claude Code.
 | [methodologies.md](./methodologies.md) | 15 development methodologies reference (TDD, SDD, BDD, etc.) | 20 min |
 | [security-hardening.md](./security-hardening.md) | Security threats, MCP vetting, injection defense | 25 min |
 | [devops-sre.md](./devops-sre.md) | FIRE framework for infrastructure diagnosis and incident response | 30 min |
-| [ai-ecosystem.md](./ai-ecosystem.md) | Complementary AI tools (Perplexity, Gemini, Kimi, NotebookLM) | 25 min |
+| [ai-ecosystem.md](./ai-ecosystem.md) | Complementary AI tools (Perplexity, Gemini, Kimi, NotebookLM, TTS) | 30 min |
 | [cowork.md](./cowork.md) | Claude Cowork: Summary (see [dedicated repo](https://github.com/FlorianBruniaux/claude-cowork-guide) for full docs) | 5 min |
 | [workflows/](./workflows/) | Practical workflow guides for Claude Code | 30 min |
 
@@ -44,6 +44,7 @@ Hands-on guides for effective development patterns:
 | [workflows/spec-first.md](./workflows/spec-first.md) | Spec-First Development (SDD) |
 | [workflows/plan-driven.md](./workflows/plan-driven.md) | Using /plan mode effectively |
 | [workflows/iterative-refinement.md](./workflows/iterative-refinement.md) | Iterative improvement loops |
+| [workflows/tts-setup.md](./workflows/tts-setup.md) | Add text-to-speech narration to Claude Code (18 min) |
 
 ## Recommended Reading Order
 

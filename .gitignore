@@ -21,6 +21,9 @@ npm-debug.log*
 *.log
 *.tmp
 *.bak
+*.wav
+*.mp3
+*.onnx
 
 # Personal notes & temp files
 to-ignore/

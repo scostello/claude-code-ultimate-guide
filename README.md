@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-71-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-83-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -64,7 +64,7 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 
 **The problem**: Awesome-lists give links, not learning paths. Official docs are dense. Tutorials get outdated in weeks.
 
-**This guide**: Structured learning path with 74 copy-paste templates, from first install to advanced workflows.
+**This guide**: Structured learning path with 83 copy-paste templates, from first install to advanced workflows.
 
 **Reading time**: Quick Start ~15 min. Full guide ~3 hours (most read by section).
 
@@ -207,7 +207,7 @@ claude-code-ultimate-guide/
 </details>
 
 <details>
-<summary><strong>Examples Library</strong> (66 templates)</summary>
+<summary><strong>Examples Library</strong> (83 templates)</summary>
 
 **Agents** (6): [code-reviewer](./examples/agents/code-reviewer.md), [test-writer](./examples/agents/test-writer.md), [security-auditor](./examples/agents/security-auditor.md), [refactoring-specialist](./examples/agents/refactoring-specialist.md), [output-evaluator](./examples/agents/output-evaluator.md), [devops-sre](./examples/agents/devops-sre.md) ⭐
 
@@ -218,6 +218,8 @@ claude-code-ultimate-guide/
 **Utility Scripts**: [session-search.sh](./examples/scripts/session-search.sh), [audit-scan.sh](./examples/scripts/audit-scan.sh)
 
 **GitHub Actions**: [claude-pr-auto-review.yml](./examples/github-actions/claude-pr-auto-review.yml), [claude-security-review.yml](./examples/github-actions/claude-security-review.yml), [claude-issue-triage.yml](./examples/github-actions/claude-issue-triage.yml)
+
+**Integrations** (1): [Agent Vibes TTS](./examples/integrations/agent-vibes/) - Text-to-speech narration for Claude Code responses
 
 **[Browse Complete Catalog](./examples/README.md)** | **[Interactive Catalog](./examples/index.html)**
 
@@ -339,7 +341,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.11.0)
+**Archive**: Historical versions available in git history (pre-v3.11.1)
 
 </details>
 
@@ -350,7 +352,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | Repository | Purpose | Audience |
 |------------|---------|----------|
-| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 74 templates) | Developers |
+| **[Claude Code Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide)** *(this repo)* | Comprehensive documentation (13K lines, 83 templates) | Developers |
 | **[Claude Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide)** | Non-technical usage (67 prompts, 5 workflows) | Knowledge workers |
 | **Code Landing** *(to be deployed)* | Marketing site for Claude Code guide | Discovery |
 | **Cowork Landing** *(to be deployed)* | Marketing site for Cowork guide | Discovery |
@@ -408,7 +410,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.11.0 | January 2026 | Crafted with Claude*
+*Version 3.11.1 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

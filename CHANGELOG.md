@@ -8,6 +8,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [3.11.1] - 2026-01-22
+
+### Added
+
+- **Agent Vibes TTS Integration** (`examples/integrations/agent-vibes/`)
+  - **8 documentation files, 2,400+ lines**: Complete text-to-speech integration guide
+  - **Integration guide** (`README.md`): Quick start with decision matrix, 30-second overview, architecture diagram, essential commands
+  - **Installation guide** (`installation.md`): 18-minute step-by-step procedure across 5 phases (bash 5.x, dependencies, Agent Vibes, Piper TTS, French voices)
+  - **Voice catalog** (`voice-catalog.md`): Detailed catalog of 15 voices (4 French models with 128 total speakers via multi-speaker models)
+  - **Troubleshooting guide** (`troubleshooting.md`): Solutions for 7 common issues with diagnostic script
+  - **Workflow** (`guide/workflows/tts-setup.md`): 18-minute guided workflow with decision scoring system and 5 checkpointed phases
+  - **Custom hook example** (`examples/hooks/bash/tts-selective.sh`): Selective TTS activation (errors only) with pattern matching
+  - **Project template** (`examples/claude-md/tts-enabled.md`): CLAUDE.md template for TTS-enabled projects with team guidelines
+  - **Key features**:
+    - Offline TTS with Piper (no cloud dependency)
+    - French voice support (4 models: tom, siwis, upmc, mls-124speakers)
+    - Mute hierarchy system (project override → project mute → global mute)
+    - Provider auto-detection (macOS Say, Piper TTS)
+    - Audio effects pipeline (reverb, echo, background music)
+  - **Documentation**: Added section 5.1 "Text-to-Speech Tools" in `guide/ai-ecosystem.md` (80+ lines with tables, quick start, recommendations)
+
+### Changed
+
+- **Template count**: 71 → 83 (+12 templates including integration docs, hook, workflow, CLAUDE.md template)
+- **README.md**: Updated badges (71→83), template counts (66→83, 74→83), version footer (3.11.0→3.11.1)
+- **guide/README.md**: Added TTS workflow reference and ai-ecosystem.md section update
+- **machine-readable/reference.yaml**: Added 8 TTS-related entries (tts_integration_guide, tts_installation, tts_voice_catalog, tts_troubleshooting, tts_workflow, tts_ai_ecosystem, tts_hook_example, tts_claude_md_template)
+- **.gitignore**: Added audio file exclusions (*.wav, *.mp3, *.onnx)
+
+### Context
+
+- **Use case**: Add audible narration to Claude Code for multitasking during code reviews, debugging, or long-running operations
+- **Target audience**: Developers wanting TTS feedback without cloud dependencies, preference for high-quality French voices
+- **Methodology**: Community MCP server (Agent Vibes v3.0.0) + Piper TTS + offline voice models from Hugging Face
+
+---
+
 ## [3.11.0] - 2026-01-21
 
 ### Added
