@@ -20,6 +20,7 @@
 - [9. Cost & Subscription Strategy](#9-cost--subscription-strategy)
 - [10. Claude Cowork (Research Preview)](#10-claude-cowork-research-preview)
 - [11. AI Coding Agents Matrix](#11-ai-coding-agents-matrix)
+- [11.1 Goose: Open-Source Alternative (Block)](#111-goose-open-source-alternative-block)
 - [12. Context Packing Tools](#12-context-packing-tools)
 - [Appendix: Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
 - [Alternative Providers (Community Workarounds)](#alternative-providers-community-workarounds)
@@ -1110,6 +1111,98 @@ An **interactive comparison matrix** of 23 AI coding agents across 11 technical 
 - [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code): Curated tool library
 
 **Positioning**: Matrix complements this guide by helping you **choose** the right agent. Once you choose Claude Code, this guide teaches you how to **master** it.
+
+---
+
+## 11.1 Goose: Open-Source Alternative (Block)
+
+For developers hitting Claude Code's subscription limits or needing model flexibility, [Goose](https://github.com/block/goose) is a notable open-source alternative worth understanding.
+
+### What Is Goose?
+
+An **on-machine AI coding agent** developed by Block (formerly Square), released under Apache 2.0 license. Unlike Claude Code, Goose runs entirely locally and is **model-agnostic**—it can use Claude, GPT, Gemini, Groq, or any LLM provider.
+
+| Metric | Value (Jan 2026) |
+|--------|------------------|
+| **GitHub Stars** | 15,400+ |
+| **Contributors** | 350+ |
+| **Releases** | 100+ since Jan 2025 |
+| **License** | Apache 2.0 (permissive) |
+| **Primary Language** | Rust (64%) + TypeScript (26%) |
+
+### Claude Code vs Goose: Key Differences
+
+| Aspect | Claude Code | Goose |
+|--------|-------------|-------|
+| **LLM Flexibility** | Claude only | Any LLM (GPT, Gemini, Claude, Groq, local models) |
+| **Deployment** | Cloud (Anthropic servers) | Local only (on your machine) |
+| **Cost Model** | Subscription ($20-$200/mo) | Free + your LLM API costs |
+| **Rate Limits** | Anthropic's weekly/5-hour caps | Your LLM provider's limits |
+| **Token Visibility** | Opaque (no per-prompt tracking) | Full transparency |
+| **MCP Support** | Native (growing ecosystem) | 3,000+ MCP servers available |
+| **Setup Complexity** | Simple (npm install) | Moderate (Rust toolchain, API keys) |
+
+### When to Consider Goose
+
+**Good fit**:
+- You're hitting Claude Code's weekly limits frequently
+- You need model flexibility (e.g., GPT for some tasks, Claude for others)
+- You require full cost visibility and control
+- You work with large, multi-language codebases requiring aggressive refactoring
+- You want offline capability (with local models like Ollama)
+
+**Poor fit**:
+- You want simplicity over flexibility
+- You prefer fixed monthly cost vs. variable API billing
+- You value Claude's specific reasoning capabilities and can't substitute
+- You don't want to manage LLM API credentials
+
+### Trade-offs
+
+| Goose Advantage | Goose Limitation |
+|-----------------|------------------|
+| No subscription limits | LLM API costs can escalate unpredictably |
+| Model choice | Requires self-managed API keys |
+| Full token transparency | No built-in cross-session memory |
+| Open source (contribute back) | Smaller user base, fewer tutorials |
+| Offline with local models | Local models inferior for complex tasks |
+
+### Hardware Requirements
+
+Goose itself is lightweight (Rust binary). The requirements depend on your LLM choice:
+
+| LLM Type | Requirements |
+|----------|-------------|
+| **Cloud APIs** (Claude, GPT, Gemini) | Minimal (just network access) |
+| **Local models** (Ollama, etc.) | 16-32GB RAM, GPU recommended for larger models |
+
+### Quick Start
+
+```bash
+# macOS
+brew install goose
+
+# Or via cargo
+cargo install goose-cli
+
+# Configure LLM provider
+goose configure
+```
+
+See [Goose Quickstart](https://block.github.io/goose/docs/quickstart/) for detailed setup.
+
+### Positioning
+
+Goose is **not a replacement** for Claude Code—it's an alternative with different trade-offs. The right choice depends on your priorities:
+
+| Priority | Choose |
+|----------|--------|
+| Simplicity, Claude's reasoning | Claude Code |
+| Cost control, model flexibility | Goose |
+| Fixed monthly budget | Claude Code subscription |
+| Pay-per-use, no limits | Goose + API |
+
+For most developers already invested in Claude Code workflows, the switching cost is significant. Goose is most valuable for teams needing model diversity or developers frequently hitting Claude Code's limits.
 
 ---
 

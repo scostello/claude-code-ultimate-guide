@@ -1936,23 +1936,41 @@ Monthly cost estimate: $50-$200 for 5-10 developers
 
 **How Subscription Limits Work**
 
-Unlike API usage (pay-per-token), subscriptions use a different model:
+Unlike API usage (pay-per-token), subscriptions use a hybrid model that's deliberately opaque:
 
 | Concept | Description |
 |---------|-------------|
-| **Message windows** | Limits reset periodically (e.g., every few hours), not daily |
-| **Hybrid counting** | Advertised as "messages" but actual capacity varies by message length, attachments, and context size |
-| **Weekly caps** | Higher tiers may have weekly limits to prevent continuous 24/7 usage |
-| **Model weighting** | Opus consumes quota faster than Sonnet; Haiku is lightest |
+| **5-hour rolling window** | Primary limit; resets when you send next message after 5 hours lapse |
+| **Weekly aggregate cap** | Secondary limit; resets every 7 days. Both apply simultaneously |
+| **Hybrid counting** | Advertised as "messages" but actual capacity is token-based, varying by code complexity, file size, and context |
+| **Model weighting** | **Opus consumes 8-10× more quota than Sonnet** for equivalent work |
+
+**Approximate Token Budgets by Plan** (Jan 2026, community-verified)
+
+| Plan | 5-Hour Token Budget | Weekly Sonnet Hours | Weekly Opus Hours | Claude Code Access |
+|------|---------------------|---------------------|-------------------|-------------------|
+| **Free** | 0 | 0 | 0 | ❌ None |
+| **Pro** ($20/mo) | ~44,000 tokens | 40-80 hours | N/A (Sonnet only) | ✅ Limited |
+| **Max 5x** ($100/mo) | ~88,000-220,000 tokens | 140-280 hours | 15-35 hours | ✅ Full |
+| **Max 20x** ($200/mo) | ~220,000+ tokens | 240-480 hours | 24-40 hours | ✅ Full |
+
+> **Warning**: These are community-measured estimates. Anthropic does not publish exact token limits, and limits have been reduced without announcement (notably Oct 2025). The 8-10× Opus/Sonnet ratio means Max 20x users get only ~24-40 Opus hours weekly despite paying $200/month.
+
+**Why "Hours" Are Misleading**
+
+The term "hours of Sonnet 4" refers to **elapsed wall-clock time** during active processing, not calendar hours. This is not directly convertible to tokens without knowing:
+- Code complexity (larger files = higher per-token overhead)
+- Tool usage (Bash execution adds ~245 input tokens per call; text editor adds ~700)
+- Context re-reads and caching misses
 
 **Tier-Specific Strategies**
 
 | If you have... | Recommended approach |
 |----------------|---------------------|
+| **Pro plan** | Sonnet only; batch sessions, avoid context bloat |
 | **Limited Opus quota** | OpusPlan essential: Opus for planning, Sonnet for execution |
-| **Moderate quota** | Sonnet default, Opus only for architecture/complex debugging |
-| **Generous quota** | More Opus freedom, but still monitor weekly usage |
-| **Unlimited/high tier** | Use Opus freely, focus on productivity over optimization |
+| **Max 5x** | Sonnet default, Opus only for architecture/complex debugging |
+| **Max 20x** | More Opus freedom, but still monitor weekly usage (24-40h goes fast) |
 
 **The Pro User Pattern** (validated by community):
 
@@ -1970,7 +1988,11 @@ This is exactly what OpusPlan mode does automatically (see Section 2.3).
 /status    # Shows current session: cost, context %, model
 ```
 
+Anthropic provides no in-app real-time usage metrics. Community tools like [`ccusage`](https://github.com/ryoppippi/ccusage) help track token consumption across sessions.
+
 For subscription usage history: Check your [Anthropic Console](https://console.anthropic.com/settings/usage) or Claude.ai settings.
+
+**Historical Note**: In October 2025, users reported significant undocumented limit reductions coinciding with Sonnet 4.5's release. Pro users who previously sustained 40-80 Sonnet hours weekly reported hitting limits after only 6-8 hours. Anthropic acknowledged the limits but did not explain the discrepancy.
 
 ### Context Poisoning (Bleeding)
 

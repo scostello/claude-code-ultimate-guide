@@ -78,7 +78,10 @@ deep_dive:
   context_triage: 1448
   session_vs_memory: 1481
   fresh_context_pattern: 1525
-  subscription_limits: 1914
+  subscription_limits: 1933
+  subscription_token_budgets: 1948
+  subscription_opus_ratio: 1946
+  subscription_monitoring: 1985
   plan_mode: 2100
   rewind: 2278
   mental_model: 2360
@@ -174,7 +177,9 @@ deep_dive:
   ai_ecosystem_workflows: 10590
   ai_ecosystem_integration: 10716
   ai_ecosystem_detailed: "guide/ai-ecosystem.md"
-  ai_ecosystem_context_packing: "guide/ai-ecosystem.md:1114"
+  ai_ecosystem_goose: "guide/ai-ecosystem.md:1116"
+  ai_ecosystem_goose_comparison: "guide/ai-ecosystem.md:1132"
+  ai_ecosystem_context_packing: "guide/ai-ecosystem.md:1208"
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
   voice_refine_skill: "examples/skills/voice-refine/SKILL.md"
