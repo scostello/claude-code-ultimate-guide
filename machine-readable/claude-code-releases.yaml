@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.14"
-updated: "2026-01-21"
+latest: "2.1.17"
+updated: "2026-01-23"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,30 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.17"
+    date: "2026-01-23"
+    highlights:
+      - "Fix: Crashes on processors without AVX instruction support"
+    breaking: []
+
+  - version: "2.1.16"
+    date: "2026-01-22"
+    highlights:
+      - "⭐ New task management system with dependency tracking"
+      - "[VSCode] Native plugin management support"
+      - "[VSCode] OAuth users can browse/resume remote sessions"
+      - "Fixed: OOM crashes when resuming sessions with heavy subagent usage"
+    breaking: []
+
+  - version: "2.1.15"
+    date: "2026-01-22"
+    highlights:
+      - "⚠️ Deprecation notice for npm installations (use `claude install`)"
+      - "UI rendering performance improved with React Compiler"
+      - "Fixed: MCP stdio server timeout not killing child process"
+    breaking:
+      - "npm installations deprecated - migrate to native installer"
 
   - version: "2.1.14"
     date: "2026-01-21"
@@ -374,6 +398,8 @@ breaking_summary:
     - "Command injection fix in bash processing (v2.1.2)"
     - "Wildcard permission rules compound commands fix (v2.1.7)"
     - "Shell line continuation permission bypass fix (v2.1.6)"
+  installation:
+    - "npm installations deprecated - use native installer (v2.1.15)"
   behavior:
     - "ultrathink/think keywords now cosmetic only — thinking default with Opus 4.5 (v2.0.67)"
 
@@ -381,6 +407,7 @@ breaking_summary:
 # MILESTONE FEATURES (quick reference)
 # ════════════════════════════════════════════════════════════════
 milestones:
+  "2.1.16": "New task management system with dependency tracking"
   "2.1.0": "Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command"
   "2.0.74": "LSP tool for code intelligence"
   "2.0.72": "Claude in Chrome (browser control)"

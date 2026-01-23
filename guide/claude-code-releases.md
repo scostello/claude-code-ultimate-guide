@@ -4,13 +4,13 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.14 | **Updated**: 2026-01-21
+**Latest**: v2.1.17 | **Updated**: 2026-01-23
 
 ---
 
 ## Quick Jump
 
-- [2.1.x Series (January 2026)](#21x-series-january-2026) — Skill hot-reload, Vim motions, /plan command
+- [2.1.x Series (January 2026)](#21x-series-january-2026) — Task management, Skill hot-reload, Vim motions
 - [2.0.x Series (Nov 2025 - Jan 2026)](#20x-series-november-2025---january-2026) — Opus 4.5, Claude in Chrome, Background agents
 - [Breaking Changes Summary](#breaking-changes-summary)
 - [Milestone Features](#milestone-features)
@@ -18,6 +18,25 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.17 (2026-01-23)
+
+- Fix: Crashes on processors without AVX instruction support
+
+### v2.1.16 (2026-01-22) ⭐
+
+- ⭐ **New task management system** with dependency tracking
+- [VSCode] Native plugin management support
+- [VSCode] OAuth users can browse and resume remote sessions from Sessions dialog
+- Fixed: Out-of-memory crashes when resuming sessions with heavy subagent usage
+- Fixed: "Context remaining" warning not hidden after `/compact`
+- [IDE] Fixed race condition on Windows where sidebar view container wouldn't appear
+
+### v2.1.15 (2026-01-22)
+
+- **⚠️ Deprecation notice for npm installations** — Run `claude install` or see [docs](https://docs.anthropic.com/en/docs/claude-code/getting-started)
+- Improved UI rendering performance with React Compiler
+- Fixed: MCP stdio server timeout not killing child process, which could cause UI freezes
 
 ### v2.1.14 (2026-01-21)
 
@@ -244,6 +263,7 @@
 
 | Version | Key Features |
 |---------|--------------|
+| **v2.1.16** | New task management system with dependency tracking |
 | **v2.1.0** | Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command |
 | **v2.0.74** | LSP tool for code intelligence |
 | **v2.0.72** | Claude in Chrome (browser control) |
@@ -266,4 +286,4 @@
 
 ---
 
-*Last updated: 2026-01-21 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-01-23 | [Back to main guide](./ultimate-guide.md)*

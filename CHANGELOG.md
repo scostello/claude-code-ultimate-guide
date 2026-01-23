@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.11.4] - 2026-01-23
+
+### Added
+
+- **Claude Code releases tracking update** (`machine-readable/claude-code-releases.yaml`, `guide/claude-code-releases.md`)
+  - Added v2.1.17: Fix for crashes on processors without AVX instruction support
+  - Added v2.1.16: ⭐ New task management system with dependency tracking, VSCode native plugin management, OAuth remote session browsing
+  - Added v2.1.15: npm installations deprecated (migrate to native installer), React Compiler performance improvements
+  - New milestone: v2.1.16 (task management system)
+  - New breaking change: npm installations deprecated
+
+### Changed
+
+- Updated landing site releases section with 3 new versions (v2.1.15-v2.1.17)
+- Fixed landing release descriptions to match official CHANGELOG (v2.1.12, v2.1.11 corrections)
+- Release count: 39 → 42
+
 ## [3.11.3] - 2026-01-23
 
 ### Added
