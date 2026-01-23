@@ -66,6 +66,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - `practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"`
   - `ecosystem.practitioner_insights.dave_van_veen` with full metadata
 
+- **OCTO Technology reference** (`guide/learning-with-ai.md:907`)
+  - Added to "Practitioner Perspectives" section in Sources & Research
+  - Article: "Le développement logiciel à l'ère des agents IA"
+  - Key insights: pairs as minimal team unit (bus factor), bottleneck shifts to functional requirements
+  - Caveat: managerial focus, useful context for team leads
+
 ### Changed
 
 - **Subscription limits section** (`guide/ultimate-guide.md`) rewritten with concrete data

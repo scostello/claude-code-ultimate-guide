@@ -904,6 +904,7 @@ Sources for [§3 The Reality of AI Productivity](#the-reality-of-ai-productivity
 - **Anthropic Claude Code Best Practices** — [anthropic.com](https://www.anthropic.com/engineering/claude-code-best-practices) — Official guidance on effective usage
 - **ThoughtWorks Technology Radar** — AI-assisted development maturity model
 - **Martin Fowler on AI Pair Programming** — Patterns for effective human-AI collaboration
+- **OCTO Technology: Le développement à l'ère des agents IA** — [blog.octo.com](https://blog.octo.com/le-developpement-logiciel-a-l-ere-des-agents-ia) — Organizational perspective on AI-augmented development: pairs as minimal team unit (bus factor), bottleneck shifts from technical to functional requirements, junior developer integration via pair programming and deliberate practice. Managerial focus — useful context for team leads.
 
 ### Educational Frameworks
 
