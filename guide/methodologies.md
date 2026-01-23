@@ -142,10 +142,25 @@ Strict iteration: 2 weeks max per feature.
 
 With Claude: Be explicit. "Write FAILING tests that don't exist yet."
 
+> **Verification Loops** — A formalized pattern for autonomous iteration:
+>
+> Use testing as termination condition:
+> 1. Claude writes tests for the feature
+> 2. Claude iterates code until tests pass
+> 3. Continue until explicit completion criteria met
+>
+> **Official guidance**: *"Tell Claude to keep going until all tests pass. It will usually take a few iterations."* — [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+>
+> Implementation: Can be enforced via Stop hooks, multi-Claude verification, or explicit "DONE" markers in prompts.
+
 **Eval-Driven Development** — TDD for LLMs. Test agent behaviors via evals:
 - Code-based: `output == golden_answer`
 - LLM-based: Another Claude evaluates
 - Human grading: Reference, slow
+
+> **Eval Harness** — The infrastructure that runs evaluations end-to-end: providing instructions and tools, running tasks concurrently, recording steps, grading outputs, and aggregating results.
+>
+> See Anthropic's comprehensive guide: [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
 
 **Multi-Agent Orchestration** — From single assistant to orchestrated team:
 ```

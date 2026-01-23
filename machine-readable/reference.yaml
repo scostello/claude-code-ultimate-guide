@@ -105,6 +105,11 @@ deep_dive:
   # Automatic skill generation (meta-skill)
   claudeception: "https://github.com/blader/Claudeception"
   claudeception_guide: 5095
+  # Verification Loops & Eval Harness (added 2026-01-23)
+  verification_loops: "guide/methodologies.md:145"
+  verification_loops_source: "https://www.anthropic.com/engineering/claude-code-best-practices"
+  eval_harness: "guide/methodologies.md:161"
+  eval_harness_source: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"
@@ -453,6 +458,15 @@ ecosystem:
     claude_code_everything:
       url: "github.com/wesammustafa/Claude-Code-Everything"
       focus: "Visual walkthrough - Screenshots, BMAD method"
+    everything_claude_code:
+      url: "github.com/affaan-m/everything-claude-code"
+      author: "Affaan Mustafa (Anthropic hackathon winner - Zenith project)"
+      focus: "Distribution - Plugin-ready configs collection"
+      stars: "16k+"
+      created: "2026-01-18"
+      unique: ["Node.js cross-platform hooks", "15 MCP configs", "Plugin marketplace format"]
+      note: "Consolidates existing patterns; author hackathon win was for Zenith project, not this repo"
+      caveat: "Node.js hooks not officially recommended by Anthropic (shell preferred)"
     coding_agents_matrix:
       url: "coding-agents-matrix.dev"
       github: "github.com/PackmindHub/coding-agents-matrix"
