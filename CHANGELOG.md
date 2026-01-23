@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Matteo Collina practitioner insight** (`guide/ai-ecosystem.md:1243`)
+  - Node.js TSC Chair's perspective on AI-assisted development
+  - "Bottleneck shift" thesis: judgment becomes the limiting factor, not typing speed
+  - Key quote: "The human in the loop isn't a limitation. It's the point."
+  - Context: Response to Arnaldi's "The Death of Software Development" (January 2026)
+  - Data points: Review time +91% (CodeRabbit), 96% devs don't trust AI code (Sonar 2026)
+  - Cross-reference added to `guide/learning-with-ai.md` Practitioner Perspectives
+  - YAML index entries: `practitioner_matteo_collina`, `practitioner_collina_source`
+
 - **Claude Code releases tracking update** (`machine-readable/claude-code-releases.yaml`, `guide/claude-code-releases.md`)
   - Added v2.1.17: Fix for crashes on processors without AVX instruction support
   - Added v2.1.16: ⭐ New task management system with dependency tracking, VSCode native plugin management, OAuth remote session browsing

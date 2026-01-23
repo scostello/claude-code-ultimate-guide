@@ -905,6 +905,7 @@ Sources for [§3 The Reality of AI Productivity](#the-reality-of-ai-productivity
 - **ThoughtWorks Technology Radar** — AI-assisted development maturity model
 - **Martin Fowler on AI Pair Programming** — Patterns for effective human-AI collaboration
 - **OCTO Technology: Le développement à l'ère des agents IA** — [blog.octo.com](https://blog.octo.com/le-developpement-logiciel-a-l-ere-des-agents-ia) — Organizational perspective on AI-augmented development: pairs as minimal team unit (bus factor), bottleneck shifts from technical to functional requirements, junior developer integration via pair programming and deliberate practice. Managerial focus — useful context for team leads.
+- **Matteo Collina: The Human in the Loop** — [adventures.nodeland.dev](https://adventures.nodeland.dev/archive/the-human-in-the-loop/) — Node.js TSC Chair on the bottleneck shift from coding to reviewing. Response to Arnaldi's "Death of Software Development." Key thesis: AI amplifies productivity, but judgment and accountability remain human responsibilities. Quote: "The human in the loop isn't a limitation. It's the point." See [detailed analysis](./ai-ecosystem.md#matteo-collina-nodejs-tsc-chair).
 
 ### Educational Frameworks
 

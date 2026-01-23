@@ -1240,6 +1240,45 @@ External resources from experienced practitioners that validate and extend the p
 
 **Note**: The phrase "English is the new programming language" (sometimes attributed to this article) originates from Andrej Karpathy and Bindu Reddy, not Van Veen.
 
+### Matteo Collina (Node.js TSC Chair)
+
+**URL**: [adventures.nodeland.dev/archive/the-human-in-the-loop/](https://adventures.nodeland.dev/archive/the-human-in-the-loop/)
+
+**Author credentials**:
+- Chair of the Node.js Technical Steering Committee
+- Maintainer: Fastify, Pino, Undici (17B downloads/year)
+- Co-Founder & CTO at Platformatic
+- PhD in IoT Application Platforms (2014)
+
+**Context**: Response to Mike Arnaldi's "The Death of Software Development" (January 2026)
+
+**Content summary**: The bottleneck shift thesis — AI changes *what* we do, not *whether* we're needed:
+- AI implements, humans review — judgment becomes the limiting factor
+- "I review every single change. Every behavior modification. Every line that ships."
+- Cultural warning: "AI wrote it" must never become an excuse to skip understanding
+- Industrial Revolution analogy: new scale → new failure modes → new safety practices
+
+**Key data points** (from broader research):
+- Review time +91% in 2025 (CodeRabbit)
+- 96% developers don't trust AI code (Sonar 2026)
+- Creation:review ratio = 1:12 (7 min vs 85 min)
+
+**Key quote**:
+> "The human in the loop isn't a limitation. It's the point."
+
+**Alignment with this guide**:
+
+| Collina Point | This Guide Reference |
+|---------------|---------------------|
+| Verification as bottleneck | Trust Calibration (Section 2.5) |
+| Review every change | Golden Rules (Rule #1) |
+| Senior judgment critical | Verification Spectrum (line 1077) |
+| Cultural accountability | Vibe Coding Trap (`learning-with-ai.md:81`) |
+
+**Value**: First-hand perspective from a major open source maintainer. Validates that code review culture — already essential in open source — transfers directly to AI-assisted development. Powerful authority for convincing skeptical teams.
+
+**Debate context**: Collina's article directly responds to Arnaldi (Effect/Effectful CEO) who argued "software development is dead." The Collina-Arnaldi exchange became a defining moment in the January 2026 discourse on AI and developer roles.
+
 ---
 
 ## 12. Context Packing Tools

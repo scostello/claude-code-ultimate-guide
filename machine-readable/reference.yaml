@@ -116,6 +116,8 @@ deep_dive:
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
   practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"
+  practitioner_matteo_collina: "guide/ai-ecosystem.md:1243"
+  practitioner_collina_source: "https://adventures.nodeland.dev/archive/the-human-in-the-loop/"
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"
