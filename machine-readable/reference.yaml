@@ -113,6 +113,9 @@ deep_dive:
   verification_loops_source: "https://www.anthropic.com/engineering/claude-code-best-practices"
   eval_harness: "guide/methodologies.md:161"
   eval_harness_source: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
+  # Practitioner Insights (external validation)
+  practitioner_insights: "guide/ai-ecosystem.md:1209"
+  practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"
@@ -488,6 +491,14 @@ ecosystem:
       agents_snapshot: 23  # As of 2026-01-19 (evolves over time)
       positioning: "Discovery tool - Use Matrix to find/compare agents, use this guide to master Claude Code"
       note: "External resource - verify data freshness as agents/criteria evolve"
+  practitioner_insights:
+    dave_van_veen:
+      url: "davevanveen.com/blog/agentic_coding/"
+      author: "Dave Van Veen (PhD Stanford, Principal AI Scientist @ HOPPR)"
+      focus: "Production-grade agentic coding guardrails (TDD, worktrees, manual commits)"
+      academic: "Co-author 'Agentic Systems in Radiology' (ArXiv 2025)"
+      alignment: "Validates patterns already documented in this guide"
+      guide_section: "guide/ai-ecosystem.md:1209"
   install_templates: "scripts/install-templates.sh"
   cowork:
     description: "Claude Code for non-developers (desktop app)"

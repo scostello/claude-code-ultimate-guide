@@ -21,6 +21,7 @@
 - [10. Claude Cowork (Research Preview)](#10-claude-cowork-research-preview)
 - [11. AI Coding Agents Matrix](#11-ai-coding-agents-matrix)
 - [11.1 Goose: Open-Source Alternative (Block)](#111-goose-open-source-alternative-block)
+- [11.2 Practitioner Insights](#112-practitioner-insights)
 - [12. Context Packing Tools](#12-context-packing-tools)
 - [Appendix: Ready-to-Use Prompts](#appendix-ready-to-use-prompts)
 - [Alternative Providers (Community Workarounds)](#alternative-providers-community-workarounds)
@@ -1203,6 +1204,41 @@ Goose is **not a replacement** for Claude Code—it's an alternative with differ
 | Pay-per-use, no limits | Goose + API |
 
 For most developers already invested in Claude Code workflows, the switching cost is significant. Goose is most valuable for teams needing model diversity or developers frequently hitting Claude Code's limits.
+
+---
+
+## 11.2 Practitioner Insights
+
+External resources from experienced practitioners that validate and extend the patterns documented in this guide.
+
+### Dave Van Veen (Stanford PhD, HOPPR)
+
+**URL**: [davevanveen.com/blog/agentic_coding/](https://davevanveen.com/blog/agentic_coding/)
+
+**Author credentials**:
+- PhD in Machine Learning, Stanford University (2021-2024)
+- Principal AI Scientist at HOPPR (TB-scale medical AI pipelines)
+- Co-author: "Agentic Systems in Radiology" (ArXiv 2025)
+
+**Content summary**: Production-grade agentic coding workflow with 6 guardrails:
+- **TDD** (Test-Driven Development)
+- **Simplicity first** / **YAGNI**
+- **Reuse before rewriting**
+- **Worktree safety** (git isolation)
+- **Manual commits only** (human authorship boundary)
+
+**Alignment with this guide**: All patterns are covered in our documentation (often with more depth):
+
+| Van Veen Pattern | This Guide Reference |
+|------------------|---------------------|
+| TDD guardrail | `guide/methodologies.md` (TDD, Verification Loops) |
+| Git worktrees | `examples/commands/git-worktree.md` (+ DB branching) |
+| Planning phase | Plan Mode (Section 3.3) |
+| Manual commits | Git best practices (Section 9.9) |
+
+**Value**: Independent validation from a Stanford PhD practitioner that the patterns in this guide are production-ready. Useful for readers seeking multiple authoritative sources.
+
+**Note**: The phrase "English is the new programming language" (sometimes attributed to this article) originates from Andrej Karpathy and Bindu Reddy, not Van Veen.
 
 ---
 

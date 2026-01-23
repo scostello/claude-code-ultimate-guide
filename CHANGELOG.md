@@ -53,6 +53,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - `ai_ecosystem_goose: "guide/ai-ecosystem.md:1116"`
   - `ai_ecosystem_goose_comparison: "guide/ai-ecosystem.md:1132"`
 
+- **Practitioner Insights section** (`guide/ai-ecosystem.md:1209-1241`)
+  - New section "11.2 Practitioner Insights" for external validation
+  - Dave Van Veen (PhD Stanford, Principal AI Scientist @ HOPPR)
+  - Validates guide patterns: TDD, git worktrees, manual commits, planning phase
+  - Academic credential: Co-author "Agentic Systems in Radiology" (ArXiv 2025)
+  - Clarification: "English is the new programming language" attributed to Karpathy/Reddy, not Van Veen
+  - Updated Table of Contents with new section
+
+- **machine-readable/reference.yaml**: Practitioner insights entries
+  - `practitioner_insights: "guide/ai-ecosystem.md:1209"`
+  - `practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"`
+  - `ecosystem.practitioner_insights.dave_van_veen` with full metadata
+
 ### Changed
 
 - **Subscription limits section** (`guide/ultimate-guide.md`) rewritten with concrete data
