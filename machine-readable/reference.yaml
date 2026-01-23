@@ -147,6 +147,7 @@ deep_dive:
   serena_indexation: 6078
   serena_mcp: 6037
   doobidoo_memory_mcp: 6385
+  mcp_memory_stack_patterns: 6524
   mcp_config: 6149
   mcp_security: 6517
   cicd: 6835
@@ -346,6 +347,8 @@ mcp:
   doobidoo_backends: "sqlite_vec (local), cloudflare (multi-device), hybrid (local+cloud sync)"
   doobidoo_tools: "store_memory, retrieve_memory, search_by_tag, delete_memory, list_memories, check_database_health, memory_graph"
   doobidoo_data_location: "~/.mcp-memory-service/memories.db"
+  mcp_memory_stack: "4 layers: doobidoo (decisions) → Serena (symbols) → grepai (code search) → Context7 (docs)"
+  mcp_complementarity_patterns: "onboarding, ADR, debug persistence, multi-IDE coordination"
   serena_indexation: "uvx --from git+https://github.com/oraios/serena serena project index [--force-full|--incremental] [--parallel N]"
   serena_cache: ".serena/cache/typescript/ (add to .gitignore)"
   context7: "library docs lookup"

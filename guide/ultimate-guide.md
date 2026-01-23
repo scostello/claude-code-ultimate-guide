@@ -6521,6 +6521,122 @@ Device C ──┘
 
 > **Source**: [doobidoo/mcp-memory-service GitHub](https://github.com/doobidoo/mcp-memory-service) (791 stars, v10.0.2)
 
+### MCP Memory Stack: Complementarity Patterns
+
+> **⚠️ Experimental** - These patterns combine multiple MCP servers. Test in your workflow before relying on them.
+
+**The 4-Layer Knowledge Stack**:
+
+```
+┌─────────────────────────────────────────────────────┐
+│                    KNOWLEDGE LAYER                   │
+├─────────────────────────────────────────────────────┤
+│  doobidoo     │ Decisions, ADRs, business context   │
+│  (semantic)   │ "Why did we do this?"               │
+├───────────────┼─────────────────────────────────────┤
+│  Serena       │ Symbols, structure, key-value memory│
+│  (code index) │ "Where is X defined?"               │
+├───────────────┼─────────────────────────────────────┤
+│  grepai       │ Semantic code search + call graph   │
+│  (code search)│ "Find code that does X"             │
+├───────────────┼─────────────────────────────────────┤
+│  Context7     │ Official library documentation      │
+│  (docs)       │ "How to use library X?"             │
+└─────────────────────────────────────────────────────┘
+```
+
+**Comparison Matrix**:
+
+| Capability | Serena | grepai | doobidoo |
+|------------|--------|--------|----------|
+| Cross-session memory | Key-value | No | Semantic |
+| Cross-IDE memory | No | No | Yes |
+| Cross-device sync | No | No | Yes (Cloudflare) |
+| Knowledge Graph | No | Call graph | Decision graph |
+| Fuzzy search | No | Code | Memory |
+| Tags/categories | No | No | Yes |
+
+**Usage Patterns**:
+
+| Pattern | Tool | Example |
+|---------|------|---------|
+| **Decision taken** | doobidoo | `store_memory("Decision: FastAPI because async + OpenAPI", tags=["decision", "api"])` |
+| **Convention established** | doobidoo | `store_memory("Convention: snake_case for Python", tags=["convention"])` |
+| **Bug resolved** | doobidoo | `store_memory("Bug: token TTL mismatch Redis/JWT. Fix: align TTL+60s", tags=["bug", "auth"])` |
+| **WIP warning** | doobidoo | `store_memory("WIP: refactoring AuthService, don't touch", tags=["wip"])` |
+| **Find symbol** | Serena | `find_symbol("PaymentProcessor")` |
+| **Find callers** | grepai | `grepai trace callers "validateToken"` |
+| **Search by intent** | grepai | `grepai search "authentication logic"` |
+| **Library docs** | Context7 | `resolve-library-id("fastapi")` |
+
+**Combined Workflows**:
+
+```
+# Workflow 1: Understanding a feature
+retrieve_memory("payment module status?")        # doobidoo → business context
+grepai search "payment processing"               # grepai → find code
+find_symbol("PaymentProcessor")                  # Serena → exact location
+
+# Workflow 2: Onboarding (Session 1 → Session N)
+# Session 1 (senior dev)
+store_memory("Architecture: hexagonal with ports/adapters", tags=["onboarding"])
+store_memory("Tests in __tests__/, using Vitest", tags=["onboarding", "testing"])
+store_memory("DANGER: never touch legacy/payment.ts without review", tags=["onboarding", "danger"])
+
+# Session N (new dev)
+retrieve_memory("project architecture?")
+retrieve_memory("where are tests?")
+retrieve_memory("dangerous areas?")
+
+# Workflow 3: ADR (Architecture Decision Records)
+store_memory("""
+ADR-001: FastAPI vs Flask
+- Decision: FastAPI
+- Reason: native async, auto OpenAPI, typing
+- Rejected: Flask (sync), Django (too heavy)
+""", tags=["adr", "api"])
+
+# 3 months later
+retrieve_memory("why FastAPI?")
+
+# Workflow 4: Debug context persistence
+store_memory("Auth bug: Redis TTL expires before JWT", tags=["debug", "auth"])
+store_memory("Fix: align Redis TTL = JWT exp + 60s margin", tags=["debug", "auth", "fix"])
+
+# Same bug reappears months later
+retrieve_memory("auth token redis problem")
+→ Finds the fix immediately
+
+# Workflow 5: Multi-IDE coordination
+# In Claude Code (terminal)
+store_memory("Refactoring auth in progress, don't touch AuthService", tags=["wip"])
+
+# In Cursor (another window)
+retrieve_memory("work in progress?")
+→ Sees the warning
+```
+
+**When to use which memory system**:
+
+| Need | Tool | Why |
+|------|------|-----|
+| "I know the exact key" | Serena `read_memory("api_choice")` | Fast, direct lookup |
+| "I remember the topic, not the key" | doobidoo `retrieve_memory("API decision?")` | Semantic search |
+| "Share across IDEs" | doobidoo | Multi-client support |
+| "Share across devices" | doobidoo + Cloudflare | Cloud sync |
+| "Code symbol location" | Serena `find_symbol()` | Code indexation |
+| "Code by intent" | grepai `search()` | Semantic code search |
+
+**Current Limitations** (doobidoo):
+
+| Limitation | Impact | Workaround |
+|------------|--------|------------|
+| No versioning | Can't see decision history | Include dates in content |
+| No permissions | Anyone can modify | Use separate DBs per team |
+| No source linking | No link to file/line | Include file refs in content |
+| No expiration | Stale memories persist | Manual cleanup with `delete_memory` |
+| No git integration | No branch-aware memory | Tag with branch name |
+
 </details>
 
 ## 8.3 Configuration
