@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.11.4
+**Version**: 3.11.5
 
 ---
 
@@ -5168,6 +5168,95 @@ For comprehensive DevOps/SRE workflows, see **[DevOps & SRE Guide](./devops-sre.
 - **Guardrails**: Security boundaries and team adoption checklist
 
 **Quick Start**: [Agent Template](../examples/agents/devops-sre.md) | [CLAUDE.md Template](../examples/claude-md/devops-sre.md)
+
+### Skills Marketplace: skills.sh
+
+**URL**: [skills.sh](https://skills.sh/) | **GitHub**: [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | **Launched**: January 21, 2026
+
+Skills.sh (Vercel Labs) provides a centralized marketplace for discovering and installing agent skills with one-command installation:
+
+```bash
+npx add-skill vercel-labs/agent-skills  # React/Next.js best practices (35K+ installs)
+npx add-skill supabase/agent-skills     # Postgres optimization patterns
+npx add-skill anthropics/skills         # Frontend design + skill-creator
+```
+
+#### How It Works
+
+**Installation**: Skills are copied to `~/.claude/skills/` (same format as this guide)
+
+**Supported agents**: 20+ including Claude Code, Cursor, GitHub Copilot, Windsurf, Cline, Goose, and others
+
+**Format**: Standard SKILL.md with YAML frontmatter (100% compatible with Section 5.2-5.3)
+
+#### Top Skills by Category (January 2026)
+
+| Category | Top Skills | Installs | Creator |
+|----------|-----------|----------|---------|
+| **Frontend** | vercel-react-best-practices | 35K+ | vercel-labs |
+| | web-design-guidelines | 26.6K | vercel-labs |
+| | frontend-design | 5.6K | anthropics |
+| **Database** | supabase-postgres-best-practices | 1K+ | supabase |
+| **Auth** | better-auth-best-practices | 2K+ | better-auth |
+| **Testing** | test-driven-development | 721 | obra |
+| **Meta** | skill-creator | 3.2K | anthropics |
+
+Full catalog: [skills.sh leaderboard](https://skills.sh/)
+
+#### Status & Trade-offs
+
+**Status**: Very recent (launched Jan 21, 2026), rapid adoption but early stage
+
+**Governance**: Community project by Vercel Labs (not official Anthropic). Skills contributed by Vercel, Anthropic, Supabase, and community members.
+
+**Trade-offs**:
+- ✅ Centralized discovery + leaderboard (200+ skills)
+- ✅ One-command install (vs manual GitHub clone)
+- ✅ Format 100% compatible with this guide
+- ⚠️ Multi-agent focus (not Claude Code specific)
+- ⚠️ Early stage (maturity to prove over time)
+
+#### When to Use
+
+| Use Case | Recommendation |
+|----------|----------------|
+| **Discover popular patterns** | skills.sh (leaderboard, trending) |
+| **Install official framework skills** | skills.sh (Vercel React, Supabase, etc.) |
+| **Team-specific/internal skills** | GitHub repos (like [claude-code-templates](https://github.com/davila7/claude-code-templates), 17K⭐) |
+| **Custom enterprise skills** | Local `.claude/skills/` (Section 5.2-5.3) |
+
+#### Installation Examples
+
+**Standard installation** (global, all Claude Code sessions):
+```bash
+# Install Vercel bundle (3 skills: react + web-design + deploy)
+npx add-skill vercel-labs/agent-skills
+
+# Install Supabase Postgres patterns
+npx add-skill supabase/agent-skills
+
+# Verify installation
+ls ~/.claude/skills/
+# Output: react-best-practices/ web-design-guidelines/ vercel-deploy/
+```
+
+**Manual installation** (project-specific):
+```bash
+# Clone from GitHub
+git clone https://github.com/vercel-labs/agent-skills.git /tmp/agent-skills
+
+# Copy specific skill
+cp -r /tmp/agent-skills/react-best-practices .claude/skills/
+
+# Claude Code auto-discovers skills in .claude/skills/
+```
+
+#### References
+
+- [Vercel Changelog: Introducing Agent Skills](https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem)
+- [GitHub: vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
+- [Platform Claude Docs: Skill Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+- See also: [AI Ecosystem Guide](./ai-ecosystem.md) for complementary tools
 
 ---
 
@@ -13989,4 +14078,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.11.4
+**Last updated**: January 2026 | **Version**: 3.11.5

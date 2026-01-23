@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.11.5] - 2026-01-23
+
+### Added
+
+- **skills.sh marketplace documentation** (`guide/ultimate-guide.md:5172`, `guide/ai-ecosystem.md:1284`)
+  - New subsection in Section 5.5: "Skills Marketplace: skills.sh"
+  - Vercel Labs project (launched Jan 21, 2026): centralized skill discovery + one-command install
+  - 200+ skills, leaderboard with 35K+ installs (vercel-react-best-practices top skill)
+  - Format 100% compatible with `.claude/skills/` structure
+  - Installation: `npx add-skill <owner/repo>` → copies to `~/.claude/skills/`
+  - Supported agents: 20+ (Claude Code, Cursor, GitHub Copilot, Windsurf, etc.)
+  - Top skills by category: Frontend (vercel-react, web-design), Database (supabase-postgres), Auth (better-auth), Testing (TDD)
+  - Status documented: Community project (Vercel Labs, not official Anthropic), early stage
+  - Trade-offs: Centralized discovery vs GitHub distribution, multi-agent focus vs Claude Code specific
+  - Cross-reference added to `guide/ai-ecosystem.md` Section 11.3 (Skills Distribution Platforms)
+  - Complementary resources table updated in README.md
+  - YAML index entries:
+    - `skills_marketplace: 5172`
+    - `skills_marketplace_url: https://skills.sh/`
+    - `skills_marketplace_github: vercel-labs/agent-skills`
+    - `skills_marketplace_install: npx add-skill <owner/repo>`
+    - `skills_marketplace_top_skills` (5 entries with install counts)
+    - `skills_marketplace_status: Community (Vercel Labs), launched Jan 21, 2026`
+
 ## [3.11.4] - 2026-01-23
 
 ### Added

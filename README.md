@@ -361,7 +361,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.11.4)
+**Archive**: Historical versions available in git history (pre-v3.11.5)
 
 </details>
 
@@ -384,6 +384,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 | Project | Focus | Best For |
 |---------|-------|----------|
 | [claude-code-templates](https://github.com/davila7/claude-code-templates) | **Distribution** - Install & use | Getting 200+ templates via CLI (17k⭐) |
+| [skills.sh](https://skills.sh/) | **Skills marketplace** - Discover & install | One-command skill installation (`npx add-skill`) from Vercel Labs |
 | [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | **Curation** - Discover & link | Exploring community resources |
 | [Claude-Code-Everything](https://github.com/wesammustafa/Claude-Code-Everything) | **Visual walkthrough** | Learning through screenshots |
 | [AI Coding Agents Matrix](https://coding-agents-matrix.dev) | **Technical comparison** | Comparing Claude Code vs 22+ alternatives |
@@ -430,7 +431,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.11.4 | January 2026 | Crafted with Claude*
+*Version 3.11.5 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

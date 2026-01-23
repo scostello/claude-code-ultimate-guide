@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.11.4"
+version: "3.11.5"
 updated: "2026-01-23"
 
 # ════════════════════════════════════════════════════════════════
@@ -108,6 +108,19 @@ deep_dive:
   # Automatic skill generation (meta-skill)
   claudeception: "https://github.com/blader/Claudeception"
   claudeception_guide: 5095
+  # Skills Marketplace (added 2026-01-23)
+  skills_marketplace: 5172
+  skills_marketplace_url: "https://skills.sh/"
+  skills_marketplace_github: "https://github.com/vercel-labs/agent-skills"
+  skills_marketplace_install: "npx add-skill <owner/repo>"
+  skills_marketplace_top_skills:
+    - "vercel-react-best-practices: 35K+ installs"
+    - "web-design-guidelines: 26.6K installs"
+    - "supabase-postgres-best-practices: 1K+ installs"
+    - "better-auth-best-practices: 2K+ installs"
+    - "test-driven-development: 721 installs"
+  skills_marketplace_status: "Community (Vercel Labs), launched Jan 21, 2026"
+  skills_marketplace_changelog: "https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem"
   # Verification Loops & Eval Harness (added 2026-01-23)
   verification_loops: "guide/methodologies.md:145"
   verification_loops_source: "https://www.anthropic.com/engineering/claude-code-best-practices"
@@ -550,7 +563,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.11.4, 66 templates, cross-links"
+        event: "Code Landing sync v3.11.5, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

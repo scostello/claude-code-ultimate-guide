@@ -1281,6 +1281,67 @@ External resources from experienced practitioners that validate and extend the p
 
 ---
 
+## 11.3 Skills Distribution Platforms
+
+For discovering and distributing agent skills beyond local creation:
+
+### skills.sh (Vercel Labs)
+
+**URL**: [skills.sh](https://skills.sh/) | **GitHub**: [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | **Launched**: January 21, 2026
+
+**What it is**: Centralized marketplace for agent skills with one-command installation. Provides leaderboard, trending view, and 200+ skills from Vercel, Anthropic, Supabase, and community contributors.
+
+**Installation**:
+```bash
+npx add-skill vercel-labs/agent-skills  # React/Next.js (35K+ installs)
+npx add-skill supabase/agent-skills     # Postgres patterns
+npx add-skill anthropics/skills         # Frontend design + skill-creator
+```
+
+**Supported agents**: 20+ including Claude Code, Cursor, GitHub Copilot, Windsurf, Cline, Goose
+
+**Status**: Community project (Vercel Labs), very recent (Jan 2026), rapid adoption but early stage
+
+**Format**: 100% compatible with Claude Code's `.claude/skills/` structure (SKILL.md + YAML frontmatter)
+
+### claude-code-templates (GitHub)
+
+**URL**: [github.com/davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) | **Stars**: 17K+
+
+**What it is**: GitHub-based distribution of full workflows (agents + commands + hooks + skills). Focuses on complete project templates rather than individual skills.
+
+**Installation**: Clone and copy templates manually
+
+**Status**: Established community resource, broader scope than skills.sh (includes entire `.claude/` configurations)
+
+### SkillsMP (Community Index)
+
+**URL**: [skillsmp.com](https://skillsmp.com/)
+
+**What it is**: Community-driven index of 7000+ skills with AI-evaluated rankings (S/A/B/C tiers)
+
+**Focus**: Discovery and cataloging, broader ecosystem than just Claude Code
+
+### When to Use
+
+| Use Case | Platform |
+|----------|----------|
+| Discover popular framework skills | skills.sh (leaderboard) |
+| One-command install official skills | skills.sh (Vercel React, Supabase) |
+| Full workflow templates | claude-code-templates |
+| Team-specific/internal skills | GitHub repos (custom) |
+| Enterprise custom skills | Local `.claude/skills/` |
+
+### Integration with This Guide
+
+See [Section 5.5: Skills Marketplace](./ultimate-guide.md#skills-marketplace-skillssh) for:
+- Detailed installation instructions
+- Top skills by category (Frontend, Database, Auth, Testing)
+- Format compatibility details
+- Trade-offs and recommendations
+
+---
+
 ## 12. Context Packing Tools
 
 When working with LLMs on large codebases, **context packing** refers to techniques for extracting and feeding relevant code context to the model efficiently.
