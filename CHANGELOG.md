@@ -8,6 +8,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Plugin System Section 8.5 major update** (`guide/ultimate-guide.md:7092-7280`)
+  - **CRITICAL FIX**: Corrected plugin structure (`.claude-plugin/plugin.json` not root `plugin.json`)
+  - Added `.mcp.json`, `.lsp.json`, `hooks/hooks.json` to directory structure
+  - Added skill namespacing documentation (`/plugin-name:skill`)
+  - Added warning about common mistake (components outside `.claude-plugin/`)
+  - Added link to official Anthropic docs: code.claude.com/docs/en/plugins
+  - Source: [Anthropic Official Plugin Docs](https://code.claude.com/docs/en/plugins)
+
+- **Community Marketplaces subsection** (`guide/ultimate-guide.md:7246`)
+  - **wshobson/agents**: 67 plugins, 99 agents, 107 skills (verified Jan 2026)
+  - **claude-plugins.dev**: 11,989 plugins, 63,065 skills indexed
+  - **claudemarketplaces.com**: Auto-scan GitHub for marketplaces
+  - Popular plugins with install counts: Context7 (~72k), Ralph Wiggum (~57k), Figma MCP (~18k), Linear MCP (~9.5k)
+  - Curated lists: awesome-claude-code (20k+ stars)
+  - Installation examples for wshobson/agents
+  - Sources: [wshobson/agents](https://github.com/wshobson/agents), [claude-plugins.dev](https://claude-plugins.dev), [Firecrawl analysis](https://www.firecrawl.dev/blog/best-claude-code-plugins)
+
+- **Plugin ecosystem YAML index expansion** (`machine-readable/reference.yaml:137-164`)
+  - `plugins_official_docs`: Official Anthropic plugin documentation URL
+  - `plugins_official_reference`: Plugin reference docs URL
+  - `plugins_official_marketplaces`: Marketplace docs URL
+  - `plugins_wshobson_agents`: Stats and URL (67/99/107)
+  - `plugins_registry_claude_plugins_dev`: Registry stats (11,989/63,065)
+  - `plugins_registry_claudemarketplaces`: Auto-scan description
+  - `plugins_popular`: Top 4 plugins with install counts
+  - `plugins_awesome_list`: 20k+ stars curated list
+  - `plugins_community_marketplaces: 7246`: New section line number
+
+- **Resource evaluation: Nick Jensen plugins article** (`claudedocs/resource-evaluations/2026-01-24-nick-jensen-plugins.md`)
+  - Initial score 3/5 → Challenge 4/5 → Perplexity verification 2/5 (Marginal)
+  - Rejected as direct source: outdated stats (63/85/47 vs 67/99/107), unverified onboarding claim
+  - Perplexity research revealed better primary sources (Anthropic docs, wshobson README, claude-plugins.dev)
+  - Lesson: Blog posts often cite outdated data; verify against primary sources
+  - Decision: Integrate primary sources instead of article
+
 - **First plugin example: SE-CoVe (Chain-of-Verification)** (`examples/plugins/se-cove.md`)
   - Software Engineering adaptation of Meta's Chain-of-Verification methodology for Claude Code
   - Research foundation: Meta AI paper (arXiv:2309.11495), ACL 2024 Findings

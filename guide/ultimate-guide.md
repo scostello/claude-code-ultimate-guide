@@ -7091,39 +7091,53 @@ This is useful for testing plugins before permanent installation.
 
 ### Creating Custom Plugins
 
-Plugins are structured directories with a manifest:
+Plugins are structured directories with a manifest inside `.claude-plugin/`:
 
 ```
 my-plugin/
-├── plugin.json           # Plugin manifest
+├── .claude-plugin/
+│   └── plugin.json       # Plugin manifest (ONLY file in this dir)
 ├── agents/
 │   └── my-agent.md       # Custom agents
 ├── skills/
-│   └── my-skill.md       # Custom skills
+│   └── code-review/
+│       └── SKILL.md      # Agent Skills (folder + SKILL.md)
 ├── commands/
-│   └── my-cmd.sh         # Custom commands
+│   └── my-cmd.md         # Slash commands
+├── hooks/
+│   └── hooks.json        # Event handlers
+├── .mcp.json             # MCP server configurations (optional)
+├── .lsp.json             # LSP server configurations (optional)
 └── README.md             # Documentation
 ```
 
-**Example `plugin.json`:**
+> ⚠️ **Common mistake**: Don't put `commands/`, `agents/`, `skills/`, or `hooks/` inside `.claude-plugin/`. Only `plugin.json` goes there.
+
+**Example `.claude-plugin/plugin.json`:**
 
 ```json
 {
   "name": "security-audit",
   "version": "1.0.0",
   "description": "Security audit tools for Claude Code",
-  "author": "Your Name",
-  "agents": ["agents/security-scanner.md"],
-  "skills": ["skills/owasp-check.md"],
-  "commands": ["commands/scan.sh"]
+  "author": {
+    "name": "Your Name"
+  }
 }
 ```
+
+> The manifest only defines metadata. Claude Code auto-discovers components from the directory structure.
+
+**Skill namespacing**: Plugin skills are prefixed with the plugin name to prevent conflicts:
+- Plugin `security-audit` with skill `scan` → `/security-audit:scan`
 
 **Validate before distribution:**
 
 ```bash
 claude plugin validate ./my-plugin
 ```
+
+**Official documentation**: [code.claude.com/docs/en/plugins](https://code.claude.com/docs/en/plugins)
 
 ### Plugin vs. MCP Server
 
@@ -7228,6 +7242,47 @@ claude plugin uninstall <conflicting-plugin>
 - Plugins are loaded at session start
 - Restart Claude Code after enabling/disabling
 - Check `~/.claude/plugins/` for installation
+
+v### Community Marketplaces
+
+The Claude Code plugin ecosystem has grown significantly. Here are verified community resources:
+
+**Major marketplaces:**
+
+| Marketplace | Stats | Focus |
+|-------------|-------|-------|
+| [wshobson/agents](https://github.com/wshobson/agents) | 67 plugins, 99 agents, 107 skills | Production-ready dev workflows, DevOps, security |
+| [claude-plugins.dev](https://claude-plugins.dev) | 11,989 plugins, 63,065 skills indexed | Registry + CLI for plugin discovery |
+| [claudemarketplaces.com](https://claudemarketplaces.com) | Auto-scans GitHub | Marketplace directory |
+
+**Installation example (wshobson/agents):**
+
+```bash
+# Add the marketplace
+/plugin marketplace add wshobson/agents
+
+# Browse available plugins
+/plugin
+
+# Install specific plugin
+/plugin install react-development
+```
+
+**Popular plugins by install count** (Jan 2026):
+
+| Plugin | Installs | Use case |
+|--------|----------|----------|
+| Context7 | ~72k | Library documentation lookup |
+| Ralph Wiggum | ~57k | Code review automation |
+| Figma MCP | ~18k | Design-to-code workflow |
+| Linear MCP | ~9.5k | Issue tracking integration |
+
+**Curated lists:**
+
+- [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) (20k+ stars) - Commands, templates, plugins
+- [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) - Plugin-focused curation
+
+> **Source**: Stats from [claude-plugins.dev](https://claude-plugins.dev), [Firecrawl analysis](https://www.firecrawl.dev/blog/best-claude-code-plugins) (Jan 2026). Counts evolve rapidly.
 
 ---
 

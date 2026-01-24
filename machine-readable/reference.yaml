@@ -134,12 +134,34 @@ deep_dive:
     - "test-driven-development: 721 installs"
   skills_marketplace_status: "Community (Vercel Labs), launched Jan 21, 2026"
   skills_marketplace_changelog: "https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem"
-  # Plugin System & Recommended Plugins (added 2026-01-24)
+  # Plugin System & Community Marketplaces (updated 2026-01-24)
   plugins_system: 6863
   plugins_commands: 6876
   plugins_marketplace: 6890
+  plugins_community_marketplaces: 7246  # New section with ecosystem stats
   plugins_recommended: "examples/plugins/"
   plugins_se_cove: "examples/plugins/se-cove.md"
+  plugins_official_docs: "https://code.claude.com/docs/en/plugins"
+  plugins_official_reference: "https://code.claude.com/docs/en/plugins-reference"
+  plugins_official_marketplaces: "https://code.claude.com/docs/en/plugin-marketplaces"
+  # Community plugin resources
+  plugins_wshobson_agents:
+    url: "https://github.com/wshobson/agents"
+    stats: "67 plugins, 99 agents, 107 skills"
+    updated: "2026-01-24"
+  plugins_registry_claude_plugins_dev:
+    url: "https://claude-plugins.dev"
+    stats: "11,989 plugins, 63,065 skills indexed"
+  plugins_registry_claudemarketplaces:
+    url: "https://claudemarketplaces.com"
+    purpose: "Auto-scan GitHub for .claude-plugin/marketplace.json"
+  plugins_popular:
+    - "Context7: ~72k installs (library docs lookup)"
+    - "Ralph Wiggum: ~57k installs (code review)"
+    - "Figma MCP: ~18k installs (design-to-code)"
+    - "Linear MCP: ~9.5k installs (issue tracking)"
+  plugins_awesome_list: "https://github.com/hesreallyhim/awesome-claude-code"
+  plugins_awesome_list_stars: "20k+"
   chain_of_verification: "guide/methodologies.md:165"
   chain_of_verification_paper: "https://arxiv.org/abs/2309.11495"
   chain_of_verification_acl: "https://aclanthology.org/2024.findings-acl.212/"
