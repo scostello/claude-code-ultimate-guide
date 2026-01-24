@@ -7243,7 +7243,7 @@ claude plugin uninstall <conflicting-plugin>
 - Restart Claude Code after enabling/disabling
 - Check `~/.claude/plugins/` for installation
 
-v### Community Marketplaces
+### Community Marketplaces
 
 The Claude Code plugin ecosystem has grown significantly. Here are verified community resources:
 
