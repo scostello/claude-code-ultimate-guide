@@ -473,6 +473,7 @@ echo -e "test\u200Bhidden" | grep -P '[\x{200B}-\x{200D}]'
 ## See Also
 
 - [Data Privacy Guide](./data-privacy.md) — Retention policies, compliance, what data leaves your machine
+- [AI Traceability](./ai-traceability.md) — PromptPwnd vulnerability, CI/CD security, attribution policies
 - [Security Checklist Skill](../examples/skills/security-checklist.md) — OWASP Top 10 patterns for code review
 - [Security Auditor Agent](../examples/agents/security-auditor.md) — Automated vulnerability scanning
 - [Ultimate Guide §7.4](./ultimate-guide.md#74-security-hooks) — Hook system basics

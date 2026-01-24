@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+
+- **AI Traceability & Attribution Guide** (`guide/ai-traceability.md`)
+  - Comprehensive documentation on AI code attribution and disclosure (~500 lines)
+  - LLVM "Human-in-the-Loop" policy (January 2026): `Assisted-by:` trailer standard
+  - Ghostty mandatory disclosure pattern (August 2025)
+  - Fedora contributor accountability framework (RFC 2119 language)
+  - git-ai tool: checkpoint tracking, AI Code Halflife metric (3.33 years median)
+  - PromptPwnd security vulnerability documentation
+  - Four-level disclosure spectrum: None → Minimal → Standard → Full
+  - Policy comparison matrix across LLVM, Ghostty, Fedora
+  - Implementation guides for solo dev, team, and enterprise contexts
+  - Source: [Vibe coding needs git blame](https://quesma.com/blog/vibe-code-git-blame/) (Piotr Migdał)
+
+- **AI Disclosure Templates** (`examples/config/`)
+  - `CONTRIBUTING-ai-disclosure.md`: Section template for CONTRIBUTING.md
+  - `PULL_REQUEST_TEMPLATE-ai.md`: PR template with AI disclosure checkboxes
+  - Based on Ghostty, LLVM, and Fedora policies
+
+- **Cross-references added**
+  - `guide/ultimate-guide.md:9256`: Link to AI Traceability Guide after Co-Authored-By section
+  - `guide/learning-with-ai.md:85`: Related note after Vibe Coding Trap
+  - `guide/security-hardening.md:476`: PromptPwnd reference in See Also
+  - `guide/README.md`: New entry in contents table
+
+- **Reference YAML expansion** (`machine-readable/reference.yaml`)
+  - 14 new entries for AI traceability topics
+  - Template locations for disclosure files
+
 ## [3.11.6] - 2026-01-24
 
 ### Added

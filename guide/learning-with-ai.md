@@ -82,6 +82,8 @@ The struggle isn't optional. It's where learning happens.
 
 Term coined by [Andrej Karpathy](https://x.com/karpathy/status/1886192184808149383) (Feb 2025, Collins Word of the Year 2025): coding by "fully giving in to the vibes" without understanding the generated code.
 
+> **Related**: For team and OSS contexts, see [AI Traceability](./ai-traceability.md) for disclosure policies (LLVM, Ghostty, Fedora) and attribution tools.
+
 **Symptoms:**
 - Accept All without reading diffs
 - Copy-paste errors without understanding root cause

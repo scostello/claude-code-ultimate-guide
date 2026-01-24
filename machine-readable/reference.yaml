@@ -46,6 +46,22 @@ deep_dive:
   learning_capture_hook: "examples/hooks/bash/learning-capture.sh"
   # Anti-patterns
   vibe_coding_trap: "guide/learning-with-ai.md:81"
+  # AI Traceability & Attribution (guide/ai-traceability.md) - Added 2026-01-24
+  ai_traceability_guide: "guide/ai-traceability.md"
+  ai_traceability_why: "guide/ai-traceability.md:25"
+  ai_traceability_disclosure_spectrum: "guide/ai-traceability.md:63"
+  ai_traceability_co_authored_by: "guide/ai-traceability.md:89"
+  ai_traceability_assisted_by: "guide/ai-traceability.md:109"
+  ai_traceability_git_ai: "guide/ai-traceability.md:262"
+  ai_traceability_llvm_policy: "guide/ai-traceability.md:169"
+  ai_traceability_ghostty_policy: "guide/ai-traceability.md:203"
+  ai_traceability_fedora_policy: "guide/ai-traceability.md:227"
+  ai_traceability_promptpwnd: "guide/ai-traceability.md:342"
+  ai_traceability_implementation: "guide/ai-traceability.md:392"
+  ai_traceability_templates: "guide/ai-traceability.md:440"
+  # AI Disclosure Templates
+  ai_disclosure_contributing: "examples/config/CONTRIBUTING-ai-disclosure.md"
+  ai_disclosure_pr_template: "examples/config/PULL_REQUEST_TEMPLATE-ai.md"
   # TTS Integration (Agent Vibes) - Added 2026-01-22
   tts_integration_guide: "examples/integrations/agent-vibes/README.md"
   tts_installation: "examples/integrations/agent-vibes/installation.md"

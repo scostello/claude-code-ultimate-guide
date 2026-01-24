@@ -9253,6 +9253,15 @@ git commit -m "feat: add user authentication middleware
 Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 ```
 
+#### AI Attribution Standards
+
+For comprehensive AI code attribution beyond Co-Authored-By, including:
+- LLVM's `Assisted-by:` trailer standard
+- git-ai checkpoint tracking
+- Team and enterprise compliance patterns
+
+See: [AI Traceability Guide](./ai-traceability.md)
+
 **Customize commit style in CLAUDE.md:**
 
 ```markdown
