@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [3.11.6] - 2026-01-24
+
+### Added
+
+- **First plugin example: SE-CoVe (Chain-of-Verification)** (`examples/plugins/se-cove.md`)
+  - Software Engineering adaptation of Meta's Chain-of-Verification methodology for Claude Code
+  - Research foundation: Meta AI paper (arXiv:2309.11495), ACL 2024 Findings
+  - 5-stage pipeline: Baseline → Planner → Executor → Synthesizer → Output
+  - Critical innovation: Verifier operates without draft code access (prevents confirmation bias)
+  - Performance metrics from research (Llama 65B): +23-112% accuracy depending on task, ~2x token cost
+  - When to use: Critical code review, architectural decisions, complex debugging (when correctness > speed)
+  - When NOT to use: Trivial changes, tight token budgets, exploratory coding
+  - Installation via `/plugin marketplace add vertti/se-cove-claude-plugin` then `/plugin install chain-of-verification`
+  - Limitations documented: Reduces hallucinations (not eliminates), model-specific (Llama 65B tested), task-dependent performance
+  - Plugin System gap filled: First concrete example for Section 8.5 (previously theoretical docs only)
+  - Sources: [GitHub repo](https://github.com/vertti/se-cove-claude-plugin) v1.1.1, [arXiv paper](https://arxiv.org/abs/2309.11495), [ACL Anthology](https://aclanthology.org/2024.findings-acl.212/)
+
+- **Plugin system YAML index entries** (`machine-readable/reference.yaml:124-132`)
+  - `plugins_system: 6863` (existing section reference)
+  - `plugins_commands: 6876` (command table reference)
+  - `plugins_marketplace: 6890` (marketplace management reference)
+  - `plugins_recommended: "examples/plugins/"` (new directory)
+  - `plugins_se_cove: "examples/plugins/se-cove.md"`
+  - `chain_of_verification: "guide/methodologies.md:165"` (methodology reference)
+  - `chain_of_verification_paper: "https://arxiv.org/abs/2309.11495"`
+  - `chain_of_verification_acl: "https://aclanthology.org/2024.findings-acl.212/"`
+
+- **Resource evaluation documentation** (`claudedocs/resource-evaluations/2026-01-24-se-cove-plugin.md`)
+  - Complete evaluation workflow: Fetch → Gap Analysis → Technical Writer Challenge → Fact-Check (Perplexity) → Documentation
+  - Fact-check findings: Marketing claim "28% improvement" contextualized (task-specific: 23-112%, omitted 2x cost and -26% output)
+  - Curation policy established: Academic validation + Claims fact-checked + Trade-offs disclosed
+  - Approach B (Neutral Academic) validated: Cite paper metrics, not marketing claims
+  - Template for future plugin evaluations (reusable workflow)
+  - Tools used: WebFetch (LinkedIn, GitHub, arXiv), Perplexity Pro (paper verification), Task (technical-writer challenge)
+  - Confidence assessment: High (methodology), Medium (generalization), Low (marketing accuracy)
+
+### Changed
+
+- **README.md**: Templates count 82 → 83 (added SE-CoVe plugin)
+  - Badge updated: `Templates-82` → `Templates-83`
+  - "Examples Library" section updated (line 228)
+  - Ecosystem table updated (line 377)
+  - New **Plugins** subsection added after Skills (line 238)
+
 ## [3.11.5] - 2026-01-23
 
 ### Added

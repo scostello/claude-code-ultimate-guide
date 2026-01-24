@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.11.5
+**Version**: 3.11.6
 
 ---
 
@@ -5157,6 +5157,140 @@ See the [repository README](https://github.com/blader/Claudeception) for hook co
 #### Why It's Notable
 
 This skill demonstrates the **skill-that-creates-skills** pattern—a meta-approach where Claude Code improves itself through session learning. Inspired by academic work on reusable skill libraries (Voyager, CASCADE, SEAgent, Reflexion).
+
+### Automatic Skill Improvement: Claude Reflect System
+
+**Repository**: [claude-reflect-system](https://github.com/haddock-development/claude-reflect-system)
+**Author**: Haddock Development | **Status**: Production-ready (2026)
+**Marketplace**: [Agent Skills Index](https://agent-skills.md/skills/haddock-development/claude-reflect-system/reflect)
+
+While Claudeception creates new skills from discovered patterns, **Claude Reflect System** automatically improves existing skills by analyzing Claude's feedback and detected corrections during sessions.
+
+#### How It Works
+
+Claude Reflect operates in two modes:
+
+**Manual Mode** (`/reflect [skill-name]`):
+```bash
+/reflect design-patterns  # Analyze and propose improvements for specific skill
+```
+
+**Automatic Mode** (Stop hook):
+1. **Monitors** Stop hook triggers (session end, error, explicit stop)
+2. **Parses** session transcript for skill-related feedback
+3. **Classifies** improvement type (correction, enhancement, new example)
+4. **Proposes** skill modifications with confidence level (HIGH/MED/LOW)
+5. **Waits** for explicit user review and approval
+6. **Backs up** original skill file to Git
+7. **Applies** changes with validation (YAML syntax, markdown structure)
+8. **Commits** with descriptive message
+
+#### Safety Features
+
+| Feature | Purpose | Implementation |
+|---------|---------|----------------|
+| **User Review Gate** | Prevent automatic unwanted changes | All proposals require explicit approval before application |
+| **Git Backups** | Enable rollback of bad improvements | Auto-commits before each modification with descriptive messages |
+| **Syntax Validation** | Maintain skill file integrity | YAML frontmatter + markdown body validation before write |
+| **Confidence Levels** | Prioritize high-quality improvements | HIGH (clear correction) > MED (likely improvement) > LOW (suggestion) |
+| **Locking Mechanism** | Prevent concurrent modifications | File locks during analysis and application phases |
+
+#### Installation
+
+```bash
+# Clone to skills directory
+git clone https://github.com/haddock-development/claude-reflect-system.git \
+  ~/.claude/skills/claude-reflect-system
+
+# Configure Stop hook (add to ~/.claude/hooks/Stop.sh or Stop.ps1)
+# Bash example:
+echo '/reflect-auto' >> ~/.claude/hooks/Stop.sh
+chmod +x ~/.claude/hooks/Stop.sh
+
+# PowerShell example:
+Add-Content -Path "$HOME\.claude\hooks\Stop.ps1" -Value "/reflect-auto"
+```
+
+See the [repository README](https://github.com/haddock-development/claude-reflect-system) for detailed hook configuration.
+
+#### Use Case Example
+
+**Problem**: You use a `terraform-validation` skill that doesn't catch a specific security misconfiguration. During the session, Claude detects and corrects the issue manually.
+
+**Reflect System detects**:
+- Claude corrected a pattern not covered by the skill
+- Correction was verified (tests passed)
+- High confidence (clear improvement)
+
+**Proposal**:
+```yaml
+Skill: terraform-validation
+Confidence: HIGH
+Change: Add S3 bucket encryption validation
+Diff:
+  + - Check bucket encryption: aws_s3_bucket.*.server_side_encryption_configuration
+  + - Reject: Encryption not set or using AES256 instead of aws:kms
+```
+
+**User reviews** → approves → **skill updated** → future sessions automatically catch this issue.
+
+#### ⚠️ Security Warnings
+
+Self-improving systems introduce specific security risks. Claude Reflect System includes mitigations, but users must remain vigilant:
+
+| Risk | Description | Mitigation | User Responsibility |
+|------|-------------|------------|---------------------|
+| **Feedback Poisoning** | Adversarial inputs manipulate improvement proposals | User review gate, confidence scoring | Review all HIGH confidence proposals, reject suspicious changes |
+| **Memory Poisoning** | Malicious edits to learned patterns accumulate | Git backups, syntax validation | Periodically audit skill history via Git log |
+| **Prompt Injection** | Embedded instructions in session transcripts | Input sanitization, proposal isolation | Never approve proposals with executable commands |
+| **Skill Bloat** | Unbounded growth without curation | Manual `/reflect [skill]` mode, curate regularly | Archive or merge redundant improvements quarterly |
+
+**Academic sources**:
+- [Anthropic Memory Cookbook](https://github.com/anthropics/anthropic-cookbook/blob/main/skills/memory/guide.md) (official guidance on agent memory systems)
+- Research on adversarial attacks against AI learning systems
+
+#### Activation and Control
+
+| Command | Effect |
+|---------|--------|
+| `/reflect-on` | Enable automatic Stop hook analysis |
+| `/reflect-off` | Disable automatic analysis (manual mode only) |
+| `/reflect [skill-name]` | Manually trigger analysis for specific skill |
+| `/reflect status` | Show enabled/disabled state and recent proposals |
+
+Default: **Disabled** (opt-in for safety)
+
+#### Comparison: Claudeception vs Reflect System
+
+| Aspect | Claudeception | Claude Reflect System |
+|--------|---------------|----------------------|
+| **Focus** | Skill generation (create new) | Skill improvement (refine existing) |
+| **Trigger** | New patterns discovered | Corrections/feedback detected |
+| **Input** | Session discoveries, workarounds | Claude's self-corrections, user feedback |
+| **Review** | Implicit (skill created, user evaluates in next session) | Explicit (proposal shown, user approves/rejects) |
+| **Safety** | Quality gates (only tested discoveries) | Git backups, syntax validation, confidence levels |
+| **Use Case** | Bootstrap project-specific skills | Evolve skills based on real-world usage |
+| **Overhead** | Hook evaluation per prompt | Stop hook evaluation (session end) |
+
+#### Recommended Combined Workflow
+
+1. **Bootstrap** (Claudeception): Let Claude generate skills from discovered patterns during initial project work
+2. **Iterate** (Use skills): Apply generated skills in subsequent sessions
+3. **Refine** (Reflect System): Enable `/reflect-on` to capture improvements as skills evolve with usage
+4. **Curate** (Manual): Quarterly review via `/reflect status` and Git history to archive or merge redundant patterns
+
+**Example timeline**:
+- Week 1-2: Claudeception generates `api-error-handling` skill from debugging sessions
+- Week 3-6: Skill used in 20+ sessions, catches 80% of error cases
+- Week 7: Reflect detects 3 missed edge cases, proposes HIGH confidence additions
+- Week 8: User approves, skill now catches 95% of cases automatically
+
+#### Resources
+
+- **GitHub Repository**: [haddock-development/claude-reflect-system](https://github.com/haddock-development/claude-reflect-system)
+- **Marketplace**: [Agent Skills Index](https://agent-skills.md/skills/haddock-development/claude-reflect-system/reflect)
+- **Video Tutorial**: [YouTube walkthrough](https://www.youtube.com/watch?v=...) (check repo for latest)
+- **Academic Foundation**: [Anthropic Memory Cookbook](https://github.com/anthropics/anthropic-cookbook/blob/main/skills/memory/guide.md)
 
 ### DevOps & SRE Guide
 
@@ -14079,4 +14213,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.11.5
+**Last updated**: January 2026 | **Version**: 3.11.6

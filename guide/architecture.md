@@ -38,7 +38,21 @@ Each claim is marked with its confidence level. **Always prefer official documen
 
 ---
 
+## Visual Overview
+
+Before diving into the technical details, this diagram by Mohamed Ali Ben Salem captures the essential architecture:
+
+![Claude Code Architecture Overview](./images/claude-code-architecture-overview.jpeg)
+
+*Source: [Mohamed Ali Ben Salem on LinkedIn](https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-7420592149110362112-eY5a) — Used with attribution*
+
+**Key insight**: Claude Code is NOT a new AI model — it's an orchestration layer that connects Claude (Opus/Sonnet/Haiku) to your development environment through file editing, command execution, and repository navigation.
+
+---
+
 ## Table of Contents
+
+- [Visual Overview](#visual-overview)
 
 1. [The Master Loop](#1-the-master-loop)
 2. [The Tool Arsenal](#2-the-tool-arsenal)

@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.11.5"
-updated: "2026-01-23"
+version: "3.11.6"
+updated: "2026-01-24"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -56,13 +56,15 @@ deep_dive:
   tts_hook_example: "examples/hooks/bash/tts-selective.sh"
   tts_claude_md_template: "examples/claude-md/tts-enabled.md"
   # Architecture internals (guide/architecture.md)
-  architecture_master_loop: "guide/architecture.md:60"
-  architecture_tools: "guide/architecture.md:130"
-  architecture_context: "guide/architecture.md:200"
-  architecture_subagents: "guide/architecture.md:280"
-  architecture_permissions: "guide/architecture.md:350"
-  architecture_mcp: "guide/architecture.md:450"
-  architecture_philosophy: "guide/architecture.md:580"
+  architecture_visual_overview: "guide/architecture.md:41"
+  architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-7420592149110362112-eY5a"
+  architecture_master_loop: "guide/architecture.md:72"
+  architecture_tools: "guide/architecture.md:155"
+  architecture_context: "guide/architecture.md:208"
+  architecture_subagents: "guide/architecture.md:315"
+  architecture_permissions: "guide/architecture.md:385"
+  architecture_mcp: "guide/architecture.md:506"
+  architecture_philosophy: "guide/architecture.md:746"
   # Main guide (guide/ultimate-guide.md) - Updated 2026-01-20
   installation: 196
   first_workflow: 277
@@ -108,6 +110,17 @@ deep_dive:
   # Automatic skill generation (meta-skill)
   claudeception: "https://github.com/blader/Claudeception"
   claudeception_guide: 5095
+  # Skill Lifecycle: Automatic improvement (added 2026-01-24)
+  skill_lifecycle: 5118
+  claude_reflect_system: 5161
+  claude_reflect_system_repo: "https://github.com/haddock-development/claude-reflect-system"
+  claude_reflect_system_agent_skills: "https://agent-skills.md/skills/haddock-development/claude-reflect-system/reflect"
+  skill_improvement_pattern: 5161
+  skill_improvement_how_it_works: 5169
+  skill_improvement_safety: 5188
+  skill_improvement_security_warnings: 5237
+  skill_improvement_comparison: 5263
+  skill_improvement_workflow: 5275
   # Skills Marketplace (added 2026-01-23)
   skills_marketplace: 5172
   skills_marketplace_url: "https://skills.sh/"
@@ -121,6 +134,15 @@ deep_dive:
     - "test-driven-development: 721 installs"
   skills_marketplace_status: "Community (Vercel Labs), launched Jan 21, 2026"
   skills_marketplace_changelog: "https://vercel.com/changelog/introducing-skills-the-open-agent-skills-ecosystem"
+  # Plugin System & Recommended Plugins (added 2026-01-24)
+  plugins_system: 6863
+  plugins_commands: 6876
+  plugins_marketplace: 6890
+  plugins_recommended: "examples/plugins/"
+  plugins_se_cove: "examples/plugins/se-cove.md"
+  chain_of_verification: "guide/methodologies.md:165"
+  chain_of_verification_paper: "https://arxiv.org/abs/2309.11495"
+  chain_of_verification_acl: "https://aclanthology.org/2024.findings-acl.212/"
   # Verification Loops & Eval Harness (added 2026-01-23)
   verification_loops: "guide/methodologies.md:145"
   verification_loops_source: "https://www.anthropic.com/engineering/claude-code-best-practices"
