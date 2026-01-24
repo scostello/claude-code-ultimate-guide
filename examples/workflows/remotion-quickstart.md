@@ -378,6 +378,118 @@ npm run build
 
 ---
 
+## 📚 Ressources Complémentaires
+
+### 🎯 Top 3 Essentielles (Start Here)
+
+| Ressource | Type | URL | Pourquoi |
+|-----------|------|-----|----------|
+| **Official Resources** | Hub central | [remotion.dev/docs/resources](https://www.remotion.dev/docs/resources) | 50+ templates, intégrations, effects |
+| **Fireship Tutorial** | Vidéo (8min) | [This video was made with code](https://www.youtube.com/watch?v=deg8bOoziaE) | Intro ultra-rapide, 1M+ vues |
+| **Discord Community** | Support live | [Remotion Discord](https://discord.com/servers/remotion-809501355504959528) | 5.6K+ membres, bot AI intégré |
+
+### 📖 Tutoriels Écrits Recommandés
+
+| Article | Niveau | URL | Spécialité |
+|---------|--------|-----|-----------|
+| **ClipCat Beginner's Guide** | Débutant | [Create Videos Programmatically](https://www.clipcat.com/blog/create-videos-programmatically-using-react-a-beginners-guide-to-remotion/) | Installation pas-à-pas |
+| **Prismic Tutorial** | Débutant | [Learn to Create Videos](https://prismic.io/blog/create-videos-with-code-remotion-tutorial) | Fondamentaux complets |
+| **SitePoint Introduction** | Intermédiaire | [Remotion Tutorial](https://www.sitepoint.com/remotion-create-animated-videos-using-html-css-react/) | Data fetching, composants |
+
+### 🎥 Tutoriels Vidéo par Objectif
+
+**Démarrer rapidement** (15 min):
+- [Fireship - This video was made with code](https://www.youtube.com/watch?v=deg8bOoziaE) (8:41, 1M vues)
+
+**Apprendre en profondeur** (1-2h):
+- [CoderOne - Create Videos with React](https://www.youtube.com/watch?v=VOX98RoITMk) (1h, exemple complet logo animé)
+
+**Intégration Claude Code** (30 min):
+- [Snapper AI - Generate Animated Videos](https://www.youtube.com/watch?v=EwKCAgt4aKI) (9:48, jan 2026)
+- [chantastic - Making Remotion Videos](https://www.youtube.com/watch?v=z87bczUZ0uo) (30 min, jan 2026)
+
+### 🛠️ Templates & Exemples
+
+| Template | Usage | Lien | Complexité |
+|----------|-------|------|-----------|
+| **Hello World** | Premier projet | [Official Templates](https://www.remotion.dev/templates/) | ⭐ Simple |
+| **Audiogram** | Podcast viz | [Official Templates](https://www.remotion.dev/templates/) | ⭐⭐ Moyen |
+| **GitHub Unwrapped** | Cas prod réel | [github.com/remotion-dev/github-unwrapped](https://github.com/remotion-dev/github-unwrapped) | ⭐⭐⭐ Avancé |
+
+**Page complète**: [remotion.dev/docs/resources](https://www.remotion.dev/docs/resources) (50+ templates maintenus)
+
+### 🏆 Success Stories (Inspiration)
+
+Produits réels générant des revenus avec Remotion:
+
+- **Icon.me**: $5M ARR en 30 jours (créateur d'annonces)
+- **Revid.ai**: $1M ARR en 15 mois (plateforme vidéo IA)
+- **Typeframes**: Post-acquisition (vidéos présentation produit)
+
+[Voir tous les showcases](https://www.remotion.dev/showcase)
+
+### 💬 Où Poser des Questions
+
+| Plateforme | URL | Meilleur pour | Activité |
+|------------|-----|---------------|----------|
+| **Discord** | [Remotion Discord](https://discord.com/servers/remotion-809501355504959528) | Support rapide, bot AI | ⭐⭐⭐⭐⭐ Très élevée |
+| **GitHub Discussions** | [remotion-dev/discussions](https://github.com/orgs/remotion-dev/discussions) | Questions architecturales | ⭐⭐⭐ Modérée |
+| **Stack Overflow** | [#remotion tag](https://stackoverflow.com/questions/tagged/remotion) | Problèmes spécifiques | ⭐⭐ Faible |
+
+**Tip**: Sur Discord, taggez le bot CrawlChat AI pour réponses instantanées avec sources docs.
+
+### 🚀 Ressources Avancées
+
+**Performance & Optimization**:
+- [Official Performance Docs](https://www.remotion.dev/docs/performance)
+- [YouTube: Optimizing Remotion Lambda](https://www.youtube.com/results?search_query=optimizing+remotion+lambda+jonny+burger) (Jonny Burger, 17 min)
+
+**Agent Skills & IA**:
+- [Official AI Skills Docs](https://www.remotion.dev/docs/ai/skills)
+- [AIbase Article](https://news.aibase.com/news/24827) (jan 2026, très récent)
+
+**Déploiement**:
+- [Railway Template](https://railway.com/deploy/remotion-on-rails) (1-click deploy)
+- [Lambda Docs](https://www.remotion.dev/docs/lambda) (AWS serverless rendering)
+
+### 📊 Paquets Utiles
+
+| Paquet | Usage | Installation |
+|--------|-------|--------------|
+| `@remotion/shapes` | Formes SVG (triangles, étoiles) | `npm i @remotion/shapes` |
+| `remotion-transition-series` | Transitions entre scènes | `npm i remotion-transition-series` |
+| `remotion-subtitle` | Sous-titres automatiques | `npm i remotion-subtitle` |
+| `@remotion/tailwind` | Intégration Tailwind CSS | `npm i @remotion/tailwind` |
+
+[Liste complète sur Resources page](https://www.remotion.dev/docs/resources)
+
+---
+
+## 🎓 Itinéraire d'Apprentissage Suggéré
+
+### Semaine 1: Fondamentaux (6-8h)
+1. Lire docs officielles (2h)
+2. Regarder Fireship tutorial (15 min)
+3. Faire ClipCat guide - créer Hello World (2h)
+4. Reproduire exemple CoderOne (2-3h)
+5. Joindre Discord, poser questions
+
+### Semaine 2: Pratique (8-10h)
+1. Créer 3 vidéos différentes (intros, countdown, data viz)
+2. Explorer GitHub Unwrapped code source
+3. Tester intégration Claude Code (Agent Skills)
+4. Expérimenter avec paquets (@remotion/shapes, transitions)
+
+### Semaine 3: Production (ongoing)
+1. Créer projet réel pour use case spécifique
+2. Optimiser performances (Lambda si nécessaire)
+3. Setup CI/CD (GitHub Actions)
+4. Partager sur Discord pour feedback
+
+---
+
 **Créé**: 2026-01-23
+**Mis à jour**: 2026-01-24 (ajout ressources)
 **Testé avec**: Claude Code 2.1.17, Remotion 4.x, Node.js 20.x
 **Durée moyenne**: 15-20 min (première vidéo), 5-10 min (suivantes)
+**Ressources vérifiées**: 2026-01-24 (Perplexity Pro, 50+ sources)
