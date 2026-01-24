@@ -5199,6 +5199,7 @@ npx add-skill anthropics/skills         # Frontend design + skill-creator
 | **Database** | supabase-postgres-best-practices | 1K+ | supabase |
 | **Auth** | better-auth-best-practices | 2K+ | better-auth |
 | **Testing** | test-driven-development | 721 | obra |
+| **Media** | remotion-best-practices | New | remotion-dev |
 | **Meta** | skill-creator | 3.2K | anthropics |
 
 Full catalog: [skills.sh leaderboard](https://skills.sh/)
