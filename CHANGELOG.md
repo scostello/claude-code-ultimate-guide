@@ -40,6 +40,46 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Tools used: WebFetch (LinkedIn, GitHub, arXiv), Perplexity Pro (paper verification), Task (technical-writer challenge)
   - Confidence assessment: High (methodology), Medium (generalization), Low (marketing accuracy)
 
+- **Claude Reflect System documentation** (`guide/ultimate-guide.md:5161`, ~135 lines)
+  - New subsection: "Automatic Skill Improvement: Claude Reflect System"
+  - Repository: [haddock-development/claude-reflect-system](https://github.com/haddock-development/claude-reflect-system)
+  - Marketplace: [Agent Skills Index](https://agent-skills.md/skills/haddock-development/claude-reflect-system/reflect)
+  - Pattern documented: Self-improving skills via feedback analysis (complementary to Claudeception)
+  - Two modes: Manual (`/reflect [skill-name]`) + Automatic (Stop hook)
+  - 8-step workflow: Monitor → Parse → Classify → Propose → Review → Backup → Apply → Commit
+  - Safety features table: User review gate, Git backups, syntax validation, confidence levels, locking
+  - Security warnings table: 4 risks (Feedback Poisoning, Memory Poisoning, Prompt Injection, Skill Bloat) with mitigations
+  - Installation instructions: Git clone + Stop hook configuration (Bash/PowerShell)
+  - Use case example: Terraform validation skill evolution
+  - Activation commands: `/reflect-on`, `/reflect-off`, `/reflect [skill]`, `/reflect status`
+  - Comparison table: Claudeception (generation) vs Reflect System (improvement)
+  - Recommended combined workflow: Bootstrap → Iterate → Refine → Curate
+  - Timeline example: 8-week skill evolution (80% → 95% accuracy)
+  - Resources: GitHub, Agent Skills, YouTube tutorial, Anthropic Memory Cookbook
+  - Academic sources: Anthropic Memory Cookbook, adversarial attacks research
+
+- **Skill lifecycle YAML index entries** (`machine-readable/reference.yaml:113-123`)
+  - `skill_lifecycle: 5118` (section start)
+  - `claude_reflect_system: 5161` (main section)
+  - `claude_reflect_system_repo: https://github.com/haddock-development/claude-reflect-system`
+  - `claude_reflect_system_agent_skills: https://agent-skills.md/skills/...`
+  - `skill_improvement_pattern: 5161`
+  - `skill_improvement_how_it_works: 5169`
+  - `skill_improvement_safety: 5188`
+  - `skill_improvement_security_warnings: 5237`
+  - `skill_improvement_comparison: 5263` (Claudeception vs Reflect)
+  - `skill_improvement_workflow: 5275` (combined workflow)
+
+- **Resource evaluation: Self-improve skill pattern** (`claudedocs/resource-evaluations/2026-01-24_self-improve-skill.md`)
+  - Investigation workflow: Repository search (failed) → Pattern validation via Perplexity (success)
+  - Findings: Announced plugin unavailable, but pattern validated by Claude Reflect System
+  - Score: 2/5 (announced resource) → REJECT with REDIRECT to proven alternative
+  - Decision rationale: Availability > Announcement, Verification > Claims, Alternatives > Gaps
+  - Tools used: GitHub search (failed), Perplexity Pro (found alternative), WebSearch (baseline)
+  - Curation policy reinforced: Only document publicly accessible resources with verified functionality
+  - Research foundation: Anthropic Memory Cookbook, Agent Skills Index
+  - Evaluation status: COMPLETE with HIGH confidence
+
 ### Changed
 
 - **README.md**: Templates count 82 → 83 (added SE-CoVe plugin)
