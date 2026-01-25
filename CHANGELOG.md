@@ -8,6 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+## [3.12.0] - 2026-01-25
+
+### Added
+
+- **External orchestration systems documentation** (`guide/ai-ecosystem.md:808`)
+  - Gas Town (Steve Yegge): Multi-agent workspace manager using Claude Code instances
+  - multiclaude (dlorenc): Self-hosted multi-agent Claude Code spawner (383 stars, active development)
+  - agent-chat (Justin Abrahms): Real-time monitoring UI for orchestrator communications (v0.2.0)
+  - Architecture patterns for transposing monitoring to native Claude Code workflows
+  - Security and cost warnings for experimental orchestration systems
+  - Decision matrix: when to use orchestrators vs single Claude Code sessions
+- **machine-readable/reference.yaml**: Added `external_orchestrators` section with structured data
+  - Programmatic access to Gas Town, multiclaude, agent-chat metadata
+  - Links to guide sections, GitHub repos, author attribution
+- **guide/observability.md:117**: Cross-reference to multi-agent orchestration monitoring
+  - Architecture pattern for custom implementations (hooks + SQLite + SSE)
+  - Comparison table: external orchestrator monitoring vs native Claude Code monitoring
+
+## [3.11.7] - 2026-01-25
+
+### Added
+
 - **Vibe Coding: Context Overload Anti-Pattern** (`guide/ultimate-guide.md:8746`)
   - New subsection in §9.8 Vibe Coding documenting the "context overload" anti-pattern
   - Identifies symptoms: big-bang context dumps, 5K+ line prompts, performance degradation
