@@ -190,6 +190,11 @@ deep_dive:
   verification_loops_source: "https://www.anthropic.com/engineering/claude-code-best-practices"
   eval_harness: "guide/methodologies.md:161"
   eval_harness_source: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
+  # GSD (Get Shit Done) methodology (added 2026-01-25)
+  gsd_methodology: "guide/methodologies.md:47"
+  gsd_evaluation: "claudedocs/resource-evaluations/gsd-evaluation.md"
+  gsd_source: "https://github.com/glittercowboy/get-shit-done"
+  gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
   practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"

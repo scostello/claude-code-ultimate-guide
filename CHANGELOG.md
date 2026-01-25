@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **GSD (Get Shit Done) methodology mention** (`guide/methodologies.md:47-55`)
+  - Added to Tier 1: Strategic Orchestration alongside BMAD
+  - Meta-prompting 6-phase workflow (Initialize → Discuss → Plan → Execute → Verify → Complete)
+  - Fresh 200k-token contexts per task to avoid context rot
+  - Note: Core concepts overlap with existing patterns (Ralph Loop, Gas Town, BMAD)
+  - Resource evaluation saved in `claudedocs/resource-evaluations/gsd-evaluation.md` (score: 2/5 - marginal/redundant)
+  - Source: https://github.com/glittercowboy/get-shit-done (7.5k stars, created Dec 2025)
 - **MCP architecture visual diagram** (`guide/architecture.md:513`, SVG)
   - 7-layer security model showing LLM/MCP Server/Tools separation
   - Visual representation of "No Data Access" (LLM layer) and "Hidden From AI" (Real Systems layer)
