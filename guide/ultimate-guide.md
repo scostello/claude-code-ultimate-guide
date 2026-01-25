@@ -6512,6 +6512,93 @@ grepai search "session creation logic"
 
 > **Source**: [grepai GitHub](https://github.com/yoanbernabeu/grepai)
 
+---
+
+### 🔍 Search Tools Comparison: rg vs grepai vs Serena vs ast-grep
+
+Now that you've seen individual tools, here's how they compare and when to use each:
+
+#### Quick Decision Matrix
+
+| I need to... | Tool | Example |
+|--------------|------|---------|
+| Find exact text | `rg` (Grep) | `rg "authenticate" --type ts` |
+| Find by meaning | `grepai` | `grepai search "user login flow"` |
+| Find function definition | `Serena` | `serena find_symbol --name "login"` |
+| Find structural pattern | `ast-grep` | `ast-grep "async function $F"` |
+| See who calls function | `grepai` | `grepai trace callers "login"` |
+| Get file structure | `Serena` | `serena get_symbols_overview` |
+
+#### Feature Comparison
+
+| Feature | rg (ripgrep) | grepai | Serena | ast-grep |
+|---------|--------------|--------|--------|----------|
+| **Search type** | Regex/text | Semantic | Symbol-aware | AST structure |
+| **Speed** | ⚡ ~20ms | 🐢 ~500ms | ⚡ ~100ms | 🕐 ~200ms |
+| **Setup** | ✅ None | ⚠️ Ollama | ⚠️ MCP | ⚠️ npm |
+| **Integration** | ✅ Native | ⚠️ MCP | ⚠️ MCP | ⚠️ Plugin |
+| **Call graph** | ❌ No | ✅ Yes | ❌ No | ❌ No |
+| **Symbol tracking** | ❌ No | ❌ No | ✅ Yes | ❌ No |
+| **Session memory** | ❌ No | ❌ No | ✅ Yes | ❌ No |
+
+#### When to Use What
+
+**Use rg (ripgrep)** when:
+- ✅ You know the exact text/pattern
+- ✅ Speed is critical (~20ms)
+- ✅ No setup complexity wanted
+- ❌ Don't use for: conceptual searches, dependency tracing
+
+**Use grepai** when:
+- ✅ Finding code by meaning/intent
+- ✅ Need to trace function calls (who calls what)
+- ✅ Privacy required (100% local with Ollama)
+- ❌ Don't use for: exact text (use rg instead)
+
+**Use Serena** when:
+- ✅ Refactoring across multiple files
+- ✅ Need symbol-aware navigation
+- ✅ Persistent context/memory needed
+- ❌ Don't use for: simple text searches
+
+**Use ast-grep** when:
+- ✅ Large-scale refactoring (>50k lines)
+- ✅ Framework migrations (React, Vue)
+- ✅ Finding structural patterns (async without try/catch)
+- ❌ Don't use for: small projects, simple searches
+
+#### Combined Workflow Example
+
+**Task**: Refactor authentication across codebase
+
+```bash
+# 1. Discover (grepai - semantic)
+grepai search "authentication and session management"
+# → Finds: auth.service.ts, session.middleware.ts
+
+# 2. Structure (Serena - symbols)
+serena get_symbols_overview --file auth.service.ts
+# → Classes: AuthService, functions: login, logout
+
+# 3. Dependencies (grepai - call graph)
+grepai trace callers "login"
+# → Called by: UserController, ApiGateway (23 files)
+
+# 4. Patterns (ast-grep - structure)
+ast-grep "async function login" --without "try { $$$ } catch"
+# → Finds 3 async functions missing error handling
+
+# 5. Verification (rg - exact)
+rg "validateSession" --type ts -A 5
+# → Verify specific implementation
+```
+
+**Result**: Complete understanding + safe refactoring in 5 commands
+
+> **📖 Complete Guide**: See [Search Tools Mastery](../workflows/search-tools-mastery.md) for detailed workflows, real-world scenarios, and advanced combinations.
+
+---
+
 ### mgrep (Alternative Semantic Search)
 
 **Purpose**: Natural language semantic search across code, docs, PDFs, and images.
@@ -10671,6 +10758,58 @@ While git worktrees are foundational, **daily productivity** improves with autom
 | **Worktrunk** | Rust CLI (1.6K stars, 64 releases) | Project hooks, CI status, PR links, multi-platform |
 
 **Conclusion**: The worktree wrapper pattern is reinvented by power users. Vanilla git is sufficient but verbose for 5-10+ daily worktree operations.
+
+#### Do I Need Worktrunk? (Self-Assessment)
+
+**Answer these 3 questions honestly:**
+
+1. **Volume**: How many worktrees do you create per week?
+   - ❌ <5/week → Vanilla git sufficient
+   - ⚠️ 5-15/week → Consider lightweight alias
+   - ✅ 15+/week → Worktrunk or DIY wrapper justified
+
+2. **Multi-instance workflow**: Are you running 5+ parallel Claude instances regularly?
+   - ❌ No, 1-2 instances → Vanilla git sufficient
+   - ⚠️ Sometimes 3-5 instances → Alias or lightweight wrapper
+   - ✅ Yes, 5-10+ instances daily → Worktrunk features valuable (CI status, hooks)
+
+3. **Team context**: Who else uses your worktree workflow?
+   - ❌ Solo dev → Alias (zero dependency)
+   - ⚠️ Small team, same OS/shell → DIY wrapper (shared script)
+   - ✅ Multi-platform team → Worktrunk (Homebrew/Cargo/Winget)
+
+**Decision matrix:**
+
+| Profile | Weekly Worktrees | Instances | Team | Recommendation |
+|---------|------------------|-----------|------|----------------|
+| **Beginner** | <5 | 1-2 | Solo | ✅ **Vanilla git** - Learn fundamentals first |
+| **Casual user** | 5-15 | 2-3 | Solo/Small | ⚠️ **Alias** (2 min setup, example below) |
+| **Power user** | 15-30 | 5-10 | Multi-platform | ✅ **Worktrunk** - ROI justified |
+| **Boris scale** | 30+ | 10-15 | Team | ✅ **Worktrunk + orchestrator** |
+
+**Quick alias alternative (for "Casual user" profile):**
+
+If you scored ⚠️ (5-15 worktrees/week), try this first before installing Worktrunk:
+
+```bash
+# Add to ~/.zshrc or ~/.bashrc (2 minutes setup)
+wtc() {
+    local branch=$1
+    local path="../${PWD##*/}.${branch//\//-}"
+    git worktree add -b "$branch" "$path" && cd "$path"
+}
+alias wtl='git worktree list'
+alias wtd='git worktree remove'
+```
+
+**Usage**: `wtc feature/auth` (18 chars vs 88 chars vanilla git, -79% typing)
+
+**When to upgrade to Worktrunk:**
+- Alias feels limiting (want CI status, LLM commits, project hooks)
+- Volume increases to 15+ worktrees/week
+- Team adopts multi-instance workflows (need consistent tooling)
+
+**Bottom line**: Most readers (80%) should start with vanilla git or alias. Worktrunk is for power users managing 5-10+ instances daily where typing friction and CI visibility matter.
 
 #### Benchmark: Wrapper vs Vanilla Git
 

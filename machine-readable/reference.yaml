@@ -244,14 +244,15 @@ deep_dive:
   boris_cherny_case_study: 9617
   anthropic_study_metrics: 9721
   git_worktrees_multi_instance: 10634
-  advanced_worktree_tooling: 10661
-  anthropic_internal_study: 10782
-  multi_instance_costs: 10816
-  orchestration_frameworks: 10853
-  headless_pm_framework: 10865
-  multi_instance_implementation: 10891
-  multi_instance_monitoring: 10964
-  multi_instance_decision_matrix: 11037
+  advanced_worktree_tooling: 10748
+  worktree_tooling_self_assessment: 10762
+  anthropic_internal_study: 10921
+  multi_instance_costs: 10955
+  orchestration_frameworks: 10992
+  headless_pm_framework: 11004
+  multi_instance_implementation: 11030
+  multi_instance_monitoring: 11103
+  multi_instance_decision_matrix: 11176
   # External orchestration systems
   external_orchestrators:
     gas_town:
@@ -479,7 +480,20 @@ mcp:
   ast_grep_when: "structural patterns (>50k lines, migrations, AST rules)"
   ast_grep_not_for: "simple string search, small projects (<10k lines)"
   search_decision_tree: "grep (text) | ast-grep (structure) | Serena (symbols) | grepai (semantic)"
+  search_tools_comparison: "guide/ultimate-guide.md:6517"
+  search_tools_mastery_workflow: "guide/workflows/search-tools-mastery.md"
   grep_vs_rag_history: "guide/architecture.md:33"
+  ripgrep_native: "Grep tool (Claude Code built-in, ~20ms)"
+  grepai_semantic: "Semantic search + call graph (Ollama-based, ~500ms)"
+  grepai_benchmark:
+    source: "https://yoandev.co/grepai-benchmark"
+    guide_section: "guide/workflows/search-tools-mastery.md:240"
+    date: "2026-01-20"
+    summary: "-55% tool calls, -97% tokens vs grep (Excalidraw 155k TS)"
+    caveat: "Benchmark by tool maintainer, single-project validation"
+  serena_symbols: "Symbol-aware + session memory (~100ms)"
+  astgrep_structural: "AST patterns for large refactoring (~200ms)"
+  search_combined_workflow: "guide/workflows/search-tools-mastery.md:205"
   check: "/mcp"
   config: ".claude/mcp.json or ~/.claude.json"
   tool_search: "lazy loading MCP tools (v2.1.7+) - 85% token reduction - auto:N threshold config"
