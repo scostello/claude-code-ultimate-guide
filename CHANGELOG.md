@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **MCP architecture visual diagram** (`guide/architecture.md:513`, SVG)
+  - 7-layer security model showing LLM/MCP Server/Tools separation
+  - Visual representation of "No Data Access" (LLM layer) and "Hidden From AI" (Real Systems layer)
+  - Beginner-friendly introduction to MCP architecture with color-coded security boundaries
+  - Design inspired by Dinesh Kumar's LinkedIn visualization, recreated as original work under Apache-2.0
+  - Includes workflow diagram (5 steps: User Asks → LLM Thinks → MCP Controls → Tools Execute → Safe Result)
+  - Golden rule banner: "LLM Thinks → MCP Controls → Tools Execute → Data Locked"
+- **machine-readable/reference.yaml**: Added `architecture_mcp_visual` (SVG diagram reference)
+
 ## [3.12.0] - 2026-01-25
 
 ### Added
