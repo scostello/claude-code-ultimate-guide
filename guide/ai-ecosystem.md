@@ -1376,6 +1376,76 @@ Claude Code automatically reads files as needed, but external tools exist for:
 
 - Addy Osmani: [My AI Coding Workflow in 2026](https://addyosmani.com/blog/ai-coding-workflow/) — Discusses context packing as part of a broader AI development workflow
 
+### Architecture Diagrams as Context (Advanced Pattern)
+
+For large OOP codebases, research confirms LLMs struggle with polymorphism and dependency reasoning when processing files in chunks ([ACM 2024](https://dl.acm.org/doi/10.1145/3639474.3640052): "LLMs Still Can't Avoid Instanceof").
+
+**Problem**: File chunking loses structural relationships (class hierarchies, interface implementations, cross-module dependencies).
+
+**Solution**: Include architecture diagrams in project context to provide explicit relationships.
+
+#### Approaches
+
+| Approach | Maintenance | Token Cost | Best For |
+|----------|-------------|------------|----------|
+| **Archy MCP** | Zero (auto-gen) | On-demand | GitHub repos with class hierarchies |
+| **Inline Mermaid** | Manual | 200-500 tokens | Custom architectural views |
+| **PlantUML ref** | Manual | Minimal | Enterprise/IDE integration |
+
+#### MCP Tools for Architecture Visualization
+
+**Archy MCP** (phxdev1, April 2025):
+- Auto-generates Mermaid from GitHub repos or text descriptions
+- Supports: flowcharts, class diagrams, sequence diagrams
+- URL: [pulsemcp.com/servers/phxdev1-archy](https://www.pulsemcp.com/servers/phxdev1-archy)
+
+**Mermaid MCP** (hustcc, 61.4K users):
+- Custom themes, background colors
+- Real-time rendering
+
+**Blueprint MCP** (ArcadeAI):
+- Text descriptions → technical diagrams
+- Async job management
+
+#### Inline Example (CLAUDE.md)
+
+```markdown
+## Architecture Overview
+
+\`\`\`mermaid
+classDiagram
+    class UserService {
+        +authenticate()
+        +getProfile()
+    }
+    class AuthProvider {
+        <<interface>>
+        +validate()
+    }
+    UserService --> AuthProvider
+\`\`\`
+```
+
+#### When to Use
+
+- OOP codebases >20 modules with complex inheritance
+- Java/Spring projects with deep polymorphism
+- When Serena symbol overview is insufficient
+
+#### Recommended Workflow
+
+1. **Try Serena first**: `get_symbols_overview` + `find_symbol` (zero maintenance)
+2. **If insufficient**: Use **Archy MCP** to auto-generate class diagrams
+3. **Last resort**: Manual inline Mermaid for custom views
+
+#### Key Insight
+
+> "Context structure matters more than context size" — Explicit relationships improve LLM reasoning on OOP architectures.
+
+**Source**: [LinkedIn discussion (Jan 2026)](https://www.linkedin.com/posts/tigraff_uml-claude-wibecoding-activity-7420595633826258944-gGO5)
+
+**Note**: Pattern reported on Java/Spring project. Not validated at scale. Alternative Serena + grepai achieves similar results with zero maintenance.
+
 ---
 
 ## Alternative Providers (Community Workarounds)

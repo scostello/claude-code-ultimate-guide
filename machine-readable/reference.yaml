@@ -4,7 +4,7 @@
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
 version: "3.11.6"
-updated: "2026-01-24"
+updated: "2026-01-25"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -260,6 +260,14 @@ deep_dive:
   ai_ecosystem_goose: "guide/ai-ecosystem.md:1116"
   ai_ecosystem_goose_comparison: "guide/ai-ecosystem.md:1132"
   ai_ecosystem_context_packing: "guide/ai-ecosystem.md:1208"
+  # Architecture Diagrams as Context (advanced pattern) - Added 2026-01-25
+  architecture_diagrams_input: "guide/ai-ecosystem.md:1379"
+  architecture_diagrams_mcp_tools:
+    - "Archy MCP: https://www.pulsemcp.com/servers/phxdev1-archy"
+    - "Mermaid MCP: 61.4K users"
+    - "Blueprint MCP (ArcadeAI)"
+  llm_oop_research: "https://dl.acm.org/doi/10.1145/3639474.3640052"
+  architecture_diagrams_source: "https://www.linkedin.com/posts/tigraff_uml-claude-wibecoding-activity-7420595633826258944-gGO5"
   ai_ecosystem_voice_to_text: "guide/ai-ecosystem.md:449"
   ai_ecosystem_alternative_providers: "guide/ai-ecosystem.md:959"
   voice_refine_skill: "examples/skills/voice-refine/SKILL.md"
@@ -279,6 +287,10 @@ deep_dive:
   cowork_workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
   cowork_section: "guide/ai-ecosystem.md:760"
   cowork_ultimate_guide: 10759
+  # Appendix
+  appendix_a_file_locations: 14087
+  appendix_b_faq: 14263
+  faq_clawdbot_vs_claudecode: 14265
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)

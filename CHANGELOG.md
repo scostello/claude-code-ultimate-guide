@@ -8,6 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+## [3.11.7] - 2026-01-25
+
+### Added
+
+- **ClawdBot vs Claude Code FAQ** (`guide/ultimate-guide.md:14263`)
+  - New Appendix B: FAQ section addressing community confusion between ClawdBot and Claude Code
+  - Comprehensive comparison table (9 dimensions): interface, audience, use cases, pricing, architecture
+  - Decision tree: when to choose each tool, when to use both together
+  - Early warning note in "Before You Start" section (line 33) to alert readers immediately
+  - Community misconceptions addressed: different architectures, complementary not competitive
+  - Resources: ClawdBot website, GitHub repo, setup guides
+  - Context: Jan 2026 buzz on X/Reddit created confusion ("dominated X timeline over 1-2 months")
+  - Related: ClawdBot is self-hosted chatbot for messaging apps (personal automation, smart home); Claude Code is CLI for developers (terminal/IDE, code generation)
+  - Total additions: +76 lines in guide, +3 lines in reference.yaml
+
+- **Architecture Diagrams as Context (Advanced Pattern)** (`guide/ai-ecosystem.md:1379`)
+  - Pattern documentation for using architecture diagrams in OOP codebases
+  - MCP tools reference: Archy MCP, Mermaid MCP, Blueprint MCP (ArcadeAI)
+  - ACM 2024 research validation for LLM OOP limitations
+  - Recommended workflow: Serena → Archy MCP → Manual inline Mermaid
+  - Use cases: OOP codebases >20 modules, Java/Spring projects with deep polymorphism
+  - Source: [LinkedIn discussion (Jan 2026)](https://www.linkedin.com/posts/tigraff_uml-claude-wibecoding-activity-7420595633826258944-gGO5)
+  - Evaluation report: `claudedocs/resource-evaluations/uml-oop-diagrams-eval.md`
+
 - **AI Traceability & Attribution Guide** (`guide/ai-traceability.md`)
   - Comprehensive documentation on AI code attribution and disclosure (~500 lines)
   - LLVM "Human-in-the-Loop" policy (January 2026): `Assisted-by:` trailer standard
@@ -34,6 +58,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Reference YAML expansion** (`machine-readable/reference.yaml`)
   - 14 new entries for AI traceability topics
   - Template locations for disclosure files
+
+- **Architecture Diagrams as Context (Advanced Pattern)** (`guide/ai-ecosystem.md:1379`)
+  - Pattern documentation for using architecture diagrams in OOP codebases
+  - MCP tools reference: Archy MCP, Mermaid MCP, Blueprint MCP (ArcadeAI)
+  - ACM 2024 research validation for LLM OOP limitations
+  - Recommended workflow: Serena → Archy MCP → Manual inline Mermaid
+  - Use cases: OOP codebases >20 modules, Java/Spring projects with deep polymorphism
+  - Source: [LinkedIn discussion (Jan 2026)](https://www.linkedin.com/posts/tigraff_uml-claude-wibecoding-activity-7420595633826258944-gGO5)
+  - Evaluation report: `claudedocs/resource-evaluations/uml-oop-diagrams-eval.md`
 
 ## [3.11.6] - 2026-01-24
 
