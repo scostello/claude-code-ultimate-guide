@@ -4,13 +4,13 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.17 | **Updated**: 2026-01-23
+**Latest**: v2.1.19 | **Updated**: 2026-01-25
 
 ---
 
 ## Quick Jump
 
-- [2.1.x Series (January 2026)](#21x-series-january-2026) — Task management, Skill hot-reload, Vim motions
+- [2.1.x Series (January 2026)](#21x-series-january-2026) — Task management, Keyboard shortcuts, Skill hot-reload
 - [2.0.x Series (Nov 2025 - Jan 2026)](#20x-series-november-2025---january-2026) — Opus 4.5, Claude in Chrome, Background agents
 - [Breaking Changes Summary](#breaking-changes-summary)
 - [Milestone Features](#milestone-features)
@@ -18,6 +18,31 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.19 (2026-01-25)
+
+- **New**: `CLAUDE_CODE_ENABLE_TASKS` environment variable — Set to `false` to temporarily revert to old task system
+- **New**: Argument shorthand in custom commands — Use `$0`, `$1`, etc. instead of verbose syntax
+- [VSCode] Session forking and rewind functionality enabled for all users
+- Fixed: Crashes on processors without AVX instruction support
+- Fixed: Dangling Claude Code processes when terminal closed (SIGKILL fallback)
+- Fixed: `/rename` and `/tag` not updating correct session when resuming from different directory (git worktrees)
+- Fixed: Resuming sessions by custom title from different directory
+- Fixed: Pasted text lost when using prompt stash (Ctrl+S) and restore
+- Fixed: Agent list displaying "Sonnet (default)" instead of "Inherit (default)" for agents without explicit model
+- Fixed: Backgrounded hook commands blocking session instead of returning early
+- Fixed: File write preview omitting empty lines
+- Changed: Skills without additional permissions/hooks allowed without approval
+- [SDK] Added replay of queued_command attachment messages when `replayUserMessages` enabled
+
+**⚠️ Breaking**:
+- Indexed argument syntax changed: `$ARGUMENTS.0` → `$ARGUMENTS[0]` (bracket syntax)
+
+### v2.1.18 (2026-01-24) ⭐
+
+- ⭐ **Customizable keyboard shortcuts** — Configure keybindings per context, create chord sequences, personalize workflow
+- Run `/keybindings` to get started
+- Learn more: [code.claude.com/docs/en/keybindings](https://code.claude.com/docs/en/keybindings)
 
 ### v2.1.17 (2026-01-23)
 
@@ -257,12 +282,19 @@
 | v2.1.6 | Shell line continuation permission bypass |
 | v2.1.7 | Wildcard permission rules compound commands |
 
+### Syntax
+
+| Version | Change |
+|---------|--------|
+| v2.1.19 | Indexed argument syntax changed: `$ARGUMENTS.0` → `$ARGUMENTS[0]` (bracket syntax) |
+
 ---
 
 ## Milestone Features
 
 | Version | Key Features |
 |---------|--------------|
+| **v2.1.18** | Customizable keyboard shortcuts with /keybindings |
 | **v2.1.16** | New task management system with dependency tracking |
 | **v2.1.0** | Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command |
 | **v2.0.74** | LSP tool for code intelligence |
@@ -286,4 +318,4 @@
 
 ---
 
-*Last updated: 2026-01-23 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-01-25 | [Back to main guide](./ultimate-guide.md)*

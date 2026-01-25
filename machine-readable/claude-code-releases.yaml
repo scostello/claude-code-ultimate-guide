@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.17"
-updated: "2026-01-23"
+latest: "2.1.19"
+updated: "2026-01-25"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,23 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.19"
+    date: "2026-01-25"
+    highlights:
+      - "New: CLAUDE_CODE_ENABLE_TASKS env var (set false for old task system)"
+      - "New: Shorthand $0, $1 for arguments in custom commands"
+      - "[VSCode] Session forking and rewind enabled for all users"
+      - "Fixed: Multiple session resuming/naming issues with git worktrees"
+    breaking:
+      - "Indexed argument syntax changed: $ARGUMENTS.0 → $ARGUMENTS[0] (bracket syntax)"
+
+  - version: "2.1.18"
+    date: "2026-01-24"
+    highlights:
+      - "⭐ Customizable keyboard shortcuts with /keybindings command"
+      - "Per-context keybindings, chord sequences, workflow personalization"
+    breaking: []
 
   - version: "2.1.17"
     date: "2026-01-23"
@@ -402,11 +419,14 @@ breaking_summary:
     - "npm installations deprecated - use native installer (v2.1.15)"
   behavior:
     - "ultrathink/think keywords now cosmetic only — thinking default with Opus 4.5 (v2.0.67)"
+  syntax:
+    - "Indexed argument syntax changed: $ARGUMENTS.0 → $ARGUMENTS[0] (v2.1.19)"
 
 # ════════════════════════════════════════════════════════════════
 # MILESTONE FEATURES (quick reference)
 # ════════════════════════════════════════════════════════════════
 milestones:
+  "2.1.18": "Customizable keyboard shortcuts with /keybindings"
   "2.1.16": "New task management system with dependency tracking"
   "2.1.0": "Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command"
   "2.0.74": "LSP tool for code intelligence"
