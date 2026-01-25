@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.12.0
+**Version**: 3.12.1
 
 ---
 
@@ -13612,6 +13612,7 @@ source ~/.bashrc
 Diagnostic scripts for instant troubleshooting. Get them from:
 - Windows: [`examples/scripts/check-claude.ps1`](../examples/scripts/check-claude.ps1)
 - macOS/Linux: [`examples/scripts/check-claude.sh`](../examples/scripts/check-claude.sh)
+- Bridge health: `python examples/scripts/bridge.py --health` (LM Studio connectivity)
 
 ### Full Clean Reinstall Procedures
 
@@ -14075,6 +14076,83 @@ cco   # Offline mode (Ollama, 100% local)
 > **Note**: Requires GitHub Copilot Pro+ subscription ($10/month) which provides access to Claude models through VS Code's API.
 
 See: [cc-copilot-bridge Quick Start](https://github.com/FlorianBruniaux/cc-copilot-bridge#-quick-start)
+
+### Local Execution Bridge (Opus Plan → LM Studio Execute)
+
+For maximum cost savings, use Claude Code (Opus) for planning only, then execute locally via LM Studio.
+
+**Architecture:**
+
+```
+┌──────────────┐     store_memory      ┌─────────────────┐
+│ Claude Code  │ ─────────────────────►│    doobidoo     │
+│   (Opus)     │   tag: "plan"         │   SQLite + Vec  │
+│   PLANNER    │   status: "pending"   └────────┬────────┘
+└──────────────┘                                │
+                                                ▼
+                                       ┌─────────────────┐
+                                       │   bridge.py     │
+                                       │  (Python CLI)   │
+                                       └────────┬────────┘
+                                                │ HTTP
+                                                ▼
+                                       ┌─────────────────┐
+                                       │    LM Studio    │
+                                       │  localhost:1234 │
+                                       │   (MLX local)   │
+                                       └─────────────────┘
+```
+
+**Cost model:**
+- Planning (Opus): ~$0.50-2.00 per complex plan
+- Execution (LM Studio): Free (100% local)
+- **ROI**: 80-90% cost reduction on implementation tasks
+
+**Setup:**
+
+```bash
+# Requires doobidoo MCP and LM Studio running
+pip install httpx
+
+# Health check
+python examples/scripts/bridge.py --health
+
+# List pending plans
+python examples/scripts/bridge.py --list
+
+# Execute all pending plans
+python examples/scripts/bridge.py
+```
+
+**Workflow:**
+
+1. **Claude Code creates plan** (stored in doobidoo):
+```json
+{
+  "$schema": "bridge-plan-v1",
+  "id": "plan_jwt_migration",
+  "status": "pending",
+  "context": {
+    "objective": "Migrate auth to JWT",
+    "files_context": {"src/auth.py": "LOAD"}
+  },
+  "steps": [
+    {"id": 1, "type": "analysis", "prompt": "..."},
+    {"id": 2, "type": "code_generation", "depends_on": [1], "file_output": "src/jwt.py"}
+  ]
+}
+```
+
+2. **Bridge executes locally** via LM Studio
+3. **Results stored** back in doobidoo for Claude Code to review
+
+**When to use:**
+- Implementation tasks (not architectural decisions)
+- Code generation with clear specs
+- Bulk transformations
+- When Opus planning + local execution beats Opus end-to-end
+
+See: [`examples/scripts/bridge.py`](../examples/scripts/bridge.py), [`examples/scripts/README.md`](../examples/scripts/README.md)
 
 ## 11.3 Practical Workflows
 
@@ -14785,4 +14863,4 @@ Common misconceptions we've seen:
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.12.0
+**Last updated**: January 2026 | **Version**: 3.12.1

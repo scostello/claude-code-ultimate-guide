@@ -373,7 +373,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.12.0)
+**Archive**: Historical versions available in git history (pre-v3.12.1)
 
 </details>
 
@@ -443,7 +443,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.12.0 | January 2026 | Crafted with Claude*
+*Version 3.12.1 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

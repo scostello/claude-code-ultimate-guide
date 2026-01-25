@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.12.0"
+version: "3.12.1"
 updated: "2026-01-25"
 
 # ════════════════════════════════════════════════════════════════
@@ -27,6 +27,10 @@ deep_dive:
   # Session management
   session_search: "guide/observability.md:29"
   session_search_script: "examples/scripts/session-search.sh"
+  # Cost optimization - Local execution bridge
+  bridge_script: "examples/scripts/bridge.py"
+  bridge_schema: "examples/scripts/bridge-plan-schema.json"
+  bridge_guide: "guide/ultimate-guide.md:14079"
   # PDF Generation
   pdf_generation: "guide/workflows/pdf-generation.md"
   pdf_generator_skill: "examples/skills/pdf-generator.md"
@@ -689,7 +693,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.12.0, 66 templates, cross-links"
+        event: "Code Landing sync v3.12.1, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

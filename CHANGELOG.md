@@ -48,6 +48,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Golden rule banner: "LLM Thinks → MCP Controls → Tools Execute → Data Locked"
 - **machine-readable/reference.yaml**: Added `architecture_mcp_visual` (SVG diagram reference)
 
+## [3.12.1] - 2026-01-25
+
+### Added
+
+- **Bridge Script: Claude Code → doobidoo → LM Studio** (`examples/scripts/bridge.py`)
+  - Python CLI for executing Claude Code plans locally via LM Studio
+  - Cost optimization: Plan with Opus (~$0.50-2), execute free locally (80-90% savings)
+  - Architecture: Claude Code stores plans in doobidoo SQLite → bridge reads → LM Studio executes
+  - 5 components: DoobidooReader, LMStudioClient, Validator, StepExecutor, PlanExecutor
+  - JSON Schema for plan validation (`examples/scripts/bridge-plan-schema.json`)
+  - 4 validation types: json, syntax_check, contains_keys, non_empty
+  - Failure handling: retry_with_context, skip, halt strategies
+  - CLI: `--health`, `--list`, `--plan ID`, `-v` verbose mode
+  - Documentation in ultimate-guide.md §11.2 "Local Execution Bridge" (line 14079)
+- **examples/scripts/README.md**: New documentation for all utility scripts
+- **machine-readable/reference.yaml**: Added bridge_script, bridge_schema, bridge_guide entries
+
+### Changed
+
+- **.gitignore**: Added `__pycache__/` and `*.pyc` for Python artifacts
+
 ## [3.12.0] - 2026-01-25
 
 ### Added
