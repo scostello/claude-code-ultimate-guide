@@ -93,6 +93,8 @@ Term coined by [Andrej Karpathy](https://x.com/karpathy/status/18861921848081493
 
 **Antidote:** The UVAL Protocol (§5) forces understanding before acceptance.
 
+> **Related**: For context management strategies that prevent vibe coding chaos, see [Anti-Pattern: Context Overload](./ultimate-guide.md#anti-pattern-context-overload) in the main guide (§9.8).
+
 ---
 
 ## The Reality of AI Productivity

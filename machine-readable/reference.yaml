@@ -46,6 +46,9 @@ deep_dive:
   learning_capture_hook: "examples/hooks/bash/learning-capture.sh"
   # Anti-patterns
   vibe_coding_trap: "guide/learning-with-ai.md:81"
+  vibe_coding_context_overload: 8746
+  vibe_coding_context_overload_source: "Jens Rusitschka, 'Vibe Coding, Level 2' (Jan 2026)"
+  vibe_coding_phased_strategy: 8760
   # AI Traceability & Attribution (guide/ai-traceability.md) - Added 2026-01-24
   ai_traceability_guide: "guide/ai-traceability.md"
   ai_traceability_why: "guide/ai-traceability.md:25"
@@ -80,6 +83,7 @@ deep_dive:
   architecture_subagents: "guide/architecture.md:315"
   architecture_permissions: "guide/architecture.md:385"
   architecture_mcp: "guide/architecture.md:506"
+  architecture_mcp_visual: "guide/images/mcp-architecture-diagram.svg"
   architecture_philosophy: "guide/architecture.md:746"
   # Main guide (guide/ultimate-guide.md) - Updated 2026-01-20
   installation: 196
@@ -241,6 +245,26 @@ deep_dive:
   multi_instance_implementation: 9934
   multi_instance_monitoring: 10016
   multi_instance_decision_matrix: 10144
+  # External orchestration systems
+  external_orchestrators:
+    gas_town:
+      repo: "https://github.com/steveyegge/gastown"
+      author: "Steve Yegge"
+      description: "Multi-agent workspace manager using Claude Code instances"
+      status: "Experimental (Jan 2026)"
+      guide_section: "guide/ai-ecosystem.md:850"
+    multiclaude:
+      repo: "https://github.com/dlorenc/multiclaude"
+      author: "dlorenc"
+      description: "Self-hosted multi-agent Claude Code spawner (tmux + git worktrees)"
+      status: "Active development (Jan 2026, 383 stars)"
+      guide_section: "guide/ai-ecosystem.md:850"
+    agent_chat:
+      repo: "https://github.com/justinabrahms/agent-chat"
+      author: "Justin Abrahms"
+      description: "Real-time monitoring UI for Gas Town and multiclaude (SSE + SQLite)"
+      status: "Early preview (Jan 2026, v0.2.0)"
+      guide_section: "guide/ai-ecosystem.md:850"
   # Section 9.18 - Codebase Design for Agent Productivity
   codebase_design_agents: 9976
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
@@ -291,6 +315,7 @@ deep_dive:
   appendix_a_file_locations: 14087
   appendix_b_faq: 14263
   faq_clawdbot_vs_claudecode: 14265
+  faq_product_managers: 14335
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)

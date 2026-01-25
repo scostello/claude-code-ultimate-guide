@@ -8743,6 +8743,58 @@ Claude: [Provides minimal example for exploration]
 3. **Focus on learning**: Understand the approach
 4. **Signal clearly**: "This is vibe code, not for production"
 
+#### Anti-Pattern: Context Overload
+
+[Jens Rusitschka](https://kickboost.substack.com/p/are-you-still-vibe-coding-or-are) identifies "context overload" as the primary failure mode of vibe coding: dumping entire codebases into context, hoping Claude will figure it out.
+
+**Symptoms:**
+- Pasting 5K+ lines of code in first prompt
+- "Read the entire repo and implement X"
+- Expecting Claude to maintain context across 20+ file changes
+- Performance degradation after context pollution (see §2.2 Fresh Context Pattern)
+
+**Why it fails:**
+- Attention dilution across too many files and concerns
+- Lost architectural reasoning in noise
+- Failed attempts accumulate, further degrading quality
+- Context bleeding between unrelated tasks
+
+**The Phased Context Strategy:**
+
+Instead of big-bang context dump, use a **staged approach** that leverages Claude Code's native features:
+
+| Phase | Tool | Purpose | Context Size |
+|-------|------|---------|--------------|
+| 1. Exploration | `/plan` mode | Read-only analysis, safe investigation | Controlled (plan writes findings) |
+| 2. Implementation | Normal mode | Execute planned changes | Focused (plan guides scope) |
+| 3. Fresh Start | Session handoff | Reset when context >75% | Minimal (handoff doc only) |
+
+**Practical workflow:**
+
+```bash
+# Phase 1: Exploration (read-only, safe)
+/plan
+You: "How should I refactor the auth system for OAuth?"
+Claude: [explores codebase, writes plan to .claude/plans/oauth-refactor.md]
+/execute  # exit plan mode
+
+# Phase 2: Implementation (focused context)
+You: "Execute the plan from .claude/plans/oauth-refactor.md"
+Claude: [reads plan, implements in focused scope]
+
+# Phase 3: Fresh start if needed (context >75%)
+You: "Create session handoff document"
+Claude: [writes handoff to claudedocs/handoffs/oauth-implementation.md]
+# New session: cat claudedocs/handoffs/oauth-implementation.md | claude -p
+```
+
+**Cross-references:**
+- Full `/plan` workflow: See [§2.3 Plan Mode](#23-plan-mode) (line 2100)
+- Fresh context pattern: See [§2.2 Fresh Context Pattern](#22-fresh-context-pattern) (line 1525)
+- Session handoffs: See [Session Handoffs](#session-handoffs) (line 2278)
+
+**The insight:** Rusitschka's "Vibe Coding, Level 2" is Claude Code's native workflow — it just needed explicit framing as an anti-pattern antidote. Plan mode prevents context pollution during exploration, fresh context prevents accumulation during implementation, and handoffs enable clean phase transitions.
+
 ### Skeleton Projects
 
 Skeleton projects are minimal, working templates that establish patterns before full implementation.
@@ -14331,6 +14383,33 @@ Common misconceptions we've seen:
 - ❌ "ClawdBot is a fork of Claude Code" → **False**. Independent projects with different creators.
 
 **Final note**: This comparison reflects Jan 2026 state of both tools. Both are evolving rapidly. Check official documentation for latest capabilities.
+
+### Can Product Managers use Claude Code?
+
+**Short answer**: Yes, but consider your primary workflow first.
+
+**Code-adjacent PMs** (reviewing technical specs, PRDs, architecture feasibility):
+- ✅ Claude Code CLI is appropriate for technical validation workflows
+- Example: Granola meeting notes → ChatPRD generation → Claude Code refinement
+- Use case: Auditing technical feasibility, generating specs from PRDs
+
+**Non-coding PMs** (strategy, research, stakeholder management):
+- ⚠️ Claude Code CLI overhead not justified
+- ✅ Better fit: Claude Desktop (see [Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide))
+- Use case: Research synthesis, stakeholder communication, roadmap planning
+
+**Tool Stack Example** (via [Stilyan Mitrev, Head of Product StableLab](https://www.linkedin.com/pulse/how-i-currently-ai-product-manager-stilyan-mitrev-ycvvf/)):
+- Meeting capture: Granola + Wispr Flow (dictation)
+- PRD generation: ChatPRD → Claude Code review
+- UI prototyping: v0 → Claude Code feasibility check
+- Workflow pattern: Base context project + specialized projects per domain
+
+**Reality check**: PM workflows with Claude Code are an **emerging area** with limited community validation. We currently have 1 practitioner report (the source practitioner noted they tried Claude Code but didn't adopt it long-term). If you're a PM using Claude Code successfully, [contribute your workflow](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/discussions) to help the community.
+
+**See also**:
+- [AI Ecosystem Guide](ai-ecosystem.md) — Complementary tools (Granola, Wispr Flow, ChatPRD, v0)
+- [Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide) — Claude Desktop for non-technical PMs
+- [Design-to-Code Workflow](workflows/design-to-code.md#for-product-managers) — PM perspective on Figma MCP
 
 ---
 

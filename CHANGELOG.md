@@ -8,6 +8,46 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Vibe Coding: Context Overload Anti-Pattern** (`guide/ultimate-guide.md:8746`)
+  - New subsection in §9.8 Vibe Coding documenting the "context overload" anti-pattern
+  - Identifies symptoms: big-bang context dumps, 5K+ line prompts, performance degradation
+  - Phased context strategy: Exploration (plan mode) → Implementation (focused) → Fresh start (handoffs)
+  - Unifies 3 existing patterns (plan mode, fresh context, session handoffs) under explicit framework
+  - Attribution to Jens Rusitschka ("Vibe Coding, Level 2", Jan 2026)
+  - Practical workflow examples with bash commands
+  - Cross-references to §2.2 (Fresh Context Pattern, line 1525), §2.3 (Plan Mode, line 2100)
+  - Total additions: ~60 lines
+- **machine-readable/reference.yaml**: Added `vibe_coding_context_overload`, `vibe_coding_context_overload_source`, `vibe_coding_phased_strategy`
+- **guide/learning-with-ai.md:96**: Added cross-reference from "Vibe Coding Trap" to new anti-pattern section
+
+- **Product Manager FAQ entry** (`guide/ultimate-guide.md:14335`)
+  - Minimal FAQ entry (28 lines) addressing PM workflows with Claude Code
+  - Distinction between code-adjacent PMs (technical validation) and non-coding PMs (strategy/research)
+  - Tool stack example from Stilyan Mitrev (Head of Product, StableLab): Granola, Wispr Flow, ChatPRD, v0
+  - Reality check: "emerging area with limited community validation" (1 practitioner report, tool not adopted long-term)
+  - Guidance: CLI appropriate for technical PMs, Claude Desktop better for non-technical workflows
+  - Cross-references: AI Ecosystem Guide, Cowork Guide, Design-to-Code Workflow
+  - Source: [LinkedIn article (Jan 23, 2026)](https://www.linkedin.com/pulse/how-i-currently-ai-product-manager-stilyan-mitrev-ycvvf/)
+  - Decision: Minimal integration (proportional to source), invite community contribution
+  - Reference YAML: Added `faq_product_managers: 14335`
+
+- **MCP architecture visual diagram** (`guide/architecture.md:513`, SVG)
+  - 7-layer security model showing LLM/MCP Server/Tools separation
+  - Visual representation of "No Data Access" (LLM layer) and "Hidden From AI" (Real Systems layer)
+  - Beginner-friendly introduction to MCP architecture with color-coded security boundaries
+  - Design inspired by Dinesh Kumar's LinkedIn visualization, recreated as original work under Apache-2.0
+  - Includes workflow diagram (5 steps: User Asks → LLM Thinks → MCP Controls → Tools Execute → Safe Result)
+  - Golden rule banner: "LLM Thinks → MCP Controls → Tools Execute → Data Locked"
+- **External orchestration systems documentation** (`guide/ai-ecosystem.md:808`)
+  - Gas Town (Steve Yegge): Multi-agent workspace manager using Claude Code instances
+  - multiclaude (dlorenc): Self-hosted multi-agent Claude Code spawner
+  - agent-chat (Justin Abrahms): Real-time monitoring UI for orchestrator communications
+  - Architecture patterns for transposing monitoring to native Claude Code workflows
+  - Security and cost warnings for experimental orchestration systems
+- **machine-readable/reference.yaml**: Added `external_orchestrators` section with Gas Town, multiclaude, agent-chat
+- **machine-readable/reference.yaml**: Added `architecture_mcp_visual` (SVG diagram reference)
+- **guide/observability.md**: Cross-reference to multi-agent orchestration monitoring
+
 ## [3.11.7] - 2026-01-25
 
 ### Added
