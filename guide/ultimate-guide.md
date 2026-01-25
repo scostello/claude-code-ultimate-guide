@@ -14372,7 +14372,7 @@ What's your primary goal?
 ```
 
 **Resources**:
-- **ClawdBot**: [https://clawd.bot/](https://clawd.bot/) | [GitHub](https://github.com/clawdbot/clawdbot) | [Setup guide](https://docs.clawd.bot/start/getting-started)
+- **ClawdBot**: [https://clawd.bot/](https://clawd.bot/) | [GitHub](https://github.com/clawdbot/clawdbot) | [Setup guide](https://docs.clawd.bot/start/getting-started) | [Community adoption analysis](https://docs.google.com/document/d/1Mz4xt1yAqb2gDxjr0Vs_YOu9EeO-6JYQMSx4WWI8KUA/preview?pru=AAABnBoVzFA*FCvVY_gbqraEBXgWPRJfQw&tab=t.0)
 - **Claude Code**: This guide | [GitHub](https://github.com/anthropics/claude-code)
 
 **Community confusion**:
@@ -14382,7 +14382,7 @@ Common misconceptions we've seen:
 - ❌ "I need to choose one or the other" → **False**. They complement each other.
 - ❌ "ClawdBot is a fork of Claude Code" → **False**. Independent projects with different creators.
 
-**Final note**: This comparison reflects Jan 2026 state of both tools. Both are evolving rapidly. Check official documentation for latest capabilities.
+**Final note**: This comparison reflects Jan 2026 state of both tools. ClawdBot has documented strong community adoption (5,600+ social mentions, use cases ranging from smart home to radio decoding). Both are evolving rapidly. Check official documentation for latest capabilities.
 
 ### Can Product Managers use Claude Code?
 
