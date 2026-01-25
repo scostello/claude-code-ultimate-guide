@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Note: Core concepts overlap with existing patterns (Ralph Loop, Gas Town, BMAD)
   - Resource evaluation saved in `claudedocs/resource-evaluations/gsd-evaluation.md` (score: 2/5 - marginal/redundant)
   - Source: https://github.com/glittercowboy/get-shit-done (7.5k stars, created Dec 2025)
+- **ClawdBot FAQ enrichment** (`guide/ultimate-guide.md:14375,14385`)
+  - Added community adoption analysis link (5,600+ social mentions on X/Twitter)
+  - Updated final note with adoption metrics and real-world use case examples
+  - Link to comprehensive community analysis: https://docs.google.com/document/d/1Mz4xt1yAqb2gDxjr0Vs_YOu9EeO-6JYQMSx4WWI8KUA/preview
+  - Resource evaluation saved in `claudedocs/resource-evaluations/2026-01-25-clawdbot-twitter-analysis.md` (score: 2/5 - marginal, partial integration)
 - **MCP architecture visual diagram** (`guide/architecture.md:513`, SVG)
   - 7-layer security model showing LLM/MCP Server/Tools separation
   - Visual representation of "No Data Access" (LLM layer) and "Hidden From AI" (Real Systems layer)
