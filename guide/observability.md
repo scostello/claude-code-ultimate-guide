@@ -114,6 +114,36 @@ See [session-search.sh](../examples/scripts/session-search.sh) for the complete 
 
 ---
 
+### Multi-Agent Orchestration Monitoring
+
+For monitoring multiple concurrent Claude Code instances via external orchestrators (Gas Town, multiclaude), see:
+
+- **agent-chat** (https://github.com/justinabrahms/agent-chat): Real-time Slack-like UI for agent communications
+- **Architecture guide**: `guide/ai-ecosystem.md` Section 8.1 - Multi-Agent Orchestration Systems
+
+**Architecture pattern** (for custom implementations):
+1. Hook logs Task agent spawns: `.claude/hooks/multi-agent-logger.sh`
+2. Store in SQLite: `~/.claude/logs/agents.db` (parent_id, child_id, timestamp, task)
+3. Stream via SSE: Simple Go/Node HTTP server
+4. Dashboard: React/HTML consuming SSE stream
+
+**Native Claude Code monitoring** (this guide):
+- Session search: `session-search.sh` (see [Session Search & Resume](#session-search--resume))
+- Activity logs: `session-logger.sh` hook (see [Setting Up Session Logging](#setting-up-session-logging))
+- Stats analysis: `session-stats.sh` (see [Analyzing Session Data](#analyzing-session-data))
+
+**When to use external orchestrator monitoring**:
+- Running Gas Town or multiclaude with 5+ concurrent agents
+- Need real-time visibility into agent coordination
+- Debugging orchestration failures (agent conflicts, merge issues)
+
+**When native monitoring suffices**:
+- Single Claude Code session or `--delegate` with <3 subagents
+- Post-hoc analysis (logs, stats) is enough
+- Budget/complexity constraints
+
+---
+
 ## Setting Up Session Logging
 
 ### 1. Install the Logger Hook

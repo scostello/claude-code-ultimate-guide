@@ -805,6 +805,117 @@ claude
 
 ---
 
+### 8.1 Multi-Agent Orchestration Systems
+
+When scaling beyond single Claude Code sessions, external orchestration systems coordinate multiple concurrent agents.
+
+#### Overview
+
+| System | Purpose | Backend | Maturity | Monitoring |
+|--------|---------|---------|----------|------------|
+| **Gas Town** | Multi-agent workspace manager | Claude Code instances | Experimental | agent-chat (SSE + SQLite) |
+| **multiclaude** | Self-hosted agent spawner | Claude Code agents | Active dev (383⭐) | agent-chat (JSON logs) |
+| **agent-chat** | Real-time monitoring UI | N/A (reads logs) | Early (v0.2.0) | Dashboard |
+
+#### Gas Town (Steve Yegge)
+
+**What it is**: Orchestrator managing dozens of Claude Code instances with Mad Max-inspired roles:
+- **Mayor**: Central coordinator, generates work, delegates tasks
+- **Polecats**: Ephemeral worker jobs performing coding tasks
+- **Witness**: Supervises workers, helps when stuck
+- **Refinery**: Manages merge queue, resolves conflicts
+
+**Key points**:
+- ✅ Unlocks multi-agent orchestration for Claude Code
+- ⚠️ Extremely expensive (creator needed 2nd Anthropic account for spending limits)
+- ❌ Experimental, not production-grade
+- 🔗 [GitHub repo](https://github.com/steveyegge/gastown)
+
+**When to use**: Complex, high-level tasks requiring parallel agent work (not granular tasks)
+
+#### multiclaude (dlorenc)
+
+**What it is**: Self-hosted system spawning autonomous Claude Code agents:
+- Each agent: separate tmux window + git worktree + branch
+- Auto-creates PRs, CI = ratchet (passing PRs auto-merge)
+- Agent types: worker, supervisor, merge-queue, PR shepherd, reviewer
+
+**Key points**:
+- ✅ Self-hosting since day one (multiclaude builds itself)
+- ✅ Extensible via Markdown agent definitions
+- ✅ Public Go packages: pkg/tmux, pkg/claude
+- 🔗 [GitHub repo](https://github.com/dlorenc/multiclaude)
+
+**When to use**: Teams wanting full control over agent orchestration, on-prem/airgap environments
+
+#### agent-chat (Justin Abrahms)
+
+**What it is**: Real-time monitoring UI (Slack-like) for agent communications:
+- Reads Gas Town's `beads.db` (SQLite) and multiclaude's JSON message files
+- SSE for live updates, workspace channels, unread indicators
+- Zero-config defaults, dark theme
+
+**Key points**:
+- ✅ Unified view across multiple orchestration systems
+- ⚠️ Very new (48h old, v0.2.0)
+- ⚠️ Not compatible with standalone Claude Code (needs Gas Town/multiclaude)
+- 🔗 [GitHub repo](https://github.com/justinabrahms/agent-chat)
+
+**Architecture pattern (transposable to Claude Code)**:
+```
+1. Hook logs Task agent spawns → SQLite
+2. Parent/child relationships tracked
+3. SSE endpoint streams updates
+4. Dashboard UI consumes stream
+```
+
+See: `guide/observability.md` for native Claude Code session monitoring
+
+#### Security & Cost Warnings
+
+**Before using external orchestrators**:
+
+| Risk | Mitigation |
+|------|------------|
+| **Cost explosion** | Set Anthropic spending limits, use Haiku for workers |
+| **Lost work** | "Vibe coding" accepts work loss for throughput - have rollback plan |
+| **Experimental status** | Not for production critical paths, test in staging first |
+| **Context leakage** | Logs may contain sensitive data - review before enabling monitoring UI |
+
+#### Integration with Native Claude Code
+
+If you're not using Gas Town/multiclaude, you can still:
+
+1. **Log multi-instance sessions** via hooks (see `examples/hooks/session-logger.sh`)
+2. **Track `--delegate` operations** with custom hook logging Task agent spawns
+3. **Build lightweight dashboard** using SSE pattern from agent-chat
+
+**Conceptual architecture**:
+```bash
+# Hook: .claude/hooks/multi-agent-logger.sh
+# Triggered on PostToolUse when tool="Task"
+# Logs: timestamp, parent_session_id, child_agent_id, task_description
+
+# Dashboard: Simple Go HTTP server streaming logs via SSE
+# UI: React/HTML consuming SSE stream
+```
+
+#### When NOT to Use Orchestrators
+
+**Use single Claude Code session when**:
+- Task is <3 steps or affects <5 files
+- You need full control/oversight of every change
+- Budget constraints prevent multi-agent costs
+- Codebase is simple enough for sequential work
+
+**Use orchestrators when**:
+- Task naturally parallelizes (multiple independent features)
+- You have budget for parallel agents (multiply costs by N agents)
+- Experimentation tolerance is high (work may be lost/redone)
+- Team has SRE capacity to monitor/intervene
+
+---
+
 ## 9. Cost & Subscription Strategy
 
 ### Monthly Cost Comparison
