@@ -30,6 +30,10 @@ Each claim is marked with its confidence level. **Always prefer official documen
 
 2. **Eight Core Tools**: Bash (universal adapter), Read, Edit, Write, Grep, Glob, Task (sub-agents), TodoWrite. That's the entire arsenal.
 
+   **Search Strategy Evolution**: Early Claude Code versions experimented with RAG using Voyage embeddings for semantic code search. Anthropic switched to grep-based (ripgrep) agentic search after internal benchmarks showed superior performance with lower operational complexity — no index sync required, no security liabilities from external embedding providers. This "Search, Don't Index" philosophy trades latency/tokens for simplicity/security. Community plugins (ast-grep for AST patterns) and MCP servers (Serena for symbols, grepai for RAG) available for specialized needs.
+
+   *Source*: [Latent Space podcast](https://www.latent.space/p/claude-code) (May 2025), ast-grep documentation
+
 3. **200K Token Budget**: Context window shared between system prompt, history, tool results, and response buffer. Auto-compacts at ~75-92% capacity.
 
 4. **Sub-agents = Isolation**: The `Task` tool spawns sub-agents with their own context. They cannot spawn more sub-agents (depth=1). Only their summary returns.
@@ -165,7 +169,7 @@ Claude Code has exactly 8 core tools:
 | `Read` | Read file contents | Max 2000 lines, handles truncation | High for large files |
 | `Edit` | Modify existing files | Diff-based, requires exact match | Medium |
 | `Write` | Create/overwrite files | Must read first if file exists | Medium |
-| `Grep` | Search file contents | Ripgrep-based, replaces RAG | Low |
+| `Grep` | Search file contents | Ripgrep-based (regex), replaced RAG/embedding approach. For structural code search (AST-based), see ast-grep plugin. Trade-off: Grep (fast, simple) vs ast-grep (precise, setup required) vs Serena MCP (semantic, symbol-aware) | Low |
 | `Glob` | Find files by pattern | Path matching, sorted by mtime | Low |
 | `Task` | Spawn sub-agents | Isolated context, depth=1 limit | High (new context) |
 | `TodoWrite` | Track progress | Structured task management | Low |
@@ -202,6 +206,46 @@ Claude decides which tool to use based on the task. There's no hardcoded routing
 │                                                     │
 └─────────────────────────────────────────────────────┘
 ```
+
+### Extended Tool Ecosystem
+
+Beyond the 8 core tools, Claude Code can leverage:
+
+**MCP Servers** (Model Context Protocol):
+- **Serena**: Symbol-aware code navigation + session memory
+- **grepai**: Semantic search + call graph analysis (Ollama-based)
+- **Context7**: Official library documentation lookup
+- **Sequential**: Structured multi-step reasoning
+- **Playwright**: Browser automation and E2E testing
+
+**Community Plugins**:
+- **ast-grep**: AST-based structural code search (explicit invocation)
+
+### Search Tool Selection Matrix
+
+Claude Code offers multiple ways to search code, each with specific strengths:
+
+| Search Need | Native Tool | MCP/Plugin Alternative | When to Escalate |
+|-------------|-------------|----------------------|------------------|
+| Exact text | `Grep` (ripgrep) | - | Never (fastest) |
+| Function name | `Grep` | Serena `find_symbol` | Multi-file refactoring |
+| By meaning | - | grepai `search` | Don't know exact text |
+| Call graph | - | grepai `trace_callers` | Dependency analysis |
+| Structural pattern | - | ast-grep | Large migrations (>50k lines) |
+| File structure | - | Serena `get_symbols_overview` | Need symbol context |
+
+**Performance Comparison**:
+
+| Tool | Speed | Setup | Use Case |
+|------|-------|-------|----------|
+| Grep (ripgrep) | ⚡ ~20ms | ✅ None | 90% of searches |
+| Serena | ⚡ ~100ms | ⚠️ MCP | Refactoring, symbols |
+| grepai | 🐢 ~500ms | ⚠️ Ollama + MCP | Semantic, call graph |
+| ast-grep | 🕐 ~200ms | ⚠️ Plugin | AST patterns, migrations |
+
+**Decision principle**: Start with Grep (fastest), escalate to specialized tools only when needed.
+
+> **📖 Deep Dive**: See [Search Tools Mastery](../workflows/search-tools-mastery.md) for comprehensive workflows combining all search tools.
 
 ---
 
