@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Advanced Worktree Tooling section** (`guide/ultimate-guide.md:10661`)
+  - New section "Advanced Tooling for Worktree Management (Optional)" in §9.17 Multi-Instance Workflows
+  - Pattern validation: 3 independent teams created worktree wrappers (incident.io, GitHub #1052, Worktrunk)
+  - Benchmark table: Worktrunk vs vanilla git vs custom wrappers (6 operations compared)
+  - Option 1: Worktrunk CLI (1.6K stars, Rust, multi-platform, CI/LLM integration, project hooks)
+  - Option 2: DIY custom wrappers (bash/fish examples from production teams)
+  - Progressive recommendation: Learn fundamentals → Add wrapper → Scale to multi-instance
+  - Philosophy: "Tools amplify knowledge. Master git patterns before adding convenience layers."
+  - ROI evidence: incident.io measured 18% improvement (30s) on API generation time with worktree workflow
+  - Fact-checked analysis: 4 sources analyzed (Worktrunk GitHub, incident.io blog, Anthropic best practices, GitHub issue #1052)
+  - Resource evaluation saved in `claudedocs/resource-evaluations/worktrunk-evaluation.md` (score: 3/5 - pertinent, complément utile)
+  - Total additions: ~121 lines
+- **machine-readable/reference.yaml**: Added `advanced_worktree_tooling: 10661` and updated line references for sections after git worktrees
 - **GSD (Get Shit Done) methodology mention** (`guide/methodologies.md:47-55`)
   - Added to Tier 1: Strategic Orchestration alongside BMAD
   - Meta-prompting 6-phase workflow (Initialize → Discuss → Plan → Execute → Verify → Complete)
