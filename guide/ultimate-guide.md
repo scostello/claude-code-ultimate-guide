@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.11.6
+**Version**: 3.11.7
 
 ---
 
@@ -29,6 +29,8 @@
 - Guarantees that any technique will work for you
 
 **Use critically. Experiment. Share what works for you.**
+
+> **⚠️ Note (Jan 2026)**: If you've heard about **ClawdBot** recently, that's a **different tool**. ClawdBot is a self-hosted chatbot assistant accessible via messaging apps (Telegram, WhatsApp, etc.), designed for personal automation and smart home use cases. Claude Code is a CLI tool for developers (terminal/IDE integration) focused on software development workflows. Both use Claude models but serve distinct audiences and use cases. [More details in Appendix B: FAQ](#appendix-b-faq).
 
 ---
 
@@ -185,6 +187,7 @@ Context full → /compact or /clear
   - [For Non-Developers: Claude Cowork](#for-non-developers-claude-cowork)
 - [Appendix: Templates Collection](#appendix-templates-collection)
   - [Appendix A: File Locations Reference](#appendix-a-file-locations-reference)
+  - [Appendix B: FAQ](#appendix-b-faq)
 
 ---
 
@@ -14258,6 +14261,79 @@ Thumbs.db
 
 ---
 
+## Appendix B: FAQ
+
+### Claude Code vs ClawdBot: What's the Difference?
+
+**Question**: Both tools use "Claude" in their name and I've seen buzz about both recently. Are they competitors? Which should I choose?
+
+**Short answer**: They serve completely different use cases. Not competitors—complementary tools for different audiences.
+
+**Detailed comparison**:
+
+| Aspect | Claude Code | ClawdBot |
+|--------|-------------|----------|
+| **Interface** | Terminal/CLI + IDE integration (VS Code, Cursor, etc.) | Messaging apps (WhatsApp, Telegram, Discord, Signal, iMessage) |
+| **Primary audience** | Software developers, DevOps, tech leads | Everyone (personal assistants, smart home, knowledge workers) |
+| **Core use case** | Software development (code generation, refactoring, debugging, architecture) | Personal automation, task management, smart home control, 24/7 assistance |
+| **Access model** | Local terminal session, requires being at computer or SSH | Remote access via messaging apps from any device (phone, watch, tablet) |
+| **Installation** | `npm install -g claude-code` (simple CLI install) | Self-hosted (Docker/VPS ~$5/month + LLM API costs) |
+| **Architecture** | CLI tool + MCP servers + hooks/skills/agents system | Agent + Gateway + Skills + Memory (4-component architecture) |
+| **Smart home** | Not covered (development-focused) | ✅ Native Home Assistant integration, monitoring, automation |
+| **Code development** | ✅ Core use case (pair programming, code review, refactoring) | Possible but not the primary focus |
+| **Pricing** | Anthropic API usage (pay-as-you-go, ~$3-15/project typical) | Open-source (free) + infrastructure (VPS ~$5/mo + LLM API costs) |
+| **Ideal for** | Writing code, reviewing PRs, debugging, architectural decisions | Daily reminders, email management, calendar, monitoring, personal tasks |
+
+**When to choose Claude Code**:
+- You're a developer working in terminal/IDE
+- You need pair programming, code reviews, refactoring help
+- Your workflow is codebase analysis and software architecture
+- You want deep IDE integration and git workflow automation
+
+**When to choose ClawdBot**:
+- You want a 24/7 personal assistant accessible from your phone
+- You need smart home automation (Home Assistant, IoT devices)
+- Your use cases are: task management, reminders, email/calendar, monitoring
+- You want messaging app interface (WhatsApp, Telegram, etc.)
+
+**Can you use both?**:
+
+Yes! They complement each other well:
+- **ClawdBot**: Handles daily personal automation, monitoring, reminders
+- **Claude Code**: Handles software development work when at your computer
+
+Example workflow:
+```
+ClawdBot (on phone): "Remind me to review the PR when I'm at my desk"
+  → Get notification
+Claude Code (at desk): "Review the authentication PR, check for security issues"
+  → Deep code analysis with full codebase context
+```
+
+**Quick decision tree**:
+
+```
+What's your primary goal?
+├─ Write/review code → Claude Code
+├─ Personal automation/smart home → ClawdBot
+└─ Both? → Use both (they don't conflict)
+```
+
+**Resources**:
+- **ClawdBot**: [https://clawd.bot/](https://clawd.bot/) | [GitHub](https://github.com/clawdbot/clawdbot) | [Setup guide](https://docs.clawd.bot/start/getting-started)
+- **Claude Code**: This guide | [GitHub](https://github.com/anthropics/claude-code)
+
+**Community confusion**:
+
+Common misconceptions we've seen:
+- ❌ "ClawdBot is Claude Code but with messaging interface" → **False**. Different architectures, different use cases.
+- ❌ "I need to choose one or the other" → **False**. They complement each other.
+- ❌ "ClawdBot is a fork of Claude Code" → **False**. Independent projects with different creators.
+
+**Final note**: This comparison reflects Jan 2026 state of both tools. Both are evolving rapidly. Check official documentation for latest capabilities.
+
+---
+
 ## About This Guide
 
 **End of Guide**
@@ -14277,4 +14353,4 @@ Thumbs.db
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.11.6
+**Last updated**: January 2026 | **Version**: 3.11.7

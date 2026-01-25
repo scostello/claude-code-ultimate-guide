@@ -82,6 +82,14 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 
 ---
 
+## ⚠️ ClawdBot vs Claude Code?
+
+**Seen the buzz about ClawdBot?** It's a different tool. ClawdBot = self-hosted chatbot for messaging apps (personal automation, smart home). Claude Code = CLI for developers (terminal/IDE, code generation).
+
+→ **[See FAQ](./guide/ultimate-guide.md#appendix-b-faq)** for detailed comparison table and decision tree
+
+---
+
 ## 🔧 Hitting Rate Limits or High Costs?
 
 **cc-copilot-bridge** routes Claude Code through GitHub Copilot Pro+ for flat-rate access ($10/month instead of per-token billing).
@@ -363,7 +371,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Status**: Research preview (Pro $20/mo or Max $100-200/mo, macOS only, **VPN incompatible**)
 
-**Archive**: Historical versions available in git history (pre-v3.11.6)
+**Archive**: Historical versions available in git history (pre-v3.11.7)
 
 </details>
 
@@ -433,7 +441,7 @@ Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). 
 
 ---
 
-*Version 3.11.6 | January 2026 | Crafted with Claude*
+*Version 3.11.7 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
