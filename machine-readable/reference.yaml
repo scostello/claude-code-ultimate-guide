@@ -243,13 +243,15 @@ deep_dive:
   multi_instance_workflows: 9583
   boris_cherny_case_study: 9617
   anthropic_study_metrics: 9721
-  git_worktrees_multi_instance: 9762
-  multi_instance_costs: 9796
-  orchestration_frameworks: 9864
-  headless_pm_framework: 9876
-  multi_instance_implementation: 9934
-  multi_instance_monitoring: 10016
-  multi_instance_decision_matrix: 10144
+  git_worktrees_multi_instance: 10634
+  advanced_worktree_tooling: 10661
+  anthropic_internal_study: 10782
+  multi_instance_costs: 10816
+  orchestration_frameworks: 10853
+  headless_pm_framework: 10865
+  multi_instance_implementation: 10891
+  multi_instance_monitoring: 10964
+  multi_instance_decision_matrix: 11037
   # External orchestration systems
   external_orchestrators:
     gas_town:
@@ -278,7 +280,7 @@ deep_dive:
   shortcuts_table: 10246
   troubleshooting: 10372
   cheatsheet: 10747
-  daily_workflow: 10823
+  daily_workflow: 13581
   # AI Ecosystem (Section 11, ~line 10525)
   ai_ecosystem: 10525
   ai_ecosystem_complementarity: 10527
@@ -317,10 +319,10 @@ deep_dive:
   cowork_section: "guide/ai-ecosystem.md:760"
   cowork_ultimate_guide: 10759
   # Appendix
-  appendix_a_file_locations: 14087
-  appendix_b_faq: 14263
-  faq_clawdbot_vs_claudecode: 14265
-  faq_product_managers: 14335
+  appendix_a_file_locations: 14356
+  appendix_b_faq: 14530
+  faq_clawdbot_vs_claudecode: 14532
+  faq_product_managers: 14601
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -470,6 +472,14 @@ mcp:
   sequential: "structured multi-step reasoning"
   playwright: "browser automation / E2E"
   figma: "design file access, tokens, structure (official)"
+  ast_grep: "optional plugin for AST-based code search (explicit invocation required)"
+  ast_grep_guide: "guide/ultimate-guide.md:6564"
+  ast_grep_skill: "examples/skills/ast-grep-patterns.md"
+  ast_grep_install: "npx skills add ast-grep/agent-skill"
+  ast_grep_when: "structural patterns (>50k lines, migrations, AST rules)"
+  ast_grep_not_for: "simple string search, small projects (<10k lines)"
+  search_decision_tree: "grep (text) | ast-grep (structure) | Serena (symbols) | grepai (semantic)"
+  grep_vs_rag_history: "guide/architecture.md:33"
   check: "/mcp"
   config: ".claude/mcp.json or ~/.claude.json"
   tool_search: "lazy loading MCP tools (v2.1.7+) - 85% token reduction - auto:N threshold config"

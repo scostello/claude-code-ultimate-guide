@@ -6561,6 +6561,99 @@ mgrep "code that handles user authentication"
 - Finding correct API usage
 - Checking official patterns
 
+### ast-grep (Structural Code Search)
+
+**Purpose**: AST-based pattern matching for precise structural code searches.
+
+**Type**: Optional Community Plugin (not core Claude Code)
+
+**Installation**:
+
+```bash
+# Install ast-grep skill for Claude Code
+npx skills add ast-grep/agent-skill
+
+# Or manually via plugin marketplace
+/plugin marketplace add
+```
+
+**What is ast-grep?**
+
+ast-grep searches code based on **syntax structure** (Abstract Syntax Tree) rather than plain text. This enables finding patterns like "async functions without error handling" or "React components using specific hooks" that regex cannot reliably detect.
+
+**Key Characteristics**:
+
+| Aspect | Behavior |
+|--------|----------|
+| **Invocation** | **Explicit** - Claude cannot automatically detect when to use it |
+| **Integration** | Plugin that teaches Claude how to write ast-grep rules |
+| **Languages** | JavaScript, Python, Rust, Go, Java, C/C++, Ruby, PHP + more |
+| **Pattern matching** | Metavariables (`$VAR`), relational queries, composite logic |
+
+**When to use ast-grep**:
+
+✅ **Use for**:
+- **Large-scale refactoring** (>50k lines, indicative threshold)
+- **Framework migrations** (React class→hooks, Vue 2→3)
+- **Structural patterns**:
+  - Async functions lacking error handling
+  - Functions exceeding parameter thresholds
+  - Console.log calls within class methods
+  - React components using specific hooks
+- **Architecture analysis** (identify coupled components, dependency patterns)
+
+❌ **Don't use for** (grep suffices):
+- Simple string searches (function names, imports)
+- Small projects (<10k lines)
+- One-off searches
+- Text-based patterns (TODO comments, log messages)
+
+**Decision Tree**:
+
+```
+Search need?
+├─ String/regex pattern → Grep (native, fast)
+├─ Semantic meaning → Serena MCP (symbol search) or grepai (RAG-based)
+└─ Structural pattern (AST) → ast-grep (plugin, setup required)
+```
+
+**Trade-offs**:
+
+| Aspect | Grep | ast-grep | Serena MCP | grepai |
+|--------|------|----------|------------|--------|
+| **Speed** | ⚡ Fast (~20ms) | Moderate | Fast | Slower (embedding) |
+| **Setup** | ✅ None | ⚠️ Installation + learning | ⚠️ MCP config | ⚠️ MCP + Ollama |
+| **Precision** | Regex-based | AST-accurate | Symbol-aware | Semantic |
+| **Use case** | Text patterns | Code structure | Symbols/functions | Meaning-based |
+
+**Example usage**:
+
+```bash
+# User explicitly requests ast-grep
+You: Use ast-grep to find all async functions without try/catch blocks
+
+# Claude uses the ast-grep skill to construct rules
+Claude: [Constructs AST pattern, executes search, reports results]
+```
+
+**Important limitations** (as of Nov 2025):
+
+> "Claude Code cannot automatically detect when to use ast-grep for all appropriate use cases." - ast-grep/claude-skill README
+
+This means you must **explicitly tell Claude** to use ast-grep. It won't decide on its own.
+
+**Sources**:
+- [ast-grep Documentation](https://ast-grep.github.io/advanced/prompting.html)
+- [ast-grep/claude-skill GitHub](https://github.com/ast-grep/claude-skill)
+
+**Design Philosophy Context**:
+
+Early Claude Code versions used RAG with Voyage embeddings for semantic search. Anthropic switched to grep-based (ripgrep) agentic search after benchmarks showed superior performance with lower operational complexity (no index sync, no security liabilities). This "Search, Don't Index" philosophy prioritizes simplicity.
+
+ast-grep is a **community extension** for specialized structural searches where grep's regex approach isn't sufficient, but it's not a replacement for grep — it's a surgical tool for specific use cases.
+
+**Related**: See [Section 8.4 - Server Selection Guide](#84-server-selection-guide) for choosing between grep/ast-grep/Serena/grepai.
+
 ### Sequential Thinking (Structured Reasoning)
 
 **Purpose**: Multi-step analysis with explicit reasoning.
@@ -10562,6 +10655,127 @@ Multi-instance workflows **REQUIRE** git worktrees to avoid conflicts. Without w
 **See also**:
 - Command: [/git-worktree](../examples/commands/git-worktree.md)
 - Workflow: [Database Branch Setup](../examples/workflows/database-branch-setup.md)
+
+---
+
+### Advanced Tooling for Worktree Management (Optional)
+
+While git worktrees are foundational, **daily productivity** improves with automation wrappers. Multiple professional teams have independently created worktree management tools—a validated pattern.
+
+#### Pattern Validation: 3 Independent Implementations
+
+| Team | Solution | Key Features |
+|------|----------|--------------|
+| **incident.io** | Custom bash wrapper `w` | Auto-completion, organized in `~/projects/worktrees/`, Claude auto-launch |
+| **GitHub #1052** | Fish shell functions (8 commands) | LLM commits, rebase automation, worktree lifecycle |
+| **Worktrunk** | Rust CLI (1.6K stars, 64 releases) | Project hooks, CI status, PR links, multi-platform |
+
+**Conclusion**: The worktree wrapper pattern is reinvented by power users. Vanilla git is sufficient but verbose for 5-10+ daily worktree operations.
+
+#### Benchmark: Wrapper vs Vanilla Git
+
+| Operation | Vanilla Git | Worktrunk | Custom Wrapper |
+|-----------|-------------|-----------|----------------|
+| Create + switch | `git worktree add -b feat ../repo.feat && cd ../repo.feat` | `wt switch -c feat` | `w myproject feat` |
+| List worktrees | `git worktree list` | `wt list` (with CI status) | `w list` |
+| Remove + cleanup | `git worktree remove ../repo.feat && git worktree prune` | `wt remove feat` | `w finish feat` |
+| LLM commit msg | Manual or custom script | Built-in via `llm` tool | Custom via LLM API |
+| Setup time | 0 (git installed) | 2 min (Homebrew/Cargo) | 10-30 min (copy-paste script) |
+| Maintenance | Git updates only | Active (64 releases) | Manual (custom code) |
+
+**Trade-off**: Wrappers reduce typing ~60% but add dependency. Learn git fundamentals first, add wrapper for speed later.
+
+#### Option 1: Worktrunk (Recommended for Scale)
+
+**What**: Rust CLI simplifying worktree management (1.6K stars, active development since 2023)
+
+**Unique features not in git**:
+- **Project-level hooks**: Automate post-create, pre-remove actions
+- **LLM integration**: `wt commit` generates messages via `llm` tool
+- **CI status tracking**: See build status inline with `wt list`
+- **PR link generation**: Quick links to open PRs per worktree
+- **Path templates**: Configure worktree location pattern once
+
+**Installation**:
+```bash
+# macOS/Linux
+brew install worktrunk
+
+# Or via Rust
+cargo install worktrunk
+
+# Windows
+winget install worktrunk
+```
+
+**Typical workflow**:
+```bash
+# Create worktree + switch
+wt switch -c feature/auth
+
+# Work with Claude...
+claude
+
+# LLM-powered commit
+wt commit  # Generates message from diff
+
+# List all worktrees with status
+wt list
+
+# Remove when done
+wt remove feature/auth
+```
+
+**When to use**: Managing 5+ worktrees daily, want CI integration, multi-platform team (macOS/Linux/Windows).
+
+**Source**: [github.com/max-sixty/worktrunk](https://github.com/max-sixty/worktrunk)
+
+#### Option 2: DIY Custom Wrapper (Lightweight Alternative)
+
+**What**: 10-50 lines of bash/fish/PowerShell tailored to your workflow.
+
+**Examples from production teams**:
+
+1. **incident.io approach** (bash wrapper):
+   ```bash
+   # Function: w myproject feature-name claude
+   # - Creates worktree in ~/projects/worktrees/myproject.feature-name
+   # - Auto-completion for projects and branches
+   # - Launches Claude automatically
+   ```
+   - **ROI**: 18% improvement (30s) on API generation time
+   - **Source**: [incident.io blog post](https://incident.io/blog/shipping-faster-with-claude-code-and-git-worktrees)
+
+2. **GitHub #1052 approach** (Fish shell, 8 functions):
+   ```fish
+   git worktree-llm feature-name    # Create + start Claude
+   git worktree-merge                # Finish, commit, rebase, merge
+   git commit-llm                    # LLM-generated commit messages
+   ```
+   - **Author quote**: *"I now use it for basically all my development where I can use claude code"*
+   - **Source**: [Claude Code issue #1052](https://github.com/anthropics/claude-code/issues/1052)
+
+**When to use**: Want full control, small team (same shell), already have shell functions for git.
+
+**Trade-off**: Custom scripts lack maintenance, cross-platform support, but are zero-dependency and infinitely customizable.
+
+#### Recommendation: Learn → Wrapper → Scale
+
+```
+Phase 1 (Weeks 1-2): Master vanilla git worktree via /git-worktree command
+  └─ Understand fundamentals, safety checks, database branching
+
+Phase 2 (Week 3+): Add wrapper for productivity
+  ├─ Worktrunk (if multi-platform, want CI status, LLM commits)
+  └─ DIY bash/fish (if lightweight, team uses same shell)
+
+Phase 3 (Multi-instance scale): Combine with orchestration
+  └─ Worktrunk/wrapper + Headless PM for 5-10 instances
+```
+
+**Philosophy**: Tools amplify knowledge. Master git patterns (this guide) before adding convenience layers. Wrappers save 5-10 minutes/day but don't replace understanding.
+
+**Anthropic stance**: Official best practices recommend git worktrees (vanilla) but remain agnostic on wrappers. Choose what fits your team.
 
 ---
 
