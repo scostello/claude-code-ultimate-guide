@@ -89,7 +89,7 @@ At its core, Claude Code is remarkably simple:
 │   ┌──────────────────────────────────────────────────────┐  │
 │   │                                                      │  │
 │   │                  CLAUDE REASONS                      │  │
-│   │        (No classifier, no routing layer)            │  │
+│   │        (No classifier, no routing layer)             │  │
 │   │                                                      │  │
 │   └────────────────────────┬─────────────────────────────┘  │
 │                            │                                │
@@ -224,27 +224,27 @@ Claude Code operates within a fixed context window (200K tokens for Claude 3.5 S
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │ System Prompt                            (~5-15K)    │   │
 │  │ • Tool definitions                                   │   │
-│  │ • Safety instructions                               │   │
-│  │ • Behavioral guidelines                             │   │
+│  │ • Safety instructions                                │   │
+│  │ • Behavioral guidelines                              │   │
 │  ├──────────────────────────────────────────────────────┤   │
 │  │ CLAUDE.md Files                          (~1-10K)    │   │
-│  │ • Global ~/.claude/CLAUDE.md                        │   │
-│  │ • Project /CLAUDE.md                                │   │
-│  │ • Local /.claude/CLAUDE.md                          │   │
+│  │ • Global ~/.claude/CLAUDE.md                         │   │
+│  │ • Project /CLAUDE.md                                 │   │
+│  │ • Local /.claude/CLAUDE.md                           │   │
 │  ├──────────────────────────────────────────────────────┤   │
 │  │ Conversation History                     (variable)  │   │
-│  │ • Your prompts                                      │   │
-│  │ • Claude's responses                                │   │
-│  │ • Tool call records                                 │   │
+│  │ • Your prompts                                       │   │
+│  │ • Claude's responses                                 │   │
+│  │ • Tool call records                                  │   │
 │  ├──────────────────────────────────────────────────────┤   │
 │  │ Tool Results                             (variable)  │   │
-│  │ • File contents from Read                           │   │
-│  │ • Command outputs from Bash                         │   │
-│  │ • Search results from Grep                          │   │
+│  │ • File contents from Read                            │   │
+│  │ • Command outputs from Bash                          │   │
+│  │ • Search results from Grep                           │   │
 │  ├──────────────────────────────────────────────────────┤   │
 │  │ Reserved for Response                    (~40-45K)   │   │
-│  │ • Claude's thinking                                 │   │
-│  │ • Generated code/text                               │   │
+│  │ • Claude's thinking                                  │   │
+│  │ • Generated code/text                                │   │
 │  └──────────────────────────────────────────────────────┘   │
 │                                                             │
 │  USABLE = Total - System - Reserved ≈ 140-150K tokens       │
@@ -326,25 +326,25 @@ The `Task` tool spawns sub-agents for parallel or isolated work.
 │                        MAIN AGENT                           │
 │                                                             │
 │  ┌───────────────────────────────────────────────────────┐  │
-│  │ Context: Full conversation + all file reads          │  │
+│  │ Context: Full conversation + all file reads           │  │
 │  │                                                       │  │
-│  │         Task("Explore authentication patterns")      │  │
+│  │         Task("Explore authentication patterns")       │  │
 │  │                        │                              │  │
 │  │                        ▼                              │  │
-│  │  ┌─────────────────────────────────────────────────┐ │  │
-│  │  │             SUB-AGENT (Spawned)                │ │  │
-│  │  │                                                 │ │  │
-│  │  │  • Own fresh context window                    │ │  │
-│  │  │  • Receives: task description only             │ │  │
-│  │  │  • Has access to: same tools (except Task)     │ │  │
-│  │  │  • CANNOT spawn sub-sub-agents (depth = 1)     │ │  │
-│  │  │  • Returns: summary text only                  │ │  │
-│  │  │                                                 │ │  │
-│  │  └─────────────────────────────────────────────────┘ │  │
+│  │  ┌─────────────────────────────────────────────────┐  │  │
+│  │  │             SUB-AGENT (Spawned)                 │  │  │
+│  │  │                                                 │  │  │
+│  │  │  • Own fresh context window                     │  │  │
+│  │  │  • Receives: task description only              │  │  │
+│  │  │  • Has access to: same tools (except Task)      │  │  │
+│  │  │  • CANNOT spawn sub-sub-agents (depth = 1)      │  │  │
+│  │  │  • Returns: summary text only                   │  │  │
+│  │  │                                                 │  │  │
+│  │  └─────────────────────────────────────────────────┘  │  │
 │  │                        │                              │  │
 │  │                        ▼                              │  │
-│  │         Result: "Found 3 auth patterns: JWT in..."   │  │
-│  │         (Only this text enters main context)         │  │
+│  │         Result: "Found 3 auth patterns: JWT in..."    │  │
+│  │         (Only this text enters main context)          │  │
 │  │                                                       │  │
 │  └───────────────────────────────────────────────────────┘  │
 │                                                             │
@@ -398,8 +398,8 @@ Claude Code has a layered security model:
 │                                                             │
 │  Layer 1: INTERACTIVE PROMPTS                               │
 │  ┌────────────────────────────────────────────────────────┐ │
-│  │ Claude wants to run: rm -rf node_modules              │ │
-│  │ [Allow once] [Allow always] [Deny] [Edit command]     │ │
+│  │ Claude wants to run: rm -rf node_modules               │ │
+│  │ [Allow once] [Allow always] [Deny] [Edit command]      │ │
 │  └────────────────────────────────────────────────────────┘ │
 │                          │                                  │
 │                          ▼                                  │
@@ -407,8 +407,8 @@ Claude Code has a layered security model:
 │  ┌────────────────────────────────────────────────────────┐ │
 │  │ {                                                      │ │
 │  │   "permissions": {                                     │ │
-│  │     "allow": ["Bash(npm:*)", "Read(**)"],             │ │
-│  │     "deny": ["Bash(rm -rf *)"]                        │ │
+│  │     "allow": ["Bash(npm:*)", "Read(**)"],              │ │
+│  │     "deny": ["Bash(rm -rf *)"]                         │ │
 │  │   }                                                    │ │
 │  │ }                                                      │ │
 │  └────────────────────────────────────────────────────────┘ │
@@ -416,15 +416,15 @@ Claude Code has a layered security model:
 │                          ▼                                  │
 │  Layer 3: HOOKS (Pre/Post execution)                        │
 │  ┌────────────────────────────────────────────────────────┐ │
-│  │ PreToolUse: Validate before execution                 │ │
-│  │ PostToolUse: Audit after execution                    │ │
-│  │ PermissionRequest: Override permission prompts        │ │
+│  │ PreToolUse: Validate before execution                  │ │
+│  │ PostToolUse: Audit after execution                     │ │
+│  │ PermissionRequest: Override permission prompts         │ │
 │  └────────────────────────────────────────────────────────┘ │
 │                          │                                  │
 │                          ▼                                  │
 │  Layer 4: SANDBOX MODE (Optional isolation)                 │
 │  ┌────────────────────────────────────────────────────────┐ │
-│  │ Filesystem isolation + Network restrictions           │ │
+│  │ Filesystem isolation + Network restrictions            │ │
 │  └────────────────────────────────────────────────────────┘ │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
@@ -535,10 +535,10 @@ MCP (Model Context Protocol) servers extend Claude Code with additional tools.
 │  │                                                     │    │
 │  │   Native Tools        MCP Tools                     │    │
 │  │   ┌─────────┐        ┌─────────────────────────┐    │    │
-│  │   │ Bash    │        │ mcp__serena__*         │    │    │
-│  │   │ Read    │        │ mcp__context7__*       │    │    │
-│  │   │ Edit    │        │ mcp__playwright__*     │    │    │
-│  │   │ ...     │        │ mcp__custom__*         │    │    │
+│  │   │ Bash    │        │ mcp__serena__*          │    │    │
+│  │   │ Read    │        │ mcp__context7__*        │    │    │
+│  │   │ Edit    │        │ mcp__playwright__*      │    │    │
+│  │   │ ...     │        │ mcp__custom__*          │    │    │
 │  │   └─────────┘        └───────────┬─────────────┘    │    │
 │  │                                  │                  │    │
 │  └──────────────────────────────────┼──────────────────┘    │
@@ -600,7 +600,7 @@ Since v2.1.7 (January 2026), Claude Code uses **lazy loading** for MCP tool defi
 │                                                             │
 │  WITHOUT Tool Search (eager loading):                       │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │ All 100+ tool definitions loaded upfront (~55K tokens)│   │
+│  │All 100+ tool definitions loaded upfront (~55K tokens)│   │
 │  └──────────────────────────────────────────────────────┘   │
 │                                                             │
 │  WITH Tool Search (lazy loading):                           │
