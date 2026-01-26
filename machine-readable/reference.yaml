@@ -232,10 +232,11 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 14
+  resource_evaluations_count: 16
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
+  resource_evaluations_anaconda_croce: "docs/resource-evaluations/anaconda-croce-evaluation.md"
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
   practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"

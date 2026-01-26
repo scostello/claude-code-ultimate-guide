@@ -924,6 +924,14 @@ See [methodologies.md](./methodologies.md) for:
 - Spec-Driven Development
 - Eval-Driven Development for AI outputs
 
+### Community Experiences
+
+Practitioner reports from real-world usage provide empirical validation of theoretical patterns. Croce (2025)[^croce2025] documents efficiency gains for isolated algorithmic tasks (90s vs 60min average on Advent of Code puzzles), but highlights collaboration trade-offs during solo challenges: decreased team engagement, fewer creative discussions, and reduced diverse approach sharing.
+
+**Caveat**: These findings are based on N=1 self-reports in competitive programming contexts (Advent of Code), not peer-reviewed research or representative production environments. The collaboration cost observed may be specific to solo challenge contexts rather than team development workflows.
+
+[^croce2025]: Steve Croce, ["What I Learned Challenging Claude to a Coding Competition"](https://www.anaconda.com/blog/challenging-claude-code-coding-competition), Anaconda Blog, Jan 16, 2026. Field CTO perspective from 12 days of Advent of Code competition (human vs Claude Code). Reported metrics: Claude 90s/puzzle average, human 60min/puzzle average, no debugging until day 6. Note: Single-participant study on algorithmic puzzles, not production development.
+
 ---
 
 ## See Also
