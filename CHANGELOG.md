@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Resource Evaluations Public Documentation** (`docs/resource-evaluations/`)
+  - New tracked directory with 14 community resource evaluations (gsd, worktrunk, boris-cowork-video, astgrep, etc.)
+  - Standardized filenames (removed date prefixes for stable linking)
+  - Comprehensive methodology documentation with scoring grid (1-5 scale)
+  - Index table with all evaluations, scores, and integration decisions
+  - Working documents (prompts, private audits) remain in `claudedocs/` (gitignored)
+  - New workflow section in CLAUDE.md documenting evaluation process
+  - Transparency: Contributors can now see why resources were integrated/rejected
+- **Task Management Workflow** (`guide/workflows/task-management.md`)
+  - Comprehensive 775-line guide for Claude Code's task management system
+  - Complete API reference: TaskCreate, TaskUpdate, TaskGet, TaskList, TaskDelete
+  - 5 practical workflows: startup → feature work → bug fixing → code review → cleanup
+  - Best practices: when to use tasks, granularity guidelines, status lifecycle
+  - Anti-patterns section: over-tasking, status confusion, orphaned tasks
+  - Integration with other workflows (TDD, Plan-Driven, GSD)
+  - Quick reference added to cheatsheet
+- **Ultimate Guide Task Management Integration** (`guide/ultimate-guide.md:10786-10930`)
+  - New §9.18 "Task Management System" section (145 lines)
+  - Core concepts, tool reference, practical patterns
+  - Links to full workflow guide for details
+
 ## [3.13.0] - 2026-01-26
 
 ### Added
