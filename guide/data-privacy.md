@@ -293,7 +293,45 @@ This guide focuses on Claude Code usage—not legal strategy. For IP guidance, c
 
 ---
 
+## 9. Claude's Governance & Values
+
+### Constitutional AI Framework
+
+Anthropic published Claude's constitution in January 2026 (CC0 license - public domain). This document defines the value hierarchy that guides Claude's behavior:
+
+**Priority Order** (used to resolve conflicts):
+
+1. **Broadly safe** - Never compromise human supervision and control
+2. **Broadly ethical** - Honesty, harm avoidance, good conduct
+3. **Anthropic compliance** - Internal guidelines and policies
+4. **Genuinely helpful** - Real utility for users and society
+
+### What This Means for Claude Code Users
+
+| Scenario | Expected Behavior |
+|----------|-------------------|
+| Security-sensitive requests | Claude prioritizes safety over helpfulness (may be more conservative) |
+| Borderline biology/chemistry | May decline or ask for context to assess safety implications |
+| Ethical conflicts | Will follow hierarchy: safety > ethics > compliance > utility |
+
+### Why This Matters
+
+- **Training data source**: Constitution is used to generate synthetic training examples
+- **Behavior specification**: Reference document explaining intended vs. accidental outputs
+- **Audit & governance**: Provides legal/ethical foundation for compliance reviews
+- **Your own agents**: CC0 license allows reuse/adaptation for custom models
+
+### Resources
+
+- Constitution full text: https://www.anthropic.com/constitution
+- PDF version: https://www-cdn.anthropic.com/.../claudes-constitution.pdf
+- Announcement: https://www.anthropic.com/news/claude-new-constitution
+- Alignment research: https://alignment.anthropic.com/
+
+---
+
 ## Changelog
 
+- 2026-01: Added Claude's governance & constitutional AI framework section
 - 2026-01: Added intellectual property considerations section
 - 2026-01: Initial version - documenting retention policies and protective measures

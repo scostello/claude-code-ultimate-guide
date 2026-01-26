@@ -335,6 +335,12 @@ This guide is the result of several months of daily practice with Claude Code. I
 - [zebbern/claude-code-guide](https://github.com/zebbern/claude-code-guide) — Comprehensive reference with security focus
 - [ykdojo/claude-code-tips](https://github.com/ykdojo/claude-code-tips) — Practical productivity techniques
 
+**External Research Tools**:
+- [Petri 2.0](https://github.com/safety-research/petri) — Open-source AI behavior audit tool (Anthropic Alignment)
+  - 70 scenarios for collusion, ethics conflicts, info sensitivity
+  - Eval-awareness mitigations + benchmarks (Claude Opus 4.5, GPT-5.2, Gemini 3 Pro, Grok 4)
+  - [Blog](https://alignment.anthropic.com/2026/petri-v2/)
+
 </details>
 
 <details>

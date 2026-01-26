@@ -277,6 +277,26 @@ deep_dive:
       description: "Real-time monitoring UI for Gas Town and multiclaude (SSE + SQLite)"
       status: "Early preview (Jan 2026, v0.2.0)"
       guide_section: "guide/ai-ecosystem.md:850"
+  # External research & alignment tools
+  external_research:
+    claude_constitution:
+      url: "https://www.anthropic.com/constitution"
+      pdf: "https://www-cdn.anthropic.com/9214f02e82c4489fb6cf45441d448a1ecd1a3aca/claudes-constitution.pdf"
+      announcement: "https://www.anthropic.com/news/claude-new-constitution"
+      description: "Claude's Constitutional AI framework - value hierarchy (safety > ethics > compliance > utility)"
+      license: "CC0 1.0 (public domain)"
+      published: "2026-01-21"
+      guide_section: "guide/data-privacy.md:296"
+    petri_v2:
+      repo: "https://github.com/safety-research/petri"
+      blog: "https://alignment.anthropic.com/2026/petri-v2/"
+      description: "Open-source AI behavior audit tool (Anthropic Alignment Science)"
+      features:
+        - "70 scenarios: collusion, ethics conflicts, info sensitivity"
+        - "Eval-awareness mitigations"
+        - "Benchmarks: Claude Opus 4.5, GPT-5.2, Gemini 3 Pro, Grok 4"
+      published: "2026-01-21"
+      guide_section: "README.md:338"
   # Section 9.18 - Codebase Design for Agent Productivity
   codebase_design_agents: 9976
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
