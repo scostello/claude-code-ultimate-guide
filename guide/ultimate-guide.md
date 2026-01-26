@@ -3122,7 +3122,150 @@ Claude Code has 8 core tools:
 | `Grep` | Search file contents (ripgrep-based) |
 | `Glob` | Find files by pattern |
 | `Task` | Spawn sub-agents (isolated context) |
-| `TodoWrite` | Track progress |
+| `TodoWrite` | Track progress (legacy, see below) |
+
+### Task Management System
+
+**Version**: Claude Code v2.1.16+ introduced a new task management system
+
+Claude Code provides two task management approaches:
+
+| Feature | TodoWrite (Legacy) | Tasks API (v2.1.16+) |
+|---------|-------------------|---------------------|
+| **Persistence** | Session memory only | Disk storage (`~/.claude/tasks/`) |
+| **Multi-session** | ❌ Lost on session end | ✅ Survives across sessions |
+| **Dependencies** | ❌ Manual ordering | ✅ Task blocking (A blocks B) |
+| **Coordination** | Single agent | ✅ Multi-agent broadcast |
+| **Status tracking** | pending/in_progress/completed | pending/in_progress/completed/failed |
+| **Enabled by** | Always available | Default since v2.1.19 |
+
+#### Tasks API (v2.1.16+)
+
+**Available tools:**
+- `TaskCreate` - Initialize new tasks with hierarchy and dependencies
+- `TaskUpdate` - Modify task status, metadata, and dependencies
+- `TaskGet` - Retrieve individual task details
+- `TaskList` - List all tasks in current task list
+
+**Core capabilities:**
+- **Persistent storage**: Tasks saved to `~/.claude/tasks/<task-list-id>/`
+- **Multi-session coordination**: Share state across multiple Claude sessions
+- **Dependency tracking**: Tasks can block other tasks (task A blocks task B)
+- **Status lifecycle**: pending → in_progress → completed/failed
+- **Metadata**: Attach custom data (priority, estimates, related files, etc.)
+
+**Configuration:**
+
+```bash
+# Enable multi-session task persistence
+export CLAUDE_CODE_TASK_LIST_ID="project-name"
+claude
+
+# Example: Project-specific task list
+export CLAUDE_CODE_TASK_LIST_ID="api-v2-auth-refactor"
+claude
+```
+
+**⚠️ Important**: Use repository-specific task list IDs to avoid cross-project contamination. Tasks with the same ID are shared across all sessions using that ID.
+
+**Task schema example:**
+
+```json
+{
+  "id": "task-auth-login",
+  "title": "Implement login endpoint",
+  "description": "POST /auth/login with JWT token generation",
+  "status": "in_progress",
+  "dependencies": [],
+  "metadata": {
+    "priority": "high",
+    "estimated_duration": "2h",
+    "related_files": ["src/auth/login.ts", "src/middleware/auth.ts"]
+  }
+}
+```
+
+**When to use Tasks API:**
+- Projects spanning multiple coding sessions
+- Complex task hierarchies with dependencies
+- Multi-agent coordination scenarios
+- Need to resume work after context compaction
+
+#### TodoWrite (Legacy)
+
+**Tool**: `TodoWrite` - Creates task lists stored in session memory
+
+**Capabilities:**
+- Simple task tracking within a single session
+- Status tracking: pending/in_progress/completed
+- Lost when session ends or context is compacted
+
+**When to use TodoWrite:**
+- Single-session, straightforward implementations
+- Quick fixes or exploratory coding
+- Claude Code < v2.1.16
+- Prefer simplicity over persistence
+
+**Migration flag** (v2.1.19+):
+
+```bash
+# Temporarily revert to TodoWrite system
+CLAUDE_CODE_ENABLE_TASKS=false claude
+
+# Use new Tasks API (default)
+claude
+```
+
+#### Best Practices
+
+**Task hierarchy design:**
+```
+Project (parent)
+└── Feature A (child)
+    ├── Component A1 (leaf task)
+    │   ├── Implementation
+    │   └── Tests (depends on Implementation)
+    └── Component A2
+```
+
+**Dependency management:**
+- Always define dependencies when creating tasks
+- Use task IDs (not titles) for dependency references
+- Verify dependencies with `TaskGet` before execution
+
+**Status transitions:**
+- Mark `in_progress` when starting work (prevents parallel execution)
+- Update frequently for visibility
+- Only mark `completed` when fully accomplished (tests passing, validated)
+- Use `failed` status with error metadata for debugging
+
+**Metadata conventions:**
+```json
+{
+  "priority": "high|medium|low",
+  "estimated_duration": "2h",
+  "related_files": ["path/to/file.ts"],
+  "related_issue": "https://github.com/org/repo/issues/123",
+  "type": "feature|bugfix|refactor|test"
+}
+```
+
+#### Complete Workflow
+
+**→ See**: [Task Management Workflow](./workflows/task-management.md) for:
+- Task planning phase (decomposition, hierarchy design)
+- Task execution patterns
+- Session management and resumption
+- Integration with TDD and Plan-Driven workflows
+- TodoWrite migration guide
+- Patterns, anti-patterns, and troubleshooting
+
+#### Sources
+
+- **Official**: [Claude Code CHANGELOG v2.1.16](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) - "new task management system with dependency tracking"
+- **Official**: [System Prompts - TaskCreate](https://github.com/Piebald-AI/claude-code-system-prompts) (extracted from Claude Code source)
+- **Community**: [paddo.dev - From Beads to Tasks](https://paddo.dev/blog/from-beads-to-tasks/)
+- **Community**: [llbbl.blog - Two Changes in Claude Code](https://llbbl.blog/2026/01/25/two-changes-in-claude-code.html)
 
 ### Context Management
 

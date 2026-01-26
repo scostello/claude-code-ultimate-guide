@@ -302,3 +302,4 @@ Run tests after each change to ensure they stay green.
 - [Tight Feedback Loops](../ultimate-guide.md) — Section 9.5
 - [examples/skills/tdd-workflow.md](../../examples/skills/tdd-workflow.md) — TDD skill template
 - [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+- [task-management.md](./task-management.md) — Track TDD cycles across sessions with Tasks API

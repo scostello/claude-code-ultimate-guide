@@ -351,6 +351,47 @@ claude -p "fix typos" --dangerously-skip-permissions
 
 ---
 
+## Task Management (v2.1.16+)
+
+**Two systems available:**
+
+| System | When to Use | Persistence |
+|--------|-------------|-------------|
+| **Tasks API** (v2.1.16+) | Multi-session projects, dependencies | ✅ Disk (`~/.claude/tasks/`) |
+| **TodoWrite** (Legacy) | Simple single-session | ❌ Session only |
+
+### Tasks API Commands
+
+```bash
+# Enable persistence across sessions
+export CLAUDE_CODE_TASK_LIST_ID="project-name"
+claude
+
+# Inside Claude: Create task hierarchy
+> "Create tasks for auth system with dependencies"
+
+# Resume later (new session)
+export CLAUDE_CODE_TASK_LIST_ID="project-name"
+claude
+> "TaskList to see current state"
+```
+
+**Key capabilities:**
+- 📁 **Persistent**: Survives session end, context compaction
+- 🔗 **Dependencies**: Task A blocks Task B
+- 🔄 **Multi-session**: Broadcast state to multiple terminals
+- 📊 **Status**: pending → in_progress → completed/failed
+
+**Migration flag** (v2.1.19+):
+```bash
+# Revert to old TodoWrite system
+CLAUDE_CODE_ENABLE_TASKS=false claude
+```
+
+**→ Full workflow**: [guide/workflows/task-management.md](../workflows/task-management.md)
+
+---
+
 ## The Golden Rules
 
 1. **Always review diffs** before accepting

@@ -115,6 +115,37 @@ deep_dive:
   semantic_anchors: 2872
   semantic_anchors_catalog: "examples/semantic-anchors/anchor-catalog.md"
   memory_files: 3160
+  # Task Management System (v2.1.16+) - Added 2026-01-26
+  task_management_system: 3127
+  task_management_comparison: 3140
+  tasks_api_overview: 3150
+  tasks_api_tools: 3160
+  tasks_api_capabilities: 3170
+  tasks_api_configuration: 3180
+  tasks_api_schema: 3195
+  tasks_api_when_to_use: 3210
+  todowrite_legacy: 3220
+  todowrite_when_to_use: 3230
+  todowrite_migration_flag: 3240
+  task_best_practices: 3250
+  task_hierarchy_design: 3252
+  task_dependency_management: 3256
+  task_status_transitions: 3260
+  task_metadata_conventions: 3264
+  task_complete_workflow: 3270
+  task_sources: 3280
+  # Task Management Workflow (guide/workflows/task-management.md)
+  workflows_task_management: "guide/workflows/task-management.md"
+  task_workflow_overview: "guide/workflows/task-management.md:15"
+  task_workflow_planning: "guide/workflows/task-management.md:48"
+  task_workflow_execution: "guide/workflows/task-management.md:160"
+  task_workflow_session_mgmt: "guide/workflows/task-management.md:260"
+  task_workflow_tdd_integration: "guide/workflows/task-management.md:370"
+  task_workflow_plan_integration: "guide/workflows/task-management.md:440"
+  task_workflow_migration: "guide/workflows/task-management.md:510"
+  task_workflow_patterns: "guide/workflows/task-management.md:620"
+  task_workflow_troubleshooting: "guide/workflows/task-management.md:740"
+  task_workflow_advanced: "guide/workflows/task-management.md:820"
   claude_folder: 3413
   settings: 3464
   precedence_rules: 3686
@@ -354,7 +385,8 @@ deep_dive:
 # ════════════════════════════════════════════════════════════════
 decide:
   simple_task: "just ask Claude"
-  complex_task: "/plan first, then TodoWrite"
+  complex_task: "/plan first, then use Tasks API (v2.1.16+) or TodoWrite"
+  complex_task_multi_session: "use Tasks API with CLAUDE_CODE_TASK_LIST_ID"
   context_high: "/compact (>70%) or /clear (>90%)"
   repeating: "create agent or command"
   need_docs: "Context7 MCP"

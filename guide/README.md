@@ -46,6 +46,7 @@ Hands-on guides for effective development patterns:
 | [workflows/plan-driven.md](./workflows/plan-driven.md) | Using /plan mode effectively |
 | [workflows/iterative-refinement.md](./workflows/iterative-refinement.md) | Iterative improvement loops |
 | [workflows/tts-setup.md](./workflows/tts-setup.md) | Add text-to-speech narration to Claude Code (18 min) |
+| [workflows/task-management.md](./workflows/task-management.md) | Multi-session task tracking, TodoWrite migration |
 
 ## Recommended Reading Order
 

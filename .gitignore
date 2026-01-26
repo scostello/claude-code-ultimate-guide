@@ -29,7 +29,7 @@ __pycache__/
 *.mp3
 *.onnx
 
-# Personal notes & temp files
+# Personal notes & temp filesà
 to-ignore/
 .grepai/
 whitepapers/

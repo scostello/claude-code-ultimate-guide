@@ -249,3 +249,4 @@ Plans in `.claude/plans/` serve as decision documentation:
 - [tdd-with-claude.md](./tdd-with-claude.md) — Combine with TDD
 - [spec-first.md](./spec-first.md) — Combine with Spec-First
 - [iterative-refinement.md](./iterative-refinement.md) — Post-plan iteration
+- [task-management.md](./task-management.md) — Track plan execution across sessions with Tasks API
