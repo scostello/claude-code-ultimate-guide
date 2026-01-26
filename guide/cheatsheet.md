@@ -249,7 +249,7 @@ tools: Read, Write, Edit, Bash
 ```markdown
 # Command Name
 Instructions for what to do...
-$ARGUMENTS - user provided args
+$ARGUMENTS[0] $ARGUMENTS[1] (or $0 $1) - user args
 ```
 
 ### Hook (macOS/Linux: `.sh` | Windows: `.ps1`)

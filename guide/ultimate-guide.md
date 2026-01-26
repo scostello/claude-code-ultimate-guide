@@ -5641,7 +5641,8 @@ Commands can accept arguments:
 ```markdown
 # My Command
 
-You received the following arguments: $ARGUMENTS
+You received the following arguments: $ARGUMENTS[0] $ARGUMENTS[1] $ARGUMENTS[2]
+(Or use shorthand: $0 $1 $2)
 
 Process them accordingly.
 ```
@@ -5651,7 +5652,18 @@ Usage:
 /tech:deploy production
 ```
 
-`$ARGUMENTS` becomes `production`.
+`$ARGUMENTS[0]` (or `$0`) becomes `production`.
+
+> **⚠️ Breaking Change (v2.1.19)**: The argument syntax changed from dot notation (`$ARGUMENTS.0`) to bracket syntax (`$ARGUMENTS[0]`). If you have existing custom commands using the old syntax, update them:
+> ```bash
+> # Old (< v2.1.19):
+> $ARGUMENTS.0 $ARGUMENTS.1
+>
+> # New (v2.1.19+):
+> $ARGUMENTS[0] $ARGUMENTS[1]
+> # Or use shorthand:
+> $0 $1
+> ```
 
 ## 6.3 Command Template
 
@@ -5677,7 +5689,10 @@ Follow these steps:
 
 ## Arguments
 
-If arguments provided ($ARGUMENTS): [How to handle them]
+If arguments provided:
+- First argument: $ARGUMENTS[0] (or $0)
+- Second argument: $ARGUMENTS[1] (or $1)
+- Handle accordingly: [Instructions]
 If no arguments: [Default behavior]
 
 ## Output Format
@@ -5738,8 +5753,8 @@ Create a well-formatted git commit following Conventional Commits.
 
 ## Arguments
 
-If $ARGUMENTS provided:
-- Use as commit message hint: "$ARGUMENTS"
+If $ARGUMENTS[0] provided:
+- Use as commit message hint: "$ARGUMENTS[0]" (or "$0")
 
 ## Output Format
 
@@ -5800,8 +5815,8 @@ gh pr create --title "[title]" --body "[body]"
 
 ## Arguments
 
-If $ARGUMENTS provided:
-- Use as PR title hint
+If $ARGUMENTS[0] provided:
+- Use as PR title hint: "$ARGUMENTS[0]" (or "$0")
 
 ## Error Handling
 
@@ -14043,7 +14058,8 @@ agent: specialist
 2. **Step 2**: [Instructions]
 
 ## Arguments
-$ARGUMENTS usage: [How to handle]
+- $ARGUMENTS[0] (or $0): First argument - [How to handle]
+- $ARGUMENTS[1] (or $1): Second argument - [How to handle]
 
 ## Output Format
 [Expected output]

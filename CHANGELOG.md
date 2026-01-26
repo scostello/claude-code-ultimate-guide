@@ -8,7 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Migration Scripts for v2.1.19 Breaking Change** (`examples/scripts/`)
+  - `migrate-arguments-syntax.sh`: Bash migration script for macOS/Linux users
+  - `migrate-arguments-syntax.ps1`: PowerShell migration script for Windows users
+  - Automated detection and conversion of `$ARGUMENTS.0` → `$ARGUMENTS[0]` in custom commands
+  - Dry-run mode with preview, automatic backups, safe batch processing
+
 ### Changed
+
+- **Updated $ARGUMENTS Syntax Documentation** (Claude Code v2.1.19 breaking change)
+  - `guide/ultimate-guide.md` (7 occurrences): Updated all custom command examples to use bracket syntax `$ARGUMENTS[0]` or shorthand `$0`, `$1`
+  - Added migration note in § 6.2 Variable Interpolation explaining breaking change and migration path
+  - `guide/cheatsheet.md`: Updated command template to show new syntax
+  - All examples now demonstrate both bracket notation and shorthand alternatives
 
 ## [3.14.0] - 2026-01-26
 
