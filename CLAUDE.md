@@ -33,8 +33,11 @@ tools/                    # Interactive utilities
 ├── audit-prompt.md       # Setup audit prompt
 └── onboarding-prompt.md  # Personalized learning prompt
 
-claudedocs/               # Claude working documents
-├── resource-evaluations/ # External resource assessments
+docs/                     # Public documentation (tracked)
+└── resource-evaluations/ # External resource evaluations (14 files)
+
+claudedocs/               # Claude working documents (gitignored)
+├── resource-evaluations/ # Research working docs (prompts, private audits)
 └── *.md                  # Analysis reports, plans, working docs
 ```
 
@@ -389,6 +392,36 @@ Le script:
   breaking:
     - "Description du breaking change (si applicable)"
 ```
+
+## Resource Evaluation Workflow
+
+External resources (articles, videos, discussions) are evaluated before integration into the guide.
+
+### Process
+
+1. **Research**: Initial Perplexity search → Save prompt + results in `claudedocs/resource-evaluations/` (private)
+2. **Evaluation**: Systematic scoring (1-5) → Create evaluation file in `docs/resource-evaluations/` (tracked)
+3. **Challenge**: Technical review by agent to ensure objectivity
+4. **Decision**: Integrate (score 3+), mention (score 2), or reject (score 1)
+
+### File Organization
+
+| Location | Content | Tracking |
+|----------|---------|----------|
+| `docs/resource-evaluations/` | Final evaluations (14 files) | ✅ Git tracked (public) |
+| `claudedocs/resource-evaluations/` | Working docs, prompts, private audits | ❌ Gitignored (private) |
+
+### Scoring Grid
+
+| Score | Action |
+|-------|--------|
+| 5 | Critical - Integrate immediately (<24h) |
+| 4 | High Value - Integrate within 1 week |
+| 3 | Moderate - Integrate when time available |
+| 2 | Marginal - Minimal mention or skip |
+| 1 | Low - Reject |
+
+See full methodology: [`docs/resource-evaluations/README.md`](docs/resource-evaluations/README.md)
 
 ## Quick Lookups
 
