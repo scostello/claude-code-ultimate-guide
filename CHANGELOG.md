@@ -6,8 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.13.0] - 2026-01-26
+
 ### Added
 
+- **Boris Cherny mental models integration** (from YouTube interview analysis)
+  - **CLAUDE.md as Compounding Memory** (`guide/ultimate-guide.md:3254`)
+    - New philosophy section: "You should never have to correct Claude twice for the same mistake"
+    - 4-step cycle: error → rule → read → never repeated
+    - Compounding effect visualization (5 → 20 → 50 rules over time)
+    - Boris's practical example: 2.5K tokens grown over months
+    - Anti-pattern warning: no preemptive documentation
+    - Mental model shift: configuration file → organizational learning system
+  - **Plan-First Discipline** (`guide/methodologies.md:61`)
+    - New "Foundational Discipline" section (between Tier 1 and Tier 2)
+    - Core principle: "Once the plan is good, the code is good" (Boris quote)
+    - Decision table: when to plan first vs when to skip
+    - 3-phase workflow: exploration → validation → execution
+    - Benefits quantified vs "just start coding"
+    - CLAUDE.md integration example for team planning policy
+  - **Verification Loops architectural pattern** (`guide/methodologies.md:214`)
+    - Extended beyond TDD to general architectural principle
+    - 8 verification domains table (frontend, backend, types, style, performance, accessibility, security, UX)
+    - Boris quote: "An agent that can 'see' what it has done produces better results"
+    - Implementation patterns: hooks, browser extensions, test watchers, CI/CD gates
+    - Anti-pattern: blind iteration without feedback mechanism
+  - **Boris direct quotes in case study** (`guide/ultimate-guide.md:10743`)
+    - 4 key insights: multi-clauding, CLAUDE.md compounding, plan-first, verification loops
+    - Opus 4.5 ROI explanation: higher per-token cost but fewer corrections = net savings
+    - Supervision model description: "tending to multiple agents" vs sequential execution
+    - YouTube source citation added alongside InfoQ article
+  - Resource evaluation saved in `claudedocs/resource-evaluations/boris-cowork-video-eval.md` (score: 3/5 - pertinent, amélioration modérée)
+  - Source: [YouTube - I got a private lesson on Claude Cowork & Claude Code](https://www.youtube.com/watch?v=DW4a1Cm8nG4)
 - **Advanced Worktree Tooling section** (`guide/ultimate-guide.md:10748`)
   - New section "Advanced Tooling for Worktree Management (Optional)" in §9.17 Multi-Instance Workflows
   - Pattern validation: 3 independent teams created worktree wrappers (incident.io, GitHub #1052, Worktrunk)
@@ -47,6 +77,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Includes workflow diagram (5 steps: User Asks → LLM Thinks → MCP Controls → Tools Execute → Safe Result)
   - Golden rule banner: "LLM Thinks → MCP Controls → Tools Execute → Data Locked"
 - **machine-readable/reference.yaml**: Added `architecture_mcp_visual` (SVG diagram reference)
+
+### Changed
+
+- **README.md**: Updated templates count from 83 to 86 (badge and description text)
+  - Reflects addition of 3 new evaluation documents in `claudedocs/resource-evaluations/`
+  - Actual template count: 86 files in `examples/` directory
 
 ## [3.12.1] - 2026-01-25
 

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.12.1
+**Version**: 3.13.0
 
 ---
 
@@ -3252,6 +3252,34 @@ Brief one-sentence description of what this project does.
 - Architecture decisions that aren't obvious from the code
 
 **Rule of thumb**: If Claude makes a mistake twice because of missing context, add that context to CLAUDE.md. Don't preemptively document everything.
+
+### CLAUDE.md as Compounding Memory
+
+> **"You should never have to correct Claude twice for the same mistake."**
+> — Boris Cherny, creator of Claude Code
+
+**The Mental Model**: CLAUDE.md isn't just a configuration file—it's an **organizational learning system** where every error compounds into permanent team knowledge.
+
+**How it works**:
+1. **Claude makes an error** (e.g., uses `npm` instead of `pnpm`)
+2. **You add a rule** to CLAUDE.md: `"Always use pnpm, never npm"`
+3. **Claude reads CLAUDE.md** at session start → never repeats error
+4. **Knowledge compounds** over time as team catches and documents edge cases
+
+**The compounding effect**:
+```
+Week 1: 5 rules  →  5 mistakes prevented
+Week 4: 20 rules → 20 mistakes prevented
+Month 3: 50 rules → 50 mistakes prevented + faster onboarding
+```
+
+**Practical example** (Boris Cherny's team):
+- CLAUDE.md grew to **2.5K tokens** (≈500 words) over months
+- Captured project-specific conventions, architectural decisions, and "gotchas"
+- New team members benefit from accumulated tribal knowledge instantly
+- Claude becomes increasingly aligned with team standards over time
+
+**Anti-pattern**: Preemptively documenting everything. Instead, treat CLAUDE.md as a **living document** that grows through actual mistakes caught during development.
 
 **Size guideline**: Keep CLAUDE.md files between **4-8KB total** (all levels combined). Practitioner studies show that context files exceeding 16K tokens degrade model coherence. Include architecture overviews, key conventions, and critical constraints—exclude full API references or extensive code examples (link to them instead).
 
@@ -10714,7 +10742,21 @@ Boris Cherny, creator of Claude Code, shared his workflow orchestrating 5-15 Cla
 
 **Critical context**: Boris is the creator of Claude Code, working with perfect architecture, Anthropic resources, and ideal conditions. **This is not representative of average teams.**
 
-**Source**: [InfoQ - Claude Code Creator Workflow (Jan 2026)](https://www.infoq.com/news/2026/01/claude-code-creator-workflow/)
+**Key insights from Boris**:
+
+> **On multi-clauding**: "I use Cowork as a 'doer,' not a chat: it touches files, browsers, and tools directly. I think about productivity as parallelism: multiple tasks running while I steer outcomes."
+
+> **On CLAUDE.md**: "I treat Claude.md as compounding memory: every mistake becomes a durable rule for the team."
+
+> **On plan-first workflow**: "I run plan-first workflows: once the plan is solid, execution gets dramatically cleaner."
+
+> **On verification loops**: "I give Claude a way to verify output (browser/tests): verification drives quality."
+
+**Why Opus 4.5 with Thinking**: Although more expensive per token (~$15/1M input vs $3/1M for Sonnet), Opus requires fewer correction iterations. Net result: faster delivery and lower total cost despite higher unit price.
+
+**The supervision model**: Boris describes his role as "tending to multiple agents" rather than "doing every click yourself." The workflow becomes about **steering outcomes** across 5-10 parallel sessions, unblocking when needed, rather than sequential execution.
+
+**Source**: [InfoQ - Claude Code Creator Workflow (Jan 2026)](https://www.infoq.com/news/2026/01/claude-code-creator-workflow/) | [Interview: I got a private lesson on Claude Cowork & Claude Code](https://www.youtube.com/watch?v=DW4a1Cm8nG4)
 
 ---
 
@@ -14863,4 +14905,4 @@ Common misconceptions we've seen:
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.12.1
+**Last updated**: January 2026 | **Version**: 3.13.0

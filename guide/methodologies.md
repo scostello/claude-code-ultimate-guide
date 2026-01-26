@@ -58,6 +58,72 @@ Organized in a 6-tier pyramid from strategic orchestration down to optimization 
 
 ---
 
+### Foundational Discipline: Plan-First Workflow
+
+> **"Once the plan is good, the code is good."**
+> — Boris Cherny, creator of Claude Code
+
+**Not just a feature (`/plan` command) — a systematic discipline.**
+
+**The Mental Model**:
+
+Planning isn't optional for complex tasks. It's the difference between:
+- ❌ 8 iterations of "try → fix → retry → fix again"
+- ✅ 1 iteration of "plan → validate → execute cleanly"
+
+**When to plan first**:
+
+| Task Complexity | Plan First? | Why |
+|----------------|-------------|-----|
+| >3 files modified | ✅ Yes | Cross-file dependencies need architecture |
+| >50 lines changed | ✅ Yes | Enough complexity for mistakes |
+| Architectural changes | ✅ Yes | Impact analysis required |
+| Unfamiliar codebase | ✅ Yes | Need exploration before action |
+| Typo/obvious fix | ❌ No | Planning overhead > task time |
+| Single-line change | ❌ No | Just do it |
+
+**How plan-first works**:
+
+1. **Exploration phase** (`/plan` mode):
+   - Claude reads files, explores architecture
+   - No edits allowed → forces thinking before action
+   - Proposes approach with trade-offs
+
+2. **Validation phase** (you review):
+   - Plan exposes assumptions and gaps
+   - Easier to correct direction now vs after 100 lines written
+   - Plan becomes contract for execution
+
+3. **Execution phase** (`/execute`):
+   - Plan → code becomes mechanical translation
+   - Fewer surprises, cleaner implementation
+   - Faster overall despite "slower" start
+
+**Boris Cherny workflow**:
+
+> "I run many sessions, start in plan mode, then switch into execution once the plan looks right. The signature upgrade is verification—giving Claude a way to test and confirm its own output."
+
+**Benefits over "just start coding"**:
+
+- **Fewer correction iterations**: Plan catches issues before they become code
+- **Better architecture**: Forced to think about structure first
+- **Clearer communication**: Plan is shared understanding with team/Claude
+- **Reduced cost**: One clean iteration < multiple messy iterations (even if plan phase costs tokens)
+
+**Integration with CLAUDE.md**:
+
+Document your team's plan-first triggers:
+```markdown
+## Planning Policy
+- ALWAYS plan first: API changes, database migrations, new features
+- OPTIONAL planning: Bug fixes <10 lines, test additions
+- NEVER skip: Changes affecting >2 modules
+```
+
+**See also**: [Plan Mode documentation](./ultimate-guide.md#23-plan-mode) for `/plan` command usage.
+
+---
+
 ### Tier 2: Specification & Architecture
 
 | Name | What | Best For | Claude Fit |
@@ -145,16 +211,44 @@ Strict iteration: 2 weeks max per feature.
 
 With Claude: Be explicit. "Write FAILING tests that don't exist yet."
 
-> **Verification Loops** — A formalized pattern for autonomous iteration:
+> **Verification Loops** — A formalized pattern for autonomous iteration (broader than TDD):
 >
-> Use testing as termination condition:
+> **Core principle**: Give Claude a mechanism to verify its own output.
+>
+> ```
+> Code generated → Verification tool → Feedback loop → Improvement
+> ```
+>
+> **Why it works** (Boris Cherny): *"An agent that can 'see' what it has done produces better results."*
+>
+> **Verification mechanisms by domain**:
+>
+> | Domain | Verification Tool | What Claude "Sees" |
+> |--------|-------------------|-------------------|
+> | **Frontend** | Browser preview (live reload) | Visual rendering, layout, interactions |
+> | **Backend** | Tests (unit/integration) | Pass/fail status, error messages |
+> | **Types** | TypeScript compiler | Type errors, incompatibilities |
+> | **Style** | Linters (ESLint, Prettier) | Style violations, formatting issues |
+> | **Performance** | Profilers, benchmarks | Execution time, memory usage |
+> | **Accessibility** | axe-core, screen readers | WCAG violations, navigation issues |
+> | **Security** | Static analyzers (Semgrep) | Vulnerability patterns |
+> | **UX** | User testing, recordings | Usability problems, confusion points |
+>
+> **TDD as canonical example**:
 > 1. Claude writes tests for the feature
 > 2. Claude iterates code until tests pass
 > 3. Continue until explicit completion criteria met
 >
 > **Official guidance**: *"Tell Claude to keep going until all tests pass. It will usually take a few iterations."* — [Anthropic Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
 >
-> Implementation: Can be enforced via Stop hooks, multi-Claude verification, or explicit "DONE" markers in prompts.
+> **Implementation patterns**:
+> - **Hooks**: PostToolUse hook runs verification after each edit
+> - **Browser extension**: Claude in Chrome sees rendered output
+> - **Test watchers**: Jest/Vitest watch mode provides instant feedback
+> - **CI/CD gates**: GitHub Actions runs full validation suite
+> - **Multi-Claude verification**: One Claude codes, another reviews
+>
+> **Anti-pattern**: Blind iteration without feedback. Without verification mechanism, Claude can't converge toward correct solution—it guesses.
 
 **Eval-Driven Development** — TDD for LLMs. Test agent behaviors via evals:
 - Code-based: `output == golden_answer`
