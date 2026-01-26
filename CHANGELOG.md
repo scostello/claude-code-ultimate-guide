@@ -8,6 +8,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+### Changed
+
+## [3.14.0] - 2026-01-26
+
+### Added
+
+- **NotebookLM MCP Integration Documentation** (`guide/ai-ecosystem.md`, `guide/ultimate-guide.md`)
+  - **§ 4.1 NotebookLM MCP Integration** (~240 lines): Complete installation and usage guide
+    - Detailed tool breakdown table: 16 tools across 3 profiles (minimal/standard/full)
+    - Multi-account authentication workflow (authuser parameter for secondary Google accounts)
+    - Share links library building pattern (isolated Chrome profile, no auto-sync)
+    - Query notebooks with persistent conversation context (session_id)
+    - Comparison table: MCP integration vs Web UI
+    - Troubleshooting guide and example onboarding workflow
+  - **§ 4.2 Advanced Features (Full Profile)** (~110 lines)
+    - `remove_notebook`: Clean up library, fix duplicates
+    - `re_auth`: Switch Google accounts without full cleanup
+    - `cleanup_data`: Complete MCP reset with preserve_library option
+    - Manual browser control: state inspection, actions, element waiting
+  - **§ 4.3 Browser Options** (~70 lines)
+    - Complete options reference: headless, timeout, viewport, stealth mode
+    - Stealth mode configuration: typing speed (160-240 WPM), random delays, mouse movements
+    - Usage examples: debug visually, custom timeouts, disable stealth for speed
+  - **§ 4.4 Session Management** (~60 lines)
+    - Session lifecycle: automatic creation, 15min timeout, 10 max concurrent
+    - Manual session control: resume specific sessions, force new sessions
+    - List active sessions with message counts and age
+  - **§ 4.5 Library Management Best Practices** (~90 lines)
+    - Naming conventions and topics strategy (specific vs broad)
+    - Metadata refinement workflow: add → use → refine → archive
+    - Search and discovery patterns (keyword search, smart selection)
+    - Notebook lifecycle management
+  - **guide/ultimate-guide.md**: Updated Complementary Tools table with "MCP integration" mention
+  - **Total**: ~630 lines of comprehensive MCP documentation covering all 16 tools
 - **Resource Evaluations Public Documentation** (`docs/resource-evaluations/`)
   - New tracked directory with 14 community resource evaluations (gsd, worktrunk, boris-cowork-video, astgrep, etc.)
   - Standardized filenames (removed date prefixes for stable linking)
@@ -35,7 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Guide length: ~10K → ~15K lines (actual: 15,053 lines)
   - Reading time: ~3 hours → ~4 hours (reflects actual guide size)
   - Security hooks: 15+ → 18 (precise count)
-  - Templates count: maintained at 86 (consistent with `check-landing-sync.sh` logic: includes JSON, excludes PY)
+  - Templates count: 86 → 83 (accurate count)
   - Repository Structure section: updated ultimate-guide.md from "~13,425 lines" to "~15K lines"
   - Added **Resource Evaluations** section (14 assessments) with methodology links
   - All changes verified with `./scripts/check-landing-sync.sh` for full synchronization

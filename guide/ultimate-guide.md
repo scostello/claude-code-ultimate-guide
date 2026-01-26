@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.13.0
+**Version**: 3.14.0
 
 ---
 
@@ -15050,4 +15050,4 @@ Common misconceptions we've seen:
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.13.0
+**Last updated**: January 2026 | **Version**: 3.14.0
