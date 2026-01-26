@@ -50,8 +50,9 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **UML & OOP Diagrams** | 3/5 | **3/5** | ✅ Mention | [uml-oop-diagrams.md](./uml-oop-diagrams.md) |
 | **Vibe Coding Level 2** (Rusitschka) | 4/5 | **4/5** | ✅ Intégré (workflows) | [vibe-coding-rusitschka.md](./vibe-coding-rusitschka.md) |
 | **Peter Wooldridge** (Productivity Stack) | 2/5 | **3/5** | ✅ Practitioner Insights | [wooldridge-productivity-stack.md](./wooldridge-productivity-stack.md) |
+| **System Prompts** (Official vs Community) | 4/5 | **2/5** | ⚠️ Watch only (official sources exist) | [system-prompts-official-vs-community.md](./system-prompts-official-vs-community.md) |
 | **Worktrunk** | 4/5 | **4/5** | ✅ Intégré (workflow) | [worktrunk-evaluation.md](./worktrunk-evaluation.md) |
 
 ---
 
-**Dernier update**: 2026-01-26 (Migration vers docs/ tracké)
+**Dernier update**: 2026-01-26 (15 évaluations)

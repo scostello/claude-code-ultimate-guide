@@ -270,6 +270,7 @@ Claude Code operates within a fixed context window (200K tokens for Claude 3.5 S
 │  │ • Tool definitions                                   │   │
 │  │ • Safety instructions                                │   │
 │  │ • Behavioral guidelines                              │   │
+│  │ • See detailed breakdown below ↓                     │   │
 │  ├──────────────────────────────────────────────────────┤   │
 │  │ CLAUDE.md Files                          (~1-10K)    │   │
 │  │ • Global ~/.claude/CLAUDE.md                         │   │
@@ -295,6 +296,36 @@ Claude Code operates within a fixed context window (200K tokens for Claude 3.5 S
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+### System Prompt Contents
+
+**Confidence**: 100% (Tier 1 - Official Anthropic Documentation)
+**Sources**:
+- [Anthropic System Prompts Release Notes](https://platform.claude.com/docs/en/release-notes/system-prompts)
+- [Anthropic Engineering: Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+
+Claude system prompts (~5-15K tokens) are **publicly published** by Anthropic as part of their transparency commitment. These prompts define:
+
+**Core Components**:
+- **Tool definitions**: Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite
+- **Safety instructions**: Content policies, refusal patterns (see [Security Hardening](./security-hardening.md))
+- **Behavioral guidelines**: Task-first approach, MVP-first, no over-engineering
+- **Context instructions**: How to gather and use project context
+
+**Important Distinctions**:
+- **Claude.ai/Mobile**: Published prompts available publicly
+- **Anthropic API**: Different default instructions, configurable by developers
+- **Claude Code CLI**: Agentic coding assistant with context-gathering behavior
+
+**Community Analysis** (for deeper understanding):
+- **Simon Willison's Claude 4 Analysis** (May 2025): [Deep-dive into thinking blocks, search rules, safety guardrails](https://simonwillison.net/2025/May/25/claude-4-system-prompt/)
+- **PromptHub Technical Breakdown** (June 2025): [Detailed analysis of prompt engineering patterns](https://www.prompthub.us/blog/an-analysis-of-the-claude-4-system-prompt)
+
+→ **Cross-reference**: For security implications, see [Section 5: Permission & Security Model](#5-permission--security-model)
+
+**Note**: Claude Code system prompts may differ from Claude.ai/mobile versions. The above sources cover the Claude family; Code-specific prompts are integrated into the CLI tool's behavior.
+
+---
 
 ### Auto-Compaction
 

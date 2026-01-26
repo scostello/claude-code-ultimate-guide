@@ -89,6 +89,11 @@ deep_dive:
   architecture_mcp: "guide/architecture.md:506"
   architecture_mcp_visual: "guide/images/mcp-architecture-diagram.svg"
   architecture_philosophy: "guide/architecture.md:746"
+  # System Prompts (Official Sources) - Added 2026-01-26
+  system_prompts_official: "https://platform.claude.com/docs/en/release-notes/system-prompts"
+  system_prompts_willison_analysis: "https://simonwillison.net/2025/May/25/claude-4-system-prompt/"
+  system_prompts_prompthub: "https://www.prompthub.us/blog/an-analysis-of-the-claude-4-system-prompt"
+  system_prompts_architecture: "guide/architecture.md:299"
   # Main guide (guide/ultimate-guide.md) - Updated 2026-01-20
   installation: 196
   first_workflow: 277
