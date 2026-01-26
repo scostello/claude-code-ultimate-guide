@@ -29,6 +29,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Core concepts, tool reference, practical patterns
   - Links to full workflow guide for details
 
+### Changed
+
+- **README.md**: Updated documentation metrics for accuracy and landing site synchronization
+  - Guide length: ~10K → ~15K lines (actual: 15,053 lines)
+  - Reading time: ~3 hours → ~4 hours (reflects actual guide size)
+  - Security hooks: 15+ → 18 (precise count)
+  - Templates count: maintained at 86 (consistent with `check-landing-sync.sh` logic: includes JSON, excludes PY)
+  - Repository Structure section: updated ultimate-guide.md from "~13,425 lines" to "~15K lines"
+  - Added **Resource Evaluations** section (14 assessments) with methodology links
+  - All changes verified with `./scripts/check-landing-sync.sh` for full synchronization
+
 ## [3.13.0] - 2026-01-26
 
 ### Added
