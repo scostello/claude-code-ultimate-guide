@@ -450,6 +450,610 @@ After NotebookLM synthesis, export key insights to your project:
 
 ---
 
+## 4.1 NotebookLM MCP Integration
+
+**Available since**: Claude Code v2.1+ with MCP support
+
+**What it does**: Query your NotebookLM notebooks directly from Claude Code, maintaining conversation context across multiple questions.
+
+### Installation
+
+```bash
+# Install NotebookLM MCP server
+claude mcp add notebooklm npx notebooklm-mcp@latest
+
+# Configure profile (optional, add to ~/.zshrc or ~/.bashrc)
+export NOTEBOOKLM_PROFILE=standard  # minimal (5 tools) | standard (10 tools) | full (16 tools)
+
+# Verify installation
+claude mcp list
+# Should show: notebooklm: npx notebooklm-mcp@latest - ✓ Connected
+```
+
+**Profile comparison**:
+
+| Profile | Tools | Use Case |
+|---------|-------|----------|
+| `minimal` | 5 | Basic queries, token-constrained environments |
+| `standard` | 10 | **Recommended** - Queries + library management |
+| `full` | 16 | Advanced (browser control, cleanup, re-auth) |
+
+**Detailed tool breakdown**:
+
+| Tool | minimal | standard | full | Description |
+|------|---------|----------|------|-------------|
+| `ask_question` | ✅ | ✅ | ✅ | Query notebooks with conversation context |
+| `add_notebook` | ✅ | ✅ | ✅ | Add notebook to library |
+| `list_notebooks` | ✅ | ✅ | ✅ | List all notebooks in library |
+| `get_notebook` | ✅ | ✅ | ✅ | Get notebook details by ID |
+| `setup_auth` | ✅ | ✅ | ✅ | Initial Google authentication |
+| `select_notebook` | ❌ | ✅ | ✅ | Set active notebook |
+| `update_notebook` | ❌ | ✅ | ✅ | Update notebook metadata |
+| `search_notebooks` | ❌ | ✅ | ✅ | Search library by keywords |
+| `list_sessions` | ❌ | ✅ | ✅ | List active conversation sessions |
+| `get_health` | ❌ | ✅ | ✅ | Check auth status and config |
+| `remove_notebook` | ❌ | ❌ | ✅ | Remove notebook from library |
+| `re_auth` | ❌ | ❌ | ✅ | Switch Google account |
+| `cleanup_data` | ❌ | ❌ | ✅ | Clear browser data and sessions |
+| `get_browser_state` | ❌ | ❌ | ✅ | Manual browser state inspection |
+| `execute_browser_action` | ❌ | ❌ | ✅ | Manual browser control |
+| `wait_for_element` | ❌ | ❌ | ✅ | Manual browser element waiting |
+
+### Authentication
+
+**Important**: NotebookLM MCP uses isolated Chrome profile, separate from your main browser session.
+
+```bash
+# In Claude Code, first-time setup:
+"Log me in to NotebookLM"
+
+# Browser opens automatically for Google authentication
+# Select your Google account (pro tip: use authuser=1 for secondary accounts)
+# Session persists in: ~/Library/Application Support/notebooklm-mcp/
+```
+
+**Multi-account setup**:
+
+If you have multiple Google accounts and want to use a specific one:
+
+1. **Pre-configure in browser**: Open `https://notebooklm.google.com/?authuser=1` (change number for different accounts)
+2. Sign in with desired account
+3. **Then** run authentication in Claude Code
+
+The MCP stores credentials in an isolated Chrome profile, so your main browser cookies don't affect it.
+
+**Verify authentication**:
+
+```bash
+"Check NotebookLM health status"
+
+# Expected output after successful auth:
+# {
+#   "authenticated": true,
+#   "account": "your-email@gmail.com",
+#   "notebooks": <count>
+# }
+```
+
+### Building Your Notebook Library
+
+Unlike the web UI, the MCP works with **share links** rather than auto-syncing all notebooks.
+
+**Add a notebook**:
+
+```bash
+# 1. In NotebookLM web UI:
+#    - Open notebook
+#    - Click "Share" → "Anyone with the link"
+#    - Copy share URL
+
+# 2. In Claude Code:
+"Add notebook: https://notebooklm.google.com/notebook/abc123...
+Name: LLM Engineer Handbook
+Description: Comprehensive guide on LLM engineering practices
+Topics: LLM, fine-tuning, RAG, deployment"
+
+# Minimal metadata required - the MCP will analyze content automatically
+```
+
+**List your library**:
+
+```bash
+"List my NotebookLM notebooks"
+
+# Shows all added notebooks with topics, use cases, last used
+```
+
+**Search library**:
+
+```bash
+"Search NotebookLM library for: React patterns"
+
+# Returns relevant notebooks based on name, description, topics
+```
+
+### Querying Notebooks
+
+**Direct query** (specify notebook):
+
+```bash
+"In LLM Engineer Handbook, how do I implement RAG with embeddings?"
+
+# Claude will:
+# 1. Select the specified notebook
+# 2. Query NotebookLM with your question
+# 3. Return answer with precise citations
+# 4. Maintain session_id for follow-up questions
+```
+
+**Contextual conversation**:
+
+```bash
+# First question
+"In Building Large-Scale Web Apps notebook, what are the caching strategies?"
+
+# Follow-up (uses same session_id)
+"How would that apply to a Next.js application?"
+
+# Another follow-up
+"What about Redis vs in-memory cache trade-offs?"
+
+# Session context is maintained across all queries
+```
+
+**Select active notebook**:
+
+```bash
+"Select LLM Engineer Handbook as active notebook"
+
+# Now you can ask without specifying notebook each time
+"What are the fine-tuning techniques?"
+"How does DPO compare to RLHF?"
+```
+
+### Advanced Workflows
+
+**Multi-notebook research**:
+
+```bash
+# Compare insights across notebooks
+"What does LLM Engineer Handbook say about embeddings?"
+"Now check Playwright Automation guide for testing strategies"
+"How can I combine these approaches?"
+```
+
+**Update notebook metadata**:
+
+```bash
+# As you use notebooks, refine their metadata
+"Update LLM Engineer Handbook:
+ - Add topic: prompt engineering
+ - Add use case: When designing LLM architectures"
+
+# This helps Claude auto-select the right notebook for future queries
+```
+
+**Session management**:
+
+```bash
+"List active NotebookLM sessions"
+
+# Shows all conversation sessions with message counts, age
+# Useful to resume previous research threads
+```
+
+### Comparison: MCP vs Web UI
+
+| Feature | MCP Integration | Web UI |
+|---------|----------------|--------|
+| Access from Claude Code | ✅ Direct | ❌ Manual copy-paste |
+| Conversation context | ✅ Persistent session_id | ⚠️ Web chat only |
+| Multi-notebook queries | ✅ Switch seamlessly | ⚠️ Manual navigation |
+| Audio generation | ❌ Use web UI | ✅ Native |
+| Share notebooks | ✅ Via library | ✅ Native |
+| Query speed | ✅ Instant | ⚠️ Browser navigation |
+
+**Best practice**: Use **MCP for queries** during development, **web UI for audio generation** during onboarding.
+
+### Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| `notebooklm: not connected` | Run `source ~/.zshrc` (or restart terminal), then restart Claude Code |
+| Empty notebook list after auth | You're authenticated but haven't added notebooks yet - use share links workflow |
+| Wrong Google account | Clear auth: delete `~/Library/Application Support/notebooklm-mcp/chrome_profile/`, re-authenticate |
+| "Tool not found" | Check `NOTEBOOKLM_PROFILE` variable is set correctly |
+| Rate limit errors | Wait 24h or re-authenticate with different Google account |
+
+**Check MCP configuration**:
+
+```bash
+# View your .claude.json MCP config
+cat ~/.claude.json | jq '.mcpServers.notebooklm'
+
+# Should show:
+# {
+#   "type": "stdio",
+#   "command": "npx",
+#   "args": ["notebooklm-mcp@latest"],
+#   "env": {}
+# }
+```
+
+### Example: Onboarding Workflow
+
+```bash
+# Day 1: Setup
+"Log me in to NotebookLM"
+"Add notebook: <share-link-1> - Codebase Architecture"
+"Add notebook: <share-link-2> - API Documentation"
+
+# Day 2: Research
+"In Codebase Architecture, what's the auth flow?"
+"How does that integrate with the API docs?"
+"Select API Documentation notebook"
+"What are the rate limiting strategies?"
+
+# Week 2: Advanced
+"Search library for: database patterns"
+"In Database Patterns notebook, explain connection pooling"
+"How would I implement this in our codebase?"
+```
+
+---
+
+## 4.2 Advanced Features (Full Profile)
+
+**When to use `full` profile**:
+- Need to switch Google accounts frequently (`re_auth`)
+- Want to clean up MCP data without manual file deletion (`cleanup_data`)
+- Need to remove notebooks from library (`remove_notebook`)
+- Advanced debugging requiring manual browser control
+
+**Enable full profile**:
+
+```bash
+# Add to ~/.zshrc or ~/.bashrc
+export NOTEBOOKLM_PROFILE=full
+
+# Restart Claude Code
+```
+
+### Remove Notebook from Library
+
+```bash
+"Remove notebook: LLM Engineer Handbook"
+
+# Or by ID:
+"Remove notebook with ID: llm-engineer-handbook"
+```
+
+**Use case**: Declutter library, remove outdated notebooks, fix duplicate entries.
+
+### Re-authentication (Account Switching)
+
+**Scenario**: You want to switch from personal Google account to work account.
+
+```bash
+"Re-authenticate NotebookLM with different account"
+
+# Browser opens, select different Google account
+# New credentials saved, old session cleared
+```
+
+**Difference vs `setup_auth`**:
+- `setup_auth`: First-time authentication
+- `re_auth`: Switch accounts (clears existing session)
+
+**Important**: After re-auth, your notebook library is **preserved** (stored locally), but you'll need to verify access to notebooks (they must be shared with new account).
+
+### Cleanup Data
+
+**Scenario**: Start fresh, clear all MCP data (auth, library, browser profile).
+
+```bash
+"Clean up NotebookLM MCP data"
+
+# Options:
+# - preserve_library: Keep notebook metadata (default: false)
+# - confirm: Safety confirmation (default: false)
+```
+
+**What gets deleted**:
+- Browser profile (`~/Library/Application Support/notebooklm-mcp/chrome_profile/`)
+- Authentication cookies
+- Active sessions
+- Notebook library (unless `preserve_library=true`)
+
+**When to use**:
+- Authentication issues not resolved by re-auth
+- Browser conflicts or corruption
+- Starting fresh after testing
+- Before uninstalling MCP
+
+**Example**:
+
+```bash
+"Clean NotebookLM data but keep my library"
+# → cleanup_data(preserve_library=true, confirm=true)
+
+"Completely reset NotebookLM MCP"
+# → cleanup_data(preserve_library=false, confirm=true)
+```
+
+### Manual Browser Control
+
+**Advanced debugging tools** (full profile only):
+
+**1. Get browser state**:
+
+```bash
+"Show NotebookLM browser state"
+
+# Returns: current_url, cookies, local_storage, session_storage
+```
+
+**2. Execute browser action**:
+
+```bash
+"Navigate NotebookLM browser to specific notebook URL"
+"Click element in NotebookLM browser"
+"Type text in NotebookLM browser"
+```
+
+**3. Wait for element**:
+
+```bash
+"Wait for element to load in NotebookLM browser"
+```
+
+**Use case**: Debugging authentication issues, inspecting browser state during failures, manual notebook navigation.
+
+---
+
+## 4.3 Browser Options (All Profiles)
+
+Control browser behavior for queries and authentication.
+
+### Available Options
+
+```javascript
+{
+  // Visibility
+  "headless": true,        // Run without visible window (default: true)
+  "show": false,          // Show browser window (default: false)
+
+  // Performance
+  "timeout_ms": 30000,    // Operation timeout (default: 30000)
+
+  // Viewport
+  "viewport": {
+    "width": 1920,        // Default: 1920
+    "height": 1080        // Default: 1080
+  },
+
+  // Stealth mode (human-like behavior)
+  "stealth": {
+    "enabled": true,           // Master switch (default: true)
+    "human_typing": true,      // Simulate typing speed (default: true)
+    "random_delays": true,     // Random pauses (default: true)
+    "mouse_movements": true,   // Realistic mouse moves (default: true)
+    "typing_wpm_min": 160,     // Min typing speed (default: 160)
+    "typing_wpm_max": 240,     // Max typing speed (default: 240)
+    "delay_min_ms": 100,       // Min delay between actions (default: 100)
+    "delay_max_ms": 400        // Max delay between actions (default: 400)
+  }
+}
+```
+
+### Usage Examples
+
+**Debug authentication visually**:
+
+```bash
+"Log me in to NotebookLM with visible browser"
+
+# Claude calls: setup_auth(show_browser=true)
+```
+
+**Custom timeout for slow connections**:
+
+```bash
+"Ask NotebookLM (with 60s timeout): What are the main concepts?"
+
+# Claude calls: ask_question(timeout_ms=60000, ...)
+```
+
+**Disable stealth for faster queries** (if rate limits not a concern):
+
+```bash
+# Advanced: requires direct tool call (not natural language)
+ask_question(
+  question="...",
+  browser_options={
+    "stealth": {"enabled": false},
+    "timeout_ms": 10000
+  }
+)
+```
+
+**When to customize**:
+- **Show browser**: Debugging auth issues, verifying account selection
+- **Increase timeout**: Slow network, large notebooks, complex queries
+- **Disable stealth**: Local testing, debugging, speed priority
+- **Custom viewport**: Testing responsive notebook UI (rare)
+
+---
+
+## 4.4 Session Management
+
+NotebookLM MCP maintains conversation context across queries via `session_id`.
+
+### How Sessions Work
+
+```bash
+# First query → Creates session
+"In LLM Engineer Handbook, what is RAG?"
+# → Returns session_id: "abc123"
+
+# Follow-up → Uses same session
+"How does it compare to fine-tuning?"
+# → Uses session_id: "abc123" automatically
+
+# Another notebook → New session
+"In Playwright Guide, how do I test?"
+# → New session_id: "xyz789"
+```
+
+**Session properties**:
+- **Automatic**: Claude manages session_id for follow-up questions
+- **Scoped**: One session per notebook per conversation
+- **Timeout**: 15 minutes of inactivity (configurable)
+- **Max sessions**: 10 concurrent (configurable)
+
+### List Active Sessions
+
+```bash
+"List my active NotebookLM sessions"
+
+# Returns:
+# - session_id
+# - notebook_name
+# - age_seconds
+# - message_count
+# - last_activity (timestamp)
+```
+
+**Use case**: Resume previous research threads, understand query history, debug context issues.
+
+### Manual Session Control
+
+**Resume specific session**:
+
+```bash
+"Continue NotebookLM session abc123 with question: What about embeddings?"
+
+# Claude calls: ask_question(session_id="abc123", question="...")
+```
+
+**Force new session** (ignore context):
+
+```bash
+"Ask NotebookLM in fresh session: What is RAG?"
+
+# Claude omits session_id to create new session
+```
+
+**Session cleanup**:
+
+Sessions auto-expire after 15 minutes. Manual cleanup via `cleanup_data`.
+
+---
+
+## 4.5 Library Management Best Practices
+
+### Organizing Notebooks
+
+**Naming conventions**:
+
+```bash
+# Good: Descriptive, searchable
+"LLM Engineer Handbook"
+"Playwright Testing Guide"
+"Next.js Architecture Patterns"
+
+# Bad: Vague, unhelpful
+"Notebook 1"
+"My Docs"
+"Tech Stuff"
+```
+
+**Topics strategy**:
+
+```bash
+# Specific, hierarchical
+topics: ["RAG", "embeddings", "vector databases", "LLM fine-tuning"]
+
+# Too broad
+topics: ["AI", "programming"]
+```
+
+**Use cases** (helps Claude auto-select):
+
+```bash
+# Action-oriented
+use_cases: [
+  "When implementing RAG systems",
+  "For fine-tuning LLM models",
+  "To understand embeddings architecture"
+]
+```
+
+### Metadata Refinement Workflow
+
+After using a notebook, refine its metadata:
+
+```bash
+# Initial add (minimal)
+"Add notebook: <url>
+Name: TypeScript Guide
+Description: TypeScript best practices
+Topics: TypeScript, types"
+
+# After usage (refine)
+"Update TypeScript Guide:
+ - Add topic: generics
+ - Add topic: utility types
+ - Add use case: When designing type-safe APIs
+ - Add tag: advanced"
+```
+
+### Search and Discovery
+
+**Keyword search**:
+
+```bash
+"Search library for: React hooks"
+"Search library for: testing"
+"Search library for: architecture patterns"
+```
+
+**Smart selection** (Claude decides):
+
+```bash
+"Which notebook should I consult about database design?"
+# Claude searches library, proposes best match
+
+"I need help with TypeScript generics"
+# Claude auto-selects TypeScript Guide if metadata matches
+```
+
+### Notebook Lifecycle
+
+```bash
+# 1. Add
+"Add notebook: <url> - Name: X, Description: Y, Topics: Z"
+
+# 2. Use
+"In X notebook, ask: ..."
+
+# 3. Refine
+"Update X: Add topic: ..., Add use case: ..."
+
+# 4. Archive (full profile)
+"Remove notebook: X"  # If outdated or duplicate
+```
+
+### Cost
+
+**Free**: NotebookLM (including MCP integration) is free with Google account
+
+**Limits**:
+- Free tier: 100 notebooks, 50 sources per notebook, 500K words, 50 daily queries
+- Google AI Premium/Ultra: 5x higher limits
+
+---
+
 ## 5. Voice-to-Text Tools (Wispr Flow, Superwhisper)
 
 **Philosophy**: "Vibe coding" — dictate intent, let AI implement

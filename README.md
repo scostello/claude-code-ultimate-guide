@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-86-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-83-green?style=for-the-badge" alt="Templates"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
 </p>
 
@@ -15,7 +15,7 @@
   <a href="https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide"><img src="https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjxNTYgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNC45NjE1NiAxMC4zOTk5SDIuMjQxNTZDMS44ODgxIDEwLjM5OTkgMS42MDE1NiAxMC42ODY0IDEuNjAxNTYgMTEuMDM5OVYxMy43NTk5QzEuNjAxNTYgMTQuMTEzNCAxLjg4ODEgMTQuMzk5OSAyLjI0MTU2IDE0LjM5OTlINC45NjE1NkM1LjMxNTAyIDE0LjM5OTkgNS42MDE1NiAxNC4xMTM0IDUuNjAxNTYgMTMuNzU5OVYxMS4wMzk5QzUuNjAxNTYgMTAuNjg2NCA1LjMxNTAyIDEwLjM5OTkgNC45NjE1NiAxMC4zOTk5WiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNMTMuNzU4NCAxLjYwMDFIMTEuMDM4NEMxMC42ODUgMS42MDAxIDEwLjM5ODQgMS44ODY2NCAxMC4zOTg0IDIuMjQwMVY0Ljk2MDFDMTAuMzk4NCA1LjMxMzU2IDEwLjY4NSA1LjYwMDEgMTEuMDM4NCA1LjYwMDFIMTMuNzU4NEMxNC4xMTE5IDUuNjAwMSAxNC4zOTg0IDUuMzEzNTYgMTQuMzk4NCA0Ljk2MDFWMi4yNDAxQzE0LjM5ODQgMS44ODY2NCAxNC4xMTE5IDEuNjAwMSAxMy43NTg0IDEuNjAwMVoiIGZpbGw9IiNmZmYiLz4KPHBhdGggZD0iTTQgMTJMMTIgNEw0IDEyWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc%2BCg%3D%3D&logoColor=ffffff" alt="Ask Zread"/></a>
 </p>
 
-> Complete guide to Claude Code with 86 production-ready templates
+> Complete guide to Claude Code with 83 production-ready templates
 
 ---
 
@@ -64,9 +64,9 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 
 **The problem**: Awesome-lists give links, not learning paths. Official docs are dense. Tutorials get outdated in weeks.
 
-**This guide**: Structured learning path with 86 copy-paste templates, from first install to advanced workflows.
+**This guide**: Structured learning path with 83 copy-paste templates, from first install to advanced workflows.
 
-**Reading time**: Quick Start ~15 min. Full guide ~3 hours (most read by section).
+**Reading time**: Quick Start ~15 min. Full guide ~4 hours (most read by section).
 
 **By [Florian BRUNIAUX](https://github.com/FlorianBruniaux)** | Founding Engineer [@Méthode Aristote](https://methode-aristote.fr)
 
@@ -191,7 +191,7 @@ cco   # Offline mode (Ollama, 100% local)
 
 | File | Purpose | Time |
 |------|---------|------|
-| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference, 10 sections | ~3 hours |
+| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~15K lines), 10 sections | ~4 hours |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 min |
 | **[Architecture](./guide/architecture.md)** | How Claude Code works internally | 25 min |
 | **[Methodologies](./guide/methodologies.md)** | TDD, SDD, BDD reference | 20 min |
@@ -208,7 +208,7 @@ cco   # Offline mode (Ollama, 100% local)
 ```
 claude-code-ultimate-guide/
 ├── guide/                    # 📖 Core documentation
-│   ├── ultimate-guide.md     # Complete reference (~13425 lines)
+│   ├── ultimate-guide.md     # Complete reference (~15K lines)
 │   ├── cheatsheet.md         # 1-page printable reference
 │   ├── architecture.md       # How Claude Code works internally
 │   ├── methodologies.md      # 15 development methodologies
@@ -238,13 +238,13 @@ claude-code-ultimate-guide/
 </details>
 
 <details>
-<summary><strong>Examples Library</strong> (82 templates)</summary>
+<summary><strong>Examples Library</strong> (83 templates)</summary>
 
 **Agents** (6): [code-reviewer](./examples/agents/code-reviewer.md), [test-writer](./examples/agents/test-writer.md), [security-auditor](./examples/agents/security-auditor.md), [refactoring-specialist](./examples/agents/refactoring-specialist.md), [output-evaluator](./examples/agents/output-evaluator.md), [devops-sre](./examples/agents/devops-sre.md) ⭐
 
 **Slash Commands** (18): [/pr](./examples/commands/pr.md), [/commit](./examples/commands/commit.md), [/release-notes](./examples/commands/release-notes.md), [/diagnose](./examples/commands/diagnose.md), [/security](./examples/commands/security.md), [/refactor](./examples/commands/refactor.md), [/explain](./examples/commands/explain.md), [/optimize](./examples/commands/optimize.md), [/ship](./examples/commands/ship.md)...
 
-**Security Hooks** (15): [dangerous-actions-blocker](./examples/hooks/bash/dangerous-actions-blocker.sh), [prompt-injection-detector](./examples/hooks/bash/prompt-injection-detector.sh), [unicode-injection-scanner](./examples/hooks/bash/unicode-injection-scanner.sh), [output-secrets-scanner](./examples/hooks/bash/output-secrets-scanner.sh)...
+**Security Hooks** (18): [dangerous-actions-blocker](./examples/hooks/bash/dangerous-actions-blocker.sh), [prompt-injection-detector](./examples/hooks/bash/prompt-injection-detector.sh), [unicode-injection-scanner](./examples/hooks/bash/unicode-injection-scanner.sh), [output-secrets-scanner](./examples/hooks/bash/output-secrets-scanner.sh)...
 
 **Skills** (1): [Claudeception](https://github.com/blader/Claudeception) — Meta-skill that auto-generates skills from session discoveries ⭐
 
@@ -272,6 +272,19 @@ cd quiz && npm install && npm start
 **Features**: 4 profiles (Junior/Senior/Power User/PM), 10 topic categories, immediate feedback with doc links, score tracking with weak area identification.
 
 **[Quiz Documentation](./quiz/README.md)** | **[Contribute Questions](./quiz/templates/question-template.yaml)**
+
+</details>
+
+<details>
+<summary><strong>Resource Evaluations</strong> (14 assessments)</summary>
+
+Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
+
+**Methodology**: 5-point scoring system (Critical → Low) with technical review and challenge phase for objectivity.
+
+**Evaluations**: GSD methodology, Worktrunk, Boris Cowork video, AST-grep, ClawdBot analysis, and more.
+
+**[Browse Evaluations](./docs/resource-evaluations/)** | **[Evaluation Methodology](./docs/resource-evaluations/README.md)**
 
 </details>
 

@@ -14225,7 +14225,7 @@ The goal isn't replacement—it's **chaining the right tool for each step**.
 | **[Perplexity](https://perplexity.ai)** | Research with verified sources | 5 Pro searches/day | $20/month |
 | **[Gemini](https://gemini.google.com)** | Image understanding → code | Generous | $19.99/month |
 | **[Kimi](https://kimi.ai)** | PPTX generation, 128K context | Generous | Free |
-| **[NotebookLM](https://notebooklm.google.com)** | Doc synthesis + audio | Full features | Free |
+| **[NotebookLM](https://notebooklm.google.com)** | Doc synthesis + audio + **MCP integration** | Full features | Free |
 | **[v0.dev](https://v0.dev)** | UI prototyping (Shadcn) | Limited | $20/month |
 | **[Cursor](https://cursor.sh)** | IDE with AI autocomplete | Limited | $20/month |
 | **[cc-copilot-bridge](https://github.com/FlorianBruniaux/cc-copilot-bridge)** | Multi-provider switching | Full | Copilot Pro+ $10/month |
@@ -14436,6 +14436,8 @@ Use when: You need to quickly understand a new codebase or create audio overview
 ```
 
 **When to use**: Joining new team, reviewing unfamiliar codebase, onboarding prep.
+
+> **💡 MCP Integration Available**: You can now query NotebookLM notebooks directly from Claude Code using the NotebookLM MCP server. See [ai-ecosystem.md § 4.1](./ai-ecosystem.md#41-notebooklm-mcp-integration) for installation and usage guide.
 
 ### Presentation Pipeline
 
