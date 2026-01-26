@@ -227,9 +227,15 @@ deep_dive:
   eval_harness_source: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
   # GSD (Get Shit Done) methodology (added 2026-01-25)
   gsd_methodology: "guide/methodologies.md:47"
-  gsd_evaluation: "claudedocs/resource-evaluations/gsd-evaluation.md"
+  gsd_evaluation: "docs/resource-evaluations/gsd-evaluation.md"
   gsd_source: "https://github.com/glittercowboy/get-shit-done"
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
+  # Resource Evaluations (added 2026-01-26)
+  resource_evaluations_directory: "docs/resource-evaluations/"
+  resource_evaluations_count: 14
+  resource_evaluations_methodology: "docs/resource-evaluations/README.md"
+  resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
+  resource_evaluations_readme_section: "README.md:278"
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
   practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"

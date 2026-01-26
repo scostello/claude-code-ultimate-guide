@@ -15031,6 +15031,49 @@ Common misconceptions we've seen:
 
 ---
 
+## Appendix C: Resource Evaluation Process
+
+This guide systematically evaluates external resources (tools, methodologies, articles, frameworks) before integration to maintain quality and prevent noise.
+
+### Evaluation Methodology
+
+**5-Point Scoring System** (Critical → Low):
+
+| Score | Action | Timeline |
+|-------|--------|----------|
+| 5 | Critical - Integrate immediately | <24h |
+| 4 | High Value - Integrate within 1 week | 1 week |
+| 3 | Moderate - Integrate when time available | Flexible |
+| 2 | Marginal - Minimal mention or skip | - |
+| 1 | Low - Reject | - |
+
+**Full methodology**: See [`docs/resource-evaluations/README.md`](../docs/resource-evaluations/README.md)
+
+### Current Evaluations
+
+**14 documented assessments** in `docs/resource-evaluations/`:
+
+- **Methodologies**: GSD (Get Shit Done), Vibe Coding patterns
+- **Tools**: Worktrunk, AST-grep, SE-CoVe plugin
+- **Content**: Boris Cherny Cowork video, ClawdBot Twitter analysis
+- **Research**: Prompt repetition papers, self-improvement skills
+- **And more**: Nick Jensen plugins, Wooldridge productivity stack
+
+**Browse all evaluations**: [`docs/resource-evaluations/`](../docs/resource-evaluations/)
+
+### Why Public Evaluations?
+
+**Transparency**: Contributors can see exactly why resources were:
+- ✅ **Integrated** (score 3+): Added to guide with attribution
+- ⚠️ **Mentioned** (score 2): Brief reference without deep coverage
+- ❌ **Rejected** (score 1): Documented reason for exclusion
+
+**Quality Control**: Technical review + challenge phase by specialized agents ensures objectivity and prevents marketing hype from influencing decisions.
+
+**Community Contribution**: Evaluation template available in `docs/resource-evaluations/README.md` for suggesting new resources with systematic assessment.
+
+---
+
 ## About This Guide
 
 **End of Guide**

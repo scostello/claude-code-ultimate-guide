@@ -52,7 +52,7 @@ Organized in a 6-tier pyramid from strategic orchestration down to optimization 
 - **When to use**: Complex enterprise projects needing governance
 - **When to avoid**: Small teams, MVPs, rapid prototyping
 
-**GSD (Get Shit Done)** addresses context rot through systematic 6-phase workflow (Initialize → Discuss → Plan → Execute → Verify → Complete) with fresh 200k-token contexts per task. Core concepts (multi-agent orchestration, fresh context management) overlap significantly with existing patterns like Ralph Loop, Gas Town, and BMAD. See [resource evaluation](../claudedocs/resource-evaluations/gsd-evaluation.md) for detailed comparison.
+**GSD (Get Shit Done)** addresses context rot through systematic 6-phase workflow (Initialize → Discuss → Plan → Execute → Verify → Complete) with fresh 200k-token contexts per task. Core concepts (multi-agent orchestration, fresh context management) overlap significantly with existing patterns like Ralph Loop, Gas Town, and BMAD. See [resource evaluation](../docs/resource-evaluations/gsd-evaluation.md) for detailed comparison.
 
 > **Emerging**: [Ralph Inferno](https://github.com/sandstream/ralph-inferno) implements autonomous multi-persona workflows (Analyst→PM→UX→Architect→Business) with VM-based execution and self-correcting E2E loops. Experimental but interesting for "vibe coding at scale".
 

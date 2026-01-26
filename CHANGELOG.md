@@ -62,14 +62,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - New §9.18 "Task Management System" section (145 lines)
   - Core concepts, tool reference, practical patterns
   - Links to full workflow guide for details
+- **Appendix C: Resource Evaluation Process** (`guide/ultimate-guide.md:15034`)
+  - New appendix section documenting systematic evaluation methodology
+  - 5-point scoring system (Critical → Low) with decision criteria and timelines
+  - List of 14 documented assessments organized by categories (methodologies, tools, content, research)
+  - Transparency explanation: why resources are integrated (3+), mentioned (2), or rejected (1)
+  - Links to full methodology in `docs/resource-evaluations/README.md`
+  - Browse all evaluations link to `docs/resource-evaluations/` directory
 
 ### Changed
 
+- **guide/methodologies.md:55**: Corrected GSD evaluation link
+  - Old: `../claudedocs/resource-evaluations/gsd-evaluation.md` (private)
+  - New: `../docs/resource-evaluations/gsd-evaluation.md` (public)
+- **machine-readable/reference.yaml**: Added resource evaluations metadata
+  - New section: resource_evaluations_directory, count (14), methodology link
+  - Added references: appendix (line 15034), README section (line 278)
+  - Corrected gsd_evaluation path from private claudedocs to public docs
 - **README.md**: Updated documentation metrics for accuracy and landing site synchronization
   - Guide length: ~10K → ~15K lines (actual: 15,053 lines)
   - Reading time: ~3 hours → ~4 hours (reflects actual guide size)
   - Security hooks: 15+ → 18 (precise count)
-  - Templates count: 86 → 83 (accurate count)
+  - Templates count: maintained at 86 (consistent with check-landing-sync.sh logic)
   - Repository Structure section: updated ultimate-guide.md from "~13,425 lines" to "~15K lines"
   - Added **Resource Evaluations** section (14 assessments) with methodology links
   - All changes verified with `./scripts/check-landing-sync.sh` for full synchronization
