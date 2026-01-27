@@ -2,7 +2,7 @@
 # Check if landing site is in sync with guide
 # Usage: ./scripts/check-landing-sync.sh
 #
-# Verifies: Version, Templates count, Quiz questions, Guide lines
+# Verifies: Version, Templates count, Quiz questions, Guide lines, Claude Code version, GitHub stars
 
 set -e
 
@@ -153,6 +153,45 @@ elif [ "$CC_VERSION" != "$LANDING_CC_VERSION" ]; then
     # Not counting as hard error since it's optional
 else
     echo -e "   ${GREEN}OK${NC}"
+fi
+echo ""
+
+# ===================
+# 6. GITHUB STARS COUNT
+# ===================
+# Fetch actual stars count from GitHub API (public, no auth needed)
+ACTUAL_STARS=$(curl -s https://api.github.com/repos/FlorianBruniaux/claude-code-ultimate-guide 2>/dev/null | grep -oE '"stargazers_count": [0-9]+' | grep -oE '[0-9]+')
+
+# Extract stars from landing (badge-stars section)
+LANDING_STARS=$(grep -A2 'badge badge-stars' "$LANDING_DIR/index.html" | grep 'badge-value' | grep -oE '[0-9]+(\.[0-9]+)?k?' | sed 's/k/000/' | sed 's/\.//g')
+
+echo -e "${BLUE}6. GitHub Stars Count${NC}"
+echo "   Actual (GitHub API): ${ACTUAL_STARS:-N/A}"
+echo "   Landing (index.html): ${LANDING_STARS:-N/A}"
+
+if [ -z "$ACTUAL_STARS" ]; then
+    echo -e "   ${YELLOW}WARNING${NC}: Could not fetch from GitHub API (check connection)"
+elif [ -z "$LANDING_STARS" ]; then
+    echo -e "   ${RED}ERROR${NC}: Could not extract stars from landing"
+    ISSUES=$((ISSUES + 1))
+else
+    # Allow some tolerance for display format (e.g., 1.2k = 1200, 60 = 60)
+    # Compare as integers
+    DIFF=$((ACTUAL_STARS - LANDING_STARS))
+    DIFF_ABS=${DIFF#-}  # absolute value
+
+    # Tolerance: ±10% or ±10 stars (whichever is larger)
+    TOLERANCE=$((ACTUAL_STARS / 10))
+    if [ $TOLERANCE -lt 10 ]; then
+        TOLERANCE=10
+    fi
+
+    if [ $DIFF_ABS -gt $TOLERANCE ]; then
+        echo -e "   ${RED}MISMATCH${NC} → Update index.html badge-stars section (line ~281)"
+        ISSUES=$((ISSUES + 1))
+    else
+        echo -e "   ${GREEN}OK${NC} (within tolerance: ±${TOLERANCE})"
+    fi
 fi
 echo ""
 
