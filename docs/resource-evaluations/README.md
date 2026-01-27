@@ -39,6 +39,7 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 |-----------|---------------|-------------|----------|---------|
 | **Anthropic Releases** (Jan 16-23, 2026) | - | - | ✅ Suivi régulier | [anthropic-releases-jan16-23-2026.md](./anthropic-releases-jan16-23-2026.md) |
 | **AST-grep** (Flavien Métivier) | 3/5 | **4/5** | ✅ Intégrer workflow | [astgrep-flavien-metivier.md](./astgrep-flavien-metivier.md) |
+| **MCP Apps** (SEP-1865) | 3/5 | **4/5** | ✅ Intégré (architecture + guide) | [mcp-apps-announcement.md](./mcp-apps-announcement.md) |
 | **Boris Cherny** (Cowork Video) | 4/5 | **4/5** | ✅ Intégré (mental models) | [boris-cowork-video-eval.md](./boris-cowork-video-eval.md) |
 | **Clawdbot** (Twitter Analysis) | 2/5 | **2/5** | ⚠️ Watch only | [clawdbot-twitter-analysis.md](./clawdbot-twitter-analysis.md) |
 | **GSD** (Getting Shit Done) | 4/5 | **4/5** | ✅ Intégré (workflow) | [gsd-evaluation.md](./gsd-evaluation.md) |
@@ -55,4 +56,4 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 
 ---
 
-**Dernier update**: 2026-01-26 (15 évaluations)
+**Dernier update**: 2026-01-27 (15 évaluations)

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.14.0
+**Version**: 3.15.0
 
 ---
 
@@ -15217,4 +15217,4 @@ This guide systematically evaluates external resources (tools, methodologies, ar
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.14.0
+**Last updated**: January 2026 | **Version**: 3.15.0

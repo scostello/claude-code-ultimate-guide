@@ -8,6 +8,54 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **MCP Apps (SEP-1865) Documentation** (`guide/architecture.md`, `guide/ultimate-guide.md`, `machine-readable/reference.yaml`)
+  - **guide/architecture.md:656**: New section "MCP Extensions: Apps (SEP-1865)" (~150 lines)
+    - Technical architecture (2 primitives: tools with UI metadata + UI resources via `ui://` scheme)
+    - Communication flow diagram (MCP Client → Server → Sandboxed Iframe)
+    - Multi-layered security model (sandbox, pre-declared templates, auditable JSON-RPC, user consent, content blocking)
+    - Complete SDK documentation (`@modelcontextprotocol/ext-apps`): connect, ontoolresult, callServerTool, updateModelContext
+    - Platform support matrix (6 clients: Claude Desktop, Cowork, VS Code, ChatGPT, Goose, CLI)
+    - CLI relevance analysis (indirect: ecosystem understanding, MCP server dev, hybrid workflows)
+    - 5 official example servers (threejs, map, pdf, system-monitor, sheet-music)
+    - Production adoption table (9 tools at launch: Asana, Slack, Figma, Amplitude, Box, Canva, Clay, Hex, monday.com)
+    - Relationship to prior work (MCP-UI, OpenAI Apps SDK)
+    - Decision tree for MCP server developers (when to use Apps vs traditional tools)
+    - 6 resource links (spec, SDK, blogs, VS Code announcement)
+  - **guide/ultimate-guide.md:6509**: New section "MCP Evolution: Apps Extension" (~90 lines)
+    - Context gap problem (before/after comparison)
+    - What are MCP Apps (4 interface types: dashboards, wizards, viewers, monitors)
+    - Available interactive tools table (9 tools with capabilities)
+    - Platform support matrix with access instructions
+    - CLI relevance (indirect benefits + hybrid workflow example)
+    - Technical foundation (co-authoring, SDK, "build once deploy everywhere")
+    - Cross-reference to architecture.md for deep dive
+    - 3 resource links (MCP blog, Claude blog, spec)
+  - **guide/ultimate-guide.md:7522**: Table update "Plugin vs. MCP Server"
+    - Added "Interactive UI" row: Plugin (No) | MCP Server (Yes via MCP Apps)
+    - Extended rule of thumb: MCP Apps = "What Claude can show"
+    - Note clarifying CLI relevance and cross-reference to 8.1
+  - **machine-readable/reference.yaml**: 8 new entries
+    - mcp_apps_architecture, mcp_apps_evolution (line references)
+    - mcp_apps_spec, mcp_apps_blog_mcp, mcp_apps_blog_claude, mcp_apps_sdk (external links)
+    - mcp_apps_announcement_date: "2026-01-26"
+    - mcp_apps_cli_relevance: "Indirect (ecosystem understanding, MCP server dev, hybrid workflows)"
+  - **docs/resource-evaluations/mcp-apps-announcement.md**: New evaluation (159 lines)
+    - Score: 4/5 (High Value - Integrate within 1 week)
+    - 4 criteria evaluated (Pertinence: 4/5, Fiabilité: 5/5, Applicabilité: 3/5, Complétude: 4/5)
+    - Technical review challenge (2/5 initial → 4/5 revised after ecosystem analysis)
+    - Fact-check with Perplexity (9 claims verified)
+    - Decision justification and integration tracking
+  - **Total documentation**: ~240 lines across 3 guide files
+  - **Resources evaluated**:
+    - https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/
+    - https://claude.com/blog/interactive-tools-in-claude
+  - **Key facts verified**:
+    - First official MCP extension (co-authored OpenAI + Anthropic + MCP-UI creators)
+    - SDK stable 2026-01-26
+    - 9 interactive tools at launch (Asana, Slack, Figma, Amplitude, Box, Canva, Clay, Hex, monday.com)
+    - Platform support: Claude Desktop (claude.ai/directory, Pro/Max/Team/Enterprise), VS Code Insiders, ChatGPT rolling out, Goose
+    - Claude Code CLI: Not applicable (text-only terminal, no iframe rendering)
+    - Indirect CLI benefits: Ecosystem understanding, MCP server development option, hybrid Desktop→CLI workflows
 - **Migration Scripts for v2.1.19 Breaking Change** (`examples/scripts/`)
   - `migrate-arguments-syntax.sh`: Bash migration script for macOS/Linux users
   - `migrate-arguments-syntax.ps1`: PowerShell migration script for Windows users
