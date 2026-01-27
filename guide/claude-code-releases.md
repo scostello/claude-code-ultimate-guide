@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.19 | **Updated**: 2026-01-25
+**Latest**: v2.1.20 | **Updated**: 2026-01-27
 
 ---
 
@@ -18,6 +18,20 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.20 (2026-01-27)
+
+- **New**: TaskUpdate tool can delete tasks via `status="deleted"`
+- **New**: PR review status indicator in prompt footer — Shows PR state (approved, changes requested, pending, draft) as colored dot with clickable link
+- Arrow key history navigation in vim normal mode when cursor cannot move further
+- External editor shortcut (Ctrl+G) added to help menu
+- Support for loading CLAUDE.md from `--add-dir` directories (requires `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1`)
+- Fixed: Session compaction issues causing full history load instead of compact summary
+- Fixed: Agents ignoring user messages while actively working
+- Fixed: Wide character (emoji, CJK) rendering artifacts
+- Improved: Task list dynamically adjusts to terminal height
+- Changed: Background agents prompt for tool permissions before launching
+- Changed: Config backups timestamped and rotated (keeps 5 most recent)
 
 ### v2.1.19 (2026-01-25)
 
