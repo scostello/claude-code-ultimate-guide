@@ -5992,6 +5992,9 @@ Hooks are scripts that run automatically when specific events occur.
 | `SessionStart` | Session begins | Initialization |
 | `SessionEnd` | Session ends | Cleanup |
 | `Stop` | User interrupts | Graceful shutdown |
+| `Setup` | Claude Code starts | Initialization (v2.1.10+) |
+| `PermissionRequest` | Permission dialog appears | Custom approval logic |
+| `SubagentStop` | Sub-agent completes | Subagent cleanup |
 
 ### Event Flow
 
@@ -6110,6 +6113,16 @@ Hooks can return JSON on stdout:
   "systemMessage": "Message shown to Claude",
   "hookSpecificOutput": {
     "additionalContext": "Extra information"
+  }
+}
+```
+
+**PreToolUse additionalContext** (v2.1.9+): PreToolUse hooks can inject context into Claude's prompt via `additionalContext`. This allows enriching Claude's understanding before tool execution:
+
+```json
+{
+  "hookSpecificOutput": {
+    "additionalContext": "Current git branch: feature/auth. 3 uncommitted files."
   }
 }
 ```
