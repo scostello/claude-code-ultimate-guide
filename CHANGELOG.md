@@ -8,7 +8,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-_(No unreleased changes yet)_
+- **Tasks API field visibility limitations** (Gang Rui analysis, 2026-01-27)
+  - **guide/ultimate-guide.md:3133**: Added 3 rows to comparison table (description visibility, metadata visibility, multi-call overhead)
+  - **guide/ultimate-guide.md:3195**: New subsection "⚠️ Tasks API Limitations (Critical)" (~40 lines)
+    - Field visibility constraint table (TaskList vs TaskGet)
+    - Impact analysis: 11x API overhead for 10 tasks, no metadata scanning, session resumption friction
+    - Cost example with bash code block
+    - 3 workaround patterns: Hybrid approach (recommended), subject-as-summary, selective fetching
+    - Source attribution: Community practitioner feedback (Gang Rui, Jan 2026)
+  - **guide/workflows/task-management.md:223**: New subsection "⚠️ Field Visibility Limitations" (~35 lines)
+    - TaskList field visibility details (id, subject, status, owner, blockedBy only)
+    - Workflow adjustment examples (DON'T vs DO patterns)
+    - Cost awareness: quantified overhead for N tasks
+    - Mitigation strategies: subject field usage, concise descriptions, markdown files for plans
+  - **guide/cheatsheet.md:398**: Added limitation note (~3 lines)
+    - Warning: TaskList shows limited fields
+    - Workaround pointer: use TaskGet per task for descriptions/metadata
+    - Actionable tip: store key info in subject field
+  - **machine-readable/reference.yaml:143-146**: Added 4 new entries
+    - tasks_api_limitations: 3195 (line reference to new subsection)
+    - tasks_api_field_visibility: inline summary
+    - tasks_api_cost_overhead: formula for overhead calculation
+    - tasks_api_workarounds: 3210 (line reference to workaround patterns)
+  - **docs/resource-evaluations/016-gang-rui-tasks-api-limitations.md**: New evaluation (score 5/5 CRITICAL)
+    - Comprehensive fact-check (8/8 claims verified)
+    - Challenge phase with technical-writer agent (score adjusted 4→5)
+    - Integration details with exact line numbers for all 6 modified files
+  - **Score justification**: Breaks recommended workflow, 11x-51x cost overhead, metadata invisibility affects all custom fields
+  - **Impact**: Prevents user frustration, maintains guide credibility, transparent cost implications
+
+### Changed
+
+- **everything-claude-code stats update** (31.9k stars, 2026-01-27)
+  - Updated star count from 16k → 31.9k across all files (`CHANGELOG.md`, `machine-readable/reference.yaml`, `guide/ultimate-guide.md`)
+  - Added unique patterns documentation: mgrep (50% token reduction), hookify (conversational hooks), pass@k metrics
+  - Created comprehensive evaluation: `docs/resource-evaluations/015-everything-claude-code-github-repo.md` (Score 5/5 CRITICAL)
+  - Added new "Production Config Collections" section in guide (line ~14768)
+  - Positioning clarified: Complementary to Ultimate Guide (production configs vs educational content)
 
 ## [3.16.0] - 2026-01-27
 
@@ -598,9 +634,11 @@ _(No unreleased changes yet)_
   - Link to Anthropic source: "Demystifying Evals for AI Agents"
 
 - **everything-claude-code ecosystem entry** (`machine-readable/reference.yaml`)
-  - Added affaan-m/everything-claude-code (16k+ stars, created 2026-01-18)
+  - Added affaan-m/everything-claude-code (31.9k stars as of 2026-01-27, created 2026-01-18)
   - Author: Affaan Mustafa (Anthropic hackathon winner - Zenith project)
-  - Unique: Node.js cross-platform hooks, 15 MCP configs, Plugin marketplace format
+  - Unique patterns: mgrep (50% token reduction), hookify (conversational hooks), pass@k metrics
+  - Plugin ecosystem: One-command installation, skill creator from git history
+  - Comprehensive evaluation (Score 5/5): `docs/resource-evaluations/015-everything-claude-code-github-repo.md`
   - Caveats documented: hackathon win was indirect, Node.js hooks not officially recommended
 
 - **deep_dive index entries** (`machine-readable/reference.yaml`)

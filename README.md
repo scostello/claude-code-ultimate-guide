@@ -222,7 +222,7 @@ claude-code-ultimate-guide/
 │   └── scripts/              # Utility scripts
 │
 ├── docs/                     # 📚 Public documentation
-│   └── resource-evaluations/ # Community resource assessments (14 files)
+│   └── resource-evaluations/ # Community resource assessments (22 files)
 │
 ├── tools/                    # 🔧 Interactive utilities
 │   ├── audit-prompt.md       # Setup audit
@@ -276,7 +276,7 @@ cd quiz && npm install && npm start
 </details>
 
 <details>
-<summary><strong>Resource Evaluations</strong> (15 assessments)</summary>
+<summary><strong>Resource Evaluations</strong> (22 assessments)</summary>
 
 Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
 

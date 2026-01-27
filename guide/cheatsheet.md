@@ -396,6 +396,11 @@ claude
 - 🔄 **Multi-session**: Broadcast state to multiple terminals
 - 📊 **Status**: pending → in_progress → completed/failed
 
+**⚠️ Limitation**: TaskList shows `id`, `subject`, `status`, `blockedBy` only.
+For `description`/`metadata` → use `TaskGet(taskId)` per task.
+
+**Tip**: Store key info in `subject` for quick scanning.
+
 **Migration flag** (v2.1.19+):
 ```bash
 # Revert to old TodoWrite system

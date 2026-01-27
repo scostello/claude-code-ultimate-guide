@@ -3137,6 +3137,9 @@ Claude Code provides two task management approaches:
 | **Dependencies** | ❌ Manual ordering | ✅ Task blocking (A blocks B) |
 | **Coordination** | Single agent | ✅ Multi-agent broadcast |
 | **Status tracking** | pending/in_progress/completed | pending/in_progress/completed/failed |
+| **Description visibility** | ✅ Always visible | ⚠️ TaskGet only (not in TaskList) |
+| **Metadata visibility** | N/A | ❌ Never visible in outputs |
+| **Multi-call overhead** | None | ⚠️ 1 + N calls for N full tasks |
 | **Enabled by** | Always available | Default since v2.1.19 |
 
 #### Tasks API (v2.1.16+)
@@ -3190,6 +3193,47 @@ claude
 - Complex task hierarchies with dependencies
 - Multi-agent coordination scenarios
 - Need to resume work after context compaction
+
+**⚠️ Tasks API Limitations (Critical)**
+
+**Field visibility constraint**:
+
+| Tool | Visible Fields | Hidden Fields |
+|------|----------------|---------------|
+| `TaskList` | `id`, `subject`, `status`, `owner`, `blockedBy` | `description`, `activeForm`, `metadata` |
+| `TaskGet` | All fields | - |
+
+**Impact**:
+- **Multi-call overhead**: Reviewing 10 task descriptions = 1 TaskList + 10 TaskGet calls (11x overhead)
+- **No metadata scanning**: Cannot filter/sort by custom fields (priority, estimates, tags) without fetching all tasks individually
+- **Session resumption friction**: Cannot glance at all task notes to decide where to resume
+
+**Cost example**:
+```bash
+# Inefficient (if you need descriptions)
+TaskList  # Returns 10 tasks (no descriptions)
+TaskGet(task-1), TaskGet(task-2), ..., TaskGet(task-10)  # 10 additional calls
+
+# Total: 11 API calls to review 10 tasks
+```
+
+**Workaround patterns**:
+
+1. **Hybrid approach** (Recommended):
+   - Use Tasks API for **status tracking** and **dependency coordination**
+   - Maintain markdown files in repo for **detailed implementation plans**
+   - Example: `docs/plans/auth-refactor.md` + Tasks for status
+
+2. **Subject-as-summary pattern**:
+   - Store critical info in `subject` field (always visible in TaskList)
+   - Keep `description` for deep context (fetch on-demand with TaskGet)
+   - Example subjects: `"[P0] Fix login bug (src/auth.ts:45)"` vs `"Fix bug"`
+
+3. **Selective fetching**:
+   - Use TaskList to identify tasks needing attention (status, blockedBy)
+   - Only call TaskGet for tasks you're actively working on
+
+**Source**: Community practitioner feedback ([Gang Rui, Jan 2026](https://www.linkedin.com/posts/limgangrui_i-explored-the-new-claude-codes-task-system-activity-7420651412881268736-Hpd6))
 
 #### TodoWrite (Legacy)
 
@@ -14762,6 +14806,29 @@ SuperClaude transforms Claude Code into a structured development platform throug
 - MCP server integration
 - Task management and session persistence
 - **Behavioral modes** for optimized workflows
+
+#### Production Config Collections
+
+For **battle-tested, ready-to-use configurations** from production environments:
+
+| Repository | Author | Stats | Focus |
+|------------|--------|-------|-------|
+| [**everything-claude-code**](https://github.com/affaan-m/everything-claude-code) | Affaan Mustafa (Anthropic hackathon winner) | ⭐ 31.9k | Production configs from 10+ months intensive use |
+
+**Why this matters**: This is the **largest community-validated Claude Code resource** (31.9k stars in 9 days). Unlike tutorials, these are **configs proven in production** through winning Anthropic's hackathon (Zenith project).
+
+**Unique innovations not found elsewhere**:
+- **mgrep**: 50% token reduction vs standard grep/ripgrep
+- **hookify**: Conversational hook creation (describe need → JSON generated)
+- **pass@k metrics**: Formal verification approach (k=3 → 91% success rate)
+- **Sandboxed subagents**: Tool restrictions per agent (security-reviewer can't Edit files)
+- **Plugin ecosystem**: One-command installation for all configs
+
+**Positioning**: Complementary to this guide—we teach concepts ("why"), they provide production configs ("how").
+
+**See also**: [Comprehensive evaluation](../docs/resource-evaluations/015-everything-claude-code-github-repo.md) (Score 5/5)
+
+---
 
 #### SuperClaude Behavioral Modes
 

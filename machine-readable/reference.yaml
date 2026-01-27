@@ -138,7 +138,11 @@ deep_dive:
   tasks_api_configuration: 3180
   tasks_api_schema: 3195
   tasks_api_when_to_use: 3210
-  todowrite_legacy: 3220
+  tasks_api_limitations: 3195
+  tasks_api_field_visibility: "TaskList: id/subject/status/owner/blockedBy only. TaskGet: all fields."
+  tasks_api_cost_overhead: "Reviewing N task descriptions = 1 + N API calls"
+  tasks_api_workarounds: 3210
+  todowrite_legacy: 3260
   todowrite_when_to_use: 3230
   todowrite_migration_flag: 3240
   task_best_practices: 3250
@@ -246,7 +250,7 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 16
+  resource_evaluations_count: 22
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
@@ -713,10 +717,14 @@ ecosystem:
     everything_claude_code:
       url: "github.com/affaan-m/everything-claude-code"
       author: "Affaan Mustafa (Anthropic hackathon winner - Zenith project)"
-      focus: "Distribution - Plugin-ready configs collection"
-      stars: "16k+"
+      focus: "Production configs - Battle-tested from 10+ months intensive use"
+      stars: "31.9k"
+      verified: "2026-01-27"
       created: "2026-01-18"
-      unique: ["Node.js cross-platform hooks", "15 MCP configs", "Plugin marketplace format"]
+      unique: ["mgrep (50% token reduction)", "hookify (conversational hooks)", "pass@k metrics", "Plugin ecosystem", "Sandboxed subagents"]
+      evaluation: "docs/resource-evaluations/015-everything-claude-code-github-repo.md"
+      score: "5/5 (CRITICAL)"
+      positioning: "Complementary to Ultimate Guide (production configs vs educational content)"
       note: "Consolidates existing patterns; author hackathon win was for Zenith project, not this repo"
       caveat: "Node.js hooks not officially recommended by Anthropic (shell preferred)"
     coding_agents_matrix:

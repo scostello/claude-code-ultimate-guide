@@ -220,6 +220,42 @@ Tasks survive:
 - System restarts
 - Multiple days of interruption
 
+#### ⚠️ Field Visibility Limitations
+
+**TaskList returns only**: `id`, `subject`, `status`, `owner`, `blockedBy`
+
+**Missing in TaskList output**:
+- `description` (requires TaskGet per task)
+- `metadata` (custom fields like priority, estimates)
+- `activeForm` (progress spinner text)
+
+**Workflow adjustment**:
+
+```bash
+# DON'T: Assume you can scan all descriptions
+TaskList  # Shows subjects only
+
+# DO: Fetch selectively
+TaskList                    # Get overview (which tasks exist, statuses)
+TaskGet(task-auth-login)    # Get full details for specific task
+TaskGet(task-auth-tests)    # Get details for next task
+```
+
+**When this matters**:
+- Complex projects with detailed task descriptions (>50 words per task)
+- Multi-agent coordination requiring shared context visibility
+- Need to quickly scan all task notes to decide resumption point
+
+**Cost awareness**:
+- TaskList = 1 API call
+- Fetching descriptions for N tasks = 1 + N calls
+- For 20 tasks, that's 20x overhead if you need all descriptions
+
+**Mitigation**:
+- Use `subject` field for critical info (visible in TaskList)
+- Keep `description` concise (50-100 words max)
+- Store detailed plans in markdown files (`docs/plan-*.md`)
+
 ### Resume Pattern
 
 ```bash
