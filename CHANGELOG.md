@@ -8,6 +8,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+_(No unreleased changes yet)_
+
+## [3.16.0] - 2026-01-27
+
+### Added
+
+- **TeammateTool & Myths vs Reality Documentation** (`guide/ultimate-guide.md`, `guide/cheatsheet.md`, `machine-readable/reference.yaml`, `docs/resource-evaluations/`)
+  - **guide/ultimate-guide.md:3294**: New section "TeammateTool (Experimental)" (~60 lines)
+    - Capabilities: Multi-agent coordination, team messaging, swarm patterns
+    - Operations table: spawnTeam, discoverTeams, requestJoin, approveJoin
+    - Execution backends (in-process, tmux, iTerm2) with auto-detection
+    - Pattern examples: Parallel Specialists, Swarm Pattern
+    - Limitations: 5-minute heartbeat timeout, feature flags non-documented, experimental status
+    - When to use vs when NOT to use guidance
+    - 3 community sources cited (kieranklaassen gist, GitHub Issue #3013, claude-sneakpeek)
+    - Warning: Unstable, no official Anthropic support
+  - **guide/ultimate-guide.md:15257**: New appendix "Appendix D: Myths vs Reality" (~160 lines)
+    - Myth #1: "Hidden features with secret flags" → Reality: Progressive rollout, not secrets
+    - Myth #2: "Tasks API = autonomous agents" → Reality: Coordination, not autonomy
+    - Myth #3: "100x faster than competitors" → Reality: Honest comparison, no marketing hyperbole
+    - Section: "What Makes Claude Code Actually Special" (documented strengths with sources)
+    - Section: "How to Spot Reliable Information" (red flags checklist, trusted sources)
+    - Contribution process for new myths
+  - **guide/cheatsheet.md**: New section "Features Méconnues (But Official!)" (~15 lines)
+    - Lists 5 under-utilized features: Tasks API, Background Agents, TeammateTool, Session Forking, LSP Tool
+    - Pro tip: "Read the CHANGELOG—these aren't secrets!"
+    - Placed after "File References" for visibility
+  - **machine-readable/reference.yaml**: 12 new entries
+    - teammatetool: 3294 (line reference)
+    - teammatetool_status, teammatetool_capabilities, teammatetool_sources (4 entries)
+    - appendix_c_resource_evaluation: 15214
+    - appendix_d_myths_vs_reality: 15257
+    - myths_hidden_features, myths_tasks_api_autonomous, myths_100x_faster, myths_reliable_sources (4 line references)
+  - **docs/resource-evaluations/2026-01-27-claude-code-hidden-feature-social-post.md**: New evaluation (307 lines)
+    - Score: 1/5 (Reject - Marketing misinformation)
+    - Fact-check: 5 claims verified (3 false, 2 partially true)
+    - Technical writer challenge: 3/5 → 1/5 (score revised down after critique)
+    - Decision: Reject source, but document real gaps (TeammateTool, Myths section) with official sources only
+    - 12 sources consulted (official CHANGELOG, community gists, Perplexity search, GitHub Issues)
+  - **Total documentation**: ~235 lines across guide files
+  - **Resources evaluated**: Social media post (rejected), community gists (validated)
+  - **Key facts verified**:
+    - TeammateTool: Real feature, partially feature-flagged, community-discovered
+    - Tasks API (v2.1.16+): Official, public, documented in CHANGELOG
+    - CLAUDE_CODE_ENABLE_TASKS: Migration flag (revert to old system), not activation flag
+    - No "hidden features": All public features documented in official CHANGELOG
 - **MCP Apps (SEP-1865) Documentation** (`guide/architecture.md`, `guide/ultimate-guide.md`, `machine-readable/reference.yaml`)
   - **guide/architecture.md:656**: New section "MCP Extensions: Apps (SEP-1865)" (~150 lines)
     - Technical architecture (2 primitives: tools with UI metadata + UI resources via `ui://` scheme)

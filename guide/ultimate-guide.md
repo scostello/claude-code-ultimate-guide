@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.15.0
+**Version**: 3.16.0
 
 ---
 
@@ -15413,4 +15413,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.15.0
+**Last updated**: January 2026 | **Version**: 3.16.0
