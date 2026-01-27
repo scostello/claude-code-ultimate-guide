@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.17.1] - 2026-01-27
+
+### Added
+
+- **Repository Structure diagram** in README.md
+  - Interactive Mermaid diagram (graph LR layout) with 6 main directories
+  - High-contrast colors (dark backgrounds + white text) for readability
+  - ASCII art fallback in collapsible section for detailed structure
+  - Shows key metrics: 15K lines guide, 86 templates, 227 questions, 22 evaluations
+
+### Changed
+
+- **README V3** — Merged best elements from two versions (README.md + README-new.md)
+  - Kept "WHY vs HOW" positioning and quiz prominence from new version
+  - Restored cc-copilot-bridge, Learning Paths by role, AI Assistants section from old version
+  - Removed excessive competitor references (8 mentions → 2-3 in Ecosystem only)
+  - Complementary positioning instead of "graduate to everything-claude-code"
+  - Final size: 491 lines (vs 474 original)
+
+- **Quiz links** — Now points to online version first
+  - Primary: https://florianbruniaux.github.io/claude-code-ultimate-guide-landing/quiz/
+  - Secondary: Local ./quiz/ for offline use
+
+- **Core Documentation table** — Added 4 missing guides
+  - AI Ecosystem (Complementary AI tools & integration patterns)
+  - AI Traceability (Code attribution & provenance tracking)
+  - Search Tools Cheatsheet (Grep, Serena, ast-grep, grepai comparison)
+  - Learning with AI (Use AI without becoming dependent)
+
+- **Ecosystem section** — Added direct link to AI Ecosystem Guide for integration patterns
+
+### Removed
+
+- **README-new.md** — No longer needed after V3 merge
+
 ## [3.17.0] - 2026-01-27
 
 ### Added
