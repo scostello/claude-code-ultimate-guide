@@ -654,6 +654,211 @@ MCP (Model Context Protocol) servers extend Claude Code with additional tools.
 
 → **Cross-reference**: See [Section 8.6 - MCP Security](./ultimate-guide.md#86-mcp-security) for security considerations.
 
+### MCP Extensions: Apps (SEP-1865)
+
+**Status**: Stable (January 26, 2026)
+**Spec**: [SEP-1865 on GitHub](https://github.com/modelcontextprotocol/ext-apps)
+**Co-authored by**: OpenAI, Anthropic, MCP-UI creators
+
+#### What Are MCP Apps?
+
+MCP Apps is the **first official extension** to the Model Context Protocol, enabling MCP servers to deliver **interactive user interfaces** alongside traditional tool responses.
+
+**The problem solved**: Traditional text-based responses create friction for workflows requiring exploration. Each interaction (sort, filter, drill-down) demands a new prompt cycle. MCP Apps eliminates this "context gap" by rendering interactive UIs directly in the conversation.
+
+#### Technical Architecture
+
+**Two core primitives**:
+
+1. **Tools with UI metadata**:
+   ```json
+   {
+     "name": "query_database",
+     "description": "Query customer database",
+     "_meta": {
+       "ui": {
+         "resourceUri": "ui://dashboard/customers"
+       }
+     }
+   }
+   ```
+
+2. **UI Resources** (`ui://` scheme):
+   - Server-side HTML/JavaScript bundles
+   - Rendered in sandboxed iframes by host
+   - Bidirectional JSON-RPC communication via `postMessage`
+
+**Communication flow**:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                  MCP APPS ARCHITECTURE                  │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐         ┌──────────────┐             │
+│  │  MCP Client  │◄───────►│  MCP Server  │             │
+│  │ (Claude/IDE) │ JSON-RPC│  (Your App)  │             │
+│  └──────┬───────┘         └──────────────┘             │
+│         │                                               │
+│         │ Fetches ui:// resource                       │
+│         ▼                                               │
+│  ┌─────────────────────────────────────────┐            │
+│  │     Sandboxed Iframe (UI Render)        │            │
+│  │  ┌───────────────────────────────────┐  │            │
+│  │  │  HTML/JS Bundle from Server       │  │            │
+│  │  │  - Interactive dashboard           │  │            │
+│  │  │  - Forms with validation           │  │            │
+│  │  │  - Real-time data visualization    │  │            │
+│  │  └───────────────────────────────────┘  │            │
+│  │                                          │            │
+│  │  postMessage ◄─────► JSON-RPC           │            │
+│  └─────────────────────────────────────────┘            │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### Security Model
+
+**Multi-layered protection**:
+
+| Layer | Protection |
+|-------|------------|
+| **Iframe sandbox** | Restricted permissions (no direct system access) |
+| **Pre-declared templates** | Hosts review HTML/JS before rendering |
+| **Auditable messaging** | All UI-to-host communication via JSON-RPC logs |
+| **User consent** | Optional requirement for UI-initiated tool calls |
+| **Content blocking** | Hosts can reject suspicious resources pre-render |
+
+→ **Cross-reference**: See [Section 8.6 - MCP Security](./ultimate-guide.md#86-mcp-security) for broader MCP security considerations.
+
+#### SDK: @modelcontextprotocol/ext-apps
+
+**Installation**:
+```bash
+npm install @modelcontextprotocol/ext-apps
+```
+
+**Core API** (framework-agnostic):
+
+```typescript
+import { App } from '@modelcontextprotocol/ext-apps';
+
+const app = new App();
+
+// 1. Establish communication with host
+await app.connect();
+
+// 2. Receive tool results from host
+app.ontoolresult = (result) => {
+  // Update UI with tool execution results
+  updateDashboard(result.data);
+};
+
+// 3. Call server tools from UI
+await app.callServerTool('fetch_analytics', {
+  timeRange: '7d',
+  metrics: ['users', 'revenue']
+});
+
+// 4. Update model context asynchronously
+await app.updateModelContext({
+  selectedFilters: ['region:EU', 'status:active']
+});
+
+// Additional capabilities:
+app.logDebug('User action', { filter: 'applied' });
+app.openBrowserLink('https://docs.example.com');
+app.sendFollowUpMessage('Applied filters: EU, Active');
+```
+
+**Standard communication**: All features operate over `postMessage` (no framework lock-in).
+
+#### Platform Support
+
+| Platform | MCP Apps Support | Notes |
+|----------|------------------|-------|
+| **Claude Desktop** | ✅ Available now | claude.ai/directory (Pro/Max/Team/Enterprise) |
+| **Claude Cowork** | 🔄 Coming soon | Agentic workflow integration planned |
+| **VS Code** | ✅ Insiders build | [Official blog post](https://code.visualstudio.com/blogs/2026/01/26/mcp-apps-support) |
+| **ChatGPT** | 🔄 Rolling out | Week of Jan 26, 2026 |
+| **Goose** | ✅ Available now | Open-source CLI with UI support |
+| **Claude Code CLI** | ❌ N/A | Terminal text-only (no iframe rendering) |
+
+#### Relevance for Claude Code Users
+
+**Direct usage**: None (CLI is text-only, cannot render iframes)
+
+**Indirect benefits**:
+
+1. **Ecosystem understanding**: MCP Apps represents the future of agentic workflows
+2. **MCP server development**: If building custom MCP servers, Apps is now a design option
+3. **Hybrid workflows**:
+   - Use Claude Desktop to explore data with Apps (dashboards, visualizations)
+   - Switch to Claude Code CLI for implementation (scripting, automation)
+4. **Context for configuration**: MCP servers may advertise UI capabilities in metadata
+
+#### Example Implementations
+
+**Official example servers** (in [`ext-apps` repository](https://github.com/modelcontextprotocol/ext-apps)):
+
+- **threejs-server**: 3D visualization and manipulation
+- **map-server**: Interactive geographic data exploration
+- **pdf-server**: Document viewing with inline highlights
+- **system-monitor-server**: Real-time metrics dashboards
+- **sheet-music-server**: Music notation rendering
+
+**Production adoption** (January 2026):
+
+| Tool | Provider | Capabilities |
+|------|----------|--------------|
+| Asana | Atlassian | Project timelines, task boards |
+| Slack | Salesforce | Message drafting with formatting preview |
+| Figma | Figma | Flowcharts, Gantt charts in FigJam |
+| Amplitude | Amplitude | Analytics charts with interactive filtering |
+| Box | Box | File search, document previews |
+| Canva | Canva | Presentation design with real-time customization |
+| Clay | Clay | Company research, contact discovery |
+| Hex | Hex | Data analysis with interactive queries |
+| monday.com | monday.com | Work management boards |
+
+**Coming soon**: Salesforce (Agentforce 360)
+
+#### Relationship to Prior Work
+
+MCP Apps standardizes patterns pioneered by:
+- **MCP-UI**: Early UI extension for MCP (community project)
+- **OpenAI Apps SDK**: Parallel effort for interactive tools
+
+Both frameworks continue to be supported. MCP Apps provides a **unified specification** (SEP-1865) co-authored by maintainers from both ecosystems plus Anthropic and OpenAI.
+
+**Migration path**: Straightforward for existing MCP-UI and Apps SDK implementations.
+
+#### When to Use MCP Apps
+
+**Decision tree for MCP server developers**:
+
+```
+Building a custom MCP server?
+├─ Users need to SELECT from 50+ options? → MCP Apps (dropdown, multi-select UI)
+├─ Users need to VISUALIZE data patterns? → MCP Apps (charts, maps, graphs)
+├─ Users need MULTI-STEP workflows with conditional logic? → MCP Apps (wizard forms)
+├─ Users need REAL-TIME updates? → MCP Apps (live dashboards)
+└─ Simple data retrieval or actions only? → Traditional MCP tools (sufficient)
+```
+
+**Trade-off**: UI complexity and implementation effort vs. user experience improvement.
+
+#### Resources
+
+- **Specification**: [SEP-1865 on GitHub](https://github.com/modelcontextprotocol/ext-apps)
+- **SDK**: [`@modelcontextprotocol/ext-apps` (npm)](https://www.npmjs.com/package/@modelcontextprotocol/ext-apps)
+- **Example servers**: [modelcontextprotocol/ext-apps repository](https://github.com/modelcontextprotocol/ext-apps)
+- **Blog post (MCP)**: [MCP Apps announcement](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)
+- **Blog post (Claude)**: [Interactive tools in Claude](https://claude.com/blog/interactive-tools-in-claude)
+- **VS Code**: [MCP Apps support announcement](https://code.visualstudio.com/blogs/2026/01/26/mcp-apps-support)
+
+---
+
 ### MCP Tool Search (Lazy Loading)
 
 **Confidence**: 100% (Tier 1 - Official)

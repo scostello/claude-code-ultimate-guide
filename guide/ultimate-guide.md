@@ -6507,6 +6507,110 @@ MCP (Model Context Protocol) is a standard for connecting AI models to external 
 └─────────────────────────────────────────────────────────┘
 ```
 
+### MCP Evolution: Apps Extension (SEP-1865)
+
+> **🆕 Since January 2026**: MCP can now deliver interactive UIs alongside traditional text responses.
+
+#### The Context Gap Problem
+
+Traditional AI interactions require repeated prompts for data exploration:
+
+**Without MCP Apps**:
+```
+You: "Show me customer data"
+Claude: "Here are 500 customers [text list]"
+You: "Sort by revenue"
+Claude: "Here's the sorted list [text]"
+You: "Filter to last 30 days"
+Claude: "Here's the filtered list [text]"
+You: "Show me the top 10"
+... (multiple prompt cycles)
+```
+
+**With MCP Apps**:
+```
+You: "Show me customer data"
+Claude: [Renders interactive dashboard with sorting, filtering, date pickers]
+You: [Sort, filter, drill-down directly in UI - no additional prompts]
+```
+
+#### What Are MCP Apps?
+
+MCP Apps enable MCP servers to deliver **interactive interfaces** that render directly in your conversation:
+
+- **Dashboards**: Charts with filtering, drill-down, export
+- **Configuration wizards**: Forms with dependent fields and validation
+- **Document viewers**: PDFs with inline highlights and annotations
+- **Real-time monitors**: Live metrics updating without re-running tools
+
+#### Available Interactive Tools
+
+**At launch** (January 26, 2026), **9 interactive tools** are available:
+
+| Tool | What It Does |
+|------|--------------|
+| **Asana** | Create project timelines, manage tasks visible to teams |
+| **Slack** | Draft formatted messages with preview before posting |
+| **Figma** | Convert text into flowcharts, Gantt charts in FigJam |
+| **Amplitude** | Build analytics charts, explore trends interactively |
+| **Box** | Search files, preview documents inline |
+| **Canva** | Create presentations with real-time design customization |
+| **Clay** | Research companies, find contacts, draft outreach |
+| **Hex** | Query data with interactive charts and tables |
+| **monday.com** | Manage work, update boards, visualize progress |
+
+**Coming soon**: Salesforce (Agentforce 360), Claude Cowork integration
+
+→ **Access**: [claude.ai/directory](https://claude.ai/directory) (Pro/Max/Team/Enterprise plans)
+
+#### Platform Support
+
+| Platform | Support | How to Use |
+|----------|---------|------------|
+| **Claude Desktop** | ✅ Now | claude.ai/directory - connect interactive tools |
+| **Claude Cowork** | 🔄 Coming | Agentic workflows with file/project access |
+| **VS Code** | ✅ Insiders | Install Insiders build, configure MCP Apps |
+| **ChatGPT** | 🔄 Rollout | Week of Jan 26, 2026 |
+| **Goose** | ✅ Now | Open-source alternative with UI support |
+| **Claude Code CLI** | ❌ No | Terminal is text-only (no UI rendering) |
+
+#### Why This Matters for CLI Users
+
+**Direct impact**: **None** - Claude Code CLI cannot render interactive UIs in the terminal.
+
+**Indirect benefits**:
+
+1. **Ecosystem awareness**: Understand where MCP is heading (interactive agentic workflows)
+2. **Hybrid workflows**: Use Claude Desktop for visual exploration → Claude Code CLI for automation
+3. **MCP server development**: If building custom servers, Apps is now an option
+4. **Context for tools**: Some MCP servers may advertise UI capabilities (visible in metadata)
+
+**Example hybrid workflow**:
+```
+1. Claude Desktop: Use Amplitude MCP App to explore analytics interactively
+2. Identify patterns visually (e.g., "EU region shows 30% growth")
+3. Claude Code CLI: Automate data export and reporting based on findings
+```
+
+#### Technical Foundation
+
+MCP Apps is built on the **Model Context Protocol** (open standard by Anthropic):
+
+- **Open specification**: [SEP-1865 on GitHub](https://github.com/modelcontextprotocol/ext-apps)
+- **Co-authored by**: OpenAI, Anthropic, MCP-UI creators
+- **SDK**: `@modelcontextprotocol/ext-apps` (npm)
+- **"Build once, deploy everywhere"**: Works in Claude, VS Code, ChatGPT, Goose
+
+→ **Deep dive**: See [guide/architecture.md:656](./architecture.md#mcp-extensions-apps-sep-1865) for technical architecture, security model, and SDK details.
+
+#### Resources
+
+- **MCP Apps blog post**: [Anthropic announcement](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)
+- **Interactive tools blog**: [Claude announcement](https://claude.com/blog/interactive-tools-in-claude)
+- **Official spec**: [SEP-1865 on GitHub](https://github.com/modelcontextprotocol/ext-apps)
+
+---
+
 ## 8.2 Available Servers
 
 <details>
@@ -7519,10 +7623,14 @@ Understanding when to use which:
 | **Scope** | Claude Code instructions and patterns | External system integrations |
 | **Installation** | `claude plugin install` | Add to `settings.json` MCP config |
 | **Use case** | Security auditor agent, code review workflows | PostgreSQL access, Playwright browser automation |
+| **Interactive UI** | No | Yes (via MCP Apps extension - SEP-1865)* |
 
 **Rule of thumb:**
 - **Plugin** = "How Claude thinks" (new workflows, specialized agents)
 - **MCP Server** = "What Claude can do" (new tools, external systems)
+- **MCP Apps** = "What Claude can show" (interactive UIs in supported clients)*
+
+*Note: MCP Apps render in Claude Desktop, VS Code, ChatGPT, Goose. Not supported in Claude Code CLI (terminal is text-only). See [Section 8.1](#81-what-is-mcp) for details.
 
 ### Security Considerations
 

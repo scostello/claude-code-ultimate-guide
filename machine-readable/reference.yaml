@@ -94,7 +94,16 @@ deep_dive:
   system_prompts_willison_analysis: "https://simonwillison.net/2025/May/25/claude-4-system-prompt/"
   system_prompts_prompthub: "https://www.prompthub.us/blog/an-analysis-of-the-claude-4-system-prompt"
   system_prompts_architecture: "guide/architecture.md:299"
-  # Main guide (guide/ultimate-guide.md) - Updated 2026-01-20
+  # MCP Apps Extension (SEP-1865) - Added 2026-01-27
+  mcp_apps_architecture: "guide/architecture.md:656"
+  mcp_apps_evolution: "guide/ultimate-guide.md:6509"
+  mcp_apps_spec: "https://github.com/modelcontextprotocol/ext-apps"
+  mcp_apps_blog_mcp: "https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/"
+  mcp_apps_blog_claude: "https://claude.com/blog/interactive-tools-in-claude"
+  mcp_apps_sdk: "https://www.npmjs.com/package/@modelcontextprotocol/ext-apps"
+  mcp_apps_announcement_date: "2026-01-26"
+  mcp_apps_cli_relevance: "Indirect (ecosystem understanding, MCP server dev, hybrid workflows)"
+  # Main guide (guide/ultimate-guide.md) - Updated 2026-01-27
   installation: 196
   first_workflow: 277
   essential_commands: 326
