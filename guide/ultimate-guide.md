@@ -3291,6 +3291,62 @@ The `Task` tool spawns sub-agents with:
 
 This prevents context pollution during exploratory tasks.
 
+### TeammateTool (Experimental)
+
+**Status**: Partially feature-flagged, progressive rollout in progress.
+
+TeammateTool enables **multi-agent orchestration** with persistent communication between agents. Unlike standard sub-agents that work in isolation, teammates can coordinate through structured messaging.
+
+**Core Capabilities**:
+
+| Operation | Purpose |
+|-----------|---------|
+| `spawnTeam` | Create a named team of agents |
+| `discoverTeams` | List available teams |
+| `requestJoin` | Agent requests to join a team |
+| `approveJoin` | Team leader approves join requests |
+| Messaging | JSON-based inter-agent communication |
+
+**Execution Backends** (auto-detected):
+- **In-process**: Async tasks in same Node.js process (fastest)
+- **tmux**: Persistent terminal sessions (survives disconnects)
+- **iTerm2**: Visual split panes (macOS only)
+
+**Patterns**:
+
+```
+Parallel Specialists Pattern:
+Leader spawns 3 teammates → Each reviews different aspect (security, perf, architecture)
+→ Teammates work concurrently → Report back to leader → Leader synthesizes
+
+Swarm Pattern:
+Leader creates shared task queue → Teammates self-organize and claim tasks
+→ Independent execution → Async updates to shared state
+```
+
+**Limitations**:
+- 5-minute heartbeat timeout before auto-removal
+- Cannot cleanup teams while teammates are active
+- Feature flags not officially documented (community-discovered)
+- No official Anthropic support for experimental features
+
+**When to Use**:
+- Large codebases requiring parallel analysis (4+ aspects)
+- Long-running workflows with independent sub-tasks
+- Code reviews with multiple specialized concerns
+
+**When NOT to Use**:
+- Simple tasks (overhead not justified)
+- Sequential dependencies (standard sub-agents sufficient)
+- Production-critical workflows (experimental = unstable)
+
+**Sources**:
+- **Community**: [kieranklaassen - TeammateTool Guide](https://gist.github.com/kieranklaassen/4f2aba89594a4aea4ad64d753984b2ea)
+- **Community**: [GitHub Issue #3013 - Parallel Agent Execution](https://github.com/anthropics/claude-code/issues/3013)
+- **Community**: [mikekelly/claude-sneakpeek](https://github.com/mikekelly/claude-sneakpeek) - Parallel build with feature flags enabled
+
+> ⚠️ **Note**: This is an experimental feature. Capabilities may change or be removed in future releases. Always verify current behavior with official documentation.
+
 ### The Philosophy
 
 > "Do more with less. Smart architecture choices, better training efficiency, and focused problem-solving can compete with raw scale."
@@ -15195,6 +15251,146 @@ This guide systematically evaluates external resources (tools, methodologies, ar
 **Quality Control**: Technical review + challenge phase by specialized agents ensures objectivity and prevents marketing hype from influencing decisions.
 
 **Community Contribution**: Evaluation template available in `docs/resource-evaluations/README.md` for suggesting new resources with systematic assessment.
+
+---
+
+## Appendix D: Myths vs Reality
+
+This section addresses common misconceptions about Claude Code circulating in online communities, social media, and discussions.
+
+### ❌ Myth: "Claude Code has hidden features you can unlock with secret flags"
+
+**Reality**: All public features are documented in the [official CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md).
+
+**What people confuse**:
+- **Progressive rollout ≠ Hidden features**: Anthropic uses feature flags for staged deployment (standard industry practice)
+- **Experimental features ≠ Secrets**: Features like TeammateTool exist but are clearly marked as experimental/unstable
+- **Community discovery ≠ Hacking**: When users discover unreleased features in compiled code, that's exploration, not "unlocking secrets"
+
+**The truth about feature flags**:
+
+| Flag | Purpose | Status |
+|------|---------|--------|
+| `CLAUDE_CODE_ENABLE_TASKS=false` | **Revert** to old TodoWrite system (v2.1.19+) | Official migration path |
+| TeammateTool flags | Progressive deployment of multi-agent orchestration | Experimental, unstable |
+| Other internal flags | Quality assurance, A/B testing, staged rollout | Not meant for end users |
+
+**Best practice**: Read the [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) and official release notes. Features become public when they're stable and documented. Using experimental features via workarounds can cause:
+- Data loss or corruption
+- Crashes and instability
+- Incompatibility with future versions
+- Loss of official support
+
+**Red flags to watch for** (signs of misinformation):
+- "Hidden feature that will blow your mind!"
+- "Secret trick the devs don't want you to know"
+- No citation of official sources (CHANGELOG, docs, GitHub issues)
+- FOMO language: "If you're not using this, you're falling behind"
+- Dramatic claims: "This changes everything" without evidence
+
+---
+
+### ❌ Myth: "Tasks API allows fully autonomous parallel agents"
+
+**Reality**: The Tasks API (v2.1.16+) enables **coordination** of parallel work, but agents are **not autonomous**.
+
+**What Tasks API actually does**:
+- Creates a shared task list with dependency tracking
+- Allows main session + sub-agents to coordinate work
+- Persists tasks across sessions for resumption
+- Notifies sessions when tasks complete
+
+**What it does NOT do**:
+- ❌ Automatically spawn agents for each task
+- ❌ Create self-organizing "swarms" of independent agents
+- ❌ Enable agents to make decisions without human approval
+- ❌ Replace your need to manage and direct the work
+
+**How parallel execution actually works**:
+
+```
+You → Create tasks with TaskCreate
+You → Spawn sub-agents with Task tool (explicit action)
+You → Sub-agents work independently in parallel
+You → Sub-agents return summaries
+You → Coordinate next steps
+```
+
+**Sources**:
+- [CHANGELOG v2.1.16](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md#2116---2026-01-22) - Official task management release
+- [Section 2.6 - Task Management](ultimate-guide.md#26-task-management) - Full documentation
+
+---
+
+### ❌ Myth: "Claude Code is 100x faster than other AI coding tools"
+
+**Reality**: Performance depends on task complexity, model choice, and how you use the tool. No tool is universally "100x faster."
+
+**What affects speed**:
+- **Model selection**: Haiku (fast) vs Sonnet (balanced) vs Opus (thorough)
+- **Context management**: Effective use of sub-agents, MCP servers, strategic compaction
+- **Prompt quality**: Clear requirements vs vague instructions
+- **Task complexity**: Simple refactoring vs architectural analysis
+
+**Honest comparison** (typical use cases):
+
+| Task | Claude Code | Other Tools | Winner |
+|------|-------------|-------------|--------|
+| Simple edits (typos, formatting) | ~5-10s | ~5-10s | ≈ Tie |
+| Multi-file refactoring | 30-60s | 60-120s | Claude Code (2x) |
+| Complex architecture analysis | 2-5min | 5-15min | Claude Code (3x) |
+| Learning curve (first week) | Moderate | Varies | Depends on tool |
+
+**The truth**: Claude Code is **powerful and efficient**, but claims of "100x faster" are marketing hyperbole. Real advantage comes from:
+- Deep context window (200K tokens)
+- Smart sub-agent system (prevents context pollution)
+- MCP ecosystem (specialized tools)
+- Strong system prompts (high-quality outputs)
+
+---
+
+### ✅ Reality: What Makes Claude Code Actually Special
+
+**Documented, verifiable strengths**:
+
+1. **Context Window**: 200K tokens (~150K words) - one of the largest in the industry
+2. **Sub-Agent System**: Isolated context windows prevent pollution during exploration
+3. **MCP Ecosystem**: 100+ community servers for specialized tasks
+4. **Permission System**: Granular control over tool access and dangerous operations
+5. **CLI-First Design**: Terminal integration, git workflows, IDE compatibility
+6. **Transparent Pricing**: Pay-as-you-go, no subscriptions, predictable costs
+7. **Active Development**: Weekly releases with community-driven features
+
+**Sources**: All claims verifiable in [official documentation](https://code.claude.com/docs) and [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md).
+
+---
+
+### How to Spot Reliable Information
+
+✅ **Trust these sources**:
+- Official [Claude Code documentation](https://code.claude.com/docs)
+- [GitHub CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+- [GitHub Issues](https://github.com/anthropics/claude-code/issues) with Anthropic staff responses
+- Community resources citing official sources (like [Claudelog.com](https://claudelog.com/))
+- This guide (with 14 evaluated resources and clear sourcing)
+
+❌ **Be skeptical of**:
+- Social media posts with no sources
+- "Secret tricks" without CHANGELOG references
+- Percentage claims without benchmarks ("50% faster", "10x productivity")
+- Dramatic language designed to create FOMO
+- Content that discourages reading official docs
+
+---
+
+### Contributing to This Section
+
+Found a new myth circulating online? [Open an issue](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/issues) with:
+- The myth/misconception
+- Where you saw it (platform, approximate reach)
+- Why it's misleading (with sources)
+
+We'll evaluate and add it to this section if it meets quality criteria.
 
 ---
 

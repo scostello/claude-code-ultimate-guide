@@ -395,11 +395,25 @@ deep_dive:
   cowork_workflows: "https://github.com/FlorianBruniaux/claude-cowork-guide/tree/main/workflows"
   cowork_section: "guide/ai-ecosystem.md:760"
   cowork_ultimate_guide: 10759
+  # Experimental Features
+  teammatetool: 3294
+  teammatetool_status: "Experimental, progressive rollout, feature-flagged"
+  teammatetool_capabilities: "Multi-agent coordination, team messaging, swarm patterns"
+  teammatetool_sources:
+    - "https://gist.github.com/kieranklaassen/4f2aba89594a4aea4ad64d753984b2ea"
+    - "https://github.com/anthropics/claude-code/issues/3013"
+    - "https://github.com/mikekelly/claude-sneakpeek"
   # Appendix
   appendix_a_file_locations: 14356
   appendix_b_faq: 14530
   faq_clawdbot_vs_claudecode: 14532
   faq_product_managers: 14601
+  appendix_c_resource_evaluation: 15214
+  appendix_d_myths_vs_reality: 15257
+  myths_hidden_features: 15261
+  myths_tasks_api_autonomous: 15301
+  myths_100x_faster: 15340
+  myths_reliable_sources: 15388
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -585,6 +599,7 @@ architecture:
   core_tools: "Bash, Read, Edit, Write, Grep, Glob, Task, TodoWrite"
   context_budget: "~200K tokens, auto-compact at 75-92%"
   subagents: "Task tool spawns isolated agents (depth=1 max)"
+  teammatetool: "Experimental multi-agent coordination (v3294)"
   philosophy: "less scaffolding, more model - trust Claude's reasoning"
   mcp_protocol: "JSON-RPC 2.0, treated as native tools"
   permissions: "interactive prompts + allow/deny rules + hooks"

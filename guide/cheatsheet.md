@@ -60,6 +60,20 @@
 
 ---
 
+## Features Méconnues (But Official!)
+
+| Feature | Since | What It Does |
+|---------|-------|--------------|
+| **Tasks API** | v2.1.16 | Persistent task lists with dependencies |
+| **Background Agents** | v2.0.60 | Sub-agents work while you code |
+| **TeammateTool** | Experimental | Multi-agent coordination (unstable) |
+| **Session Forking** | v2.1.19 | Rewind + create parallel timeline |
+| **LSP Tool** | v2.0.74 | Code intelligence (go-to-def, refs) |
+
+**Pro tip**: These aren't "secrets"—they're in the [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md). Read it!
+
+---
+
 ## Permission Modes
 
 | Mode | Editing | Execution |
