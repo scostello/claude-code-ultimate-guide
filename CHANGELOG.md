@@ -6,30 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-### Fixed
-
-- **Corrected "mgrep" misattribution in Everything Claude Code evaluation**
-  - **Issue**: Incorrectly claimed Everything Claude Code contained "mgrep (50% token reduction)" tool
-  - **Reality**: No such tool exists in affaan-m/everything-claude-code repository (verified via WebFetch)
-  - **Confusion**: Mixed up mgrep (mixedbread-ai semantic search) with non-existent token reduction tool
-  - **Files corrected**:
-    - `docs/resource-evaluations/015-everything-claude-code-github-repo.md`: Removed 14 erroneous mgrep mentions
-    - `machine-readable/reference.yaml:724`: Removed "mgrep (50% token reduction)" from unique patterns
-    - `guide/ultimate-guide.md:14821`: Replaced with verified patterns (hookify, strategic compaction)
-    - `CHANGELOG.md`: Updated v3.17.0 and v3.15.0 entries
-  - **Verified patterns now documented**: hookify, pass@k metrics, sandboxed subagents, strategic compaction skills
-  - **Impact**: Maintains guide credibility, prevents user confusion, ensures accuracy of ecosystem documentation
+## [3.18.0] - 2026-01-28
 
 ### Added
 
-- **Known Issues Tracker** — New `guide/known-issues.md` documenting verified critical bugs
+- **Known Issues Tracker** — New `guide/known-issues.md` (285 lines) documenting verified critical bugs
   - **GitHub Issue Auto-Creation Bug**: Verified Issue #13797 (Dec 2025), 17+ confirmed accidental public disclosures
     - Security/privacy risk: Private project details exposed in public anthropics/claude-code repo
     - Affected versions: v2.0.65+
     - Status: ACTIVE as of Jan 28, 2026
     - Workarounds documented: Explicit repo specification, manual approval, pre-execution verification
+    - Examples: #20792, #16483, #16476, #17899, #16464 ("wrong repo", "delete this")
   - **Excessive Token Consumption**: Issue #16856 (Jan 2026), 20+ reports of 4x+ faster consumption
-    - Affected versions: v2.1.1+ (reported)
+    - Affected versions: v2.1.1+ (reported, published Jan 7, 2026)
+    - Corrected version: Report claimed v2.0.61 (doesn't exist), real bug is v2.1.1
     - Anthropic status: "Not officially confirmed as bug" (investigating)
     - Possible causes: Holiday bonus expiration (Dec 25-31) + potential underlying issues
     - Workarounds: Monitor with /context, shorter sessions, disable auto-compact, reduce MCP tools
@@ -37,10 +27,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - Official Anthropic postmortem: 3 infrastructure bugs (traffic misrouting, output corruption, XLA:TPU miscompilation)
     - Not intentional model degradation (community theories debunked)
     - All bugs fixed by mid-September 2025
-  - **Stats verified via GitHub API** (Jan 28, 2026): 5,702 open issues, 527 invalid labels, 80+ releases
-  - **Fact-checked**: Perplexity searches + direct GitHub API queries confirmed all claims
-  - **References**: Official links to GitHub issues, Anthropic postmortem, community reports
+    - Source: https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
+  - **Stats verified via GitHub API** (Jan 28, 2026): 5,702 open issues (not 4,697 reported), 527 invalid labels (not 263), 80+ releases
+  - **Fact-checking methodology**: Perplexity Pro (4 searches) + direct GitHub API queries (gh api, gh search issues, gh issue view)
+  - **References**: Official links to GitHub issues, Anthropic postmortem, The Register article
   - **Impact**: Critical security awareness for users, actionable workarounds, transparent issue tracking
+  - **Files modified**:
+    - `guide/README.md`: Added known-issues.md to docs table
+    - `machine-readable/reference.yaml`: 4 new entries (known_issues, github_bug:16, token_consumption:136, model_quality:231)
+    - `docs/resource-evaluations/023-community-discussions-report-jan2026.md`: Full evaluation process (score 2/5, partial integration)
 
 - **RTK (Rust Token Killer) integration** — Command output optimization tool for 72.6% token reduction
   - **New documentation**: `docs/resource-evaluations/rtk-evaluation.md` (comprehensive evaluation, score 4/5)
@@ -59,6 +54,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Use cases**: Git workflows, file finding, large file reading (avoid: ls, grep, small outputs)
   - **Impact**: Proven 72.6% token reduction for git operations, validates preprocessing optimization strategy
   - **Reference**: https://github.com/pszymkowiak/rtk
+
+### Fixed
+
+- **Corrected "mgrep" misattribution in Everything Claude Code evaluation**
+  - **Issue**: Incorrectly claimed Everything Claude Code contained "mgrep (50% token reduction)" tool
+  - **Reality**: No such tool exists in affaan-m/everything-claude-code repository (verified via WebFetch)
+  - **Confusion**: Mixed up mgrep (mixedbread-ai semantic search) with non-existent token reduction tool
+  - **Files corrected**:
+    - `docs/resource-evaluations/015-everything-claude-code-github-repo.md`: Removed 14 erroneous mgrep mentions
+    - `machine-readable/reference.yaml:724`: Removed "mgrep (50% token reduction)" from unique patterns
+    - `guide/ultimate-guide.md:14821`: Replaced with verified patterns (hookify, strategic compaction)
+    - `CHANGELOG.md`: Updated v3.17.0 and v3.15.0 entries
+  - **Verified patterns now documented**: hookify, pass@k metrics, sandboxed subagents, strategic compaction skills
+  - **Impact**: Maintains guide credibility, prevents user confusion, ensures accuracy of ecosystem documentation
 
 ## [3.17.1] - 2026-01-27
 
