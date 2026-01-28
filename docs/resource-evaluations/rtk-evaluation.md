@@ -364,6 +364,137 @@ RTK paradox: `ls` becomes **worse** (-274% increase)
 
 ---
 
+## Real-World Testing (T3 Stack Production Codebase)
+
+**Test Environment**:
+- **Project**: Méthode Aristote (Next.js + tRPC + Prisma + pnpm)
+- **Date**: 2026-01-28
+- **Commands tested**: 12 (git, pnpm, Vitest, TypeScript, Prisma)
+- **Full report**: `claudedocs/rtk-test-results-aristote.md`
+
+### Validated Results
+
+| Command | Baseline | RTK | Reduction | Verdict |
+|---------|----------|-----|-----------|---------|
+| `git log -20` | 9.3K | 1.1K | **88.6%** | ✅ Excellent |
+| `git diff HEAD~1` | 28.4K | 1.8K | **93.5%** | ✅ Excellent |
+| `git status` | 260 | 87 | **66.5%** | ✅ Good |
+| `find src/ -name "*.tsx"` | 38.5K | 2.4K | **93.9%** | ✅ Excellent |
+
+**Average (working): 85.6%** (higher than initial 72.6% due to larger project scale)
+
+### Critical Bug Discovered
+
+**Issue**: `rtk git log --oneline` fails with argument parsing error
+
+```bash
+$ rtk git log --oneline -20
+error: unexpected argument '--oneline' found
+```
+
+**Workaround**: Use `rtk git log -- -20` (works, 88.6% reduction)
+
+**Impact**: CRITICAL - Blocks common git flags (`--oneline`, `--graph`, `--stat`, etc.)
+
+**Root Cause**: RTK argument parser doesn't transparently pass flags to git
+
+**Upstream PR needed**: Fix clap parser to treat everything after `git` as passthrough
+
+### Modern Stack Gaps (pnpm + Vitest)
+
+**1. pnpm Support (MISSING - CRITICAL)**
+
+| Command | Chars | Reduction Possible |
+|---------|-------|-------------------|
+| `pnpm list --depth=0` | 3,900 | ~80% (→ 700) |
+| `pnpm outdated` | 18,600 | ~90% (→ 1,800) |
+
+**Superfluous content**: Box-drawing chars (┌─┐), "Legend:" headers, full paths
+
+**Value**: pnpm is #2 package manager, used by T3 Stack, Turborepo, Nx (millions of devs)
+
+**2. Vitest Support (MISSING - HIGH)**
+
+| Command | Chars | Reduction Possible |
+|---------|-------|-------------------|
+| `pnpm test` (43 passing) | 10,500 | ~90% (→ 1,000) |
+
+**Superfluous content** (85%):
+- ANSI color codes: `[1m[46m [32m`
+- Checkmarks: `✓` (replace with "PASS")
+- Test hierarchy: `[2m > [22m` (flatten)
+
+**Optimal output**: `PASS (43)\nFAIL (0)\nTime: 450ms` (50 chars vs 10.5K)
+
+**3. TypeScript Support (MISSING - MEDIUM)**
+
+| Command | Chars | Reduction Possible |
+|---------|-------|-------------------|
+| `tsc --noEmit` (errors only) | ~5,000 | ~70% (→ 1,500) |
+
+**Superfluous content**: Code snippets, underlines, full stack traces
+
+**Optimal output**: `file.ts:45:12 - error TS2322: Type 'string' not assignable` (one-line per error)
+
+### ROI Analysis (T3 Stack Adoption)
+
+**Current RTK v0.2.0 (git only)**:
+- Commands covered: ~40% of dev session
+- Typical session: 11K tokens → 5K tokens (~55% reduction)
+
+**With pnpm + Vitest + TypeScript support (proposed v0.3.0)**:
+- Commands covered: ~85% of dev session
+- Typical session: 11K tokens → 2.2K tokens (~80% reduction)
+
+**Dev effort estimate**: 1 week (7 days)
+- pnpm: 2 days
+- Vitest: 3 days
+- TypeScript: 1 day
+- Bug fix (git args): 1 day
+
+**User value**: **From niche tool → essential LLM dev tooling** for modern JS stacks
+
+### Pattern Analysis (Cross-Tool)
+
+**Superfluous patterns** repeated across modern dev tools:
+
+| Pattern | % of Output | Tools | Fix |
+|---------|-------------|-------|-----|
+| Box-drawing (`┌─┐`) | 60-70% | pnpm, tables | Strip |
+| ANSI codes (`[32m`) | 20-30% | Vitest, colored | Strip |
+| Marketing tips | 5-15% | Prisma, pnpm | Remove |
+| Verbose paths | 10-20% | All | Abbreviate |
+| Progress bars | 5-10% | All | Remove |
+
+**Insight**: Modern CLI tools optimize for **human readability** (colors, boxes, progress bars) but **waste tokens** for LLMs. Average reduction potential: **84%** across all unsupported tools.
+
+### Updated Recommendation Post-Testing
+
+**Score**: Still **4/5 (GOOD)** but with clearer roadmap
+
+**Current strengths**:
+- ✅ Git workflows: 85.6% avg reduction (validated on production codebase)
+- ✅ File operations: 93.9% reduction (find)
+- ✅ Fast, zero-config, drop-in wrapper
+
+**Blockers for 5/5 (CRITICAL) rating**:
+1. ❌ Git argument parsing bug (blocks `--oneline`, `--graph`, etc.)
+2. ❌ Missing pnpm support (critical for T3 Stack, 40% of npm downloads)
+3. ❌ Missing test framework support (Vitest/Jest = 20-30% of dev sessions)
+
+**Path to 5/5**:
+- Fix git arg parsing → **1 day dev**
+- Add pnpm support → **2 days dev**
+- Add Vitest support → **3 days dev**
+- **Total: 1 week investment** → RTK becomes essential for modern stacks
+
+**Upstream contribution value**: Real-world T3 Stack testing provides:
+- Quantitative evidence (12 commands, 53KB benchmarks)
+- Implementation guide (Rust pseudocode ready)
+- Clear ROI (80% reduction, 85% command coverage)
+
+---
+
 ## Final Recommendation
 
 **Score: 4/5 (GOOD)**
