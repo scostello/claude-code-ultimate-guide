@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.20 | **Updated**: 2026-01-27
+**Latest**: v2.1.22 | **Updated**: 2026-01-28
 
 ---
 
@@ -18,6 +18,29 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.22 (2026-01-28)
+
+- Improved task UI performance with virtualization — Task list now uses virtual scrolling for better responsiveness with many tasks
+- Vim selection and deletion fixes — Fixed visual mode selections and `dw` command behavior
+- LSP improvements: Kotlin support, UTF-16 range handling, better error recovery
+- Tasks now consistently use `task-N` IDs instead of internal UUIDs
+- Fixed: `#` keyboard shortcut not working in task creation fields
+- Fixed: Compact tool use rendering in chat history
+- Fixed: Session URL escaping in git commit messages
+- Fixed: Command output handling improvements
+
+### v2.1.21 (2026-01-28)
+
+- **Skills/commands can specify required/recommended Claude Code version** — Use `minClaudeCodeVersion` and `recommendedClaudeCodeVersion` in frontmatter
+- **New TaskCreate fields**: `category` (testing, implementation, documentation, etc.), `checklist` (subtasks as markdown list), `parentId` (task hierarchy)
+- **Automatic Claude Code update checking** at session start (respects auto-update settings)
+- Tasks appear in `/context` output with 'Disable tasks' shortcut for quick toggling
+- Improved task UI: Delete button added, better empty state messaging
+- Fixed: Task deletion now properly removes all related task data
+- Fixed: Shell environment variables expanded correctly in hook commands
+- Fixed: Pasted URLs with parentheses properly formatted in markdown
+- Fixed: Bash output capture for commands with large output
 
 ### v2.1.20 (2026-01-27)
 
@@ -332,4 +355,4 @@
 
 ---
 
-*Last updated: 2026-01-25 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-01-28 | [Back to main guide](./ultimate-guide.md)*

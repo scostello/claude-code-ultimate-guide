@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.20"
-updated: "2026-01-27"
+latest: "2.1.22"
+updated: "2026-01-28"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,23 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.22"
+    date: "2026-01-28"
+    highlights:
+      - "Improved task UI performance with virtualization"
+      - "Vim selection and deletion fixes"
+      - "LSP improvements: Kotlin support, UTF-16 ranges"
+    breaking: []
+
+  - version: "2.1.21"
+    date: "2026-01-28"
+    highlights:
+      - "Skills/commands can specify required/recommended Claude Code version"
+      - "New TaskCreate fields: category, checklist, parentId"
+      - "Automatic Claude Code update checking at session start"
+      - "Tasks appear in /context with 'Disable tasks' shortcut"
+    breaking: []
 
   - version: "2.1.20"
     date: "2026-01-27"
