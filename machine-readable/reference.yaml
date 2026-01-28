@@ -22,6 +22,11 @@ deep_dive:
   # Claude Code Releases
   claude_code_releases: "guide/claude-code-releases.md"
   claude_code_releases_yaml: "machine-readable/claude-code-releases.yaml"
+  # Known Issues & Critical Bugs (verified community reports)
+  known_issues: "guide/known-issues.md"
+  known_issues_github_bug: "guide/known-issues.md:16"  # GitHub auto-creation bug
+  known_issues_token_consumption: "guide/known-issues.md:136"  # Excessive token usage
+  known_issues_model_quality_aug2025: "guide/known-issues.md:231"  # Resolved: Aug 2025 degradation
   # Template Installation
   install_templates_script: "scripts/install-templates.sh"
   # Session management

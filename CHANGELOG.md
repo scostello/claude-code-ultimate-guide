@@ -22,6 +22,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Known Issues Tracker** — New `guide/known-issues.md` documenting verified critical bugs
+  - **GitHub Issue Auto-Creation Bug**: Verified Issue #13797 (Dec 2025), 17+ confirmed accidental public disclosures
+    - Security/privacy risk: Private project details exposed in public anthropics/claude-code repo
+    - Affected versions: v2.0.65+
+    - Status: ACTIVE as of Jan 28, 2026
+    - Workarounds documented: Explicit repo specification, manual approval, pre-execution verification
+  - **Excessive Token Consumption**: Issue #16856 (Jan 2026), 20+ reports of 4x+ faster consumption
+    - Affected versions: v2.1.1+ (reported)
+    - Anthropic status: "Not officially confirmed as bug" (investigating)
+    - Possible causes: Holiday bonus expiration (Dec 25-31) + potential underlying issues
+    - Workarounds: Monitor with /context, shorter sessions, disable auto-compact, reduce MCP tools
+  - **Model Quality Degradation** (Aug-Sep 2025): ✅ RESOLVED
+    - Official Anthropic postmortem: 3 infrastructure bugs (traffic misrouting, output corruption, XLA:TPU miscompilation)
+    - Not intentional model degradation (community theories debunked)
+    - All bugs fixed by mid-September 2025
+  - **Stats verified via GitHub API** (Jan 28, 2026): 5,702 open issues, 527 invalid labels, 80+ releases
+  - **Fact-checked**: Perplexity searches + direct GitHub API queries confirmed all claims
+  - **References**: Official links to GitHub issues, Anthropic postmortem, community reports
+  - **Impact**: Critical security awareness for users, actionable workarounds, transparent issue tracking
+
 - **RTK (Rust Token Killer) integration** — Command output optimization tool for 72.6% token reduction
   - **New documentation**: `docs/resource-evaluations/rtk-evaluation.md` (comprehensive evaluation, score 4/5)
   - **Guide integration**: Section 9.13 Cost Optimization → new "Command Output Optimization with RTK" subsection
