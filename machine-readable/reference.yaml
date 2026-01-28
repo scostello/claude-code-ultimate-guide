@@ -31,6 +31,18 @@ deep_dive:
   bridge_script: "examples/scripts/bridge.py"
   bridge_schema: "examples/scripts/bridge-plan-schema.json"
   bridge_guide: "guide/ultimate-guide.md:14079"
+  # Cost optimization - RTK (Rust Token Killer)
+  rtk_tool: "https://github.com/pszymkowiak/rtk"
+  rtk_evaluation: "docs/resource-evaluations/rtk-evaluation.md"
+  rtk_guide: "guide/ultimate-guide.md:10478"
+  rtk_claude_md: "examples/claude-md/rtk-optimized.md"
+  rtk_skill: "examples/skills/rtk-optimizer/SKILL.md"
+  rtk_hook: "examples/hooks/bash/rtk-auto-wrapper.sh"
+  rtk_pr_proposals: "claudedocs/rtk-pr-proposals.md"
+  rtk_purpose: "Command output filtering before LLM context (72.6% avg reduction)"
+  rtk_version_tested: "v0.2.0"
+  rtk_score: "4/5"
+  rtk_installation: "Binary download (GitHub releases)"
   # PDF Generation
   pdf_generation: "guide/workflows/pdf-generation.md"
   pdf_generator_skill: "examples/skills/pdf-generator.md"
@@ -618,6 +630,7 @@ cost:
   opus: "architecture, complex bugs ($$$)"
   opusplan: "plan=opus + execute=sonnet ($$)"
   tip: "--add-dir grants tool access to additional directories (permissions, not context loading)"
+  rtk: "Command output filtering (72.6% avg reduction) - rtk git log/status/diff"
 
 # ════════════════════════════════════════════════════════════════
 # TOOL SELECTION

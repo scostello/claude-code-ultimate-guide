@@ -10475,6 +10475,98 @@ You: "Fix typos in auth.ts, user.ts, and api.ts"
 # Single context load, multiple fixes
 ```
 
+### Command Output Optimization with RTK
+
+**RTK (Rust Token Killer)** filters bash command outputs **before** they reach Claude's context, achieving 72.6% average token reduction for git workflows.
+
+**Installation:**
+
+```bash
+# macOS ARM64 (Apple Silicon)
+curl -fsSL "https://github.com/pszymkowiak/rtk/releases/latest/download/rtk-aarch64-apple-darwin.tar.gz" -o rtk.tar.gz && tar -xzf rtk.tar.gz && sudo mv rtk /usr/local/bin/ && rm rtk.tar.gz
+
+# macOS Intel
+curl -fsSL "https://github.com/pszymkowiak/rtk/releases/latest/download/rtk-x86_64-apple-darwin.tar.gz" -o rtk.tar.gz && tar -xzf rtk.tar.gz && sudo mv rtk /usr/local/bin/ && rm rtk.tar.gz
+
+# Verify installation
+rtk --version  # Should output: rtk 0.2.0
+```
+
+**Proven Token Savings (Benchmarked):**
+
+| Command | Baseline | RTK | Reduction |
+|---------|----------|-----|-----------|
+| `rtk git log` | 13,994 chars | 1,076 chars | **92.3%** |
+| `rtk git status` | 100 chars | 24 chars | **76.0%** |
+| `rtk find "*.md"` | 780 chars | 185 chars | **76.3%** |
+| `rtk git diff` | 15,815 chars | 6,982 chars | **55.9%** |
+| `cat CHANGELOG.md` | 163,587 chars | 61,339 chars | **62.5%** |
+
+**Average: 72.6% token reduction**
+
+**Usage Pattern:**
+
+```bash
+# Instead of:
+git log --oneline
+git status
+git diff HEAD~1
+
+# Use:
+rtk git log
+rtk git status
+rtk git diff HEAD~1
+```
+
+**Real-World Impact:**
+
+```
+30-minute Claude Code session:
+- Without RTK: ~150K tokens (10-15 git commands @ ~10K tokens each)
+- With RTK: ~41K tokens (10-15 git commands @ ~2.7K tokens each)
+- Savings: 109K tokens (72.6% reduction)
+```
+
+**Integration Strategies:**
+
+1. **CLAUDE.md instruction** (manual wrapper):
+   ```markdown
+   ## Token Optimization
+
+   Use RTK for git operations:
+   - `rtk git log` (92.3% reduction)
+   - `rtk git status` (76.0% reduction)
+   - `rtk git diff` (55.9% reduction)
+   ```
+
+2. **Skill** (auto-suggestion):
+   - Template: `examples/skills/rtk-optimizer/SKILL.md`
+   - Detects high-verbosity commands
+   - Suggests RTK wrapper automatically
+
+3. **Hook** (automatic wrapper):
+   - Template: `examples/hooks/bash/rtk-auto-wrapper.sh`
+   - PreToolUse hook intercepts bash commands
+   - Applies RTK wrapper when beneficial
+
+**Limitations (v0.2.0):**
+
+- ❌ `grep` returns empty output (bug)
+- ❌ `ls` produces **worse** output (-274% token increase)
+- ⚠️ Early-stage project (8 GitHub stars, may be abandoned)
+- ⚠️ npm/pnpm/yarn not supported yet
+
+**Recommendation:**
+
+- ✅ Use for: git workflows, file finding, large file reading
+- ❌ Skip for: ls, grep, small outputs, quick exploration
+
+**See also:**
+
+- Evaluation: `docs/resource-evaluations/rtk-evaluation.md`
+- Templates: `examples/{claude-md,skills,hooks}/rtk-*`
+- GitHub: https://github.com/pszymkowiak/rtk
+
 ### Cost Tracking
 
 **Monitor cost with `/status`:**

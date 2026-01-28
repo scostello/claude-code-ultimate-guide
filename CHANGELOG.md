@@ -20,6 +20,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Verified patterns now documented**: hookify, pass@k metrics, sandboxed subagents, strategic compaction skills
   - **Impact**: Maintains guide credibility, prevents user confusion, ensures accuracy of ecosystem documentation
 
+### Added
+
+- **RTK (Rust Token Killer) integration** — Command output optimization tool for 72.6% token reduction
+  - **New documentation**: `docs/resource-evaluations/rtk-evaluation.md` (comprehensive evaluation, score 4/5)
+  - **Guide integration**: Section 9.13 Cost Optimization → new "Command Output Optimization with RTK" subsection
+  - **Benchmarks verified**:
+    - `rtk git log`: 92.3% reduction (13,994 → 1,076 chars)
+    - `rtk git status`: 76.0% reduction (100 → 24 chars)
+    - `rtk find`: 76.3% reduction (780 → 185 chars)
+    - Average across working commands: 72.6% reduction
+  - **Integration templates**:
+    - `examples/claude-md/rtk-optimized.md`: CLAUDE.md template for manual RTK usage
+    - `examples/skills/rtk-optimizer/SKILL.md`: Auto-suggestion skill for high-verbosity commands
+    - `examples/hooks/bash/rtk-auto-wrapper.sh`: PreToolUse hook for automatic RTK wrapping
+  - **Upstream contributions**: `claudedocs/rtk-pr-proposals.md` with 7 PR proposals (grep fix, ls fix, npm support)
+  - **Limitations documented**: grep broken (v0.2.0), ls worse (-274%), low adoption (8 stars), early-stage
+  - **Use cases**: Git workflows, file finding, large file reading (avoid: ls, grep, small outputs)
+  - **Impact**: Proven 72.6% token reduction for git operations, validates preprocessing optimization strategy
+  - **Reference**: https://github.com/pszymkowiak/rtk
+
 ## [3.17.1] - 2026-01-27
 
 ### Added
