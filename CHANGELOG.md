@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Corrected "mgrep" misattribution in Everything Claude Code evaluation**
+  - **Issue**: Incorrectly claimed Everything Claude Code contained "mgrep (50% token reduction)" tool
+  - **Reality**: No such tool exists in affaan-m/everything-claude-code repository (verified via WebFetch)
+  - **Confusion**: Mixed up mgrep (mixedbread-ai semantic search) with non-existent token reduction tool
+  - **Files corrected**:
+    - `docs/resource-evaluations/015-everything-claude-code-github-repo.md`: Removed 14 erroneous mgrep mentions
+    - `machine-readable/reference.yaml:724`: Removed "mgrep (50% token reduction)" from unique patterns
+    - `guide/ultimate-guide.md:14821`: Replaced with verified patterns (hookify, strategic compaction)
+    - `CHANGELOG.md`: Updated v3.17.0 and v3.15.0 entries
+  - **Verified patterns now documented**: hookify, pass@k metrics, sandboxed subagents, strategic compaction skills
+  - **Impact**: Maintains guide credibility, prevents user confusion, ensures accuracy of ecosystem documentation
+
 ## [3.17.1] - 2026-01-27
 
 ### Added
@@ -78,7 +92,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - **everything-claude-code stats update** (31.9k stars, 2026-01-27)
   - Updated star count from 16k → 31.9k across all files (`CHANGELOG.md`, `machine-readable/reference.yaml`, `guide/ultimate-guide.md`)
-  - Added unique patterns documentation: mgrep (50% token reduction), hookify (conversational hooks), pass@k metrics
+  - Added unique patterns documentation: hookify (conversational hooks), pass@k metrics, sandboxed subagents, strategic compaction
   - Created comprehensive evaluation: `docs/resource-evaluations/015-everything-claude-code-github-repo.md` (Score 5/5 CRITICAL)
   - Added new "Production Config Collections" section in guide (line ~14768)
   - Positioning clarified: Complementary to Ultimate Guide (production configs vs educational content)
@@ -673,7 +687,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **everything-claude-code ecosystem entry** (`machine-readable/reference.yaml`)
   - Added affaan-m/everything-claude-code (31.9k stars as of 2026-01-27, created 2026-01-18)
   - Author: Affaan Mustafa (Anthropic hackathon winner - Zenith project)
-  - Unique patterns: mgrep (50% token reduction), hookify (conversational hooks), pass@k metrics
+  - Unique patterns: hookify (conversational hooks), pass@k metrics, sandboxed subagents, strategic compaction
   - Plugin ecosystem: One-command installation, skill creator from git history
   - Comprehensive evaluation (Score 5/5): `docs/resource-evaluations/015-everything-claude-code-github-repo.md`
   - Caveats documented: hackathon win was indirect, Node.js hooks not officially recommended

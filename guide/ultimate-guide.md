@@ -14818,10 +14818,10 @@ For **battle-tested, ready-to-use configurations** from production environments:
 **Why this matters**: This is the **largest community-validated Claude Code resource** (31.9k stars in 9 days). Unlike tutorials, these are **configs proven in production** through winning Anthropic's hackathon (Zenith project).
 
 **Unique innovations not found elsewhere**:
-- **mgrep**: 50% token reduction vs standard grep/ripgrep
 - **hookify**: Conversational hook creation (describe need → JSON generated)
 - **pass@k metrics**: Formal verification approach (k=3 → 91% success rate)
 - **Sandboxed subagents**: Tool restrictions per agent (security-reviewer can't Edit files)
+- **Strategic compaction skills**: Manual compaction suggestions to manage context growth
 - **Plugin ecosystem**: One-command installation for all configs
 
 **Positioning**: Complementary to this guide—we teach concepts ("why"), they provide production configs ("how").

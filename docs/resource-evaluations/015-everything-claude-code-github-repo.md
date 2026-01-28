@@ -12,7 +12,7 @@
 
 ## Executive Summary
 
-"Everything Claude Code" is a production-ready configuration collection built from 10+ months of intensive daily use by an Anthropic hackathon winner. Unlike our tutorial-focused Ultimate Guide, it provides **battle-tested configs, plugin system, and unique optimization patterns** (mgrep, hookify, pass@k metrics). With 31.9k stars in 9 days, it represents the largest community-validated Claude Code resource.
+"Everything Claude Code" is a production-ready configuration collection built from 10+ months of intensive daily use by an Anthropic hackathon winner. Unlike our tutorial-focused Ultimate Guide, it provides **battle-tested configs, plugin system, and unique optimization patterns** (hookify, pass@k metrics, sandboxed subagents). With 31.9k stars in 9 days, it represents the largest community-validated Claude Code resource.
 
 **Recommendation**: **CRITICAL (Score 5)** - Integrate immediately as complementary resource. Their production configs + our educational guide = complete ecosystem.
 
@@ -70,7 +70,7 @@
 
 **Depth Quality**:
 - Planner agent: 4-phase structured methodology with risk assessment
-- Token optimization: mgrep (50% reduction), model selection strategies
+- Token optimization: Model selection strategies, system prompt slimming, context modes
 - Parallelization: Git worktrees, tmux integration, cascade method
 - Verification: pass@k and pass^k metrics with empirical eval patterns
 - Memory persistence: Stop Hook auto-summarization, checkpoint-based evals
@@ -82,7 +82,7 @@
 | Educational depth | ✅ 11K lines | ⚠️ Assumes knowledge | We cover foundations |
 | Production configs | ⚠️ Templates | ✅ Battle-tested | They provide ready-to-use |
 | Plugin system | ❌ None | ✅ Hookify, skill creator | They innovate distribution |
-| Token optimization | ✅ Symbol system | ✅ mgrep, model selection | Different approaches |
+| Token optimization | ✅ Symbol system | ✅ Model selection, prompt slimming | Different approaches |
 | Parallelization | ✅ Tool calls | ✅ Worktrees, tmux, cascade | Different layers |
 | Verification | ⚠️ Basic testing | ✅ pass@k metrics | They formalize QA |
 | Community | ✅ Quiz, evaluations | ✅ 31.9k stars, discussions | Both strong |
@@ -119,7 +119,7 @@
 - CONTRIBUTING.md: Clear extension model
 
 **Cost-Benefit**:
-- Token savings: mgrep (-50%), model selection (Haiku for simple tasks)
+- Token savings: Model selection (Haiku for simple tasks), context modes, MCP limitation
 - Time savings: Pre-built agents, hook automation
 - Risk reduction: Security-reviewer agent, red flags checklist
 
@@ -131,16 +131,16 @@
 
 **Novel Approaches Not in Our Guide**:
 
-1. **mgrep Tool**: 50% token reduction vs grep/ripgrep (undocumented elsewhere)
-2. **Hookify Plugin**: Conversational hook creation (describe automation → JSON generated)
-3. **pass@k and pass^k Metrics**: Formal verification math (k=3 → 91% pass@k, 34% pass^k)
-4. **Sandboxed Subagents**: Tool restriction per agent (security agent can't Edit files)
-5. **Cascade Method**: Multi-instance management (left-to-right, oldest-to-newest)
-6. **Stop Hook Pattern**: Auto-summarization at session end (vs per-message)
-7. **Skill Creator from Git History**: Extract patterns from actual commits (plugin or local)
-8. **Context-Aware MCP Management**: 20-30 configured, <10 enabled per project
-9. **Checkpoint-Based File Undo**: Separate from conversation history
-10. **Iterative Retrieval Pattern**: 3-cycle max for subagent context clarification
+1. **Hookify Plugin**: Conversational hook creation (describe automation → JSON generated)
+2. **pass@k and pass^k Metrics**: Formal verification math (k=3 → 91% pass@k, 34% pass^k)
+3. **Sandboxed Subagents**: Tool restriction per agent (security agent can't Edit files)
+4. **Cascade Method**: Multi-instance management (left-to-right, oldest-to-newest)
+5. **Stop Hook Pattern**: Auto-summarization at session end (vs per-message)
+6. **Skill Creator from Git History**: Extract patterns from actual commits (plugin or local)
+7. **Context-Aware MCP Management**: 20-30 configured, <10 enabled per project
+8. **Checkpoint-Based File Undo**: Separate from conversation history
+9. **Iterative Retrieval Pattern**: 3-cycle max for subagent context clarification
+10. **Strategic Compaction Skills**: Manual compaction suggestions to manage context growth
 
 **Differentiation from Existing Resources**:
 - Our guide: Educational, comprehensive reference
@@ -153,8 +153,9 @@
 - Only plugin-based distribution system
 - Only repo with formal verification metrics (pass@k)
 - Only guide addressing subagent tool restrictions
+- Only resource with conversational hook creation (hookify)
 
-**Rating Justification**: Maximum score for introducing 10+ unique patterns not documented elsewhere.
+**Rating Justification**: Maximum score for introducing 9+ unique patterns not documented elsewhere.
 
 ---
 
@@ -239,7 +240,7 @@
    ### Production Config Collection
    - **Everything Claude Code** (31.9k⭐): Battle-tested agents, skills, hooks, commands from Anthropic hackathon winner
      - Plugin installation system
-     - mgrep tool (50% token reduction)
+     - Hookify (conversational hook creation)
      - pass@k verification metrics
      - Dual guides (shortform + longform)
      - [Repository](https://github.com/affaan-m/everything-claude-code)
@@ -251,16 +252,16 @@
    - Positioning: Complementary, not competitive
 
 3. **Extract Unique Patterns**:
-   - mgrep tool documentation
    - pass@k and pass^k metrics explanation
    - Hookify plugin workflow
    - Sandboxed subagents pattern
    - Cascade method for multi-instance management
+   - Strategic compaction skills
 
 4. **Update cheatsheet.md**:
    - Add "Community Production Configs" section
    - Link to their plugin installation guide
-   - Mention mgrep as alternative to grep
+   - Mention hookify for conversational hook creation
 
 5. **Reference in machine-readable/reference.yaml**:
    ```yaml
@@ -286,7 +287,7 @@
 
 8. **Update Quiz**:
    - Add questions about pass@k metrics
-   - Add mgrep vs grep comparison
+   - Add hookify workflow questions
    - Add plugin installation workflow
 
 ### Long-Term Actions (1 month+)
@@ -297,9 +298,9 @@
    - Community AMA or discussion thread
 
 10. **Evaluate Adopting Patterns**:
-    - Consider mgrep tool integration
     - Evaluate pass@k metrics for our templates
     - Assess plugin system viability for our examples
+    - Consider hookify-inspired conversational config creation
 
 ---
 
@@ -312,7 +313,7 @@
 | **Audience** | Learners + practitioners | Production users | Different |
 | **Depth** | Concepts + examples | Battle-tested configs | Tie |
 | **Breadth** | Comprehensive (66+ templates) | Specialized (15+ dirs) | Tie |
-| **Innovation** | Symbol system, MODE framework | mgrep, hookify, pass@k | Tie |
+| **Innovation** | Symbol system, MODE framework | Hookify, pass@k, sandboxed subagents | Tie |
 | **Distribution** | Git clone + manual setup | Plugin installation | Them |
 | **Validation** | Community review (200⭐) | Production use + 31.9k⭐ | Them |
 | **Maintenance** | Active (daily updates) | Active (59 commits) | Tie |
@@ -324,54 +325,49 @@
 
 ## Unique Learnings to Extract
 
-### 1. mgrep Tool (Token Optimization)
-- 50% token reduction vs grep/ripgrep
-- Implementation details to document
-- Comparison benchmarks to validate
-
-### 2. pass@k and pass^k Metrics
+### 1. pass@k and pass^k Metrics
 - Formal verification approach:
   - pass@k: At least one of k attempts succeeds
   - pass^k: All k attempts must succeed
   - Example: k=3 → 91% pass@k, 34% pass^k
 - Application: Measure skill effectiveness empirically
 
-### 3. Hookify Plugin Workflow
+### 2. Hookify Plugin Workflow
 - Conversational hook creation (describe need → JSON generated)
 - Lowers barrier vs manual JSON writing
 - Pattern: Natural language → structured config
 
-### 4. Sandboxed Subagents
+### 3. Sandboxed Subagents
 - Tool restriction per agent (security-reviewer can't Edit)
 - Prevents accidental destructive actions
 - Implementation: Define `tools: [Read, Grep]` in agent config
 
-### 5. Cascade Method (Multi-Instance)
+### 4. Cascade Method (Multi-Instance)
 - Manage multiple Claude instances: "Sweep left to right, oldest to newest"
 - Focus on 3-4 tasks max
 - Prevents context switching overhead
 
-### 6. Stop Hook Pattern
+### 5. Stop Hook Pattern
 - Auto-summarization at session end (vs per-message)
 - Captures: successes, failures, unexplored paths
 - Feeds into reusable skills
 
-### 7. Skill Creator from Git History
+### 6. Skill Creator from Git History
 - Extract patterns from actual commits
 - Plugin or local implementation
 - Pattern: `git log` → skill definition
 
-### 8. Context-Aware MCP Management
+### 7. Context-Aware MCP Management
 - 20-30 MCPs configured, <10 enabled per project
 - Reduces context window pressure (200k → 70k effective)
 - Strategy: Enable per task, not globally
 
-### 9. Iterative Retrieval Pattern
+### 8. Iterative Retrieval Pattern
 - 3-cycle max for subagent context clarification
 - Corrects subagent limitation (lack of orchestrator context)
 - Flow: Query → Clarify → Revisit → Output
 
-### 10. Two-Instance Kickoff Pattern
+### 9. Two-Instance Kickoff Pattern
 - Instance 1 (Scaffolding): Project structure + config
 - Instance 2 (Research): Deep integration + docs
 - Prevents context mixing early in project
@@ -416,7 +412,7 @@
 **Rationale**:
 1. **Unprecedented Validation**: 31.9k stars in 9 days = largest community endorsement
 2. **Production Proven**: Hackathon win + 10+ months battle-testing
-3. **Unique Innovation**: 10+ patterns not documented elsewhere (mgrep, hookify, pass@k)
+3. **Unique Innovation**: 9+ patterns not documented elsewhere (hookify, pass@k, sandboxed subagents)
 4. **Complementary Positioning**: Their configs + Our guide = complete learning-to-production path
 5. **Active Ecosystem**: Plugin system, skill creator, ongoing development
 
@@ -445,4 +441,4 @@
 **Related Evaluations**:
 - N/A (first major GitHub repo evaluation)
 
-**Keywords**: production-configs, plugin-system, battle-tested, hackathon-winner, mgrep, hookify, pass-at-k, subagent-delegation, token-optimization, verification-metrics
+**Keywords**: production-configs, plugin-system, battle-tested, hackathon-winner, hookify, pass-at-k, subagent-delegation, token-optimization, verification-metrics, sandboxed-subagents

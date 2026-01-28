@@ -721,7 +721,7 @@ ecosystem:
       stars: "31.9k"
       verified: "2026-01-27"
       created: "2026-01-18"
-      unique: ["mgrep (50% token reduction)", "hookify (conversational hooks)", "pass@k metrics", "Plugin ecosystem", "Sandboxed subagents"]
+      unique: ["hookify (conversational hooks)", "pass@k metrics", "Plugin ecosystem", "Sandboxed subagents", "Strategic compaction skills"]
       evaluation: "docs/resource-evaluations/015-everything-claude-code-github-repo.md"
       score: "5/5 (CRITICAL)"
       positioning: "Complementary to Ultimate Guide (production configs vs educational content)"
