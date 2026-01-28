@@ -7449,6 +7449,58 @@ retrieve_memory("work in progress?")
 
 </details>
 
+---
+
+### 🌐 Community MCP Servers Ecosystem
+
+Beyond the official servers listed above, the MCP ecosystem includes **validated community servers** that extend Claude Code's capabilities with specialized integrations.
+
+**📖 Complete Guide**: See **[MCP Servers Ecosystem](./mcp-servers-ecosystem.md)** for:
+
+- **8 validated production-ready servers**: Playwright (Microsoft), Semgrep, Kubernetes (Red Hat), Context7, Linear, Vercel, Browserbase, MCP-Compose
+- **Evaluation framework**: How servers are validated (stars, releases, docs, tests, security)
+- **Production deployment guide**: Security checklist, quick start stack, performance metrics
+- **Ecosystem evolution**: Linux Foundation standardization, MCPB format, Advanced MCP Tool Use, MCP Apps
+- **Monthly watch methodology**: Template for maintaining the guide with ecosystem updates
+
+**Featured Community Servers**:
+
+| Server | Purpose | Quality Score | Maintainer |
+|--------|---------|---------------|------------|
+| **Playwright MCP** | Browser automation with accessibility trees | 8.8/10 ⭐⭐⭐⭐⭐ | Microsoft (Official) |
+| **Semgrep MCP** | Security scanning (SAST, secrets, supply chain) | 9.0/10 ⭐⭐⭐⭐⭐ | Semgrep Inc. (Official) |
+| **Kubernetes MCP** | Cluster management in natural language | 8.4/10 ⭐⭐⭐⭐ | Red Hat Containers Community |
+| **Context7 MCP** | Real-time library documentation (500+ libs) | 8.2/10 ⭐⭐⭐⭐ | Upstash (Official) |
+| **Linear MCP** | Issue tracking, project management | 7.6/10 ⭐⭐⭐⭐ | Community |
+| **Vercel MCP** | Next.js deployments, CI/CD | 7.6/10 ⭐⭐⭐⭐ | Community |
+| **Browserbase MCP** | Cloud browser automation with AI agent | 7.6/10 ⭐⭐⭐⭐ | Browserbase Inc. (Official) |
+| **MCP-Compose** | Docker Compose-style multi-server orchestration | 7.4/10 ⭐⭐⭐⭐ | Community |
+
+**Quick Start Example** (Playwright):
+
+```bash
+# Installation
+npm install @microsoft/playwright-mcp
+
+# Configuration (~/.claude/mcp.json)
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["--yes", "@microsoft/playwright-mcp"]
+    }
+  }
+}
+```
+
+**Why use community servers?**
+- **Specialized integrations**: Kubernetes, Vercel, Linear APIs not in official servers
+- **Enhanced capabilities**: Browser automation (Playwright), security scanning (Semgrep)
+- **Production-ready**: All servers validated for maintenance, docs, tests, security
+- **Ecosystem standard**: Many backed by major organizations (Microsoft, Red Hat, Semgrep Inc.)
+
+---
+
 ## 8.3 Configuration
 
 ### mcp.json Location

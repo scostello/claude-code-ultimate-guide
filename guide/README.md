@@ -7,6 +7,7 @@ Core documentation for mastering Claude Code.
 | File | Description | Time |
 |------|-------------|------|
 | [ultimate-guide.md](./ultimate-guide.md) | Complete reference covering all Claude Code features | ~3 hours |
+| [mcp-servers-ecosystem.md](./mcp-servers-ecosystem.md) | **Community MCP servers**: 8 validated servers (Playwright, Semgrep, Kubernetes, etc.) with production configs | 25 min |
 | [claude-code-releases.md](./claude-code-releases.md) | Official release history (condensed) | 10 min |
 | [known-issues.md](./known-issues.md) | **Critical bugs tracker**: security issues, token consumption, verified community reports | 15 min |
 | [cheatsheet.md](./cheatsheet.md) | 1-page printable quick reference | 5 min |
