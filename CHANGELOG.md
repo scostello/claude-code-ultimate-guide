@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **MCP Servers Ecosystem Documentation** — New `guide/mcp-servers-ecosystem.md` (893 lines) documenting validated community MCP servers
+  - **8 validated production-ready servers**:
+    - **Playwright MCP** (Microsoft): Browser automation with accessibility trees (Quality: 8.8/10)
+    - **Semgrep MCP** (Semgrep Inc.): Security scanning SAST/secrets/supply chain (Quality: 9.0/10)
+    - **Kubernetes MCP** (Red Hat): Cluster management in natural language (Quality: 8.4/10)
+    - **Context7 MCP**: Official framework documentation lookup (Quality: 7.2/10)
+    - **Linear MCP**: Project management integration (Quality: 8.6/10)
+    - **Vercel MCP**: Deployment and logs integration (Quality: 8.0/10)
+    - **Browserbase MCP**: Headless browser infrastructure (Quality: 7.8/10)
+    - **MCP-Compose**: Multi-server orchestration (Quality: 7.0/10)
+  - **Evaluation framework**: 5 criteria (GitHub stars ≥50, release <3 months, docs, tests, unique use case)
+  - **Production deployment guide**: Security checklist, quick start stack, performance metrics
+  - **Ecosystem evolution**: Linux Foundation standardization, MCPB format, Advanced MCP Tool Use, MCP Apps
+  - **Monthly watch methodology**: Template for maintaining guide with ecosystem updates
+  - **Quality scoring system**: 5 dimensions (Maintenance, Documentation, Tests, Performance, Adoption) normalized to /10
+  - **Files modified**:
+    - `guide/ultimate-guide.md`: Added Community MCP Servers section with comparison table and quick start
+    - `guide/README.md`: Added mcp-servers-ecosystem.md to docs table
+  - **Impact**: Fills critical gap in guide - community MCP servers were previously undocumented
+
 ## [3.18.0] - 2026-01-28
 
 ### Added
