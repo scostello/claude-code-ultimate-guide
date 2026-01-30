@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.18.2
+**Version**: 3.19.0
 
 ---
 
@@ -6072,6 +6072,86 @@ Hooks are scripts that run automatically when specific events occur.
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
+
+### Hook Execution Model (v2.1.0+)
+
+Claude Code supports two execution models for hooks:
+
+#### Synchronous (Default)
+
+- Claude **blocks** until the hook completes
+- Exit code and stdout available immediately for feedback
+- **Use case**: Critical validation (security, type checking, blocking operations)
+- **Configuration**: Omit `async` or set `async: false`
+
+#### Asynchronous (Optional)
+
+- Claude **continues immediately**, hook runs in background
+- Exit code/stdout NOT available to Claude (no feedback loop)
+- **Use case**: Non-critical operations (logging, notifications, formatting, metrics)
+- **Configuration**: Add `async: true` to hook definition
+
+#### Configuration Example
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/auto-format.sh",
+            "timeout": 10000,
+            "async": true  // ← Non-blocking execution
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/typecheck.sh"
+            // Sync by default - blocks on completion
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+#### Decision Matrix
+
+| Hook Purpose | Execution Mode | Reason |
+|--------------|---------------|--------|
+| Code formatting (Prettier, Black) | **Async** | Cosmetic change, no feedback needed |
+| Linting with auto-fix (eslint --fix) | **Async** | Non-critical improvements |
+| Type checking (tsc, mypy) | **Sync** | Errors must block for iteration |
+| Security validation | **Sync** | Must block dangerous operations |
+| Logging/metrics | **Async** | Pure side-effect, no feedback |
+| Notifications (Slack, email) | **Async** | User alerts, non-blocking |
+| Test execution | **Sync** | Results influence next action |
+| Git context injection | **Sync** | Enriches prompt before processing |
+
+#### Performance Impact
+
+**Example session (10 file edits):**
+- **Sync hooks**: `auto-format.sh` (500ms) × 10 = 5s blocked
+- **Async hooks**: `auto-format.sh` runs in background = 0s blocked
+- **Gain**: ~5-10s per typical development session
+
+#### Limitations of Async Hooks
+
+⚠️ Async hooks cannot:
+- Block Claude on errors (exit code 2 ignored)
+- Provide real-time feedback via stdout or `systemMessage`
+- Guarantee execution order with other hooks
+- Return `additionalContext` that Claude can use
+
+Use async only when the hook's completion is truly independent of Claude's workflow.
+
+#### When Async Was Introduced
+
+- **v2.1.0**: Initial async hook support (configuration via `async: true`)
+- **v2.1.23**: Fixed bug where async hooks weren't properly cancelled when headless streaming sessions ended
 
 ### Shell Scripts vs AI Agents: When to Use What
 
@@ -15637,4 +15717,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.18.2
+**Last updated**: January 2026 | **Version**: 3.19.0
