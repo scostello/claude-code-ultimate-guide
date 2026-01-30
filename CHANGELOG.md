@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **Contribution Metrics (Anthropic blog, Jan 29 2026)** — `guide/ultimate-guide.md`, `machine-readable/reference.yaml`
+  - Score: 4/5 (High Value — official source with harder metrics superseding Aug 2025 data)
+  - Source: [claude.com/blog/contribution-metrics](https://claude.com/blog/contribution-metrics)
+  - New subsection after Anthropic Internal Study: +67% PRs merged/engineer/day, 70-90% AI-assisted code
+  - Contribution Metrics dashboard: public beta, Team & Enterprise plans (GitHub integration)
+  - Methodological note: PR-based measurement vs Aug 2025 self-reported surveys
+  - ROI cross-reference added in cost optimization section
+  - Evaluation: `docs/resource-evaluations/026-contribution-metrics-blog.md`
+
 - **Learning guide: Shen & Tamkin RCT integration** — `guide/learning-with-ai.md`
   - Source: [arXiv:2601.20245](https://arxiv.org/abs/2601.20245) (Shen & Tamkin, Anthropic Fellows, Jan 2026)
   - Score: 3/5 (Pertinent - Complément utile, high overlap with existing content)

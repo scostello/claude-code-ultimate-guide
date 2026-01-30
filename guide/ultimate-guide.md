@@ -10983,7 +10983,7 @@ Smart escalation (Haiku → Sonnet for 10% of PRs):
 
 **Perspective on ROI:**
 
-Time savings from effective Claude Code usage typically far outweigh API costs for most development tasks. Rather than calculating precise ROI (which depends heavily on your specific context, hourly rate, and task complexity), focus on whether the tool is genuinely helping you ship faster.
+Time savings from effective Claude Code usage typically far outweigh API costs for most development tasks. Rather than calculating precise ROI (which depends heavily on your specific context, hourly rate, and task complexity), focus on whether the tool is genuinely helping you ship faster. For team-level measurement, see [Contribution Metrics](#contribution-metrics-january-2026) — Anthropic's GitHub-integrated dashboard for tracking PR and code attribution (Team/Enterprise plans, public beta).
 
 **When to optimize aggressively:**
 - High-volume operations (>1000 requests/day)
@@ -11621,6 +11621,28 @@ Anthropic studied how their own engineers use Claude Code, providing empirical d
 **Implications**: Even at Anthropic (perfect conditions: created the tool, ideal architecture, unlimited budget), engineers express uncertainty about long-term skill development and role evolution.
 
 **Source**: [Anthropic Research - How AI is Transforming Work at Anthropic (Aug 2025)](https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic)
+
+---
+
+### Contribution Metrics (January 2026)
+
+Five months after the internal study, Anthropic published updated productivity data alongside a new analytics feature for Team and Enterprise customers.
+
+**Updated metrics (Anthropic internal)**:
+- **+67%** PRs merged per engineer per day (vs Aug 2025 self-reported +50%)
+- **70-90%** of code now written with Claude Code assistance across teams
+
+**Methodological note**: These figures are PR/commit-based (measured via GitHub integration), not self-reported surveys as in the Aug 2025 study. However, Anthropic discloses no baseline period, no team breakdown, and defines measurement only as "conservative — only code where we have high confidence in Claude Code's involvement." Treat as directional indicators, not rigorous benchmarks.
+
+**Product feature — Contribution Metrics dashboard**:
+- **Status**: Public beta (January 2026)
+- **Availability**: Claude Team and Enterprise plans (exact add-on requirements unconfirmed)
+- **Tracks**: PRs merged and lines of code committed, with/without Claude Code attribution
+- **Access**: Workspace admins and owners only
+- **Setup**: Install Claude GitHub App → Enable GitHub Analytics in Admin settings → Authenticate GitHub organization
+- **Positioning**: Complement to existing engineering KPIs (DORA metrics, sprint velocity), not a replacement
+
+**Source**: [Anthropic — Contribution Metrics (Jan 2026)](https://claude.com/blog/contribution-metrics)
 
 ---
 

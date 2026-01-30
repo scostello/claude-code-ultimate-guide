@@ -330,6 +330,12 @@ deep_dive:
   multi_instance_workflows: 9583
   boris_cherny_case_study: 9617
   anthropic_study_metrics: 9721
+  # Contribution Metrics (Jan 2026 - platform feature, not CLI release)
+  contribution_metrics: 11625
+  contribution_metrics_source: "https://claude.com/blog/contribution-metrics"
+  contribution_metrics_date: "2026-01-29"
+  contribution_metrics_availability: "Public beta - Team and Enterprise plans"
+  contribution_metrics_stats: "+67% PRs merged/engineer/day, 70-90% AI-assisted code (Anthropic internal)"
   git_worktrees_multi_instance: 10634
   advanced_worktree_tooling: 10748
   worktree_tooling_self_assessment: 10762
