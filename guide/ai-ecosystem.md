@@ -1994,6 +1994,33 @@ External resources from experienced practitioners that validate and extend the p
 
 **Debate context**: Collina's article directly responds to Arnaldi (Effect/Effectful CEO) who argued "software development is dead." The Collina-Arnaldi exchange became a defining moment in the January 2026 discourse on AI and developer roles.
 
+### Peter Steinberger (PSPDFKit Founder, Moltbot Creator)
+
+**URL**: [Shipping at Inference-Speed](https://steipete.me/posts/2025/shipping-at-inference-speed)
+
+**Author credentials**:
+- Founded PSPDFKit (document processing SDK, 60+ employees, clients: Dropbox, DocuSign, SAP)
+- Creator of Moltbot (formerly Clawdbot), open-source AI personal assistant
+- Documented workflow evolution in Dec 2025 blog post
+
+**Content summary** (model-agnostic patterns only):
+- **Stream monitoring**: Shift from reading code line-by-line to watching the AI generation stream, intervening only on key components
+- **Multi-project juggling**: 3-8 concurrent projects with linear commits and cross-project knowledge transfer via file references
+- **Fresh context per task**: Validates the fresh context pattern (Section 2.2) from production experience
+- **Iterative exploration**: Build → test feel → refine, rather than exhaustive upfront planning
+
+**Alignment with this guide**:
+
+| Steinberger Pattern | This Guide Reference |
+|---------------------|---------------------|
+| Fresh context per task | Section 2.2 Fresh Context Pattern (line 1525) |
+| Multi-project workflows | Section 9.13 Multi-Instance Workflows (line 9583) |
+| Iterative exploration | Workflows: Iterative Refinement |
+
+**Value**: Production-scale perspective on AI-assisted workflow patterns from an experienced toolmaker. Validates fresh context and multi-instance approaches already documented in this guide.
+
+**Note**: Steinberger is the creator of Moltbot (see [ClawdBot FAQ](#claude-code-vs-clawdbot-whats-the-difference)). His observations originate from a non-Claude workflow; patterns should be validated in Claude Code context before adoption.
+
 ---
 
 ## 11.3 Skills Distribution Platforms

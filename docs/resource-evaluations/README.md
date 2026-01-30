@@ -48,6 +48,7 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Remotion + Claude Code** (Video Production) | 2/5 | **3/5** | ✅ Mention minimale | [remotion-claude-code-video.md](./remotion-claude-code-video.md) |
 | **SE-Cove Plugin** | 2/5 | **2/5** | ⚠️ Watch only | [se-cove-plugin.md](./se-cove-plugin.md) |
 | **Self-Improve Skill** | 3/5 | **3/5** | ✅ Template ajouté | [self-improve-skill.md](./self-improve-skill.md) |
+| **Steinberger** (Inference Speed) | 3/5 | **3/5** | ✅ Intégré (minimal) | [steinberger-inference-speed.md](./steinberger-inference-speed.md) |
 | **UML & OOP Diagrams** | 3/5 | **3/5** | ✅ Mention | [uml-oop-diagrams.md](./uml-oop-diagrams.md) |
 | **Vibe Coding Level 2** (Rusitschka) | 4/5 | **4/5** | ✅ Intégré (workflows) | [vibe-coding-rusitschka.md](./vibe-coding-rusitschka.md) |
 | **Peter Wooldridge** (Productivity Stack) | 2/5 | **3/5** | ✅ Practitioner Insights | [wooldridge-productivity-stack.md](./wooldridge-productivity-stack.md) |
@@ -56,4 +57,4 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 
 ---
 
-**Dernier update**: 2026-01-27 (15 évaluations)
+**Dernier update**: 2026-01-30 (16 évaluations)

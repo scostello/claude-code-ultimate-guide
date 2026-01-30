@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.18.2] - 2026-01-30
+
+### Added
+
+- **Practitioner Insights** — Peter Steinberger (PSPDFKit Founder, Moltbot Creator)
+  - Added new practitioner insight in `guide/ai-ecosystem.md` documenting model-agnostic workflow patterns
+  - **Patterns documented**: Stream monitoring, multi-project juggling (3-8 concurrent projects), fresh context validation, iterative exploration
+  - **Source**: [Shipping at Inference-Speed](https://steipete.me/posts/2025/shipping-at-inference-speed) (Dec 2025 blog post)
+  - **Evaluation**: Score 3/5 (Pertinent - Complément utile)
+    - Complete evaluation in `docs/resource-evaluations/steinberger-inference-speed.md`
+    - Fact-checked GPT-5.2 claims (confirmed real, Dec 2024 release)
+    - Validated PSPDFKit credentials (60+ employees, Dropbox/DocuSign/SAP clients)
+  - **Alignment with guide**: Validates existing patterns (Fresh Context Section 2.2, Multi-Instance Section 9.13, Iterative Refinement workflows)
+  - **Scope**: Model-agnostic patterns only, zero model comparisons (Codex/Opus excluded as per evaluation decision)
+  - **Note**: Patterns originate from non-Claude workflow (Moltbot/GPT-5.2); validation in Claude Code context recommended
+  - **Files modified**:
+    - `guide/ai-ecosystem.md`: New entry after Matteo Collina (~26 lines, H3 format with alignment table)
+    - `docs/resource-evaluations/steinberger-inference-speed.md`: Complete evaluation with challenge agent review
+    - `docs/resource-evaluations/README.md`: Index updated (15→16 evaluations)
+    - `machine-readable/reference.yaml`: Added `practitioner_steinberger` references (line 1997)
+
 ## [3.18.1] - 2026-01-30
 
 ### Changed
