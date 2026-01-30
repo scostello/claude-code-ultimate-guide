@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.18.1] - 2026-01-30
+
+### Changed
+
+- **Claude Code Releases Tracking** — Updated to v2.1.25
+  - **v2.1.25** (2026-01-30): Fixed beta header validation for Bedrock/Vertex gateway users
+  - **v2.1.23** (2026-01-29): Customizable spinner verbs, mTLS/proxy fixes, terminal performance improvements
+  - **Files updated**:
+    - `machine-readable/claude-code-releases.yaml`: Updated latest version, added 2 new releases
+    - `guide/claude-code-releases.md`: Synchronized with YAML, added detailed release notes
+  - **Landing sync**: Updated Claude Code version badge v2.1.22 → v2.1.25
+
+## [3.18.0] - 2026-01-28
+
 ### Added
 
 - **MCP Servers Ecosystem Documentation** — New `guide/mcp-servers-ecosystem.md` (893 lines) documenting validated community MCP servers
