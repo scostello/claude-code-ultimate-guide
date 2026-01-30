@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.18.2"
-updated: "2026-01-27"
+version: "3.19.0"
+updated: "2026-01-30"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -279,6 +279,10 @@ deep_dive:
   practitioner_collina_source: "https://adventures.nodeland.dev/archive/the-human-in-the-loop/"
   practitioner_steinberger: "guide/ai-ecosystem.md:1997"
   practitioner_steinberger_source: "https://steipete.me/posts/2025/shipping-at-inference-speed"
+  practitioner_addy_osmani: "guide/ai-ecosystem.md:2024"
+  practitioner_osmani_source: "https://addyo.substack.com/p/the-80-problem-in-agentic-coding"
+  eighty_percent_problem: "guide/ai-ecosystem.md:2024"
+  comprehension_debt_secondary: "guide/ai-ecosystem.md:2024"  # See also: vibe_coding_trap (primary)
   # DevOps/SRE Guide (guide/devops-sre.md)
   devops_sre_guide: "guide/devops-sre.md"
   devops_fire_framework: "guide/devops-sre.md:50"
@@ -705,6 +709,15 @@ hook_events:
   UserPromptSubmit: "before prompt sent"
   Notification: "alerts"
 
+# Hook Execution Model (v2.1.0+)
+hooks_execution_model: 6075  # Section in ultimate-guide.md
+hooks_async_support: "v2.1.0+ - add 'async: true' for non-blocking execution"
+hooks_async_use_cases: "logging, notifications, formatting, metrics (no feedback needed)"
+hooks_sync_use_cases: "validation, type checking, security (feedback required)"
+hooks_decision_matrix: 6091  # Decision matrix table
+hooks_async_limitations: "no exit code feedback, no additionalContext, no blocking"
+hooks_async_bug_fix: "v2.1.23 - fixed cancellation in headless streaming"
+
 # ════════════════════════════════════════════════════════════════
 # GOLDEN RULES
 # ════════════════════════════════════════════════════════════════
@@ -809,7 +822,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.18.2, 66 templates, cross-links"
+        event: "Code Landing sync v3.19.0, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

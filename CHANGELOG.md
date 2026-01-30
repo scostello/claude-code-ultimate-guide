@@ -6,6 +6,62 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.19.0] - 2026-01-30
+
+### Added
+
+- **Practitioner Insight: Addy Osmani (Google Chrome Team)** — Added to AI Ecosystem Practitioner Insights
+  - **New entry**: `guide/ai-ecosystem.md` line ~2024 "Addy Osmani (Google Chrome Team)" (~32 lines)
+    - "The 80% Problem in Agentic Coding" synthesis (January 28, 2026)
+    - Three new failure modes: overengineering, assumption propagation, sycophantic agreement
+    - Comprehension debt concept (distinct from technical debt)
+    - Productivity paradox data: +98% PRs, +91% review time, no workload reduction
+    - Alignment table mapping Osmani concepts to existing guide sections
+  - **Reference updates**: `machine-readable/reference.yaml` — 4 new entries
+    - `practitioner_addy_osmani: "guide/ai-ecosystem.md:2024"`
+    - `practitioner_osmani_source: "https://addyo.substack.com/p/the-80-problem-in-agentic-coding"`
+    - `eighty_percent_problem`, `comprehension_debt_secondary`
+  - **Resource evaluation**: `docs/resource-evaluations/024-addy-osmani-80-percent-problem.md`
+    - Score: 3/5 (Pertinent) — Useful synthesis, but 90% overlap with existing content
+    - Minimal integration approach (32 lines vs rejected 250 lines proposal)
+    - Fact-check: 6 stats verified, 1 Stack Overflow stat found incorrect
+    - Challenge by technical-writer agent validated downgrade from 4/5 to 3/5
+    - Transparent note: "secondary synthesis, primary sources already documented"
+
+- **Hook Execution Model Documentation** — New comprehensive section documenting async vs sync hooks (v2.1.0+)
+  - **New section**: `guide/ultimate-guide.md` line ~6075 "Hook Execution Model (v2.1.0+)" (~97 lines)
+    - Synchronous vs Asynchronous execution explained
+    - Configuration examples with `async: true` parameter
+    - **Decision matrix**: 15 use cases (formatting, linting, type checking, security, logging, notifications, etc.)
+    - Performance impact analysis (example: -5-10s per session with async formatting)
+    - Limitations of async hooks (no exit code feedback, no additionalContext, no blocking)
+    - Version history (v2.1.0 introduction, v2.1.23 cancellation fix)
+  - **Reference updates**: `machine-readable/reference.yaml` — 7 new entries
+    - `hooks_execution_model: 6075` (section pointer)
+    - `hooks_async_support`, `hooks_async_use_cases`, `hooks_sync_use_cases`
+    - `hooks_decision_matrix: 6091`, `hooks_async_limitations`, `hooks_async_bug_fix`
+  - **Resource evaluation**: `docs/resource-evaluations/melvyn-malherbe-async-hooks-linkedin.md`
+    - Score: 1/5 (Low - Reject) — Marketing post without technical value
+    - **Gap identified**: Async hooks behavior not explicitly documented in guide
+    - Fact-checked via Perplexity Deep Research (comprehensive 5K+ token report)
+    - Challenge by technical-writer agent validated rejection + gap discovery
+    - LinkedIn post (Jan 30, 2026) from Melvyn Malherbe redirects to commercial product (mlv.sh/ccli → codelynx.dev)
+  - **Practical migration guide**: `claudedocs/aristote-hooks-migration-prompt.md` (400+ lines)
+    - Real-world example: Méthode Aristote project with 7 hooks analyzed
+    - 3 hooks migrated to async (auto-format, activity-logger, notification) for -12.75s/session gain
+    - 4 hooks kept sync (dangerous-actions-blocker, typecheck-feedback, post-release-doc-update, git-context)
+    - Step-by-step migration plan with verification checklist
+    - Complete modified configuration in `claudedocs/aristote-hooks-migration.json`
+  - **Impact**: Critical documentation gap filled — async hooks introduced in v2.1.0 but execution model never explicitly documented
+    - Users can now optimize hook performance by migrating non-critical hooks to async
+    - Decision matrix provides clear guidance on when to use sync vs async
+    - Real-world case study demonstrates 30-40% reduction in blocked time per session
+  - **Discovery method**: Resource evaluation workflow successfully identified gap through:
+    1. LinkedIn post analysis (low technical value)
+    2. Perplexity Deep Research confirming async hooks exist
+    3. Guide audit revealing missing documentation
+    4. Technical-writer agent challenge validating findings
+
 ## [3.18.2] - 2026-01-30
 
 ### Added

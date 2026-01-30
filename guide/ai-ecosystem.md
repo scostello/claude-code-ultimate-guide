@@ -2021,6 +2021,36 @@ External resources from experienced practitioners that validate and extend the p
 
 **Note**: Steinberger is the creator of Moltbot (see [ClawdBot FAQ](#claude-code-vs-clawdbot-whats-the-difference)). His observations originate from a non-Claude workflow; patterns should be validated in Claude Code context before adoption.
 
+### Addy Osmani (Google Chrome Team)
+
+**URL**: [The 80% Problem in Agentic Coding](https://addyo.substack.com/p/the-80-problem-in-agentic-coding)
+
+**Author credentials**:
+- Engineering leader at Google Chrome team
+- Bestselling author, 600K+ newsletter readers
+- Published January 28, 2026
+
+**Content summary**: Synthesis of the "80% problem" — when AI generates 80%+ of code, developers face three new failure modes (overengineering, assumption propagation, sycophantic agreement) and risk "comprehension debt" distinct from technical debt. Aggregates DORA, Stack Overflow, and industry research on the productivity paradox (+98% PRs, +91% review time, but no overall workload reduction).
+
+**Key data points** (cited from external research):
+- 44% developers write <10% code manually (Ronacher poll)
+- 48% only review AI code systematically before commit (SonarSource)
+- 66% frustrated with "almost right" AI solutions (Stack Overflow 2025)
+- 99% report 10+ hours saved weekly, yet no workload reduction (Atlassian 2025)
+
+**Alignment with this guide**:
+
+| Osmani Concept | This Guide Reference |
+|----------------|---------------------|
+| Comprehension debt | Vibe Coding Trap (learning-with-ai.md:81) |
+| Review as bottleneck | Trust Calibration (ultimate-guide.md:1061) |
+| Orchestrator role | Plan Mode + Task tool workflows |
+| +91% review time | Already cited (line 1977 above) |
+
+**Value**: Well-articulated synthesis introducing the "80% problem" framework. Useful secondary source for reinforcing concepts already documented in this guide with primary sources.
+
+**Note**: Article aggregates existing research. For primary data, see DORA Report 2025, Stack Overflow 2025, and Matteo Collina insights documented above.
+
 ---
 
 ## 11.3 Skills Distribution Platforms
