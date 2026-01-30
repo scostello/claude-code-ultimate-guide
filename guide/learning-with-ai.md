@@ -111,7 +111,7 @@ Most developers experience three distinct phases:
 | **Targeted Gains** | 2-8 weeks | +20-50% | AI accelerates specific tasks you've learned to delegate effectively |
 | **Sustainable Plateau** | 3-6 months | +20-30% | Stable gains, but only for developers who already have strong fundamentals |
 
-**Critical nuance**: These gains are conditional. Studies show experienced developers (5+ years) see larger, sustained gains. Junior developers often see initial spikes followed by regression — because speed without understanding creates technical debt.
+**Critical nuance**: These gains are conditional. Studies show experienced developers (5+ years) see larger, sustained gains. Junior developers often see initial spikes followed by regression — because speed without understanding creates technical debt. A 2026 RCT ([Shen & Tamkin, Anthropic Fellows](https://arxiv.org/abs/2601.20245)) measured a **17% reduction in skills acquisition** when developers learned a new library with AI assistance (n=52, p=0.01) — with no significant time savings. Only ~20% of AI users (pure delegation pattern) finished faster, at the cost of learning almost nothing.
 
 ### Where AI Helps (And Where It Hurts)
 
@@ -865,6 +865,7 @@ Warning signs you're becoming dependent, and what to do:
 | Rejected in interviews | Fundamentals atrophied | Practice whiteboard problems without AI |
 | Always ask "how" never "why" | Surface-level usage | Force yourself to ask "why this approach?" |
 | Every solution looks the same | AI has patterns, you need variety | Study multiple implementations manually |
+| Task feels easy but you can't explain it | **Perception gap** — AI users rate tasks easier while scoring 17% lower ([Shen & Tamkin 2026](https://arxiv.org/abs/2601.20245)) | After each task, explain the solution without looking at code |
 
 ### Weekly Self-Audit
 
@@ -886,6 +887,7 @@ If you're faster but not smarter, you're building dependency.
 - **GitHub Copilot Impact Study (2024)** — [dl.acm.org](https://dl.acm.org/doi/10.1145/3613904.3642394) — Found productivity gains but identified skill atrophy risks in junior developers
 - **Student Dependency Patterns in AI-Assisted Learning** — IACIS 2024 — Documented "learned helplessness" in students over-reliant on AI
 - **Junior Developer Career Trajectories with AI Tools** — Software Engineering Institute — 3-year longitudinal study on skill development
+- **AI Impacts on Skill Formation (Shen & Tamkin, 2026)** — [arXiv:2601.20245](https://arxiv.org/abs/2601.20245) — Anthropic Fellows RCT (52 devs learning Python Trio with/without GPT-4o): AI group scored 17% lower on skills quiz (Cohen's d=0.738, p=0.01) with no significant speed gain. Identified 6 interaction patterns — 3 preserving learning (conceptual inquiry, hybrid explanation, generation-then-comprehension) via active cognitive engagement.
 
 ### Industry Reports
 
@@ -901,6 +903,7 @@ Sources for [§3 The Reality of AI Productivity](#the-reality-of-ai-productivity
 - **McKinsey Developer Productivity Report (2024)** — [mckinsey.com](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/unleashing-developer-productivity-with-generative-ai) — Comprehensive analysis of AI impact across dev workflows
 - **Stack Overflow 2024: AI Sentiment** — [stackoverflow.co](https://stackoverflow.co/labs/developer-sentiment-ai-ml/) — Developer attitudes toward AI tools, productivity perceptions
 - **Uplevel Engineering Intelligence (2024)** — Burnout and productivity metrics with AI coding tools
+- **METR Experienced Developer RCT (2025)** — [arXiv:2507.09089](https://arxiv.org/abs/2507.09089) — Randomized controlled trial (16 experienced devs, 246 issues, repos 1M+ lines): AI tools made developers 19% slower on familiar codebases, despite perceiving themselves 20% faster (39-point perception gap). Strongest evidence for skill atrophy risk in experienced developers.
 - **DORA/Google DevOps Research (2024)** — AI tool adoption impact on team performance
 
 ### Practitioner Perspectives

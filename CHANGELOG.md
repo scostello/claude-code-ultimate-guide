@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **Learning guide: Shen & Tamkin RCT integration** — `guide/learning-with-ai.md`
+  - Source: [arXiv:2601.20245](https://arxiv.org/abs/2601.20245) (Shen & Tamkin, Anthropic Fellows, Jan 2026)
+  - Score: 3/5 (Pertinent - Complément utile, high overlap with existing content)
+  - Added RCT data point in §3 "Reality of AI Productivity": 17% skill reduction (n=52, Cohen's d=0.738, p=0.01), no significant speed gain, only ~20% delegation users finished faster
+  - Added new Red Flag: "Perception gap" — AI users rate tasks easier while scoring lower
+  - Added full reference in §12 Sources (Academic Research) with 6 interaction patterns summary
+  - Also added METR RCT (arXiv:2507.09089) in Productivity Research sources
+
+## [3.20.1] - 2026-01-30
+
+### Added
+
+- **Resource Evaluation: Vercel AGENTS.md vs Skills Eval** — `docs/resource-evaluations/025-vercel-agents-md-vs-skills-eval.md`
+  - Score: 3/5 (Pertinent — confirms existing CLAUDE.md architecture)
+  - Source: [Jude Gao (Vercel), Jan 27 2026](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)
+  - First quantified benchmark: eager context (AGENTS.md) 100% vs lazy invocation (skills) 53-79%
+  - Key finding: skills auto-invoked only 56% of the time by coding agents
+  - Compression benchmark: 40KB → 8KB docs index with zero performance loss
+  - Double challenge: technical-writer + system-architect agents (unanimous 3/5)
+  - Fact-check: 13/13 claims verified
+  - Conflict of interest noted: Vercel operates both skills.sh and the AGENTS.md codemod
+
+### Changed
+
+- **CLAUDE.md sizing** (ultimate-guide.md:3527): Added Vercel 8KB compression benchmark as evidence for 4-8KB target
+- **Memory Loading insight** (ultimate-guide.md:4082): Added warning about 56% skill invocation rate — critical instructions should use CLAUDE.md/rules, not skills
+- **Skills trade-offs** (ultimate-guide.md:5652): Added invocation reliability caveat with source
+
 ## [3.20.0] - 2026-01-30
 
 ### Added

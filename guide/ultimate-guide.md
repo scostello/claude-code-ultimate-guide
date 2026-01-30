@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.20.0
+**Version**: 3.20.1
 
 ---
 
@@ -3524,7 +3524,7 @@ Month 3: 50 rules → 50 mistakes prevented + faster onboarding
 
 **Anti-pattern**: Preemptively documenting everything. Instead, treat CLAUDE.md as a **living document** that grows through actual mistakes caught during development.
 
-**Size guideline**: Keep CLAUDE.md files between **4-8KB total** (all levels combined). Practitioner studies show that context files exceeding 16K tokens degrade model coherence. Include architecture overviews, key conventions, and critical constraints—exclude full API references or extensive code examples (link to them instead).
+**Size guideline**: Keep CLAUDE.md files between **4-8KB total** (all levels combined). Practitioner studies show that context files exceeding 16K tokens degrade model coherence. Include architecture overviews, key conventions, and critical constraints—exclude full API references or extensive code examples (link to them instead). Vercel's Next.js team compressed ~40KB of framework docs to an 8KB index with zero performance loss in agent evals ([Gao, 2026](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)), confirming the 4-8KB target.
 
 ### Level 1: Global (~/.claude/CLAUDE.md)
 
@@ -4079,7 +4079,7 @@ Understanding when each memory method loads is critical for token optimization:
 | `.claude/commands/*.md` | Invocation only | Only when invoked | Workflow templates |
 | `.claude/skills/*.md` | Invocation only | Only when invoked | Domain knowledge modules |
 
-**Key insight**: `.claude/rules/` is NOT on-demand. Every `.md` file in that directory loads at session start, consuming tokens. Reserve it for always-relevant conventions, not rarely-used guidelines.
+**Key insight**: `.claude/rules/` is NOT on-demand. Every `.md` file in that directory loads at session start, consuming tokens. Reserve it for always-relevant conventions, not rarely-used guidelines. Skills are invocation-only and may not be triggered reliably—one eval found agents invoked skills in only 56% of cases ([Gao, 2026](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)). Never rely on skills for critical instructions; use CLAUDE.md or rules instead.
 
 > **See also**: [Token Cost Estimation](#token-saving-techniques) for approximate token costs per file size.
 
@@ -5650,6 +5650,7 @@ Full catalog: [skills.sh leaderboard](https://skills.sh/)
 - ✅ Format 100% compatible with this guide
 - ⚠️ Multi-agent focus (not Claude Code specific)
 - ⚠️ Early stage (maturity to prove over time)
+- ⚠️ Skills require explicit invocation; agents only auto-invoke them ~56% of the time ([Gao, 2026](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)). For critical instructions, prefer always-loaded CLAUDE.md
 
 #### When to Use
 
@@ -15743,4 +15744,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.20.0
+**Last updated**: January 2026 | **Version**: 3.20.1
