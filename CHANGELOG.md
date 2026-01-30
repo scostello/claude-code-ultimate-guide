@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.20.0] - 2026-01-30
+
+### Added
+
+- **Code Review Automation: Multi-Agent PR Review** — Production-grade review patterns from Pat Cullen & Méthode Aristote
+  - **Resource evaluation**: `docs/resource-evaluations/017-pat-cullen-final-review.md`
+    - Score: 5/5 (Critical - Must integrate immediately)
+    - Source: [Pat Cullen's Final Review Gist](https://gist.github.com/patyearone/c9a091b97e756f5ed361f7514d88ef0b) (Jan 28, 2026)
+    - Multi-agent workflow with 3 specialized agents: Consistency Auditor, SOLID Analyst, Defensive Code Auditor
+    - Anti-hallucination safeguards: pre-flight check (git log Co-Authored-By detection), verification protocol, occurrence rule
+    - Production patterns: reconciliation step, severity classification (🔴🟡🟢), auto-fix convergence loop
+    - Fact-checked: All claims verified, workflow production-ready (used regularly by author)
+  - **Enhanced `/review-pr` command**: `examples/commands/review-pr.md` (+150 lines: 80 → 230)
+    - Simple template PRESERVED (lines 1-80) for beginners
+    - NEW "Advanced: Multi-Agent Review" section (line 81+)
+    - Pre-flight check: `git log --oneline -10 | grep "Co-Authored-By: Claude"` to avoid repeating suggestions
+    - Multi-agent specialization: 3 parallel agents (Consistency, SOLID, Defensive)
+    - Anti-hallucination rules: verify patterns with Grep/Glob before recommending (occurrence rule: >10 = established)
+    - Reconciliation: prioritize existing project patterns, skip with documented reasoning
+    - Severity classification: 🔴 Must Fix (blockers) / 🟡 Should Fix / 🟢 Can Skip
+    - Auto-fix loop: review → fix → re-review → converge (max 3 iterations)
+    - Conditional context loading: stack-agnostic table (DB queries → check indexes, API routes → check auth, etc.)
+  - **Enhanced `code-reviewer` agent**: `examples/agents/code-reviewer.md` (+219 lines: 72 → 291)
+    - NEW "Anti-Hallucination Rules" section (line 75)
+      - Verification protocol: Use Grep/Glob before claiming patterns exist
+      - Occurrence rule: >10 occurrences = established, 3-10 = emerging, <3 = not established
+      - Read full file context (not just diff lines)
+      - Uncertainty markers: ❓ To verify / 💡 Consider / 🔴 Must fix
+    - NEW "Conditional Context Loading" section
+      - Detailed table: if diff contains X → load context Y → use tools Z
+      - Stack-agnostic patterns (imports → check package.json, DB queries → check schema, etc.)
+    - NEW "Defensive Code Audit" section
+      - Silent catches detection: empty catch blocks, console-only catches
+      - Hidden fallbacks detection: chained fallbacks (a || b || c), optional chaining with fallback
+      - Unchecked nulls detection: property access without validation
+      - Ignored promise rejections: async calls without .catch()
+    - NEW "Severity Classification System" with justification requirements
+    - Enhanced output format with evidence-based findings
+    - Attribution: Méthode Aristote production code review patterns
+  - **Enhanced iterative refinement workflow**: `guide/workflows/iterative-refinement.md` (+133 lines: 389 → 522)
+    - NEW "Review Auto-Correction Loop" section (line 347)
+    - Pattern: review → fix → re-review → converge (with visual diagram)
+    - Safeguards: max iterations, quality gates (tsc/lint), protected files, change threshold, rollback capability
+    - Example session: 3 iterations with 🔴 Must Fix → 🟡 Should Fix → 🟢 Can Skip convergence
+    - Comparison: one-pass review vs convergence loop (when to use each)
+    - Integration with multi-agent review
+    - Convergence criteria: 5 conditions (no issues, max iterations, change threshold, quality gate failure, manual stop)
+    - Anti-patterns table: infinite loop, scope creep, breaking fixes, protected file changes, context loss
+  - **Enhanced ultimate guide**: `guide/ultimate-guide.md` (+28 lines, ~line 4623)
+    - NEW "Production Example: Multi-Agent Code Review" after existing Code Review Prompt
+    - 3 specialized agent roles: Consistency, SOLID, Defensive Code Auditor
+    - Key patterns beyond generic Split Role: pre-flight check, anti-hallucination (Grep/Glob verification), reconciliation, severity classification, convergence loop
+    - Production safeguards: full file context, conditional loading, protected files, quality gates
+    - Attribution: Pat Cullen's Final Review Gist + implementation references
+  - **Reference updates**: `machine-readable/reference.yaml` (+3 entries)
+    - `review_pr_advanced: "examples/commands/review-pr.md:81"`
+    - `review_anti_hallucination: "examples/agents/code-reviewer.md:75"`
+    - `review_auto_fix_loop: "guide/workflows/iterative-refinement.md:347"`
+  - **Impact**: Transforms basic `/review-pr` template into production-grade multi-agent system
+    - Beginner-friendly: simple template preserved (lines 1-80)
+    - Advanced users: comprehensive patterns for critical code review
+    - Anti-hallucination safeguards prevent false suggestions
+    - Defensive code audit catches silent failures (empty catches, hidden fallbacks, unchecked nulls)
+    - Convergence loop ensures quality through iterative refinement
+  - **Design principles**: Enrich existing files (no fragmentation), no breaking changes (review-pr.md not renamed), complete attribution (Pat Cullen + Méthode Aristote), audience-aware (simple → advanced progression)
+
 ## [3.19.0] - 2026-01-30
 
 ### Added

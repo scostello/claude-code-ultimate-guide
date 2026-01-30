@@ -344,6 +344,140 @@ Next: add Redis backend."
 
 ---
 
+## Review Auto-Correction Loop
+
+Specialized iterative pattern for code review where Claude reviews → fixes → re-reviews until convergence.
+
+### Pattern
+
+```
+┌─────────────────────────────────────────┐
+│   Review Auto-Correction Loop           │
+│                                          │
+│   Review (identify issues)               │
+│        ↓                                 │
+│   Fix (apply corrections)                │
+│        ↓                                 │
+│   Re-Review (verify fixes)               │
+│        ↓                                 │
+│   Converge (minimal changes) → Done      │
+│        ↑                                 │
+│        └──── Repeat (max iterations)     │
+└─────────────────────────────────────────┘
+```
+
+### Prompt Template
+
+```
+Review this PR with auto-correction:
+1. Multi-agent review (3 specialized agents)
+2. Fix all 🔴 Must Fix issues
+3. Re-review to verify fixes didn't introduce new issues
+4. Fix all 🟡 Should Fix issues
+5. Re-review one final time
+6. Stop when only 🟢 Can Skip remain
+
+Max iterations: 3
+Stop early if iteration produces <5 lines changed
+```
+
+### Safeguards
+
+| Safeguard | Purpose | Implementation |
+|-----------|---------|----------------|
+| **Max iterations** | Prevent infinite loops | Hard limit: 3 iterations |
+| **Quality gates** | Ensure fixes are valid | Run `tsc && lint` before each iteration |
+| **Protected files** | Prevent risky changes | Skip auto-fix for: package.json, migrations, .env |
+| **Change threshold** | Stop when converged | Exit if iteration changes <5 lines |
+| **Rollback capability** | Recover from bad fixes | Git commit before each iteration |
+
+### Example Session
+
+**Iteration 1: Initial Review**
+```
+Claude: Found 8 issues:
+- 🔴 3 Must Fix (SQL injection, empty catch, missing auth)
+- 🟡 4 Should Fix (DRY violations, N+1 query)
+- 🟢 1 Can Skip (naming style)
+```
+
+**Iteration 2: Fix Must Fix + Re-Review**
+```
+Claude: Fixed 3 Must Fix issues.
+Re-review: All 🔴 resolved. No new issues introduced.
+Remaining: 4 🟡 Should Fix, 1 🟢 Can Skip
+```
+
+**Iteration 3: Fix Should Fix + Re-Review**
+```
+Claude: Fixed 4 Should Fix issues.
+Re-review: All 🟡 resolved. No new issues.
+Remaining: 1 🟢 Can Skip (optional improvement)
+```
+
+**Convergence**
+```
+Claude: Converged. Only optional improvements remain.
+Changes this iteration: 2 lines (below threshold).
+Review complete. ✅
+```
+
+### Comparison: One-Pass vs Convergence Loop
+
+| Aspect | One-Pass Review | Convergence Loop |
+|--------|-----------------|------------------|
+| **Detection** | Find all issues once | Find issues → fix → verify → repeat |
+| **Follow-up awareness** | Check git log for "Co-Authored-By: Claude" | Each iteration is aware of previous |
+| **False positives** | Can suggest fixes for already-fixed code | Re-review catches this |
+| **Confidence** | Single validation | Multiple validation passes |
+| **Time cost** | Fastest (1 review) | Slower (3+ reviews) |
+| **Quality** | Good for experienced devs | Better for critical code |
+
+**When to use**:
+- **One-pass**: Simple PRs, experienced team, time-sensitive
+- **Convergence loop**: Security-critical code, junior team, high-stakes production
+
+### Integration with Multi-Agent Review
+
+Combine convergence loop with multi-agent review for maximum quality:
+
+```
+Each iteration:
+├─ Agent 1: Consistency Auditor
+├─ Agent 2: SOLID Principles Analyst
+└─ Agent 3: Defensive Code Auditor
+     ↓
+  Fix issues
+     ↓
+  Re-run 3 agents
+     ↓
+  Verify fixes + check for new issues
+     ↓
+  Repeat until convergence
+```
+
+### Convergence Criteria
+
+Stop iterating when ANY of these is true:
+
+1. **No issues remaining** (ideal outcome)
+2. **Max iterations reached** (3 iterations default)
+3. **Change threshold** (iteration changed <5 lines)
+4. **Quality gate failure** (tsc/lint fails after fix)
+5. **Manual stop** (user requests halt)
+
+### Anti-Patterns in Review Loops
+
+| Anti-Pattern | Problem | Solution |
+|--------------|---------|----------|
+| **Infinite loop** | No convergence criteria | Set max iterations + change threshold |
+| **Scope creep** | Each iteration adds new requirements | Lock scope before starting loop |
+| **Breaking fixes** | Fix introduces new bugs | Re-review after each fix + quality gates |
+| **Protected file changes** | Modifies package.json, migrations | Explicit skip list for protected files |
+| **Context loss** | Forgets original issues after iteration 3 | Maintain issue tracker across iterations |
+
+---
+
 ## Example Session
 
 ### Initial Request

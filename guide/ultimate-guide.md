@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.19.0
+**Version**: 3.20.0
 
 ---
 
@@ -4620,6 +4620,32 @@ Evaluate this interface with perspectives:
 4. Accessibility Expert: WCAG compliance
 5. Mobile User: Responsive and touch
 ```
+
+**Production Example: Multi-Agent Code Review** (Pat Cullen, Jan 2026):
+
+Specialized agent roles for comprehensive PR review:
+
+1. **Consistency Agent**: Duplicate logic, pattern violations, DRY compliance
+2. **SOLID Agent**: SRP violations, nested conditionals (>3 levels), cyclomatic complexity >10
+3. **Defensive Code Auditor**: Silent catches, swallowed exceptions, hidden fallbacks
+
+**Key patterns** (beyond generic Split Role):
+
+- **Pre-flight check**: `git log --oneline -10 | grep "Co-Authored-By: Claude"` to detect follow-up passes and avoid repeating suggestions
+- **Anti-hallucination**: Use `Grep`/`Glob` to verify patterns before recommending them (occurrence rule: >10 = established, <3 = not established)
+- **Reconciliation**: Prioritize existing project patterns over ideal patterns, skip suggestions with documented reasoning
+- **Severity classification**: 🔴 Must Fix (blockers) / 🟡 Should Fix (improvements) / 🟢 Can Skip (nice-to-haves)
+- **Convergence loop**: Review → fix → re-review → repeat (max 3 iterations) until only optional improvements remain
+
+**Production safeguards**:
+
+- Read full file context (not just diff lines)
+- Conditional context loading based on diff content (DB queries → check indexes, API routes → check auth middleware)
+- Protected files skip list (package.json, migrations, .env)
+- Quality gates: `tsc && lint` validation before each iteration
+
+**Source**: [Pat Cullen's Final Review](https://gist.github.com/patyearone/c9a091b97e756f5ed361f7514d88ef0b)
+**Implementation**: See `/review-pr` advanced section, `examples/agents/code-reviewer.md`, `guide/workflows/iterative-refinement.md` (Review Auto-Correction Loop)
 
 ### Parallelization Decision Matrix
 
@@ -15717,4 +15743,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.19.0
+**Last updated**: January 2026 | **Version**: 3.20.0

@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.19.0"
+version: "3.20.0"
 updated: "2026-01-30"
 
 # ════════════════════════════════════════════════════════════════
@@ -22,6 +22,10 @@ deep_dive:
   # Claude Code Releases
   claude_code_releases: "guide/claude-code-releases.md"
   claude_code_releases_yaml: "machine-readable/claude-code-releases.yaml"
+  # Code Review Automation (Pat Cullen, Jan 2026)
+  review_pr_advanced: "examples/commands/review-pr.md:81"
+  review_anti_hallucination: "examples/agents/code-reviewer.md:75"
+  review_auto_fix_loop: "guide/workflows/iterative-refinement.md:347"
   # Known Issues & Critical Bugs (verified community reports)
   known_issues: "guide/known-issues.md"
   known_issues_github_bug: "guide/known-issues.md:16"  # GitHub auto-creation bug
@@ -822,7 +826,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.19.0, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.0, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
