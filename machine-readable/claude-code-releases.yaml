@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.22"
-updated: "2026-01-28"
+latest: "2.1.25"
+updated: "2026-01-30"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,20 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.25"
+    date: "2026-01-30"
+    highlights:
+      - "Fixed beta header validation for Bedrock/Vertex gateway users"
+    breaking: []
+
+  - version: "2.1.23"
+    date: "2026-01-29"
+    highlights:
+      - "Customizable spinner verbs setting (spinnerVerbs)"
+      - "mTLS and corporate proxy connectivity fixes"
+      - "Improved terminal rendering performance"
+    breaking: []
 
   - version: "2.1.22"
     date: "2026-01-28"

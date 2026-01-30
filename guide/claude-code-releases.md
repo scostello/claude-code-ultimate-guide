@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.22 | **Updated**: 2026-01-28
+**Latest**: v2.1.25 | **Updated**: 2026-01-30
 
 ---
 
@@ -18,6 +18,24 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.25 (2026-01-30)
+
+- Fixed beta header validation for Bedrock and Vertex gateway users — Ensures `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` environment variable works correctly
+
+### v2.1.23 (2026-01-29)
+
+- **Customizable spinner verbs** — New `spinnerVerbs` setting allows personalization of spinner action words
+- mTLS and corporate proxy connectivity fixes — Improved support for users behind corporate proxies with client certificates
+- Per-user temp directory isolation — Prevents permission conflicts on shared systems
+- Improved terminal rendering performance — Optimized screen data layout for faster updates
+- Fixed: Prompt caching race condition causing 400 errors
+- Fixed: Async hooks not canceling when headless streaming ends
+- Fixed: Tab completion not updating input field
+- Fixed: Ripgrep search timeouts returning empty results instead of errors
+- Changed: Bash commands show timeout duration alongside elapsed time
+- Changed: Merged PRs show purple status indicator in prompt footer
+- [IDE] Fixed: Model options displaying incorrect region strings for Bedrock users in headless mode
 
 ### v2.1.22 (2026-01-28)
 
