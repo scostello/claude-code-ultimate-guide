@@ -55,7 +55,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **System Prompts** (Official vs Community) | 4/5 | **2/5** | ⚠️ Watch only (official sources exist) | [system-prompts-official-vs-community.md](./system-prompts-official-vs-community.md) |
 | **Worktrunk** | 4/5 | **4/5** | ✅ Intégré (workflow) | [worktrunk-evaluation.md](./worktrunk-evaluation.md) |
 | **Pat Cullen** (Multi-Agent PR Review) | 5/5 | **5/5** | ✅ Intégré (review-pr, code-reviewer, guide) | [017-pat-cullen-final-review.md](./017-pat-cullen-final-review.md) |
+| **Docker Sandboxes** (Isolation Landscape) | 4/5 | **4/5** | ✅ Intégré (guide + notice) | [docker-sandboxes-isolation.md](./docker-sandboxes-isolation.md) |
 
 ---
 
-**Dernier update**: 2026-01-30 (17 évaluations)
+**Dernier update**: 2026-01-31 (18 évaluations)

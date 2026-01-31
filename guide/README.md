@@ -20,6 +20,7 @@ Core documentation for mastering Claude Code.
 | [security-hardening.md](./security-hardening.md) | Security threats, MCP vetting, injection defense | 25 min |
 | [ai-traceability.md](./ai-traceability.md) | AI attribution, disclosure policies, git-ai, compliance | 20 min |
 | [devops-sre.md](./devops-sre.md) | FIRE framework for infrastructure diagnosis and incident response | 30 min |
+| [sandbox-isolation.md](./sandbox-isolation.md) | Docker Sandboxes, cloud alternatives, safe autonomy workflows | 10 min |
 | [ai-ecosystem.md](./ai-ecosystem.md) | Complementary AI tools (Perplexity, Gemini, Kimi, NotebookLM, TTS) | 30 min |
 | [cowork.md](./cowork.md) | Claude Cowork: Summary (see [dedicated repo](https://github.com/FlorianBruniaux/claude-cowork-guide) for full docs) | 5 min |
 | [workflows/](./workflows/) | Practical workflow guides for Claude Code | 30 min |

@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.1"
-updated: "2026-01-30"
+version: "3.20.2"
+updated: "2026-01-31"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -99,6 +99,26 @@ deep_dive:
   tts_ai_ecosystem: "guide/ai-ecosystem.md:507"
   tts_hook_example: "examples/hooks/bash/tts-selective.sh"
   tts_claude_md_template: "examples/claude-md/tts-enabled.md"
+  # Sandbox Isolation for Coding Agents (guide/sandbox-isolation.md) - Added 2026-01-31
+  sandbox_isolation_guide: "guide/sandbox-isolation.md"
+  sandbox_isolation_decision_tree: "guide/sandbox-isolation.md:40"
+  sandbox_docker_sandboxes: "guide/sandbox-isolation.md:61"
+  sandbox_docker_network: "guide/sandbox-isolation.md:121"
+  sandbox_docker_templates: "guide/sandbox-isolation.md:165"
+  sandbox_docker_docs: "https://docs.docker.com/ai/sandboxes/"
+  sandbox_docker_claude_config: "https://docs.docker.com/ai/sandboxes/claude-code/"
+  sandbox_docker_network_docs: "https://docs.docker.com/ai/sandboxes/network-policies/"
+  sandbox_docker_templates_docs: "https://docs.docker.com/ai/sandboxes/templates/"
+  sandbox_flyio_sprites: "https://sprites.dev"
+  sandbox_cloudflare_sdk: "https://developers.cloudflare.com/sandbox/tutorials/claude-code/"
+  sandbox_vercel: "https://vercel.com/docs/vercel-sandbox/"
+  sandbox_e2b: "https://e2b.dev"
+  sandbox_native_cc: "guide/architecture.md:390"
+  sandbox_evaluation: "docs/resource-evaluations/docker-sandboxes-isolation.md"
+  sandbox_safe_autonomy: "guide/sandbox-isolation.md:320"
+  sandbox_anti_patterns: "guide/sandbox-isolation.md:372"
+  sandbox_comparison_matrix: "guide/sandbox-isolation.md:306"
+  sandbox_score: "4/5"
   # Architecture internals (guide/architecture.md)
   architecture_visual_overview: "guide/architecture.md:41"
   architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-7420592149110362112-eY5a"
@@ -271,7 +291,7 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 22
+  resource_evaluations_count: 23
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
@@ -832,7 +852,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.1, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.2, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

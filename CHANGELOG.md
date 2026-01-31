@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **Sandbox Isolation for Coding Agents** — `guide/sandbox-isolation.md` (NEW), `machine-readable/reference.yaml`, `guide/ultimate-guide.md`
+  - Score: 4/5 (High Value — official Docker docs + verified vendor documentation)
+  - Source: [docs.docker.com/ai/sandboxes/](https://docs.docker.com/ai/sandboxes/) (Docker Desktop 4.58+, Jan 2026)
+  - New guide file: Docker Sandboxes (microVM isolation, network policies, custom templates, supported agents)
+  - Alternatives landscape: Fly.io Sprites, Cloudflare Sandbox SDK, E2B, Vercel Sandboxes, native CC sandbox
+  - Comparison matrix (6 solutions, 7 criteria) + decision tree (Mermaid flowchart)
+  - Safe autonomy workflows: Docker Sandbox + `--dangerously-skip-permissions` pattern, CI/CD sketch
+  - Anti-patterns table (6 entries)
+  - Cross-reference added after `--dangerously-skip-permissions` warning (ultimate-guide.md:3953)
+  - 18 new `sandbox_*` entries in reference.yaml
+  - Evaluation: `docs/resource-evaluations/docker-sandboxes-isolation.md`
+
 - **Claude Code releases tracking: v2.1.27** — `machine-readable/claude-code-releases.yaml`, `guide/claude-code-releases.md`
   - `--from-pr` flag to resume sessions linked to GitHub PR number/URL
   - Sessions auto-linked to PRs when created via `gh pr create`

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.20.1
+**Version**: 3.20.2
 
 ---
 
@@ -3949,6 +3949,8 @@ Horror stories from r/ClaudeAI include:
 - Deletion of `.env` files with credentials
 
 **Always prefer granular `allowedTools` over disabling permissions entirely.**
+
+> **Safe alternative**: For autonomous execution, run Claude Code inside [Docker Sandboxes](sandbox-isolation.md) or a similar isolated environment. The sandbox becomes the security boundary, making `--dangerously-skip-permissions` safe to use. See the [Sandbox Isolation Guide](sandbox-isolation.md) for setup instructions and alternatives.
 
 ### Dynamic Memory (Profile Switching)
 
@@ -15766,4 +15768,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.20.1
+**Last updated**: January 2026 | **Version**: 3.20.2

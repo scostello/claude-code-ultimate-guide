@@ -374,6 +374,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 | **[Workflows](./guide/workflows/)** | Practical guides (TDD, Plan-Driven, Task Management) | 30 min |
 | **[Data Privacy](./guide/data-privacy.md)** | Retention & compliance | 10 min |
 | **[Security Hardening](./guide/security-hardening.md)** | MCP vetting, injection defense | 25 min |
+| **[Sandbox Isolation](./guide/sandbox-isolation.md)** | Docker Sandboxes, cloud alternatives, safe autonomy | 10 min |
 | **[Production Safety](./guide/production-safety.md)** | Port stability, DB safety, infrastructure lock | 20 min |
 | **[DevOps & SRE](./guide/devops-sre.md)** | FIRE framework, K8s troubleshooting, incident response | 30 min |
 | **[AI Ecosystem](./guide/ai-ecosystem.md)** | Complementary AI tools & integration patterns | 20 min |
@@ -482,7 +483,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.20.1 | January 2026 | Crafted with Claude*
+*Version 3.20.2 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
