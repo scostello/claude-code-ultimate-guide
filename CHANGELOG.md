@@ -6,6 +6,53 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.20.3] - 2026-01-31
+
+### Added
+
+- **Competitive Analysis: 9 Gaps Filled from claudelog.com** — Systematic veille against claudelog.com (313 pages, InventorBlack/r/ClaudeAI)
+  - **Section 9.19: Permutation Frameworks** (~180 lines, `guide/ultimate-guide.md`)
+    - CLAUDE.md-driven systematic variation testing (define dimensions → generate variants → implement → evaluate)
+    - Step-by-step implementation with practical API design example (REST vs GraphQL vs tRPC)
+    - Anti-patterns table, integration with TDD/Plan Mode/Skeleton Projects
+  - **Skeleton Projects Workflow** — `guide/workflows/skeleton-projects.md` (NEW, 208 lines)
+    - 4-phase workflow: Find & Evaluate → Fork & Customize → Expand to MVP → Document
+    - Sub-agent evaluation pattern for skeleton auditing (Security + Architecture + DX)
+    - Expansion timeline (Day 1 → Week 1 → Month 1) with common pitfalls
+  - **Task Lists as Diagnostic Tool** (~50 lines, `guide/ultimate-guide.md`)
+    - Divergence patterns table: too broad, too narrow, wrong priorities, missing/extra tasks
+    - Diagnostic workflow using TaskList as instruction clarity sanity check
+  - **Rev the Engine** (~45 lines, `guide/ultimate-guide.md`)
+    - Multi-round planning pattern (3 rounds: initial → challenge → finalize → execute)
+    - Integrated after OpusPlan in Plan Mode section
+  - **Mechanic Stacking** (~30 lines, `guide/ultimate-guide.md`)
+    - 5-layer intelligence stack: Plan Mode → Extended Thinking → Rev → Split-Role → Permutation
+    - Decision matrix matching stack depth to decision impact (Low → Critical)
+  - **Split-Role Sub-Agents** (~60 lines, `guide/ultimate-guide.md`)
+    - Multi-perspective analysis pattern with custom agent YAML templates
+    - Security Expert + Performance Analyst + UX/API Reviewer example
+  - **"You Are the Main Thread" Mental Model** (~30 lines, `guide/ultimate-guide.md`)
+    - CPU scheduler analogy: developer as orchestrator, Claude instances as worker threads
+    - ASCII diagram with 4 practical implications
+  - **Continuous Context Update** (~40 lines, `guide/ultimate-guide.md`)
+    - Proactive CLAUDE.md enrichment during dev sessions (not just reactive error capture)
+    - Discovery type → CLAUDE.md section mapping table
+  - **Smart Hook Dispatching** (~80 lines, `guide/ultimate-guide.md`)
+    - Single dispatcher routing events by file type and tool to specialized handlers
+    - Handler directory structure with language-specific hooks (TypeScript, Python, Rust, SQL)
+  - **Reference updates**: `machine-readable/reference.yaml` (+17 entries)
+    - `permutation_frameworks`, `rev_the_engine`, `mechanic_stacking`, `split_role_sub_agents`,
+      `task_lists_diagnostic`, `main_thread_orchestrator`, `continuous_context_update`,
+      `smart_hook_dispatching`, `skeleton_projects_workflow`
+  - **Workflows README**: Updated `guide/workflows/README.md` with Skeleton Projects entry + Quick Selection Guide
+
+### Changed
+
+- **README.md**: Guide line count updated (15K → 16K), version bumped to 3.20.3
+- **Guide line count**: 15,771 → 16,293 (+522 lines)
+
+---
+
 - **Sandbox Isolation for Coding Agents** — `guide/sandbox-isolation.md` (NEW), `machine-readable/reference.yaml`, `guide/ultimate-guide.md`
   - Score: 4/5 (High Value — official Docker docs + verified vendor documentation)
   - Source: [docs.docker.com/ai/sandboxes/](https://docs.docker.com/ai/sandboxes/) (Docker Desktop 4.58+, Jan 2026)

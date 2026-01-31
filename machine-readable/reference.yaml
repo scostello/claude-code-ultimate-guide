@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.2"
+version: "3.20.3"
 updated: "2026-01-31"
 
 # ════════════════════════════════════════════════════════════════
@@ -410,6 +410,23 @@ deep_dive:
   codebase_design_agents: 9976
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
   codebase_design_author: "François Zaninotto (Marmelab)"
+  # Section 9.19 - Permutation Frameworks
+  permutation_frameworks: 13947
+  # Advanced Plan Mode Patterns
+  rev_the_engine: 2323
+  mechanic_stacking: 2371
+  # Sub-Agent Patterns
+  split_role_sub_agents: 3546
+  # Task Management Diagnostic
+  task_lists_diagnostic: 3398
+  # Mental Model
+  main_thread_orchestrator: 2517
+  # CLAUDE.md Patterns
+  continuous_context_update: 3743
+  # Hook Patterns
+  smart_hook_dispatching: 6863
+  # Workflows
+  skeleton_projects_workflow: "guide/workflows/skeleton-projects.md"
   commands_table: 10213
   shortcuts_table: 10246
   troubleshooting: 10372
@@ -852,7 +869,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.2, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.3, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

@@ -53,6 +53,12 @@ Improve code through multiple refinement cycles.
 
 **When to use**: Quality improvements, performance optimization, code cleanup
 
+### [Skeleton Projects](./skeleton-projects.md) ⭐ NEW
+
+Use existing battle-tested repositories as scaffolding for new projects.
+
+**When to use**: Starting new projects, standardizing team patterns, rapid prototyping from proven foundations
+
 ---
 
 ## 🎨 Design & Content
@@ -99,6 +105,7 @@ Systematically explore and understand unfamiliar codebases.
 | **Large refactoring** | [Search Tools Mastery](./search-tools-mastery.md) |
 | **UI implementation** | [Design to Code](./design-to-code.md) |
 | **Code quality** | [Iterative Refinement](./iterative-refinement.md) |
+| **New project from template** | [Skeleton Projects](./skeleton-projects.md) |
 | **Documentation** | [PDF Generation](./pdf-generation.md) |
 | **Audio feedback** | [TTS Setup](./tts-setup.md) |
 

@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.20.2
+**Version**: 3.20.3
 
 ---
 
@@ -172,6 +172,7 @@ Context full → /compact or /clear
   - [9.16 Session Teleportation](#916-session-teleportation)
   - [9.17 Scaling Patterns: Multi-Instance Workflows](#917-scaling-patterns-multi-instance-workflows)
   - [9.18 Codebase Design for Agent Productivity](#918-codebase-design-for-agent-productivity)
+  - [9.19 Permutation Frameworks](#919-permutation-frameworks)
 - [10. Reference](#10-reference)
   - [10.1 Commands Table](#101-commands-table)
   - [10.2 Keyboard Shortcuts](#102-keyboard-shortcuts)
@@ -2319,6 +2320,74 @@ tools: Write, Edit, Bash
 
 **Pro Users Note**: OpusPlan is particularly valuable for Pro subscribers with limited Opus tokens. It lets you leverage Opus reasoning for critical planning while preserving tokens for more sessions.
 
+### Rev the Engine
+
+**Concept**: Run multiple rounds of planning and deep thinking before executing. Like warming up an engine before driving.
+
+Standard workflow: think → plan → execute.
+Rev the Engine: think → plan → think harder → refine plan → think hardest → finalize → execute.
+
+**When to use**:
+- Critical architectural decisions (irreversible, high-impact)
+- Complex migrations affecting 10+ files
+- Unfamiliar domain where first instincts are often wrong
+
+**Pattern**:
+
+```markdown
+## Round 1: Initial analysis
+User: /plan
+User: Analyze the current auth system. What are the key components,
+      dependencies, and potential risks of migrating to OAuth2?
+Claude: [Initial analysis]
+
+## Round 2: Deep challenge
+User: Now use extended thinking. Challenge your own analysis:
+      - What assumptions did you make?
+      - What failure modes did you miss?
+      - What would a senior security engineer flag?
+Claude: [Deeper analysis with self-correction]
+
+## Round 3: Final plan
+User: Based on both rounds, write the definitive migration plan.
+      Include rollback strategy and risk mitigation for each step.
+Claude: [Refined plan incorporating both rounds]
+
+## Execute
+User: /execute
+User: Implement the plan from round 3.
+```
+
+**Why it works**: Each round forces Claude to reconsider assumptions. Round 2 typically catches 30-40% of issues that round 1 missed. Round 3 synthesizes into a more robust plan.
+
+### Mechanic Stacking
+
+**Concept**: Layer multiple Claude Code mechanisms for maximum intelligence on critical decisions.
+
+```
+Layer 1: Plan Mode          → Safe exploration, no side effects
+Layer 2: Extended Thinking  → Deep reasoning with thinking tokens
+Layer 3: Rev the Engine     → Multi-round refinement
+Layer 4: Split-Role Agents  → Multi-perspective analysis
+Layer 5: Permutation        → Systematic variation testing
+```
+
+**You don't need all layers for every task.** Match the stack depth to the decision's impact:
+
+| Decision Impact | Stack Depth | Example |
+|-----------------|-------------|---------|
+| Low (fix typo) | 0 layers | Just do it |
+| Medium (add feature) | 1-2 layers | Plan Mode + Extended Thinking |
+| High (architecture) | 3-4 layers | Rev the Engine + Split-Role |
+| Critical (migration) | 4-5 layers | Full stack |
+
+**Anti-pattern**: Stacking on trivial decisions. If the change is reversible and low-risk, just execute. Over-planning is as wasteful as under-planning.
+
+**Cross-references**:
+- Permutation Frameworks: See [§9.19](#919-permutation-frameworks)
+- Split-Role Sub-Agents: See [Sub-Agent Isolation](#sub-agent-isolation)
+- Extended Thinking: See [§9.1 The Trinity](#91-the-trinity)
+
 ## 2.4 Rewind
 
 Rewind is Claude Code's undo mechanism.
@@ -2444,6 +2513,38 @@ Understanding how Claude Code "thinks" makes you more effective.
 4. **Hidden Files**: Claude respects .gitignore by default
 
 > **⚠️ Pattern Amplification**: Claude mirrors the patterns it finds. In well-structured codebases, it produces consistent, idiomatic code. In messy codebases without clear abstractions, it perpetuates the mess. If your code lacks good patterns, provide them explicitly in CLAUDE.md or use semantic anchors (Section 2.7).
+
+### You Are the Main Thread
+
+Think of yourself as a CPU scheduler. Claude Code instances are worker threads. You don't write the code—you **orchestrate** the work.
+
+```
+┌─────────────────────────────────────────┐
+│          YOU (Main Thread)              │
+│  ┌────────────────────────────────────┐ │
+│  │  Responsibilities:                 │ │
+│  │  • Define tasks and priorities     │ │
+│  │  • Allocate context budgets        │ │
+│  │  • Review outputs                  │ │
+│  │  • Make architectural decisions    │ │
+│  │  • Handle exceptions/escalations   │ │
+│  └────────────────────────────────────┘ │
+│         │          │          │         │
+│    ┌────▼───┐ ┌────▼───┐ ┌────▼───┐    │
+│    │Worker 1│ │Worker 2│ │Worker 3│    │
+│    │(Claude)│ │(Claude)│ │(Claude)│    │
+│    │Feature │ │Tests   │ │Review  │    │
+│    └────────┘ └────────┘ └────────┘    │
+└─────────────────────────────────────────┘
+```
+
+**Implications**:
+- **Don't write code** when Claude can. Your time is for decisions, not keystrokes.
+- **Don't micromanage**. Give clear instructions, then review results.
+- **Context-switch deliberately**. Like a scheduler, batch similar tasks.
+- **Escalate to yourself**. When Claude is stuck, step in—then hand back.
+
+This mental model scales: one developer can orchestrate 2-5 Claude instances on independent tasks (see [§9.17 Scaling Patterns](#917-scaling-patterns-multi-instance-workflows)).
 
 ### Communicating Effectively
 
@@ -3294,6 +3395,57 @@ Project (parent)
 }
 ```
 
+#### Task Lists as Diagnostic Tool
+
+**The Diagnostic Principle**: When Claude's task list doesn't match your intent, the problem isn't Claude—it's your instructions.
+
+Task lists act as a **mirror** for instruction clarity. If you ask Claude to plan a feature and the resulting tasks surprise you, that divergence is diagnostic information:
+
+```
+Your instruction: "Refactor the auth system"
+
+Claude's task list:
+- [ ] Read all auth-related files
+- [ ] Identify code duplication
+- [ ] Extract shared utilities
+- [ ] Update imports
+- [ ] Run tests
+
+Your reaction: "That's not what I meant—I wanted to switch from session to JWT"
+
+Diagnosis: Your instruction was ambiguous. "Refactor" ≠ "replace".
+```
+
+**Divergence patterns and what they reveal:**
+
+| Divergence Type | What It Means | Fix |
+|-----------------|---------------|-----|
+| Tasks too broad | Instructions lack specificity | Add WHAT, WHERE, HOW, VERIFY |
+| Tasks too narrow | Instructions too detailed, missing big picture | State the goal, not just the steps |
+| Wrong priorities | Context missing about what matters | Add constraints and priorities |
+| Missing tasks | Implicit knowledge not shared | Make assumptions explicit in prompt |
+| Extra tasks | Claude inferred requirements you didn't intend | Add explicit scope boundaries |
+
+**Using task divergence as a workflow:**
+
+```markdown
+## Step 1: Seed with loose instruction
+User: "Improve the checkout flow"
+
+## Step 2: Review Claude's task list (don't execute yet)
+Claude generates: [task list]
+
+## Step 3: Compare against your mental model
+- Missing: payment retry logic? → Add to instructions
+- Unexpected: UI redesign? → Clarify scope (backend only)
+- Wrong order: tests last? → Specify TDD approach
+
+## Step 4: Refine and re-plan
+User: "Actually, here's what I need: [refined instruction with specifics]"
+```
+
+**Pro tip**: Run `TaskList` after initial planning as a **sanity check** before execution. If more than 30% of tasks surprise you, your prompt needs work. Iterate on the prompt, not the tasks.
+
 #### Complete Workflow
 
 **→ See**: [Task Management Workflow](./workflows/task-management.md) for:
@@ -3390,6 +3542,70 @@ Leader creates shared task queue → Teammates self-organize and claim tasks
 - **Community**: [mikekelly/claude-sneakpeek](https://github.com/mikekelly/claude-sneakpeek) - Parallel build with feature flags enabled
 
 > ⚠️ **Note**: This is an experimental feature. Capabilities may change or be removed in future releases. Always verify current behavior with official documentation.
+
+### Split-Role Sub-Agents
+
+Beyond generic sub-agents, **split-role orchestration** assigns distinct expert personas to different agents for multi-perspective analysis.
+
+**The Pattern**: Instead of one agent reviewing everything, spawn specialized agents that each bring a different lens:
+
+```markdown
+User: Review the new payment service using split-role analysis:
+
+Agent 1 (Security Expert): Focus on authentication, input validation,
+  injection vectors, secret handling, PCI DSS compliance.
+
+Agent 2 (Performance Analyst): Focus on database queries, N+1 problems,
+  caching opportunities, response time bottlenecks.
+
+Agent 3 (UX/API Reviewer): Focus on error messages, response format
+  consistency, API discoverability, documentation completeness.
+
+Synthesize all three perspectives into a unified review with
+prioritized action items.
+```
+
+**Implementation with Custom Agents**:
+
+```yaml
+# .claude/agents/security-reviewer.md
+---
+name: security-reviewer
+model: opus
+tools: Read, Grep, Glob
+---
+You are a security-focused code reviewer. Analyze code for:
+- OWASP Top 10 vulnerabilities
+- Authentication/authorization flaws
+- Input validation gaps
+- Secret exposure risks
+Report findings with severity ratings (Critical/High/Medium/Low).
+```
+
+```yaml
+# .claude/agents/perf-reviewer.md
+---
+name: perf-reviewer
+model: sonnet
+tools: Read, Grep, Glob, Bash
+---
+You are a performance-focused reviewer. Analyze code for:
+- Database query efficiency (N+1, missing indexes)
+- Memory leaks and resource management
+- Caching opportunities
+- Algorithmic complexity issues
+Report findings with estimated impact (High/Medium/Low).
+```
+
+**When to split roles:**
+- Code reviews requiring 3+ distinct expertise areas
+- Architecture decisions with competing concerns (performance vs. security vs. DX)
+- Migration planning where different stakeholders have different priorities
+
+**When NOT to split:**
+- Simple reviews (one agent covers all aspects)
+- Time-constrained situations (overhead of synthesis outweighs benefit)
+- Tasks where perspectives aren't genuinely distinct
 
 ### The Philosophy
 
@@ -3523,6 +3739,43 @@ Month 3: 50 rules → 50 mistakes prevented + faster onboarding
 - Claude becomes increasingly aligned with team standards over time
 
 **Anti-pattern**: Preemptively documenting everything. Instead, treat CLAUDE.md as a **living document** that grows through actual mistakes caught during development.
+
+### Continuous Context Update
+
+Beyond reactive error capture, **proactively document discoveries** during development sessions. Every insight Claude surfaces about your codebase is a potential CLAUDE.md entry.
+
+**The workflow**:
+
+```
+During development session:
+  Claude discovers: "This service uses a custom retry strategy"
+  → Immediately: Add to CLAUDE.md under ## Architecture Decisions
+
+  Claude encounters: "Tests fail if run out of order due to shared DB state"
+  → Immediately: Add to CLAUDE.md under ## Gotchas
+
+  Claude suggests: "This pattern is duplicated in 3 services"
+  → Immediately: Add to CLAUDE.md under ## Known Technical Debt
+```
+
+**Practical prompt**:
+```markdown
+User: Before we finish this session, review what we discovered today.
+      Add any architectural insights, gotchas, or conventions to CLAUDE.md
+      that would help future sessions (including sessions by other team members).
+```
+
+**What to capture in-session**:
+
+| Discovery Type | CLAUDE.md Section | Example |
+|----------------|-------------------|---------|
+| Implicit convention | `## Conventions` | "Services return domain objects, never HTTP responses" |
+| Non-obvious dependency | `## Architecture` | "UserService depends on EmailService for signup flow" |
+| Test trap | `## Gotchas` | "E2E tests require Redis running on port 6380 (not default)" |
+| Performance constraint | `## Constraints` | "Batch API calls to max 50 items (external API limit)" |
+| Design decision rationale | `## Decisions` | "Chose Zod over Joi for runtime validation (tree-shakeable)" |
+
+**Frequency**: Update CLAUDE.md at least once per session where you learn something non-obvious. Over time, this builds a knowledge base that rivals onboarding documentation.
 
 **Size guideline**: Keep CLAUDE.md files between **4-8KB total** (all levels combined). Practitioner studies show that context files exceeding 16K tokens degrade model coherence. Include architecture overviews, key conventions, and critical constraints—exclude full API references or extensive code examples (link to them instead). Vercel's Next.js team compressed ~40KB of framework docs to an 8KB index with zero performance loss in agent evals ([Gao, 2026](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)), confirming the 4-8KB target.
 
@@ -6606,6 +6859,90 @@ echo "Exit code: $?"  # Should be 0
 ```
 
 ## 7.5 Hook Examples
+
+### Smart Hook Dispatching
+
+Instead of configuring dozens of individual hooks, use a **single dispatcher** that routes events intelligently based on file type, tool, and context.
+
+**The problem**: As your hook collection grows, `settings.json` becomes unwieldy with repeated matchers and overlapping configurations.
+
+**The solution**: One entry point that dispatches to specialized handlers.
+
+```bash
+#!/bin/bash
+# .claude/hooks/dispatch.sh
+# Single entry point for all PostToolUse hooks
+# Routes to specialized handlers based on file type and tool
+
+INPUT=$(cat)
+TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name')
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // .tool_input.command // ""')
+EVENT=$(echo "$INPUT" | jq -r '.event // "unknown"')
+
+HOOKS_DIR="$(dirname "$0")/handlers"
+
+# Route by file extension
+case "$FILE_PATH" in
+    *.ts|*.tsx)
+        [[ -x "$HOOKS_DIR/typescript.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/typescript.sh"
+        ;;
+    *.py)
+        [[ -x "$HOOKS_DIR/python.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/python.sh"
+        ;;
+    *.rs)
+        [[ -x "$HOOKS_DIR/rust.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/rust.sh"
+        ;;
+    *.sql|*.prisma)
+        [[ -x "$HOOKS_DIR/database.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/database.sh"
+        ;;
+esac
+
+# Route by tool (always runs, regardless of file type)
+case "$TOOL_NAME" in
+    Bash)
+        [[ -x "$HOOKS_DIR/security.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/security.sh"
+        ;;
+    Write)
+        [[ -x "$HOOKS_DIR/new-file.sh" ]] && echo "$INPUT" | "$HOOKS_DIR/new-file.sh"
+        ;;
+esac
+
+exit 0
+```
+
+**Configuration** (minimal `settings.json`):
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write|Bash",
+      "hooks": [".claude/hooks/dispatch.sh"]
+    }]
+  }
+}
+```
+
+**Handler directory structure**:
+
+```
+.claude/hooks/
+├── dispatch.sh              # Single entry point
+└── handlers/
+    ├── typescript.sh         # ESLint + tsc for .ts/.tsx
+    ├── python.sh             # Ruff + mypy for .py
+    ├── rust.sh               # cargo clippy for .rs
+    ├── database.sh           # Schema validation for .sql/.prisma
+    ├── security.sh           # Block dangerous bash commands
+    └── new-file.sh           # Check naming conventions on Write
+```
+
+**Benefits over individual hooks**:
+- **Single matcher** in settings.json (instead of N matchers)
+- **Easy to extend**: Drop a new handler in `handlers/`, no config change needed
+- **Language-aware**: Different validation per file type
+- **Composable**: File-type hooks and tool hooks both run when applicable
+- **Debuggable**: `echo "$INPUT" | .claude/hooks/dispatch.sh` tests the full chain
 
 ### Example 1: Activity Logger
 
@@ -13728,6 +14065,190 @@ Business logic and domain operations. Services are framework-agnostic.
 
 ---
 
+## 9.19 Permutation Frameworks
+
+**Reading time**: 10 minutes
+**Skill level**: Month 1+
+
+### The Problem: Single-Approach Thinking
+
+Most developers pick one approach and stick with it. But Claude Code's tooling supports systematic variation—testing multiple approaches to find the optimal solution.
+
+**Permutation Frameworks** formalize this: instead of hoping your first approach works, you systematically generate and evaluate variations.
+
+### What Is a Permutation Framework?
+
+A permutation framework defines **dimensions of variation** and lets Claude generate all meaningful combinations. Each dimension represents a design choice; each combination is a distinct implementation approach.
+
+```
+Dimension 1: Architecture    → [Monolith, Modular, Microservice]
+Dimension 2: State Mgmt      → [Server-side, Client-side, Hybrid]
+Dimension 3: Auth Strategy    → [JWT, Session, OAuth]
+
+Total permutations: 3 × 3 × 3 = 27 approaches
+Practical subset: 4-6 worth evaluating
+```
+
+### When to Use Permutation Frameworks
+
+| Scenario | Use Permutation? | Why |
+|----------|-----------------|-----|
+| New project architecture | ✅ Yes | Multiple valid approaches, high impact |
+| Component design with tradeoffs | ✅ Yes | Performance vs. readability vs. maintainability |
+| Migration strategy | ✅ Yes | Big-bang vs. strangler vs. parallel |
+| Bug fix with known root cause | ❌ No | One correct fix |
+| Styling changes | ❌ No | Low impact, subjective |
+| Performance optimization | ✅ Maybe | Profile first, then permute solutions |
+
+### Implementation: CLAUDE.md-Driven Permutations
+
+The key insight: use CLAUDE.md variations to generate consistent implementations across different approaches.
+
+#### Step 1: Define the Base Template
+
+```markdown
+# CLAUDE.md (base)
+
+## Project: [Project Name]
+## Permutation: {{VARIANT_NAME}}
+
+### Architecture
+{{ARCHITECTURE_PATTERN}}
+
+### State Management
+{{STATE_STRATEGY}}
+
+### Conventions
+- All implementations must include tests
+- Use the same data model across variants
+- Each variant in its own branch: `perm/{{VARIANT_NAME}}`
+```
+
+#### Step 2: Generate Variants
+
+```bash
+# Create variant branches with Claude
+claude -p "Create 4 CLAUDE.md variants for our dashboard project:
+1. 'server-heavy': Server components, minimal client JS, session auth
+2. 'spa-optimized': Client SPA, REST API, JWT auth
+3. 'hybrid-ssr': SSR with hydration, tRPC, session + JWT
+4. 'edge-first': Edge functions, client cache, token auth
+
+For each: create branch perm/<name>, write CLAUDE.md with filled template,
+scaffold the base structure. Same data model across all variants."
+```
+
+#### Step 3: Implement in Parallel
+
+```bash
+# Terminal 1
+git checkout perm/server-heavy
+claude "Implement the dashboard following CLAUDE.md conventions"
+
+# Terminal 2
+git checkout perm/spa-optimized
+claude "Implement the dashboard following CLAUDE.md conventions"
+
+# Terminal 3 (or sequential)
+git checkout perm/hybrid-ssr
+claude "Implement the dashboard following CLAUDE.md conventions"
+```
+
+#### Step 4: Evaluate with Sub-Agents
+
+```markdown
+User: Compare the 4 permutation branches. For each, evaluate:
+- Bundle size and load time
+- Code complexity (files, lines, dependencies)
+- Test coverage achievable
+- Maintenance burden estimate
+
+Create a comparison matrix and recommend the best approach
+for our team of 3 developers with moderate React experience.
+```
+
+### Practical Example: API Design Permutations
+
+```markdown
+# Permutation: REST vs GraphQL vs tRPC
+
+## Shared constraints (all variants)
+- Same database schema (PostgreSQL + Prisma)
+- Same auth (JWT)
+- Same business logic (services layer)
+
+## Variant A: REST
+- Express routes, OpenAPI spec
+- Separate validation layer (Zod)
+- Standard REST conventions (GET/POST/PUT/DELETE)
+
+## Variant B: GraphQL
+- Apollo Server, schema-first
+- Resolvers calling same services
+- Dataloader for N+1 prevention
+
+## Variant C: tRPC
+- Type-safe end-to-end
+- Shared types between client/server
+- Zod validation built-in
+```
+
+**Evaluation prompt**:
+```markdown
+User: I've implemented all 3 API variants. Now act as a reviewer:
+
+1. Run tests for each: which has better coverage?
+2. Count total lines of boilerplate vs business logic
+3. Measure type safety (any manual type assertions?)
+4. Rate developer experience for adding a new endpoint (1-5)
+
+Give me a decision matrix, not a recommendation.
+I'll decide based on our team context.
+```
+
+### Permutation Anti-Patterns
+
+| Anti-Pattern | Problem | Fix |
+|-------------|---------|-----|
+| Too many dimensions | Combinatorial explosion (3⁴ = 81) | Cap at 3 dimensions, 3-4 variants each |
+| No shared constraints | Variants aren't comparable | Define fixed elements first |
+| Permuting the trivial | Wasting tokens on style choices | Only permute architectural decisions |
+| No evaluation criteria | Can't pick a winner | Define scoring before generating variants |
+| Skipping implementation | Comparing on paper only | Build at least a skeleton for each |
+
+### Integration with Other Patterns
+
+**Permutation + Plan Mode**:
+```
+1. /plan → Define dimensions and constraints
+2. Generate CLAUDE.md variants
+3. /execute → Implement each variant
+4. /plan → Compare and decide
+```
+
+**Permutation + TDD**:
+```
+1. Write tests that ALL variants must pass (shared spec)
+2. Implement each variant against the same test suite
+3. The variant with cleanest implementation wins
+```
+
+**Permutation + Skeleton Projects**:
+```
+1. Start from same skeleton
+2. Branch per variant
+3. Each variant evolves the skeleton differently
+4. Compare which skeleton evolution is most maintainable
+```
+
+**Cross-references**:
+- Skeleton Projects workflow: See [Skeleton Projects Workflow](./workflows/skeleton-projects.md)
+- Plan Mode: See [§2.3 Plan Mode](#23-plan-mode)
+- TDD workflow: See [TDD with Claude](./workflows/tdd-with-claude.md)
+- Multi-Instance parallel execution: See [§9.17 Scaling Patterns](#917-scaling-patterns-multi-instance-workflows)
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -13759,6 +14280,7 @@ Before moving to Section 10 (Reference), verify you understand:
 - [ ] **Session Teleportation**: Migrate sessions between cloud and local environments
 - [ ] **Background Tasks**: Run tasks in cloud while working locally (`%` prefix)
 - [ ] **Multi-Instance Scaling**: Understand when/how to orchestrate parallel Claude instances (advanced teams only)
+- [ ] **Permutation Frameworks**: Systematically test multiple approaches before committing
 
 ### What's Next?
 
@@ -15768,4 +16290,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.20.2
+**Last updated**: January 2026 | **Version**: 3.20.3

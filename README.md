@@ -66,7 +66,7 @@ Save as `CLAUDE.md` in your project root. Claude reads it automatically.
 graph LR
     root[📦 Repository<br/>Root]
 
-    root --> guide[📖 guide/<br/>15K lines]
+    root --> guide[📖 guide/<br/>16K lines]
     root --> examples[📋 examples/<br/>86 templates]
     root --> quiz[🧠 quiz/<br/>227 questions]
     root --> tools[🔧 tools/<br/>utils]
@@ -88,7 +88,7 @@ graph LR
 ```
 📦 claude-code-ultimate-guide/
 │
-├─ 📖 guide/              Core Documentation (~15K lines)
+├─ 📖 guide/              Core Documentation (~16K lines)
 │  ├─ ultimate-guide.md   Complete reference, 10 sections
 │  ├─ cheatsheet.md       1-page printable
 │  ├─ architecture.md     How Claude Code works internally
@@ -367,7 +367,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | File | Purpose | Time |
 |------|---------|------|
-| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~15K lines), 10 sections | ~4 hours |
+| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~16K lines), 10 sections | ~4 hours |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 min |
 | **[Architecture](./guide/architecture.md)** | How Claude Code works internally | 25 min |
 | **[Methodologies](./guide/methodologies.md)** | TDD, SDD, BDD reference | 20 min |
@@ -483,7 +483,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.20.2 | January 2026 | Crafted with Claude*
+*Version 3.20.3 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
