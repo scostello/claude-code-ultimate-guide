@@ -77,6 +77,7 @@ Custom slash commands available in this project:
 
 | Command | Description |
 |---------|-------------|
+| `/release <bump-type>` | Release guide version (CHANGELOG + VERSION + sync + commit + push) |
 | `/update-infos-release [bump-type]` | Update Claude Code releases tracking + optional guide version bump |
 | `/version` | Display current guide and Claude Code versions with stats |
 | `/changelog [count]` | View recent CHANGELOG entries (default: 5) |
@@ -84,6 +85,8 @@ Custom slash commands available in this project:
 
 **Examples:**
 ```
+/release patch                 # Bump patch + release (3.20.4 → 3.20.5)
+/release minor                 # Bump minor + release (3.20.4 → 3.21.0)
 /update-infos-release          # Update CC releases only
 /update-infos-release patch    # Update CC + bump guide (3.9.11 → 3.9.12)
 /update-infos-release minor    # Update CC + bump guide (3.9.11 → 3.10.0)

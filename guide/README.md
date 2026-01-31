@@ -11,6 +11,7 @@ Core documentation for mastering Claude Code.
 | [claude-code-releases.md](./claude-code-releases.md) | Official release history (condensed) | 10 min |
 | [known-issues.md](./known-issues.md) | **Critical bugs tracker**: security issues, token consumption, verified community reports | 15 min |
 | [cheatsheet.md](./cheatsheet.md) | 1-page printable quick reference | 5 min |
+| [visual-reference.md](./visual-reference.md) | Visual cheatsheet — ASCII diagrams for key concepts | 5 min |
 | [architecture.md](./architecture.md) | How Claude Code works internally (master loop, tools, context) | 25 min |
 | [learning-with-ai.md](./learning-with-ai.md) | Guide for juniors on using AI without losing skills | 15 min |
 | [adoption-approaches.md](./adoption-approaches.md) | Implementation strategies for teams | 15 min |
