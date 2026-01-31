@@ -4,13 +4,13 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.25 | **Updated**: 2026-01-30
+**Latest**: v2.1.27 | **Updated**: 2026-01-31
 
 ---
 
 ## Quick Jump
 
-- [2.1.x Series (January 2026)](#21x-series-january-2026) — Task management, Keyboard shortcuts, Skill hot-reload
+- [2.1.x Series (January 2026)](#21x-series-january-2026) — PR session linking, Task management, Keyboard shortcuts, Skill hot-reload
 - [2.0.x Series (Nov 2025 - Jan 2026)](#20x-series-november-2025---january-2026) — Opus 4.5, Claude in Chrome, Background agents
 - [Breaking Changes Summary](#breaking-changes-summary)
 - [Milestone Features](#milestone-features)
@@ -18,6 +18,18 @@
 ---
 
 ## 2.1.x Series (January 2026)
+
+### v2.1.27 (2026-01-31)
+
+- **New**: `--from-pr` flag to resume sessions linked to a specific GitHub PR number or URL
+- **New**: Sessions automatically linked to PRs when created via `gh pr create`
+- Added tool call failures and denials to debug logs
+- Fixed context management validation error for Bedrock/Vertex gateway users
+- Fixed `/context` command not displaying colored output
+- Fixed status bar duplicating background task indicator when PR status was shown
+- [Windows] Fixed bash command execution failing for users with `.bashrc` files
+- [Windows] Fixed console windows flashing when spawning child processes
+- [VSCode] Fixed OAuth token expiration causing 401 errors after extended sessions
 
 ### v2.1.25 (2026-01-30)
 

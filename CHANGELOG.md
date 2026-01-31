@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+- **Claude Code releases tracking: v2.1.27** — `machine-readable/claude-code-releases.yaml`, `guide/claude-code-releases.md`
+  - `--from-pr` flag to resume sessions linked to GitHub PR number/URL
+  - Sessions auto-linked to PRs when created via `gh pr create`
+  - Context management fixes for Bedrock/Vertex gateway users
+  - Landing synced: banner + timeline card in index.html
+
 - **Contribution Metrics (Anthropic blog, Jan 29 2026)** — `guide/ultimate-guide.md`, `machine-readable/reference.yaml`
   - Score: 4/5 (High Value — official source with harder metrics superseding Aug 2025 data)
   - Source: [claude.com/blog/contribution-metrics](https://claude.com/blog/contribution-metrics)
