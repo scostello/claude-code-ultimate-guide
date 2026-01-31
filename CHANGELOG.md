@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.20.5] - 2026-01-31
+
+### Added
+
+- **Visual Reference**: 4 new high-value ASCII diagrams (16 → 20 total)
+  - **#17 TDD Red-Green-Refactor Cycle** — Cyclic loop showing the iterative nature of TDD
+  - **#18 UVAL Protocol Flow** — 4-step learning framework (Understand → Verify → Apply → Learn) with failure backtrack paths
+  - **#19 Security 3-Layer Defense** — Prevention/Detection/Response overview with adoption path by team size
+  - **#20 Secret Exposure Timeline** — Emergency response actions by time window (15min/1h/24h) with severity guide
+- **README.md**: Added Visual Reference to Core Documentation table
+
 ## [3.20.4] - 2026-01-31
 
 ### Added

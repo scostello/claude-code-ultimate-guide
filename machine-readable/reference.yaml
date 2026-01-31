@@ -1,9 +1,9 @@
 # claude-code-reference.yaml
-# Quick lookup for Claude Code - ~2K tokens target
+# Quick lookup for Claude Code - comprehensive index
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.4"
+version: "3.20.5"
 updated: "2026-01-31"
 
 # ════════════════════════════════════════════════════════════════
@@ -119,6 +119,8 @@ deep_dive:
   sandbox_anti_patterns: "guide/sandbox-isolation.md:372"
   sandbox_comparison_matrix: "guide/sandbox-isolation.md:306"
   sandbox_score: "4/5"
+  # Visual Reference (ASCII diagrams)
+  visual_reference: "guide/visual-reference.md"
   # Architecture internals (guide/architecture.md)
   architecture_visual_overview: "guide/architecture.md:41"
   architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-7420592149110362112-eY5a"
@@ -869,7 +871,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.4, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.5, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

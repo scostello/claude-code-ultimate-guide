@@ -369,6 +369,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 |------|---------|------|
 | **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~16K lines), 10 sections | ~4 hours |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 min |
+| **[Visual Reference](./guide/visual-reference.md)** | 20 ASCII diagrams for key concepts | 5 min |
 | **[Architecture](./guide/architecture.md)** | How Claude Code works internally | 25 min |
 | **[Methodologies](./guide/methodologies.md)** | TDD, SDD, BDD reference | 20 min |
 | **[Workflows](./guide/workflows/)** | Practical guides (TDD, Plan-Driven, Task Management) | 30 min |
@@ -483,7 +484,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.20.4 | January 2026 | Crafted with Claude*
+*Version 3.20.5 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
