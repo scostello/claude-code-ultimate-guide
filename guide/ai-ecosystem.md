@@ -1800,7 +1800,7 @@ An **interactive comparison matrix** of 23 AI coding agents across 11 technical 
 | "Which agents exist?" | "How to use Claude Code effectively?" |
 | Feature comparison (11 criteria) | Workflows, architecture, TDD/SDD methodologies |
 | 23 agents × shallow | 1 agent × deep (11K lines) |
-| Technical specs | Practical templates (66+), quiz (227 questions) |
+| Technical specs | Practical templates (66+), quiz (257 questions) |
 
 **Use case**: Use Matrix to **discover and compare** → Choose Claude Code → Use this guide to **master it**.
 

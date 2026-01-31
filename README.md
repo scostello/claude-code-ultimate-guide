@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-227_questions-orange?style=for-the-badge" alt="Quiz"/></a>
+  <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-257_questions-orange?style=for-the-badge" alt="Quiz"/></a>
   <a href="./examples/"><img src="https://img.shields.io/badge/Templates-86-green?style=for-the-badge" alt="Templates"/></a>
 </p>
 
@@ -68,7 +68,7 @@ graph LR
 
     root --> guide[📖 guide/<br/>16K lines]
     root --> examples[📋 examples/<br/>86 templates]
-    root --> quiz[🧠 quiz/<br/>227 questions]
+    root --> quiz[🧠 quiz/<br/>257 questions]
     root --> tools[🔧 tools/<br/>utils]
     root --> machine[🤖 machine-readable/<br/>AI index]
     root --> docs[📚 docs/<br/>25 evaluations]
@@ -102,7 +102,7 @@ graph LR
 │  ├─ skills/             1 meta-skill (Claudeception)
 │  └─ scripts/            Utility scripts (audit, search)
 │
-├─ 🧠 quiz/               227 Questions
+├─ 🧠 quiz/               257 Questions
 │  ├─ 9 categories        Setup, Agents, MCP, Trust, Advanced...
 │  ├─ 4 profiles          Junior, Senior, Power User, PM
 │  └─ Instant feedback    Doc links + score tracking
@@ -132,7 +132,7 @@ We explain **concepts first**, not just configs:
 - [Trade-offs](./guide/ultimate-guide.md#when-to-use-what) — When to use agents vs skills vs commands
 - [Pitfalls](./guide/ultimate-guide.md#common-mistakes) — Common mistakes and solutions
 
-### 📝 227-Question Quiz (Unique in Ecosystem)
+### 📝 257-Question Quiz (Unique in Ecosystem)
 
 **Only comprehensive assessment available** — test your understanding across 9 categories:
 - Setup & Configuration
@@ -407,7 +407,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 </details>
 
 <details>
-<summary><strong>Knowledge Quiz</strong> (227 questions)</summary>
+<summary><strong>Knowledge Quiz</strong> (257 questions)</summary>
 
 Test your Claude Code knowledge with an interactive CLI quiz covering all guide sections.
 
@@ -478,12 +478,12 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ### Tools
 - [Ask Zread](https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide) — Ask questions about this guide
-- [Interactive Quiz](./quiz/) — 227 questions
+- [Interactive Quiz](./quiz/) — 257 questions
 - [Landing Site](https://florianbruniaux.github.io/claude-code-ultimate-guide-landing/) — Visual navigation
 
 ---
 
-*Version 3.20.3 | January 2026 | Crafted with Claude*
+*Version 3.20.4 | January 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

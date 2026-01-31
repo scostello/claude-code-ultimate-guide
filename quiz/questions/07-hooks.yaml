@@ -380,3 +380,43 @@ questions:
       file: "guide/ultimate-guide.md"
       section: "7.2 Creating Hooks"
       anchor: "#hook-registration-settingsjson"
+
+  - id: "07-015"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What configuration parameter makes a hook run asynchronously (v2.1.0+)?"
+    options:
+      a: "background: true"
+      b: "async: true"
+      c: "nonblocking: true"
+      d: "mode: async"
+    correct: "b"
+    explanation: |
+      Since Claude Code v2.1.0, hooks support `async: true` in their configuration. This makes the hook fire without blocking Claude's execution. Useful for logging, notifications, or analytics hooks where you don't need to wait for the result before continuing.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Hook Execution Model"
+      anchor: "#hook-execution-model"
+
+  - id: "07-016"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What are the 3 limitations of async hooks compared to sync hooks?"
+    options:
+      a: "Can't access stdin, can't write files, can't read environment variables"
+      b: "No exit code feedback (can't block), no additionalContext returned, no blocking capability"
+      c: "Can't use network, can't spawn processes, can't read files"
+      d: "Limited to 1s timeout, no stderr capture, no argument passing"
+    correct: "b"
+    explanation: |
+      Async hooks trade control for speed:
+
+      1. **No exit code feedback** - Can't block Claude based on success/failure
+      2. **No additionalContext** - Can't inject context back into the conversation
+      3. **No blocking capability** - Fire-and-forget only
+
+      Use async for non-critical operations (logging, telemetry). Use sync for security gates, formatting, and validation.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Hook Execution Model"
+      anchor: "#hook-execution-model"

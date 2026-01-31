@@ -523,3 +523,173 @@ questions:
       file: "guide/methodologies.md"
       section: "Tier 4: Feature Delivery"
       anchor: "#tier-4-feature-delivery"
+
+  - id: "09-022"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What are the 5 layers of 'Mechanic Stacking'?"
+    options:
+      a: "Plan Mode, Extended Thinking, Rev the Engine, Split-Role, Permutation"
+      b: "Plan Mode, Sequential Thinking, Context7, Serena, Playwright"
+      c: "CLAUDE.md, Plan Mode, Extended Thinking, MCP Servers, Hooks"
+      d: "Plan Mode, Extended Thinking, Rev the Engine, Multi-Agent, Hooks"
+    correct: "a"
+    explanation: |
+      Mechanic Stacking layers 5 techniques for maximum Claude Code power:
+
+      1. **Plan Mode** - Safe exploration without changes
+      2. **Extended Thinking** - Deep internal reasoning
+      3. **Rev the Engine** - Progressive warm-up prompts
+      4. **Split-Role** - Separate architect/implementer/reviewer
+      5. **Permutation** - Systematic variation testing
+
+      Each layer compounds the previous one's effectiveness.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Mechanic Stacking"
+      anchor: "#mechanic-stacking"
+
+  - id: "09-023"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is a 'Permutation Framework' in Claude Code?"
+    options:
+      a: "A/B testing of UI variants"
+      b: "CLAUDE.md-driven systematic variation testing: define dimensions, generate variants, implement, evaluate"
+      c: "Random code generation for benchmarks"
+      d: "Automated regression test suite"
+    correct: "b"
+    explanation: |
+      A Permutation Framework uses CLAUDE.md to drive systematic variation testing. The workflow: define variation dimensions (e.g., algorithm choice, data structure, caching strategy), generate all combinations, implement each variant, evaluate with metrics. This ensures you explore the solution space methodically rather than picking the first approach.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Permutation Frameworks"
+      anchor: "#permutation-frameworks"
+
+  - id: "09-024"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What mental model describes the developer as an orchestrator of Claude instances?"
+    options:
+      a: "Pipeline Manager"
+      b: "Agent Supervisor"
+      c: "You Are the Main Thread - CPU scheduler analogy where developer dispatches tasks to agents"
+      d: "Task Router"
+    correct: "c"
+    explanation: |
+      "You Are the Main Thread" uses the CPU scheduler analogy: the developer is the main thread dispatching work to Claude instances (worker threads). You manage priorities, context switches, and synchronization. Key insight: you don't write code - you manage the agents that write code. This shifts the skill from coding to orchestration.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "You Are the Main Thread"
+      anchor: "#you-are-the-main-thread"
+
+  - id: "09-025"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "When task list items consistently diverge from actual work done, what does the guide recommend?"
+    options:
+      a: "Delete the task list and start over"
+      b: "Add more granular detail to each task"
+      c: "Use divergence patterns as diagnostic: too broad = break down, too narrow = step back, wrong priorities = re-align with goals"
+      d: "Ignore the divergence and continue"
+    correct: "c"
+    explanation: |
+      Task list divergence is diagnostic, not failure. Patterns reveal issues:
+
+      - **Too broad** tasks → break down into smaller pieces
+      - **Too narrow** tasks → step back and think bigger
+      - **Wrong priorities** → re-align tasks with actual goals
+      - **Consistent drift** → your mental model of the problem is wrong
+
+      Use divergence as signal, not noise.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Task Management Patterns"
+      anchor: "#task-management-patterns"
+
+  - id: "09-026"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is the 'occurrence rule' for claiming established patterns in code reviews?"
+    options:
+      a: ">5 occurrences = established, 2-5 = emerging, <2 = not established"
+      b: ">10 occurrences = established, 3-10 = emerging, <3 = not established"
+      c: "Based on file count, not occurrences"
+      d: ">20 occurrences = established, 5-20 = emerging, <5 = not established"
+    correct: "b"
+    explanation: |
+      Anti-hallucination safeguards for code reviews define the occurrence rule:
+
+      - **>10 occurrences** = established pattern (safe to reference)
+      - **3-10 occurrences** = emerging pattern (mention cautiously)
+      - **<3 occurrences** = NOT an established pattern (don't claim it is)
+
+      This prevents Claude from hallucinating "established conventions" from a few examples.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Anti-Hallucination Safeguards"
+      anchor: "#anti-hallucination-safeguards"
+
+  - id: "09-027"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What are the 3 specialized agents in multi-agent code review?"
+    options:
+      a: "Security Reviewer, Performance Analyst, UX Reviewer"
+      b: "Linter, Type Checker, Test Runner"
+      c: "Consistency Auditor, SOLID Analyst, Defensive Code Auditor"
+      d: "Junior Reviewer, Senior Reviewer, Architect Reviewer"
+    correct: "c"
+    explanation: |
+      Multi-agent PR review uses 3 specialized agents:
+
+      1. **Consistency Auditor** - Checks naming conventions, import patterns, code style adherence
+      2. **SOLID Analyst** - Reviews architectural principles, dependency injection, single responsibility
+      3. **Defensive Code Auditor** - Validates error handling, input validation, edge cases
+
+      Each agent has anti-hallucination safeguards (occurrence rule, file-scoped claims).
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Multi-Agent PR Review"
+      anchor: "#multi-agent-pr-review"
+
+  - id: "09-028"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is 'comprehension debt' according to Addy Osmani's '80% Problem'?"
+    options:
+      a: "Documentation debt - missing docs"
+      b: "Code you shipped but don't fully understand - distinct from technical debt"
+      c: "Review debt - unreviewed PRs"
+      d: "Design debt - skipped design phase"
+    correct: "b"
+    explanation: |
+      Comprehension debt is code you shipped but don't fully understand. It's distinct from technical debt (code you understand but know is suboptimal). With AI-generated code, comprehension debt grows silently: you accept suggestions without deep understanding. The fix: always be able to explain WHY, not just WHAT.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Practitioner Insights"
+      anchor: "#practitioner-insights"
+
+  - id: "09-029"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What is the '4-step cycle' for CLAUDE.md as compounding memory (Boris Cherny)?"
+    options:
+      a: "Write, Test, Deploy, Monitor"
+      b: "Plan, Execute, Review, Commit"
+      c: "Error, Rule, Read, Never repeated"
+      d: "Ask, Implement, Validate, Ship"
+    correct: "c"
+    explanation: |
+      Boris Cherny's mental model for CLAUDE.md as compounding memory:
+
+      1. **Error** - Claude makes a mistake
+      2. **Rule** - You add a rule to CLAUDE.md preventing it
+      3. **Read** - Claude reads CLAUDE.md on every session start
+      4. **Never repeated** - The mistake never happens again
+
+      Goal: never correct Claude twice for the same mistake. CLAUDE.md compounds over time.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "Boris Cherny Mental Models"
+      anchor: "#boris-cherny-mental-models"

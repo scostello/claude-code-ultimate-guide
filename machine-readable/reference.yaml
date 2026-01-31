@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.3"
+version: "3.20.4"
 updated: "2026-01-31"
 
 # ════════════════════════════════════════════════════════════════
@@ -782,7 +782,7 @@ rules:
 ecosystem:
   this_guide:
     focus: "Education - Learn & master"
-    unique: ["architecture docs", "TDD/SDD methodologies", "227-question quiz", "YAML index"]
+    unique: ["architecture docs", "TDD/SDD methodologies", "257-question quiz", "YAML index"]
   complementary:
     claude_code_templates:
       url: "github.com/davila7/claude-code-templates"
@@ -855,7 +855,7 @@ ecosystem:
       local: "/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide-landing/"
       purpose: "Marketing site for Claude Code guide"
       audience: "Developers discovering the guide"
-      features: ["badges (version, templates, lines)", "quiz (227 questions)", "FAQ", "cross-links to Cowork"]
+      features: ["badges (version, templates, lines)", "quiz (257 questions)", "FAQ", "cross-links to Cowork"]
       sync_with: "Guide Code (version, templates count, guide lines)"
     cowork_landing:
       local: "/Users/florianbruniaux/Sites/perso/claude-cowork-guide-landing/"
@@ -869,7 +869,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.3, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.4, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

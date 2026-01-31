@@ -279,7 +279,7 @@ Ce guide fait partie d'un écosystème de 4 repositories interconnectés, sépar
 | Aspect | Détails |
 |--------|---------|
 | **Local** | `/Users/florianbruniaux/Sites/perso/claude-code-ultimate-guide-landing/` |
-| **Contenu** | Page marketing, badges, FAQ, quiz (227 questions) |
+| **Contenu** | Page marketing, badges, FAQ, quiz (257 questions) |
 | **Sync avec** | Guide principal (version, templates, guide lines) |
 
 ### 4. Cowork Landing Site

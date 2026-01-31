@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.20.4] - 2026-01-31
+
+### Added
+
+- **30 New Quiz Questions** (227 → 257 total) across 11 categories
+  - **Advanced Patterns** (+8): Mechanic Stacking, Permutation Frameworks, "You Are the Main Thread", Task Lists as Diagnostic, Anti-hallucination occurrence rule, Multi-Agent PR Review, Comprehension Debt, CLAUDE.md compounding memory
+  - **MCP Servers** (+3): MCP Apps (SEP-1865), `auto:N` lazy loading, Semgrep top score (9.0/10)
+  - **Architecture** (+3): Tasks API (replaces TodoWrite), Tasks API N+1 overhead, TeammateTool experimental status
+  - **Reference** (+3): `--from-pr` flag, `$ARGUMENTS` bracket syntax breaking change, Myths vs Reality
+  - **Hooks** (+2): Async hook `async: true` config, async hook limitations
+  - **Learning with AI** (+2): Addy Osmani's 80% Problem failure modes, vibe coding context overload symptoms
+  - **Security** (+2): Docker sandbox isolation, GitHub Issue Auto-Creation Bug (#13797)
+  - **AI Ecosystem** (+3): LM Studio bridge cost savings, external orchestrators (Gas Town/multiclaude/agent-chat), skeleton project audit areas
+  - **Memory & Settings** (+2): 8 verification domains, Fresh Context Pattern
+  - **Agents** (+1): AGENTS.md vs Skills invocation reliability (100% vs 53-79%)
+  - **Privacy** (+1): Co-Authored-By vs Assisted-By traceability
+  - Difficulty distribution: 4 junior, 4 intermediate, 14 senior, 8 power
+  - Also fixed pre-existing "14 categories" → "15 categories" in landing quiz page
+
+### Changed
+
+- **README.md**: Quiz badge updated (227 → 257), quiz section updated
+- **Landing site**: All quiz counts updated (index.html, quiz/index.html, learning/index.html, CLAUDE.md)
+
 ## [3.20.3] - 2026-01-31
 
 ### Added
