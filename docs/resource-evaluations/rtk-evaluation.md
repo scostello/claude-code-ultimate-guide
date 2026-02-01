@@ -1,16 +1,47 @@
 # Resource Evaluation: RTK (Rust Token Killer)
 
-**Date**: 2026-01-28
+**Date**: 2026-01-28 (Updated: 2026-02-01)
 **Evaluator**: Claude Sonnet 4.5
-**Resource URL**: https://github.com/pszymkowiak/rtk
+**Resource URL**: https://github.com/pszymkowiak/rtk (upstream)
+**Fork URL**: https://github.com/FlorianBruniaux/rtk (extended)
 **Resource Type**: CLI Tool (Rust)
-**Author**: pszymkowiak
-**Version Tested**: v0.2.0 (2026-01-23)
-**Community Engagement**: 8 stars, 0 forks (as of 2026-01-28)
+**Author**: pszymkowiak (upstream), FlorianBruniaux (fork)
+**Version Tested**: v0.2.0 upstream, v0.4.0+ fork (feat/all-features)
+**Community Engagement**: 8 stars (upstream), fork active development
 
 ---
 
-## Executive Summary
+## 🆕 UPDATE 2026-02-01: Extended Fork Available
+
+**Fork Status**: An extended fork by FlorianBruniaux adds critical missing features:
+
+| Feature | Upstream v0.2.0 | Fork v0.4.0+ |
+|---------|----------------|--------------|
+| **JS/TS Stack** | ❌ Not supported | ✅ `rtk vitest`, `rtk pnpm`, `rtk prisma` |
+| **Bug Fixes** | ❌ grep/ls broken | ✅ Fixed in fork |
+| **Analytics** | ❌ None | ✅ `rtk gain`, `rtk discover` |
+| **Token Savings** | 72.6% (git only) | 70-90% (full stack) |
+
+**Fork Highlights**:
+- ✅ `rtk vitest run` - 90% reduction on test outputs
+- ✅ `rtk pnpm list` - 70% reduction on package trees
+- ✅ `rtk prisma migrate` - Migration status filtered
+- ✅ `rtk gain` - Token savings analytics dashboard
+- ✅ `rtk discover` - Find missed optimization opportunities
+- ✅ Bug fixes: grep and ls now work correctly
+
+**Installation (Fork)**:
+```bash
+git clone https://github.com/FlorianBruniaux/rtk.git
+cd rtk && git checkout feat/all-features
+cargo install --path . --force
+```
+
+**Recommendation Update**: Fork addresses all critical gaps identified in this evaluation. For modern JS/TS stacks (T3 Stack, Next.js, etc.), **use the fork**. For git-only workflows, upstream remains stable.
+
+---
+
+## Executive Summary (Original Evaluation - Upstream v0.2.0)
 
 RTK (Rust Token Killer) is a high-performance CLI proxy that filters and compresses command outputs **before they reach LLM contexts**. Real-world testing on the Claude Code Ultimate Guide repository confirms **72.6% average token reduction** across git workflows (92.3% for `git log`), validating the advertised 70% savings claim.
 

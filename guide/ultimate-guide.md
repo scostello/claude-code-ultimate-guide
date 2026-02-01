@@ -11083,19 +11083,29 @@ You: "Fix typos in auth.ts, user.ts, and api.ts"
 
 ### Command Output Optimization with RTK
 
-**RTK (Rust Token Killer)** filters bash command outputs **before** they reach Claude's context, achieving 72.6% average token reduction for git workflows.
+**RTK (Rust Token Killer)** filters bash command outputs **before** they reach Claude's context, achieving 70-90% token reduction across git, testing, and development workflows.
+
+**Two Repositories:**
+
+- **Upstream** (stable): [pszymkowiak/rtk](https://github.com/pszymkowiak/rtk) - Core git/find/cat optimizations
+- **Fork** (extended): [FlorianBruniaux/rtk](https://github.com/FlorianBruniaux/rtk) - Adds JS/TS tooling (vitest, pnpm, prisma) + analytics
 
 **Installation:**
 
 ```bash
-# macOS ARM64 (Apple Silicon)
+# Option 1: Stable upstream (cargo)
+cargo install rtk
+
+# Option 2: Extended fork with all features
+git clone https://github.com/FlorianBruniaux/rtk.git
+cd rtk && git checkout feat/all-features
+cargo install --path . --force
+
+# Option 3: Binary (macOS ARM64)
 curl -fsSL "https://github.com/pszymkowiak/rtk/releases/latest/download/rtk-aarch64-apple-darwin.tar.gz" -o rtk.tar.gz && tar -xzf rtk.tar.gz && sudo mv rtk /usr/local/bin/ && rm rtk.tar.gz
 
-# macOS Intel
-curl -fsSL "https://github.com/pszymkowiak/rtk/releases/latest/download/rtk-x86_64-apple-darwin.tar.gz" -o rtk.tar.gz && tar -xzf rtk.tar.gz && sudo mv rtk /usr/local/bin/ && rm rtk.tar.gz
-
 # Verify installation
-rtk --version  # Should output: rtk 0.2.0
+rtk --version  # v0.4.0+ (fork) or v0.2.0+ (upstream)
 ```
 
 **Proven Token Savings (Benchmarked):**
@@ -11104,24 +11114,29 @@ rtk --version  # Should output: rtk 0.2.0
 |---------|----------|-----|-----------|
 | `rtk git log` | 13,994 chars | 1,076 chars | **92.3%** |
 | `rtk git status` | 100 chars | 24 chars | **76.0%** |
-| `rtk find "*.md"` | 780 chars | 185 chars | **76.3%** |
 | `rtk git diff` | 15,815 chars | 6,982 chars | **55.9%** |
-| `cat CHANGELOG.md` | 163,587 chars | 61,339 chars | **62.5%** |
+| `rtk vitest run` (fork) | ~50,000 chars | ~5,000 chars | **90.0%** |
+| `rtk pnpm list` (fork) | ~8,000 chars | ~2,400 chars | **70.0%** |
+| `rtk cat CHANGELOG.md` | 163,587 chars | 61,339 chars | **62.5%** |
 
-**Average: 72.6% token reduction**
+**Average: 70-90% token reduction depending on commands**
 
 **Usage Pattern:**
 
 ```bash
-# Instead of:
-git log --oneline
-git status
-git diff HEAD~1
-
-# Use:
+# Git operations (both versions)
 rtk git log
 rtk git status
 rtk git diff HEAD~1
+
+# JS/TS Stack (fork only)
+rtk vitest run           # Test results condensed
+rtk pnpm list            # Dependency tree optimized
+rtk prisma migrate status # Migration status filtered
+
+# Analytics (fork only)
+rtk gain                 # Show token savings stats
+rtk discover             # Find missed optimization opportunities
 ```
 
 **Real-World Impact:**
@@ -11155,23 +11170,34 @@ rtk git diff HEAD~1
    - PreToolUse hook intercepts bash commands
    - Applies RTK wrapper when beneficial
 
-**Limitations (v0.2.0):**
+**Fork Features (feat/all-features):**
 
-- ❌ `grep` returns empty output (bug)
-- ❌ `ls` produces **worse** output (-274% token increase)
-- ⚠️ Early-stage project (8 GitHub stars, may be abandoned)
-- ⚠️ npm/pnpm/yarn not supported yet
+- ✅ `rtk vitest` - Test output condensed (90% reduction)
+- ✅ `rtk pnpm` - Package manager output optimized
+- ✅ `rtk prisma` - Database migration status filtered
+- ✅ `rtk gain` - Token savings analytics dashboard
+- ✅ `rtk discover` - Missed optimization opportunity finder
+- ✅ Bug fixes: `grep` and `ls` now work correctly
+
+**Upstream Limitations (v0.2.0):**
+
+- ⚠️ `grep` bug (returns empty output) - **Fixed in fork**
+- ⚠️ `ls` produces worse output - **Fixed in fork**
+- ⚠️ No JS/TS tooling support - **Added in fork**
 
 **Recommendation:**
 
-- ✅ Use for: git workflows, file finding, large file reading
-- ❌ Skip for: ls, grep, small outputs, quick exploration
+- ✅ **Fork**: Full-stack JS/TS projects, testing workflows, analytics needs
+- ✅ **Upstream**: Git-only workflows, minimal dependencies, stable releases
+- ❌ **Skip RTK**: Small outputs (<100 chars), quick exploration, interactive commands
 
 **See also:**
 
 - Evaluation: `docs/resource-evaluations/rtk-evaluation.md`
 - Templates: `examples/{claude-md,skills,hooks}/rtk-*`
-- GitHub: https://github.com/pszymkowiak/rtk
+- Upstream: https://github.com/pszymkowiak/rtk
+- Fork (extended): https://github.com/FlorianBruniaux/rtk
+- Third-party tools comparison: `guide/third-party-tools.md#rtk-rust-token-killer`
 
 ### Cost Tracking
 

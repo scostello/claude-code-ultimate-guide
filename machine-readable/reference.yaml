@@ -41,9 +41,11 @@ deep_dive:
   bridge_schema: "examples/scripts/bridge-plan-schema.json"
   bridge_guide: "guide/ultimate-guide.md:14079"
   # Cost optimization - RTK (Rust Token Killer)
-  rtk_tool: "https://github.com/pszymkowiak/rtk"
+  rtk_upstream: "https://github.com/pszymkowiak/rtk"
+  rtk_fork_extended: "https://github.com/FlorianBruniaux/rtk"
   rtk_evaluation: "docs/resource-evaluations/rtk-evaluation.md"
-  rtk_guide: "guide/ultimate-guide.md:10478"
+  rtk_guide: "guide/ultimate-guide.md:11084"
+  rtk_third_party: "guide/third-party-tools.md:86"
   rtk_claude_md: "examples/claude-md/rtk-optimized.md"
   rtk_skill: "examples/skills/rtk-optimizer/SKILL.md"
   rtk_hook: "examples/hooks/bash/rtk-auto-wrapper.sh"
@@ -122,6 +124,7 @@ deep_dive:
   # Third-Party Tools (guide/third-party-tools.md) - Added 2026-02-01
   third_party_tools_guide: "guide/third-party-tools.md"
   third_party_tools_cost_tracking: "guide/third-party-tools.md:42"
+  third_party_tools_rtk: "guide/third-party-tools.md:86"
   third_party_tools_session_mgmt: "guide/third-party-tools.md:105"
   third_party_tools_config_mgmt: "guide/third-party-tools.md:132"
   third_party_tools_alternative_uis: "guide/third-party-tools.md:170"
