@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.20.6
+**Version**: 3.20.7
 
 ---
 
@@ -1863,6 +1863,8 @@ ccusage --model-breakdown  # Cost by model (Sonnet/Opus/Haiku)
 - **Model breakdown**: See which model tier drives costs
 - **Budget planning**: Set monthly spending targets
 - **Team analytics**: Aggregate costs across developers
+
+> For a full inventory of community cost trackers, session viewers, config managers, and alternative UIs, see [Third-Party Tools](./third-party-tools.md).
 
 **Monthly tracking**:
 
@@ -16410,4 +16412,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.20.6
+**Last updated**: January 2026 | **Version**: 3.20.7

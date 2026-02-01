@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+
+(No unreleased changes)
+
+## [3.20.7] - 2026-02-01
+
+### Added
+
+- **Addy Osmani Spec-Writing Evaluation** (scored 4/5, High Value) — Integration of ["How to write a good spec for AI agents"](https://addyosmani.com/blog/good-spec/) by Addy Osmani (former Head of Chrome Developer Experience at Google, 14 years Chrome team, O'Reilly author)
+  - **Resource evaluation**: Systematic 5-point assessment with fact-checking (Perplexity verified credentials, all claims sourced) and technical-writer agent challenge phase (corrected initial 3/5 → 4/5 score) (`docs/resource-evaluations/addy-osmani-good-spec.md`)
+  - **Gaps filled**: Modular prompts strategy, operational boundaries framework (Always/Ask First/Never), command spec templates, anti-pattern documentation for monolithic CLAUDE.md
+  - **Integration priority**: High (within 1 week) — addresses daily user pain points (context pollution, spec clarity, operational decision-making)
+- **Spec-First Workflow: 4 New Sections** (~180 lines added to `guide/workflows/spec-first.md`, 327 → 507 lines total)
+  - **"Modular Spec Design"** (line 322): Pattern for splitting large CLAUDE.md files into focused domain files (CLAUDE-auth.md, CLAUDE-api.md, etc.). When to split (>200 lines threshold), 3 split strategies (feature-based, role-based, workflow-based), implementation pattern with @file references
+  - **"Operational Boundaries"** (line 372): Three-tier boundary system (Always/Ask First/Never) mapped to Claude Code permission modes (auto-accept/default/plan mode). Decision framework table, API development example, quarterly review guidelines
+  - **"Command Spec Template"** (line 432): Template for executable command specifications (testing, build, deployment, database commands) with expected outputs and error handling. Examples: `pnpm test`, `pnpm build`, `pnpm db:migrate` with safety checks
+  - **"Anti-Pattern: Monolithic CLAUDE.md"** (line 472): Explains cognitive load problem (>200 lines = context pollution), real-world before/after example (387 lines → 7 focused files, 61% context reduction), migration checklist
+- **Reference Index**: 8 new entries in `machine-readable/reference.yaml` (spec_first_workflow, spec_modular_design, spec_operational_boundaries, spec_command_template, spec_anti_monolithic, spec_osmani_source, spec_osmani_evaluation, spec_osmani_score)
+- **README.md**: Incremented resource evaluations count (35 → 36 assessments)
+- **Fresh Context Pattern**: New "Session-per-Concern Pipeline" variant — dedicates a fresh session to each quality dimension (plan → test → implement → security review → perf → code review) instead of looping the same task. References OpusPlan and TDD. (`guide/ultimate-guide.md:1595`)
+- **Resource Evaluation #19: dclaude** (Patrick Debois) — Dockerized Claude Code wrapper evaluated at 2/5 (Marginal). Fills a narrow gap (Linux + Docker Engine without Docker Desktop) but uses standard containers with host Docker socket mount — weaker isolation than Docker Sandboxes' microVMs. Footnote added in `guide/sandbox-isolation.md` Limitations subsection. (`docs/resource-evaluations/dclaude-docker-wrapper.md`)
+- **Resource Evaluation #20: 10 Tips from Inside the Claude Code Team** (paddo.dev / Boris Cherny thread) — Scored 4/5 (High Value). 4 integrations in ultimate-guide.md:
+  - **Prompting as Provocation** (section 2.6.1): 3 challenge patterns — Gatekeeper, Proof Demand, Reset — treating Claude as a peer to convince rather than an assistant to direct (`guide/ultimate-guide.md:3029`)
+  - **Model-as-Security-Gate** hook pattern: Route permission requests to Opus 4.5 via PreToolUse hook for intelligent security screening beyond static rules (`guide/ultimate-guide.md:6907`)
+  - **Boris Cherny team patterns**: Skills as institutional knowledge (/techdebt, context dumps, BigQuery agents), CLI-over-MCP rationale, re-plan when stuck, Claude writes its own rules (`guide/ultimate-guide.md:11822`)
+  - **Worktree shell aliases**: za/zb/zc navigation + dedicated analysis worktree tip (`guide/ultimate-guide.md:10717`)
+
 ## [3.20.6] - 2026-02-01
 
 ### Added
@@ -16,18 +45,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Agent Skills Supply Chain Risks** — New section 1.2 in security-hardening.md based on SafeDep threat model (8-14% of public skills have vulnerabilities). 4 mitigations: review SKILL.md, validate with skills-ref, pin versions, audit scripts/ (`guide/security-hardening.md:121`)
 - **anthropics/skills** (60K+⭐) added to README Complementary Resources table
 - **Resource Evaluations**: Skill Doctor GitHub Action (2/5, marginal), agentskills.io specification (4/5, high value) (`docs/resource-evaluations/skill-doctor-github-action.md`, `docs/resource-evaluations/agentskills-io-specification.md`)
-
-## [Unreleased]
-
-### Added
-
-- **Fresh Context Pattern**: New "Session-per-Concern Pipeline" variant — dedicates a fresh session to each quality dimension (plan → test → implement → security review → perf → code review) instead of looping the same task. References OpusPlan and TDD. (`guide/ultimate-guide.md:1595`)
-- **Resource Evaluation #19: dclaude** (Patrick Debois) — Dockerized Claude Code wrapper evaluated at 2/5 (Marginal). Fills a narrow gap (Linux + Docker Engine without Docker Desktop) but uses standard containers with host Docker socket mount — weaker isolation than Docker Sandboxes' microVMs. Footnote added in `guide/sandbox-isolation.md` Limitations subsection. (`docs/resource-evaluations/dclaude-docker-wrapper.md`)
-- **Resource Evaluation #20: 10 Tips from Inside the Claude Code Team** (paddo.dev / Boris Cherny thread) — Scored 4/5 (High Value). 4 integrations in ultimate-guide.md:
-  - **Prompting as Provocation** (section 2.6.1): 3 challenge patterns — Gatekeeper, Proof Demand, Reset — treating Claude as a peer to convince rather than an assistant to direct (`guide/ultimate-guide.md:3029`)
-  - **Model-as-Security-Gate** hook pattern: Route permission requests to Opus 4.5 via PreToolUse hook for intelligent security screening beyond static rules (`guide/ultimate-guide.md:6907`)
-  - **Boris Cherny team patterns**: Skills as institutional knowledge (/techdebt, context dumps, BigQuery agents), CLI-over-MCP rationale, re-plan when stuck, Claude writes its own rules (`guide/ultimate-guide.md:11822`)
-  - **Worktree shell aliases**: za/zb/zc navigation + dedicated analysis worktree tip (`guide/ultimate-guide.md:10717`)
 
 ## [3.20.5] - 2026-01-31
 
