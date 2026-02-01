@@ -8,7 +8,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-(No unreleased changes)
+- **Resource Evaluation: Addy Osmani LinkedIn Post** (scored 2/5, Marginal - Tracking mention only) — Post about Anthropic study (17% comprehension gap) evaluated but not integrated due to 100% overlap with primary source already documented (`docs/resource-evaluations/addy-osmani-linkedin-anthropic-study.md`)
+  - **Content**: LinkedIn post (Feb 1, 2026, 246K reach) citing Shen & Tamkin 2026 study on AI-assisted learning
+  - **Key claims verified**: 17% comprehension gap, 2-minute productivity gain, "thinking partner vs code vending machine" framing
+  - **Overlap**: 100% with arXiv:2601.20245 already cited 3× in `guide/learning-with-ai.md` (lines 114, 868, 890)
+  - **Decision**: Minimal integration (1-2 line tracking mention) to document mainstream diffusion timeline without content duplication
+  - **Challenge phase**: Technical-writer agent confirmed score 2/5 content but noted 3/5 ecosystem context (authority messager + diffusion milestone)
+  - **New criterion documented**: "Influencer Amplification" pattern for future evaluations (reach >100K + timeline awareness)
+- **Resource Evaluation: "Beyond Vibe Coding" Book** (scored 3/5, Pertinent - Minimal integration) — Comprehensive O'Reilly book by Addy Osmani evaluated for 90%+ overlap with existing guide content (`docs/resource-evaluations/beyond-vibe-coding.md`)
+  - **Content**: 6-chapter book (Intro/Principles/Advanced Techniques/CLI Agents/Production/Future Trends) published 2025, paid format ($B0F6S5425Y Amazon), freemium web content at beyond.addy.ie
+  - **Key frameworks**: The 70% Problem (AI accelerates 70%, final 30% needs rigor), Context Engineering as RAM metaphor, Critique-Driven Development, MCP as "USB-C for AI", Multi-Agent Orchestration
+  - **Overlap analysis**: 14 aspects compared — 10/14 already covered 100% (Vibe Coding, Context Engineering, MCP, Multi-Agent, Plan Mode, TDD, Spec-First, Visual Context, Production Safety)
+  - **Gap identified**: Critique-Driven Development framework not explicitly documented (conceptually covered via code review workflows), Few-Shot Prompting technique, Cost-Benefit Analysis Framework
+  - **Cross-validation**: Osmani's "80% Problem" article already evaluated 3/5 (ai-ecosystem.md:2024), "Good Spec" article already integrated 4/5 (workflows/spec-first.md)
+  - **Decision**: Tracking mention (3-5 lines in ai-ecosystem.md:2024) + cross-ref citations (1-2 lines in 4-5 overlapping sections) + "Context as RAM" metaphor note (methodologies.md:192)
+  - **Rationale**: Book = external validation/synthesis, but guide already more comprehensive (11K lines vs paid book). Rejected full integration (paid resource, 90% duplication, 2 Osmani articles already integrated)
+
+## [3.20.8] - 2026-02-01
+
+### Updated
+
+- **RTK (Rust Token Killer) Evaluation** — Major update from v0.2.0 to v0.7.0 (score upgraded from 4/5 to 4.5/5, +0.43 points) (`docs/resource-evaluations/rtk-evaluation.md`)
+  - **All critical gaps resolved**: pnpm support (v0.6.0), npm/vitest (v0.6.0), git arg parsing bug fixed (v0.7.0), grep/ls broken commands fixed (v0.7.0), GitHub CLI support (v0.6.0), Cargo commands (v0.6.0), analytics system (`rtk gain` v0.4.0, `rtk discover` v0.7.0), auto-rewrite hook for Claude Code PreToolUse (v0.7.0)
+  - **Evolution**: 5 major releases in 9 days (2026-01-23 → 2026-02-01) with 10+ community PRs merged (FlorianBruniaux contributions integrated upstream)
+  - **Architecture maturity**: 24 command modules (was 12), 9 filtering strategies (50-99% reduction), SQLite token tracking (`~/.local/share/rtk/history.db`), configuration system (`~/.config/rtk/config.toml`), ARCHITECTURE.md documentation
+  - **Community growth**: 17 stars (+113% from 8), 2 forks (+200% from 0), 1 open issue, 2+ contributors (active development)
+  - **Score breakdown**: Accuracy +1 (3→4, bugs fixed), Comprehensiveness +1 (4→5, full stack coverage), Production Readiness +1 (3→4, architecture docs), Community +1 (2→3, growth trajectory)
+  - **Token reduction**: 72.6% (git only, v0.2.0) → 89.4% (full stack estimate, v0.7.0) with 85% command coverage (was 40%)
+  - **Recommendation updated**: "GOOD (4/5) - git-only, bugs, experimental" → "EXCELLENT (4.5/5) - production-ready for early adopters, full modern dev stack (git, pnpm, npm, cargo, gh)"
+  - **Fork status**: Fork (FlorianBruniaux/rtk) no longer needed — all features merged upstream, use `pszymkowiak/rtk` v0.7.0 directly
 
 ## [3.20.7] - 2026-02-01
 
