@@ -424,7 +424,7 @@ cd quiz && npm install && npm start
 </details>
 
 <details>
-<summary><strong>Resource Evaluations</strong> (35 assessments)</summary>
+<summary><strong>Resource Evaluations</strong> (36 assessments)</summary>
 
 Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
 

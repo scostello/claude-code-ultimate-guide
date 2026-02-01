@@ -119,6 +119,23 @@ deep_dive:
   sandbox_anti_patterns: "guide/sandbox-isolation.md:372"
   sandbox_comparison_matrix: "guide/sandbox-isolation.md:306"
   sandbox_score: "4/5"
+  # Third-Party Tools (guide/third-party-tools.md) - Added 2026-02-01
+  third_party_tools_guide: "guide/third-party-tools.md"
+  third_party_tools_cost_tracking: "guide/third-party-tools.md:42"
+  third_party_tools_session_mgmt: "guide/third-party-tools.md:105"
+  third_party_tools_config_mgmt: "guide/third-party-tools.md:132"
+  third_party_tools_alternative_uis: "guide/third-party-tools.md:170"
+  third_party_tools_known_gaps: "guide/third-party-tools.md:259"
+  third_party_tools_recommendations: "guide/third-party-tools.md:274"
+  third_party_ccusage: "https://www.npmjs.com/package/ccusage"
+  third_party_ccusage_site: "https://ccusage.com"
+  third_party_ccburn: "https://github.com/JuanjoFuchs/ccburn"
+  third_party_claude_code_viewer: "https://www.npmjs.com/package/@kimuson/claude-code-viewer"
+  third_party_claude_code_config: "https://github.com/joeyism/claude-code-config"
+  third_party_aiblueprint: "https://github.com/Melvynx/aiblueprint"
+  third_party_claude_chic: "https://pypi.org/project/claudechic/"
+  third_party_toad: "https://github.com/batrachianai/toad"
+  third_party_conductor: "https://docs.conductor.build"
   # Visual Reference (ASCII diagrams)
   visual_reference: "guide/visual-reference.md"
   # Architecture internals (guide/architecture.md)
@@ -456,6 +473,15 @@ deep_dive:
   smart_hook_dispatching: 6863
   # Workflows
   skeleton_projects_workflow: "guide/workflows/skeleton-projects.md"
+  # Spec-First Development (Addy Osmani, Jan 2026)
+  spec_first_workflow: "guide/workflows/spec-first.md"
+  spec_modular_design: "guide/workflows/spec-first.md:322"
+  spec_operational_boundaries: "guide/workflows/spec-first.md:372"
+  spec_command_template: "guide/workflows/spec-first.md:432"
+  spec_anti_monolithic: "guide/workflows/spec-first.md:472"
+  spec_osmani_source: "https://addyosmani.com/blog/good-spec/"
+  spec_osmani_evaluation: "docs/resource-evaluations/addy-osmani-good-spec.md"
+  spec_osmani_score: "4/5"
   commands_table: 10213
   shortcuts_table: 10246
   troubleshooting: 10372
