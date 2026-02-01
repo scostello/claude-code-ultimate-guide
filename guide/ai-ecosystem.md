@@ -1873,6 +1873,10 @@ An **on-machine AI coding agent** developed by Block (formerly Square), released
 - You value Claude's specific reasoning capabilities and can't substitute
 - You don't want to manage LLM API credentials
 
+### Skill Portability
+
+Both Claude Code and Goose support the [Agent Skills open standard](https://agentskills.io) (agentskills.io). Skills you create with SKILL.md are portable across 26+ platforms including Cursor, VS Code, GitHub, OpenAI Codex, and Gemini CLI. Claude Code-specific fields (`context`, `agent`) are ignored by other platforms but don't break compatibility.
+
 ### Trade-offs
 
 | Goose Advantage | Goose Limitation |

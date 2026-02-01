@@ -56,7 +56,9 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Worktrunk** | 4/5 | **4/5** | ✅ Intégré (workflow) | [worktrunk-evaluation.md](./worktrunk-evaluation.md) |
 | **Pat Cullen** (Multi-Agent PR Review) | 5/5 | **5/5** | ✅ Intégré (review-pr, code-reviewer, guide) | [017-pat-cullen-final-review.md](./017-pat-cullen-final-review.md) |
 | **Docker Sandboxes** (Isolation Landscape) | 4/5 | **4/5** | ✅ Intégré (guide + notice) | [docker-sandboxes-isolation.md](./docker-sandboxes-isolation.md) |
+| **dclaude** (Dockerized Claude Code) | 2/5 | **2/5** | ⚠️ Footnote (sandbox-isolation.md) | [dclaude-docker-wrapper.md](./dclaude-docker-wrapper.md) |
+| **10 Tips from Inside the Claude Code Team** (paddo.dev) | 4/5 | **4/5** | ✅ Intégré (4 sections) | [paddo-team-tips-eval.md](./paddo-team-tips-eval.md) |
 
 ---
 
-**Dernier update**: 2026-01-31 (18 évaluations)
+**Dernier update**: 2026-02-01 (20 évaluations)

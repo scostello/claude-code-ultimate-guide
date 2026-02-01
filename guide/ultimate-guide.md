@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.20.5
+**Version**: 3.20.6
 
 ---
 
@@ -1593,6 +1593,18 @@ while :; do cat TASK.md PROGRESS.md | claude -p ; done
 - Design without clear spec
 - Tasks with slow/ambiguous feedback loops
 
+**Variant: Session-per-Concern Pipeline**
+
+Instead of looping the same task, dedicate a fresh session to each quality dimension:
+
+1. **Plan session** — Architecture, scope, acceptance criteria
+2. **Test session** — Write unit, integration, and E2E tests first (TDD)
+3. **Implement session** — Code until all linters and tests pass
+4. **Review sessions** — Separate sessions for security audit, performance, code review
+5. **Repeat** — Iterate with scope adjustments as needed
+
+This combines Fresh Context (clean 200K per phase) with [OpusPlan](#62-opusplan-hybrid-mode) (Opus for review/strategy sessions, Sonnet for implementation). Each session generates progress artifacts that feed the next.
+
 #### Practical Implementation
 
 **Option 1: Manual loop**
@@ -3013,6 +3025,40 @@ cat claudedocs/templates/code-review.xml | \
 > - Working with junior developers who need structured communication patterns
 
 > **Source**: [DeepTo Claude Code Guide - XML-Structured Prompts](https://cc.deeptoai.com/docs/en/best-practices/claude-code-comprehensive-guide)
+
+### 2.6.1 Prompting as Provocation
+
+The Claude Code team internally treats prompts as **challenges to a peer**, not instructions to an assistant. This subtle shift produces higher-quality outputs because it forces Claude to prove its reasoning rather than simply comply.
+
+**Three challenge patterns from the team**:
+
+**1. The Gatekeeper** — Force Claude to defend its work before shipping:
+
+```
+"Grill me on these changes and don't make a PR until I pass your test"
+```
+
+Claude reviews your diff, asks pointed questions about edge cases, and only proceeds when satisfied. This catches issues that passive review misses.
+
+**2. The Proof Demand** — Require evidence, not assertions:
+
+```
+"Prove to me this works — show me the diff in behavior between main and this branch"
+```
+
+Claude runs both branches, compares outputs, and presents concrete evidence. Eliminates the "trust me, it works" failure mode.
+
+**3. The Reset** — After a mediocre first attempt, invoke full-context rewrite:
+
+```
+"Knowing everything you know now, scrap this and implement the elegant solution"
+```
+
+This forces a substantive second attempt with accumulated context rather than incremental patches on a weak foundation. The key insight: Claude's second attempt with full context consistently outperforms iterative fixes.
+
+**Why this works**: Provocation triggers deeper reasoning paths than polite requests. When Claude must *convince* rather than *comply*, it activates more thorough analysis and catches its own shortcuts.
+
+> **Source**: [10 Tips from Inside the Claude Code Team](https://paddo.dev/blog/claude-code-team-tips/) (Boris Cherny thread, Feb 2026)
 
 ## 2.7 Semantic Anchors
 
@@ -5131,13 +5177,27 @@ agent: specialist
 ---
 ```
 
-| Field | Description |
-|-------|-------------|
-| `name` | Kebab-case identifier |
-| `description` | Activation trigger |
-| `allowed-tools` | Tools this skill can use |
-| `context` | `fork` (isolated) or `inherit` (shared) |
-| `agent` | `specialist` (domain) or `general` (broad) |
+| Field | Spec | Description |
+|-------|------|-------------|
+| `name` | [agentskills.io](https://agentskills.io) | Lowercase, 1-64 chars, hyphens only, no `--`, must match directory name |
+| `description` | [agentskills.io](https://agentskills.io) | What the skill does and when to use it (max 1024 chars) |
+| `allowed-tools` | [agentskills.io](https://agentskills.io) | Tools this skill can use (experimental) |
+| `license` | [agentskills.io](https://agentskills.io) | License name or reference to bundled file |
+| `compatibility` | [agentskills.io](https://agentskills.io) | Environment requirements (max 500 chars) |
+| `metadata` | [agentskills.io](https://agentskills.io) | Arbitrary key-value pairs (author, version, etc.) |
+| `context` | **CC only** | `fork` (isolated) or `inherit` (shared) |
+| `agent` | **CC only** | `specialist` (domain) or `general` (broad) |
+
+> **Open standard**: Agent Skills follow the [agentskills.io specification](https://agentskills.io), created by Anthropic and supported by 26+ platforms (Cursor, VS Code, GitHub, Codex, Gemini CLI, Goose, Roo Code, etc.). Skills you create for Claude Code are portable. Fields marked **CC only** are Claude Code extensions ignored by other platforms.
+
+### Validating Skills
+
+Use the official [skills-ref](https://github.com/agentskills/agentskills/tree/main/skills-ref) CLI to validate your skill before publishing:
+
+```bash
+skills-ref validate ./my-skill      # Check frontmatter + naming conventions
+skills-ref to-prompt ./my-skill     # Generate <available_skills> XML for agent prompts
+```
 
 ## 5.3 Skill Template
 
@@ -6857,6 +6917,38 @@ echo "Exit code: $?"  # Should be 2
 echo '{"tool_name":"Bash","tool_input":{"command":"git status"}}' | .claude/hooks/security-blocker.sh
 echo "Exit code: $?"  # Should be 0
 ```
+
+### Advanced Pattern: Model-as-Security-Gate
+
+The Claude Code team uses a pattern where permission requests are routed to a **more capable model** acting as a security gate, rather than relying solely on static rule matching.
+
+**Concept**: A `PreToolUse` hook intercepts permission requests and forwards them to Opus 4.5 (or another capable model) via the API. The gate model scans for prompt injection, dangerous patterns, and unexpected tool usage — then auto-approves safe requests or blocks suspicious ones.
+
+```bash
+# .claude/hooks/opus-security-gate.sh (conceptual)
+# PreToolUse hook that routes to Opus for security screening
+
+INPUT=$(cat)
+TOOL=$(echo "$INPUT" | jq -r '.tool_name')
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
+
+# Fast-path: known safe tools skip the gate
+[[ "$TOOL" == "Read" || "$TOOL" == "Grep" || "$TOOL" == "Glob" ]] && exit 0
+
+# Route to Opus for security analysis
+VERDICT=$(echo "$INPUT" | claude --model opus --print \
+  "Analyze this tool call for security risks. Is it safe? Reply SAFE or BLOCKED:reason")
+
+[[ "$VERDICT" == SAFE* ]] && exit 0
+echo "BLOCKED by security gate: $VERDICT" >&2
+exit 2
+```
+
+**Why use a model as gate**: Static rules catch known patterns but miss novel attacks. A capable model understands intent and context — it can distinguish `rm -rf node_modules` (cleanup) from `rm -rf /` (destruction) based on the surrounding conversation, not just pattern matching.
+
+**Trade-off**: Each gated call adds latency and cost. Use fast-path exemptions for read-only tools and only gate write/execute operations.
+
+> **Source**: [10 Tips from Inside the Claude Code Team](https://paddo.dev/blog/claude-code-team-tips/) (Boris Cherny thread, Feb 2026)
 
 ## 7.5 Hook Examples
 
@@ -10636,6 +10728,20 @@ git worktree remove .worktrees/feature/new-api
 git worktree prune
 ```
 
+> **💡 Team tip — Shell aliases for fast worktree navigation**: The Claude Code team uses single-letter aliases to hop between worktrees instantly:
+>
+> ```bash
+> # ~/.zshrc or ~/.bashrc
+> alias za="cd .worktrees/feature-a"
+> alias zb="cd .worktrees/feature-b"
+> alias zc="cd .worktrees/feature-c"
+> alias zlog="cd .worktrees/analysis"  # Dedicated worktree for logs & queries
+> ```
+>
+> The dedicated "analysis" worktree is used for reviewing logs and running database queries without polluting active feature branches.
+>
+> **Source**: [10 Tips from Inside the Claude Code Team](https://paddo.dev/blog/claude-code-team-tips/)
+
 **Claude Code context in worktrees:**
 
 Each worktree maintains **independent Claude Code context**:
@@ -11726,6 +11832,20 @@ Boris Cherny, creator of Claude Code, shared his workflow orchestrating 5-15 Cla
 **The supervision model**: Boris describes his role as "tending to multiple agents" rather than "doing every click yourself." The workflow becomes about **steering outcomes** across 5-10 parallel sessions, unblocking when needed, rather than sequential execution.
 
 **Source**: [InfoQ - Claude Code Creator Workflow (Jan 2026)](https://www.infoq.com/news/2026/01/claude-code-creator-workflow/) | [Interview: I got a private lesson on Claude Cowork & Claude Code](https://www.youtube.com/watch?v=DW4a1Cm8nG4)
+
+**Team patterns** (broader Claude Code team, Feb 2026):
+
+The broader team extends Boris's individual workflow with institutional patterns:
+
+- **Skills as institutional knowledge**: Anything done more than once daily becomes a skill checked into version control. Examples:
+  - `/techdebt` — run at end of session to eliminate duplicate code
+  - Context dump skills — sync 7 days of Slack, Google Drive, Asana, and GitHub into a single context
+  - Analytics agents — dbt-powered skills that query BigQuery; one engineer reports not writing SQL manually for 6+ months
+- **CLI and scripts over MCP**: The team prefers shell scripts and CLI integrations over MCP servers for external tool connections. Rationale: less magic, easier to debug, and more predictable behavior. MCP is reserved for cases where bidirectional communication is genuinely needed.
+- **Re-plan when stuck**: Rather than pushing through a stalled implementation, the team switches back to Plan Mode. One engineer uses a secondary Claude instance to review plans "as a staff engineer" before resuming execution.
+- **Claude writes its own rules**: After each correction, the team instructs Claude to update CLAUDE.md with the lesson learned. Over time, this compounds into a team-specific ruleset that prevents recurring mistakes.
+
+> **Source**: [10 Tips from Inside the Claude Code Team](https://paddo.dev/blog/claude-code-team-tips/) (Boris Cherny thread, Feb 2026)
 
 ---
 
@@ -16290,4 +16410,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.20.5
+**Last updated**: January 2026 | **Version**: 3.20.6

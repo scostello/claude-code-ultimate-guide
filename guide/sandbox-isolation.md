@@ -222,7 +222,7 @@ Triggered automatically if no credentials found. Use `/login` inside Claude Code
 ### Limitations
 
 - **macOS and Windows only** for microVM mode. Linux uses legacy container-based sandboxes (Docker Desktop 4.57+).
-- **Docker Desktop required** — not available with standalone Docker Engine.
+- **Docker Desktop required** — not available with standalone Docker Engine. Community alternatives like [dclaude](https://github.com/jedi4ever/dclaude) (Patrick Debois) wrap Claude Code in standard Docker containers for Docker Engine-only environments, but use container isolation (not microVM) and mount the host Docker socket — weaker security boundary.
 - **MCP Gateway not yet supported** inside sandboxes.
 - **No GPU passthrough** — not suitable for ML training workloads.
 - **Workspace sync is one-way**: changes inside the sandbox propagate to the host, but concurrent host edits may conflict.

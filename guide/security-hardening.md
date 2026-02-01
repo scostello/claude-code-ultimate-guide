@@ -118,7 +118,17 @@ Before adding any MCP server, complete this checklist:
 - Use read-only database credentials
 - Minimize environment variables exposed
 
-### 1.2 Known Limitations of permissions.deny
+### 1.2 Agent Skills Supply Chain Risks
+
+Third-party Agent Skills (installed via `npx add-skill` or plugin marketplaces) introduce supply chain risks similar to npm packages. Research by [SafeDep](https://safedep.io/agent-skills-threat-model) identified vulnerabilities in **8-14% of publicly available skills**, including prompt injection, data exfiltration, and privilege escalation.
+
+**Mitigations**:
+- **Review SKILL.md before installing** — Check `allowed-tools` for unexpected access (especially `Bash`)
+- **Validate with skills-ref** — `skills-ref validate ./skill-dir` checks spec compliance ([agentskills.io](https://agentskills.io))
+- **Pin skill versions** — Use specific commit hashes when installing from GitHub
+- **Audit scripts/** — Executable scripts bundled with skills are the highest-risk component
+
+### 1.3 Known Limitations of permissions.deny
 
 The `permissions.deny` setting in `.claude/settings.json` is the official method to block Claude from accessing sensitive files. However, security researchers have documented architectural limitations.
 
@@ -176,7 +186,7 @@ Because `permissions.deny` alone cannot guarantee complete protection:
 
 > **Bottom line**: `permissions.deny` is necessary but not sufficient. Treat it as one layer in a defense-in-depth strategy, not a complete solution.
 
-### 1.3 Repository Pre-Scan
+### 1.4 Repository Pre-Scan
 
 Before opening untrusted repositories, scan for injection vectors:
 

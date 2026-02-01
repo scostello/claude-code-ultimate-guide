@@ -71,7 +71,7 @@ graph LR
     root --> quiz[🧠 quiz/<br/>257 questions]
     root --> tools[🔧 tools/<br/>utils]
     root --> machine[🤖 machine-readable/<br/>AI index]
-    root --> docs[📚 docs/<br/>25 evaluations]
+    root --> docs[📚 docs/<br/>35 evaluations]
 
     style root fill:#d35400,stroke:#e67e22,stroke-width:3px,color:#fff
     style guide fill:#2980b9,stroke:#3498db,stroke-width:2px,color:#fff
@@ -115,7 +115,7 @@ graph LR
 │  ├─ reference.yaml      Structured index (~2K tokens)
 │  └─ llms.txt            Standard LLM context file
 │
-└─ 📚 docs/               22 Resource Evaluations
+└─ 📚 docs/               35 Resource Evaluations
    └─ resource-evaluations/  5-point scoring, source attribution
 ```
 
@@ -160,7 +160,7 @@ Educational templates with explanations:
 
 [Browse Catalog →](./examples/)
 
-### 🔍 22 Resource Evaluations
+### 🔍 35 Resource Evaluations
 
 Systematic assessment of external resources (5-point scoring):
 - Articles, videos, tools, frameworks
@@ -322,6 +322,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 | Project | Focus | Best For |
 |---------|-------|----------|
 | [claude-code-templates](https://github.com/davila7/claude-code-templates) | Distribution (200+ templates) | CLI installation (17k⭐) |
+| [anthropics/skills](https://github.com/anthropics/skills) | Official Anthropic skills (60K+⭐) | Documents, design, dev templates |
 | [skills.sh](https://skills.sh/) | Skills marketplace | One-command install (Vercel Labs) |
 | [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Curation | Resource discovery |
 | [AI Coding Agents Matrix](https://coding-agents-matrix.dev) | Technical comparison | Comparing 23+ alternatives |
@@ -423,7 +424,7 @@ cd quiz && npm install && npm start
 </details>
 
 <details>
-<summary><strong>Resource Evaluations</strong> (22 assessments)</summary>
+<summary><strong>Resource Evaluations</strong> (35 assessments)</summary>
 
 Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
 
@@ -484,7 +485,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.20.5 | January 2026 | Crafted with Claude*
+*Version 3.20.6 | February 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

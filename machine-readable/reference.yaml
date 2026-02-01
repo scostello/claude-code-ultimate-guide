@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.5"
-updated: "2026-01-31"
+version: "3.20.6"
+updated: "2026-02-01"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -169,7 +169,9 @@ deep_dive:
   rewind: 2278
   mental_model: 2360
   xml_prompting: 2419
-  semantic_anchors: 2872
+  prompting_provocation: 3029
+  prompting_provocation_source: "https://paddo.dev/blog/claude-code-team-tips/"
+  semantic_anchors: 2904
   semantic_anchors_catalog: "examples/semantic-anchors/anchor-catalog.md"
   memory_files: 3160
   # Task Management System (v2.1.16+) - Added 2026-01-26
@@ -237,6 +239,23 @@ deep_dive:
   skill_improvement_security_warnings: 5237
   skill_improvement_comparison: 5263
   skill_improvement_workflow: 5275
+  # Agent Skills Open Standard (added 2026-02-01)
+  agentskills_spec: "https://agentskills.io"
+  agentskills_spec_repo: "https://github.com/agentskills/agentskills"
+  agentskills_spec_stars: "8.2K"
+  agentskills_platforms: "26+ (Claude Code, Cursor, VS Code, GitHub, Codex, Gemini CLI, Goose, Roo Code, Spring AI, Databricks...)"
+  agentskills_ref_cli: "https://github.com/agentskills/agentskills/tree/main/skills-ref"
+  agentskills_ref_cli_usage: "skills-ref validate <path> | skills-ref to-prompt <path>"
+  anthropics_skills_repo: "https://github.com/anthropics/skills"
+  anthropics_skills_stars: "60K+"
+  anthropics_skills_categories: "Documents (docx/pdf/pptx/xlsx), Creative & Design, Development, Enterprise"
+  anthropics_skills_install: "/plugin marketplace add anthropics/skills"
+  agentskills_threat_model: "https://safedep.io/agent-skills-threat-model"
+  agentskills_threat_model_finding: "8-14% of public skills have vulnerabilities (prompt injection, data exfiltration, privilege escalation)"
+  agentskills_blog: "https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills"
+  agentskills_guide_section: "guide/ultimate-guide.md:5180"
+  agentskills_evaluation: "docs/resource-evaluations/agentskills-io-specification.md"
+  agentskills_score: "4/5"
   # Skills Marketplace (added 2026-01-23)
   skills_marketplace: 5172
   skills_marketplace_url: "https://skills.sh/"
@@ -293,7 +312,7 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 23
+  resource_evaluations_count: 35
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
@@ -334,6 +353,8 @@ deep_dive:
   hooks: 5273
   hook_templates: 5418
   security_hooks: 5680
+  security_gate_hook: 6907
+  security_gate_hook_source: "https://paddo.dev/blog/claude-code-team-tips/"
   mcp_servers: 5984
   serena_indexation: 6078
   serena_mcp: 6037
@@ -351,6 +372,12 @@ deep_dive:
   session_teleportation: 9477
   multi_instance_workflows: 9583
   boris_cherny_case_study: 9617
+  boris_cherny_team_patterns: 11822
+  # External resource: Claude Code team tips (paddo.dev, Feb 2026)
+  team_tips_paddo: "https://paddo.dev/blog/claude-code-team-tips/"
+  team_tips_paddo_source: "Boris Cherny thread (x.com/bcherny/status/2017742741636321619)"
+  team_tips_paddo_evaluation: "docs/resource-evaluations/paddo-team-tips-eval.md"
+  team_tips_paddo_score: "4/5"
   anthropic_study_metrics: 9721
   # Contribution Metrics (Jan 2026 - platform feature, not CLI release)
   contribution_metrics: 11625
@@ -871,7 +898,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.5, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.6, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
