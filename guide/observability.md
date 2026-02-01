@@ -410,5 +410,6 @@ find ~/.claude/logs -name "*.jsonl" -mtime +30 -delete
 - [Session Search Script](../examples/scripts/session-search.sh) - Fast session search & resume
 - [Session Logger Hook](../examples/hooks/bash/session-logger.sh)
 - [Stats Analysis Script](../examples/scripts/session-stats.sh)
+- [Third-Party Tools](./third-party-tools.md) - Community GUIs, TUIs, and dashboards (ccusage, ccburn, claude-code-viewer)
 - [Data Privacy Guide](./data-privacy.md) - What data leaves your machine
 - [Cost Optimization](./ultimate-guide.md#cost-optimization) - Tips to reduce spend
