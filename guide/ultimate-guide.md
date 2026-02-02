@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.21.0
+**Version**: 3.21.1
 
 ---
 
@@ -2484,6 +2484,62 @@ When things go wrong, you have multiple recovery options. Use the lightest-weigh
 
 **Pro tip**: The `/rewind` command shows a list of changes to undo. You can selectively revert specific files rather than all changes.
 
+### Checkpoint Pattern: Safe Experimentation
+
+For systematic experimentation, use the checkpoint pattern to create safe restore points:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              CHECKPOINT WORKFLOW                        │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   1. Create checkpoint                                  │
+│   ──────────────────                                    │
+│   git stash push -u -m "checkpoint-before-refactor"     │
+│   (saves all changes including untracked files)         │
+│                                                         │
+│   2. Experiment freely                                  │
+│   ──────────────────                                    │
+│   Try risky refactoring, architectural changes, etc.    │
+│   If it works → commit normally                         │
+│   If it fails → restore checkpoint                      │
+│                                                         │
+│   3. Restore checkpoint                                 │
+│   ──────────────────                                    │
+│   git stash list              # find your checkpoint    │
+│   git stash apply stash@{0}   # restore without delete  │
+│   # or                                                  │
+│   git stash pop stash@{0}     # restore and delete      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Automated checkpoint**: Create a Stop hook to auto-checkpoint on session end:
+
+```bash
+# .claude/hooks/auto-checkpoint.sh
+# See: examples/hooks/bash/auto-checkpoint.sh
+
+# Automatically creates git stash on session end
+# Naming: claude-checkpoint-{branch}-{timestamp}
+# Logs to: ~/.claude/logs/checkpoints.log
+```
+
+**Common workflows**:
+
+| Scenario | Workflow |
+|----------|----------|
+| Risky refactor | Checkpoint → Try → Commit or restore |
+| A/B testing approaches | Checkpoint → Try A → Restore → Try B → Compare |
+| Incremental migration | Checkpoint → Migrate piece → Test → Repeat |
+| Prototype exploration | Checkpoint → Experiment → Discard cleanly |
+
+**Benefits over branching**:
+- Faster than creating feature branches
+- Preserves uncommitted changes
+- Lightweight for quick experiments
+- Works across multiple files
+
 ## 2.5 Mental Model
 
 Understanding how Claude Code "thinks" makes you more effective.
@@ -4083,7 +4139,7 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
-### 3.21.0 Version Control & Backup
+### 3.21.1 Version Control & Backup
 
 **Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
 
@@ -7185,6 +7241,187 @@ exit 2
 
 > **Source**: [10 Tips from Inside the Claude Code Team](https://paddo.dev/blog/claude-code-team-tips/) (Boris Cherny thread, Feb 2026)
 
+### File Protection Strategy
+
+Protecting sensitive files requires a multi-layered approach combining permissions, patterns, and bypass detection.
+
+#### Three Protection Layers
+
+```
+┌─────────────────────────────────────────────────────────┐
+│           FILE PROTECTION ARCHITECTURE                  │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│   Layer 1: Permissions Deny (Native)                    │
+│   ──────────────────────────                            │
+│   • Built into settings.json                            │
+│   • No hooks required                                   │
+│   • Blocks all tool access instantly                    │
+│   • Use for: Absolutely forbidden files                 │
+│                                                         │
+│   Layer 2: Pattern Matching (Hook)                      │
+│   ────────────────────────                              │
+│   • PreToolUse hook with .agentignore patterns          │
+│   • Supports gitignore-style syntax                     │
+│   • Centralized protection rules                        │
+│   • Use for: Sensitive file categories                  │
+│                                                         │
+│   Layer 3: Bypass Detection (Hook)                      │
+│   ──────────────────────────                            │
+│   • Detects variable expansion ($VAR, ${VAR})           │
+│   • Detects command substitution $(cmd), `cmd`          │
+│   • Prevents path manipulation attempts                 │
+│   • Use for: Defense against sophisticated attacks      │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+#### Layer 1: permissions.deny
+
+```json
+{
+  "permissions": {
+    "deny": [
+      ".env",
+      ".env.local",
+      ".env.production",
+      "**/*.key",
+      "**/*.pem",
+      "credentials.json",
+      ".aws/credentials"
+    ]
+  }
+}
+```
+
+**Pros**: Instant blocking, no hooks needed
+**Cons**: No custom logic, cannot log attempts
+
+#### Layer 2: .agentignore Pattern File
+
+Create `.agentignore` (or `.aiignore`) in your project root:
+
+```gitignore
+# Credentials
+.env*
+*.key
+*.pem
+*.p12
+credentials.json
+secrets.yaml
+
+# Config
+config/secrets/
+.aws/credentials
+.ssh/id_*
+
+# Build artifacts (if generated from secrets)
+dist/.env
+build/config/production.json
+```
+
+**Unified hook** (See: `examples/hooks/bash/file-guard.sh`):
+
+```bash
+# .claude/hooks/file-guard.sh
+# Reads .agentignore and blocks matching files
+# Also detects bash bypass attempts
+```
+
+**Pros**: Gitignore syntax familiar, centralized rules, version controlled
+**Cons**: Requires hook implementation
+
+#### Layer 3: Bypass Detection
+
+Sophisticated attacks may try to bypass protection using variable expansion:
+
+```bash
+# Attack attempts
+FILE="sensitive.key"
+cat $FILE              # Variable expansion bypass
+
+HOME_DIR=$HOME
+cat $HOME_DIR/.env     # Variable substitution bypass
+
+cat $(echo ".env")     # Command substitution bypass
+```
+
+The `file-guard.sh` hook detects these patterns:
+
+```bash
+# Detection logic
+detect_bypass() {
+    local file="$1"
+
+    # Variable expansion
+    [[ "$file" =~ \$\{?[A-Za-z_][A-Za-z0-9_]*\}? ]] && return 0
+
+    # Command substitution
+    [[ "$file" =~ \$\( || "$file" =~ \` ]] && return 0
+
+    return 1
+}
+```
+
+#### Complete Protection Example
+
+**1. Configure settings.json**:
+
+```json
+{
+  "permissions": {
+    "deny": [".env", "*.key", "*.pem"]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/file-guard.sh",
+            "timeout": 2000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**2. Create .agentignore**:
+
+```gitignore
+.env*
+config/secrets/
+**/*.key
+**/*.pem
+credentials.json
+```
+
+**3. Copy hook template**:
+
+```bash
+cp examples/hooks/bash/file-guard.sh .claude/hooks/
+chmod +x .claude/hooks/file-guard.sh
+```
+
+#### Testing Protection
+
+```bash
+# Test direct access
+echo '{"tool_name":"Read","tool_input":{"file_path":".env"}}' | \
+  .claude/hooks/file-guard.sh
+# Should exit 1 and show "File access blocked"
+
+# Test bypass attempt
+echo '{"tool_name":"Read","tool_input":{"file_path":"$HOME/.env"}}' | \
+  .claude/hooks/file-guard.sh
+# Should exit 1 and show "Variable expansion detected"
+```
+
+> **Cross-reference**: For full security hardening including CVE-specific mitigations and MCP config integrity, see [Security Hardening Guide](./security-hardening.md).
+
 ## 7.5 Hook Examples
 
 ### Smart Hook Dispatching
@@ -7342,6 +7579,162 @@ fi
 
 exit 0
 ```
+
+### Validation Pipeline Pattern
+
+Chain multiple validation hooks to catch issues immediately after code changes. This pattern ensures code quality without manual intervention.
+
+#### The Pattern
+
+```
+Edit/Write → TypeCheck → Lint → Tests → Notify Claude
+   ↓            ↓         ↓       ↓
+  file.ts    tsc check  eslint  jest file.test.ts
+```
+
+**Benefits**:
+- Catch errors immediately (before next Claude action)
+- No need to manually run `npm run typecheck && npm run lint && npm test`
+- Fast feedback loop → faster iteration
+- Prevents cascading errors (Claude gets quality signal early)
+
+#### Three-Stage Pipeline Configuration
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/typecheck-on-save.sh",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/lint-gate.sh",
+            "timeout": 5000
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/test-on-change.sh",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Hook order matters**: Run fast checks first (typecheck ~1s), then slower ones (tests ~3-5s).
+
+#### Stage 1: Type Checking
+
+See: `examples/hooks/bash/typecheck-on-save.sh`
+
+```bash
+# Runs tsc on TypeScript files after edits
+# Only reports errors (not warnings)
+# Timeout: 5s (should be fast)
+```
+
+**What it catches**:
+- Type mismatches
+- Missing imports
+- Invalid property access
+- Generic constraints violations
+
+#### Stage 2: Linting
+
+Already documented in Example 2 above (lint-gate.sh).
+
+**What it catches**:
+- Code style violations
+- Unused variables
+- Missing semicolons
+- Import order issues
+
+#### Stage 3: Test Execution
+
+See: `examples/hooks/bash/test-on-change.sh`
+
+```bash
+# Detects associated test file and runs it
+# Supports: Jest (.test.ts), Pytest (_test.py), Go (_test.go)
+# Only runs if test file exists
+```
+
+**Test file detection logic**:
+
+| Source File | Test File Patterns |
+|-------------|-------------------|
+| `auth.ts` | `auth.test.ts`, `__tests__/auth.test.ts` |
+| `utils.py` | `utils_test.py`, `test_utils.py` |
+| `main.go` | `main_test.go` |
+
+**What it catches**:
+- Broken functionality
+- Regression failures
+- Edge case violations
+- Integration issues
+
+#### Smart Execution: Skip When Irrelevant
+
+All three hooks check conditions before running:
+
+```bash
+# Only run on Edit/Write
+[[ "$TOOL_NAME" != "Edit" && "$TOOL_NAME" != "Write" ]] && exit 0
+
+# Only run on specific file types
+[[ ! "$FILE_PATH" =~ \.(ts|tsx|js|jsx)$ ]] && exit 0
+
+# Only run if config exists
+[[ ! -f "tsconfig.json" ]] && exit 0
+```
+
+This prevents wasted execution on README edits, config changes, or non-code files.
+
+#### Performance Considerations
+
+| Project Size | Pipeline Time | Acceptable? |
+|--------------|---------------|-------------|
+| Small (<100 files) | ~1-2s per edit | ✅ Yes |
+| Medium (100-1000 files) | ~2-5s per edit | ✅ Yes (with incremental) |
+| Large (1000+ files) | ~5-10s per edit | ⚠️ Consider async or skip tests |
+
+**Optimization strategies**:
+1. Use `async: true` for lint/format (cosmetic checks)
+2. Keep typecheck sync (errors must block)
+3. Skip full test suite, run only changed file's tests
+4. Use incremental compilation (`tsc --incremental`)
+
+#### Example Output (Error Case)
+
+```
+You: Fix the authentication logic
+Claude: [Edits auth.ts]
+
+⚠ TypeScript errors in src/auth.ts:
+
+src/auth.ts:45:12 - error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+
+45   userId: user.id.toString(),
+              ~~~~~~~~~~~~~~~~~~~
+
+⚠ Tests failed in src/__tests__/auth.test.ts:
+
+FAIL src/__tests__/auth.test.ts
+  ● Authentication › should validate user token
+    Expected token to be valid
+
+Fix implementation or update tests.
+```
+
+Claude sees these messages immediately and can iterate without manual test runs.
 
 ---
 
@@ -17049,4 +17442,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.21.0
+**Last updated**: January 2026 | **Version**: 3.21.1
