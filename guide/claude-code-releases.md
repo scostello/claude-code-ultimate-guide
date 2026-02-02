@@ -340,6 +340,12 @@
 | v2.0.25 | Removed legacy SDK entrypoint → `@anthropic-ai/claude-agent-sdk` |
 | v2.1.0 | Minimum zod peer dependency: `^4.0.0` |
 
+### API Ecosystem
+
+| Date | Feature |
+|------|---------|
+| 2026-01-29 | **Structured Outputs GA**: `output_config.format` remplace `output_format`. [Docs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) |
+
 ### Shortcuts
 
 | Version | Change |
