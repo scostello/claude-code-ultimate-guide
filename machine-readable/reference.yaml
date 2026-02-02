@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.20.8"
+version: "3.20.9"
 updated: "2026-02-01"
 
 # ════════════════════════════════════════════════════════════════
@@ -500,6 +500,8 @@ deep_dive:
   ai_ecosystem_goose: "guide/ai-ecosystem.md:1116"
   ai_ecosystem_goose_comparison: "guide/ai-ecosystem.md:1132"
   ai_ecosystem_context_packing: "guide/ai-ecosystem.md:1208"
+  ai_ecosystem_multi_ide_sync: "guide/ai-ecosystem.md:1256"
+  agents_md_support_status: "guide/ai-ecosystem.md:1322"
   # Architecture Diagrams as Context (advanced pattern) - Added 2026-01-25
   architecture_diagrams_input: "guide/ai-ecosystem.md:1379"
   architecture_diagrams_mcp_tools:
@@ -927,7 +929,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.20.8, 66 templates, cross-links"
+        event: "Code Landing sync v3.20.9, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"

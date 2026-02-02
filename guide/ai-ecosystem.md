@@ -1253,6 +1253,80 @@ Cursor's `.cursor/rules` can mirror your CLAUDE.md:
 - Components use render props for flexibility
 ```
 
+### Multi-IDE Configuration Sync
+
+When your team uses multiple AI coding tools (Claude Code + Cursor + Copilot), maintaining consistent conventions across all tools becomes a challenge.
+
+#### The Problem
+
+| Tool | Config File | Format |
+|------|-------------|--------|
+| Claude Code | `CLAUDE.md` | Markdown + @imports |
+| Cursor | `.cursorrules` | Plain markdown |
+| Codex/ChatGPT | `AGENTS.md` | AGENTS.md standard |
+| Copilot | `.github/copilot-instructions.md` | GitHub-specific |
+
+**Without sync**: Each file drifts independently → inconsistent AI behavior across tools.
+
+#### Solution 1: Native @import (Recommended for Claude Code)
+
+Claude Code supports `@path/to/file.md` imports natively:
+
+```markdown
+# CLAUDE.md
+@docs/conventions/coding-standards.md
+@docs/conventions/architecture.md
+```
+
+**Pros**: Native, no build step, maintained by Anthropic
+**Cons**: Cursor/.cursorrules doesn't support @import
+
+#### Solution 2: Script-Based Generation (Multi-IDE Teams)
+
+For teams needing **identical conventions across all IDEs**:
+
+```
+docs/ai-instructions/           # Source of truth
+├── core.md                     # Shared conventions
+├── claude-specific.md          # Claude Code additions
+├── cursor-specific.md          # Cursor additions
+└── codex-specific.md           # AGENTS.md additions
+
+        ↓ sync script (bash/node)
+
+CLAUDE.md     = core + claude-specific
+.cursorrules  = core + cursor-specific
+AGENTS.md     = core + codex-specific
+```
+
+**Example sync script** (bash):
+
+```bash
+#!/bin/bash
+CORE="docs/ai-instructions/core.md"
+
+cat "$CORE" > CLAUDE.md
+echo -e "\n---\n" >> CLAUDE.md
+cat "docs/ai-instructions/claude-specific.md" >> CLAUDE.md
+
+cat "$CORE" > .cursorrules
+echo -e "\n---\n" >> .cursorrules
+cat "docs/ai-instructions/cursor-specific.md" >> .cursorrules
+```
+
+**When to use this approach**:
+- Team with mixed IDE preferences (Claude Code + Cursor + VS Code)
+- Need to enforce identical conventions across all tools
+- CI/CD validation of AI instructions
+
+#### ⚠️ AGENTS.md Support Status
+
+**Claude Code does NOT natively support AGENTS.md** ([GitHub issue #6235](https://github.com/anthropics/claude-code/issues/6235), 171 comments, still open as of Feb 2026).
+
+**Workaround**: Symlink `ln -s AGENTS.md .claude/CLAUDE.md`
+
+The AGENTS.md standard is supported by: Cursor, Windsurf, Cline, GitHub Copilot. See [AI Coding Agents Matrix](https://coding-agents-matrix.dev) for full compatibility.
+
 ### Export from IDE to Claude
 
 When you need Claude's deeper analysis:

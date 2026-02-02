@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Multi-IDE Configuration Sync Pattern** — Documented strategies for maintaining consistent AI instructions across multiple coding tools (Claude Code, Cursor, Copilot) in `guide/ai-ecosystem.md:1256-1329`
+  - **Problem statement**: Table comparing config files (CLAUDE.md, .cursorrules, AGENTS.md, .github/copilot-instructions.md) — without sync, each drifts independently causing inconsistent AI behavior
+  - **Solution 1**: Native @import (recommended for Claude Code solo usage) — no build step, maintained by Anthropic, but Cursor doesn't support it
+  - **Solution 2**: Script-based generation for multi-IDE teams — source of truth in `docs/ai-instructions/` compiled into tool-specific configs via bash/node sync scripts
+  - **AGENTS.md Support Status**: Clarified Claude Code does NOT natively support AGENTS.md ([GitHub issue #6235](https://github.com/anthropics/claude-code/issues/6235), 171 comments, open as of Feb 2026) — workaround via symlink documented
+  - **Compatibility matrix**: AGENTS.md standard supported by Cursor, Windsurf, Cline, GitHub Copilot (see [AI Coding Agents Matrix](https://coding-agents-matrix.dev))
+  - **Machine-readable index**: Added `ai_ecosystem_multi_ide_sync` and `agents_md_support_status` entries to `reference.yaml`
 - **Resource Evaluation: Addy Osmani LinkedIn Post** (scored 2/5, Marginal - Tracking mention only) — Post about Anthropic study (17% comprehension gap) evaluated but not integrated due to 100% overlap with primary source already documented (`docs/resource-evaluations/addy-osmani-linkedin-anthropic-study.md`)
   - **Content**: LinkedIn post (Feb 1, 2026, 246K reach) citing Shen & Tamkin 2026 study on AI-assisted learning
   - **Key claims verified**: 17% comprehension gap, 2-minute productivity gain, "thinking partner vs code vending machine" framing
