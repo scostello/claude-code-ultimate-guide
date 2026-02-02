@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.27"
-updated: "2026-01-31"
+latest: "2.1.29"
+updated: "2026-02-02"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -15,12 +15,20 @@ releases:
   # 2.1.x Series (January 2026)
   # ─────────────────────────────────────────────────────────────
 
-  - version: "2.1.27"
+  - version: "2.1.29"
     date: "2026-01-31"
+    highlights:
+      - "Fixed startup performance with saved hook context"
+      - "Improved session recovery speed for long-duration sessions"
+    breaking: []
+
+  - version: "2.1.27"
+    date: "2026-01-29"
     highlights:
       - "`--from-pr` flag to resume sessions linked to GitHub PR number/URL"
       - "Sessions auto-linked to PRs when created via `gh pr create`"
-      - "Fixed context management validation for Bedrock/Vertex gateway users"
+      - "Windows: Fixed bash execution and console flashing issues"
+      - "VSCode: Fixed OAuth token expiration (401 errors)"
     breaking: []
 
   - version: "2.1.25"

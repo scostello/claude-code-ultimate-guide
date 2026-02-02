@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.27 | **Updated**: 2026-01-31
+**Latest**: v2.1.29 | **Updated**: 2026-02-02
 
 ---
 
@@ -19,7 +19,12 @@
 
 ## 2.1.x Series (January 2026)
 
-### v2.1.27 (2026-01-31)
+### v2.1.29 (2026-01-31)
+
+- **Performance**: Fixed startup performance issues when resuming sessions with saved hook context
+- Significantly improved session recovery speed for long-duration sessions
+
+### v2.1.27 (2026-01-29)
 
 - **New**: `--from-pr` flag to resume sessions linked to a specific GitHub PR number or URL
 - **New**: Sessions automatically linked to PRs when created via `gh pr create`
