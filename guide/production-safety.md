@@ -636,6 +636,159 @@ fi
 
 ---
 
+## Rule 7: The Verification Paradox
+
+### The Problem
+
+When AI succeeds 99% of the time, traditional human verification becomes fragile:
+
+**The paradox**: As AI reliability increases, human review quality decreases.
+
+- **Vigilance fatigue**: Rare errors (1%) slip through when humans unconsciously trust patterns that usually work
+- **Pattern-trusting behavior**: Manual review degrades as reviewers stop expecting errors
+- **False confidence**: "It worked last 50 times" creates blind spots for the 51st failure
+- **Cognitive load**: Humans aren't optimized to catch 1-in-100 errors consistently
+
+**Real incidents**:
+- Payment validation bypassed after 200 successful transactions → fraud on transaction #201
+- Security check skipped because "AI always gets auth right" → credentials leaked
+- Test suite passing 99% → production bug from the 1% case that wasn't tested
+
+**Source**: [Alan Engineering Team (Charles Gorintin, Maxime Le Bras), Feb 2026](https://www.linkedin.com/pulse/le-principe-de-la-tour-eiffel-et-ralph-wiggum-maxime-le-bras-psmxe/)
+
+### The Rule
+
+**Build automated safety systems instead of relying on human vigilance.**
+
+When AI reliability crosses ~95%, shift from manual review to automated guardrails.
+
+### Anti-Patterns vs Better Approaches
+
+| Anti-Pattern | Better Approach |
+|--------------|-----------------|
+| Manual review for every AI output | Automated test suites + selective review |
+| Trust because "it worked last time" | Verification contracts (tests, types, lints) |
+| Human as sole error detector | Guardrails that fail fast (CI/CD gates) |
+| "Spot-check" strategy for high-frequency AI ops | Comprehensive automated validation |
+| Reviewer fatigue = lower standards over time | Consistent automated quality bars |
+
+### Implementation
+
+**Option A: Automated Guardrail Stack**
+
+```yaml
+# .github/workflows/ai-safety.yml
+name: AI Output Validation
+
+on: [pull_request]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Type safety
+        run: npm run typecheck      # Catch type errors AI missed
+
+      - name: Lint rules
+        run: npm run lint            # Enforce code standards
+
+      - name: Unit tests
+        run: npm run test            # Verify behavior contracts
+
+      - name: E2E tests
+        run: npm run test:e2e        # Catch integration failures
+
+      - name: Security audit
+        run: npm audit               # Detect vulnerable dependencies
+
+      - name: Bundle analysis
+        run: npm run analyze         # Catch bloat/regressions
+
+      # Human review ONLY after all automation passes
+```
+
+**Option B: Verification Contracts in CLAUDE.md**
+
+```markdown
+## Verification Protocol
+
+### NEVER rely on human review alone
+
+**Automated verification required**:
+1. **Type safety**: `npm run typecheck` must pass (zero errors)
+2. **Tests**: `npm run test` coverage ≥ 80% for new code
+3. **Lint**: `npm run lint` must pass (zero warnings)
+4. **Security**: `npm audit` must show zero high/critical vulnerabilities
+5. **Performance**: Lighthouse score ≥ 90 for affected pages
+
+**Human review is for**:
+- Architecture decisions
+- UX/design choices
+- Business logic validation
+- Edge cases automation can't catch
+
+**Human review is NOT for**:
+- Syntax errors (use linters)
+- Type errors (use TypeScript)
+- Performance regressions (use benchmarks)
+- Security issues (use automated scanners)
+```
+
+**Option C: Pre-merge checklist (automated)**
+
+```bash
+# .claude/hooks/PreCommit.sh
+#!/bin/bash
+
+echo "🔍 Running automated verification (Verification Paradox defense)..."
+
+# 1. Type safety
+npm run typecheck || { echo "❌ Type errors detected"; exit 1; }
+
+# 2. Lint
+npm run lint || { echo "❌ Lint errors detected"; exit 1; }
+
+# 3. Tests
+npm run test || { echo "❌ Tests failing"; exit 1; }
+
+# 4. Security
+npm audit --audit-level=high || { echo "❌ Security vulnerabilities detected"; exit 1; }
+
+echo "✅ All automated checks passed"
+echo "💡 Human review can now focus on architecture/UX/business logic"
+```
+
+### Edge Cases
+
+| Scenario | Behavior |
+|----------|----------|
+| AI writes perfect code 99.9% | STILL run automation (paradox applies even at 99.9%) |
+| Time pressure, "just ship it" | Automation is non-negotiable (fast ≠ skip safety) |
+| Trivial changes (typo fix) | Run automation (typos can break prod) |
+| Emergency hotfix | Automation REQUIRED (stress = higher error rate) |
+
+### Why This Matters
+
+**Old model (pre-AI)**:
+- Code quality = human expertise + careful review
+- Errors caught by experienced developers
+- Review quality stays consistent
+
+**New model (AI-assisted)**:
+- AI produces high-quality code 95%+ of the time
+- Humans become complacent ("AI usually gets it right")
+- 5% error rate slips through fatigued review
+
+**Solution**: Automate the boring verification (syntax, types, tests), reserve human attention for creative/strategic review.
+
+### Integration with Other Rules
+
+- **Rule 3 (Feature Completeness)**: Automated tests verify features are actually complete
+- **Rule 2 (Database Safety)**: Migration tests catch destructive operations
+- **Rule 6 (Pattern Following)**: Linters enforce project conventions automatically
+
+---
+
 ## Integration with Existing Workflows
 
 ### With Plan Mode

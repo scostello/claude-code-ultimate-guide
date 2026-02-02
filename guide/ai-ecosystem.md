@@ -2129,6 +2129,41 @@ External resources from experienced practitioners that validate and extend the p
 
 **Note**: Article aggregates existing research. For primary data, see DORA Report 2025, Stack Overflow 2025, and Matteo Collina insights documented above.
 
+### Alan Engineering (Charles Gorintin, Maxime Le Bras)
+
+**URL**: [Le principe de la Tour Eiffel (et Ralph Wiggum)](https://www.linkedin.com/pulse/le-principe-de-la-tour-eiffel-et-ralph-wiggum-maxime-le-bras-psmxe/)
+
+**Author credentials**:
+- Charles Gorintin: Co-founder & CTO at Alan (15K+ companies, 300K+ members, €500M raised), ex-Facebook/Instagram/Twitter data science, Mistral AI board member
+- Maxime Le Bras: Talent Lead at Alan, pioneer in AI-assisted recruitment in France
+- Published: February 2, 2026 (Newsletter "Intelligence Humaine", 3,897 followers)
+
+**Content summary**: Paradigm shift framework for AI-assisted engineering through two core concepts:
+1. **Eiffel Tower Principle**: AI tools fundamentally transform what's architecturally possible (like elevators enabled Eiffel Tower's shape), not just acceleration of old tasks
+2. **Ralph Wiggum Programming Model**: Agentic loops where engineers become architects/editors rather than sole creators (reference to Simpsons character "helping" assemble furniture)
+3. **Verification Paradox**: When AI succeeds 99% of the time, human vigilance becomes unreliable for catching the 1% errors — solution: automated guardrails over manual review
+4. **Precision as Currency**: Clear specification (WHAT/WHERE/HOW) becomes engineer's new superpower, replacing implementation speed
+5. **Ambition Scaling**: Pursue previously impossible ambitions enabled by new tools, not just faster execution of old tasks
+
+**Key quote**:
+> "L'intelligence est la faculté de fabriquer des objets artificiels, en particulier des outils à faire des outils." — Henri Bergson, L'évolution créatrice (1907)
+
+**Alignment with this guide**:
+
+| Alan Concept | This Guide Reference |
+|--------------|---------------------|
+| Verification Paradox | Production Safety Rule 7 (production-safety.md:639) |
+| Precision requirements | Prompting WHAT/WHERE/HOW/VERIFY (ultimate-guide.md:1512) |
+| Ralph Wiggum loops | Iterative Refinement workflows (workflows/iterative-refinement.md:107) |
+| Engineer → Architect shift | Mental Model: orchestrator pattern (ultimate-guide.md:1189) |
+| Eiffel Tower Principle | Transformation vs acceleration (implicit in paradigm shift) |
+
+**Value**: Production-scale validation from major French tech company operating in heavily regulated industry (health insurance, GDPR, health data compliance). First clear articulation of "Verification Paradox" as distinct concept. Demonstrates that paradigm shift concepts apply beyond Silicon Valley startups to established European companies.
+
+**Context**: Article includes interview with Stanislas Polu (Dust co-founder, ex-OpenAI) mentioning Mirakl achievement (75% of employees became agent builders using Dust platform). Validates that "engineer → orchestrator" transformation is happening across industry, not just early adopters.
+
+**Language note**: Original article in French; concepts and quotes translated for this guide.
+
 ---
 
 ## 11.3 Skills Distribution Platforms

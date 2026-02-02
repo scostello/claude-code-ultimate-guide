@@ -346,6 +346,10 @@ deep_dive:
   practitioner_steinberger_source: "https://steipete.me/posts/2025/shipping-at-inference-speed"
   practitioner_addy_osmani: "guide/ai-ecosystem.md:2024"
   practitioner_osmani_source: "https://addyo.substack.com/p/the-80-problem-in-agentic-coding"
+  practitioner_alan: "guide/ai-ecosystem.md:2133"
+  practitioner_alan_source: "https://www.linkedin.com/pulse/le-principe-de-la-tour-eiffel-et-ralph-wiggum-maxime-le-bras-psmxe/"
+  verification_paradox: "guide/production-safety.md:639"
+  verification_paradox_source: "https://www.linkedin.com/pulse/le-principe-de-la-tour-eiffel-et-ralph-wiggum-maxime-le-bras-psmxe/"
   eighty_percent_problem: "guide/ai-ecosystem.md:2024"
   comprehension_debt_secondary: "guide/ai-ecosystem.md:2024"  # See also: vibe_coding_trap (primary)
   # DevOps/SRE Guide (guide/devops-sre.md)
