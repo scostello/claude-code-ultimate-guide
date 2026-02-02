@@ -116,10 +116,36 @@ deep_dive:
   sandbox_vercel: "https://vercel.com/docs/vercel-sandbox/"
   sandbox_e2b: "https://e2b.dev"
   sandbox_native_cc: "guide/architecture.md:390"
+  # Native Claude Code Sandbox (Official docs, v2.1.0+) - Added 2026-02-02
+  sandbox_native_guide: "guide/sandbox-native.md"
+  sandbox_native_why: "guide/sandbox-native.md:47"  # Why Native Sandboxing
+  sandbox_native_os_primitives: "guide/sandbox-native.md:68"  # Seatbelt vs bubblewrap
+  sandbox_native_filesystem: "guide/sandbox-native.md:172"  # Filesystem isolation
+  sandbox_native_network: "guide/sandbox-native.md:216"  # Network proxy architecture
+  sandbox_native_modes: "guide/sandbox-native.md:296"  # Auto-allow vs Regular
+  sandbox_native_escape_hatch: "guide/sandbox-native.md:336"  # dangerouslyDisableSandbox
+  sandbox_native_security_limits: "guide/sandbox-native.md:391"  # Domain fronting, Unix sockets
+  sandbox_native_opensource: "guide/sandbox-native.md:476"  # Open-source runtime
+  sandbox_native_platforms: "guide/sandbox-native.md:500"  # Platform support
+  sandbox_native_decision_tree: "guide/sandbox-native.md:512"  # Native vs Docker
+  sandbox_native_config_examples: "guide/sandbox-native.md:559"  # Configuration examples
+  sandbox_native_best_practices: "guide/sandbox-native.md:646"  # Best practices
+  sandbox_native_troubleshooting: "guide/sandbox-native.md:659"  # Troubleshooting
+  sandbox_runtime_oss: "https://github.com/anthropic-experimental/sandbox-runtime"
+  sandbox_runtime_npm: "https://www.npmjs.com/package/@anthropic-ai/sandbox-runtime"
+  sandbox_official_docs: "https://code.claude.com/docs/en/sandboxing"
+  sandbox_comparison_native_docker: "guide/sandbox-isolation.md:61"  # Section 4 Native CC
+  sandbox_native_evaluation: "docs/resource-evaluations/native-sandbox-official-docs.md"
+  sandbox_native_score: "5/5"
+  # Templates (Added 2026-02-02)
+  sandbox_native_config_template: "examples/config/sandbox-native.json"
+  sandbox_status_command: "examples/commands/sandbox-status.md"
+  sandbox_validation_hook: "examples/hooks/bash/sandbox-validation.sh"
+  # Docker Sandboxes (existing)
   sandbox_evaluation: "docs/resource-evaluations/docker-sandboxes-isolation.md"
-  sandbox_safe_autonomy: "guide/sandbox-isolation.md:320"
-  sandbox_anti_patterns: "guide/sandbox-isolation.md:372"
-  sandbox_comparison_matrix: "guide/sandbox-isolation.md:306"
+  sandbox_safe_autonomy: "guide/sandbox-isolation.md:486"  # Updated line number (was 320)
+  sandbox_anti_patterns: "guide/sandbox-isolation.md:538"  # Updated line number (was 372)
+  sandbox_comparison_matrix: "guide/sandbox-isolation.md:469"  # Updated line number (was 306)
   sandbox_score: "4/5"
   # Third-Party Tools (guide/third-party-tools.md) - Added 2026-02-01
   third_party_tools_guide: "guide/third-party-tools.md"

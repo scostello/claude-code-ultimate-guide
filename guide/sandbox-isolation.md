@@ -10,12 +10,12 @@
 
 | Solution | Isolation | Local/Cloud | Best For |
 |----------|-----------|-------------|----------|
-| **Docker Sandboxes** | microVM | Local | Daily autonomous dev work |
+| **Docker Sandboxes** | microVM (hypervisor) | Local | Max security, Docker-in-Docker needed |
+| **Native CC sandbox** | Process (Seatbelt/bubblewrap) | Local | Lightweight daily dev, trusted code |
 | **Fly.io Sprites** | Firecracker microVM | Cloud | API-driven agent workflows |
 | **E2B** | Firecracker microVM | Cloud | Multi-framework AI apps |
 | **Vercel Sandboxes** | Firecracker microVM | Cloud | Next.js / Vercel ecosystem |
 | **Cloudflare Sandbox SDK** | Container | Cloud | Workers-based serverless |
-| **Native CC sandbox** | Process-level | Local | Lightweight, no Docker needed |
 
 Quick start:
 
@@ -229,7 +229,170 @@ Triggered automatically if no credentials found. Use `/login` inside Claude Code
 
 ---
 
-## 4. Alternatives Landscape
+## 4. Native Claude Code Sandbox
+
+> **Source**: [code.claude.com/docs/en/sandboxing](https://code.claude.com/docs/en/sandboxing)
+> **Requires**: macOS (built-in) or Linux/WSL2 (bubblewrap + socat)
+> **Feature**: Claude Code v2.1.0+
+
+Claude Code includes built-in **native sandboxing** using OS-level primitives for process-level isolation. No Docker required.
+
+### Architecture
+
+```
+┌──────────────────────────────────────────────────────┐
+│                    HOST MACHINE                      │
+│                                                      │
+│  Claude Code (main process)                          │
+│       │                                              │
+│       ├─ spawn bash command                          │
+│       │                                              │
+│       ▼                                              │
+│  Sandbox wrapper (Seatbelt/bubblewrap)               │
+│       │                                              │
+│       ├─ Filesystem: read all, write CWD only        │
+│       ├─ Network: SOCKS5 proxy, domain filtering     │
+│       ├─ Process: isolated environment               │
+│       │                                              │
+│       ▼                                              │
+│  Command executes with restrictions                  │
+│       │                                              │
+│       └─ Violations blocked at OS level              │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+```
+
+**Key differences from Docker Sandboxes**:
+
+| Aspect | Native Sandbox | Docker Sandboxes |
+|--------|---------------|------------------|
+| **Isolation level** | Process (Seatbelt/bubblewrap) | microVM (hypervisor) |
+| **Kernel** | Shared with host | Separate kernel per sandbox |
+| **Setup** | 0 dependencies (macOS), 2 packages (Linux) | Docker Desktop 4.58+ |
+| **Overhead** | Minimal (~1-3% CPU) | Moderate (~5-10% CPU, +200MB RAM) |
+| **Docker-in-Docker** | ❌ Not supported | ✅ Private Docker daemon |
+| **Use case** | Daily dev, trusted code | Untrusted code, max isolation |
+
+### OS Primitives
+
+**macOS**: Uses Seatbelt (TrustedBSD Mandatory Access Control)
+- Built-in, works out of the box
+- Kernel-level system call filtering
+
+**Linux/WSL2**: Uses bubblewrap (Linux namespaces + seccomp)
+- Requires installation: `sudo apt-get install bubblewrap socat`
+- Creates isolated namespace per command
+
+**WSL1**: ❌ Not supported (bubblewrap needs kernel features unavailable)
+
+**Windows native**: ⏳ Planned (not yet available)
+
+### Quick Start
+
+```bash
+# Enable sandboxing (interactive menu)
+/sandbox
+
+# Linux/WSL2 only: install prerequisites first
+sudo apt-get install bubblewrap socat  # Ubuntu/Debian
+sudo dnf install bubblewrap socat      # Fedora
+```
+
+**Two modes**:
+
+1. **Auto-allow mode**: Bash commands auto-approved if sandboxed (recommended for daily dev)
+2. **Regular permissions mode**: All commands require approval (for high-security)
+
+### Configuration Example
+
+```json
+{
+  "sandbox": {
+    "autoAllowMode": true,
+    "filesystem": {
+      "allowedWritePaths": ["${CWD}"],
+      "deniedReadPaths": ["${HOME}/.ssh", "${HOME}/.aws"]
+    },
+    "network": {
+      "policy": "deny",
+      "allowedDomains": [
+        "api.anthropic.com",
+        "registry.npmjs.com",
+        "github.com"
+      ]
+    }
+  }
+}
+```
+
+### When to Use Native vs Docker
+
+**Use Native Sandbox when**:
+- ✅ Daily development with trusted team
+- ✅ Lightweight setup (no Docker Desktop)
+- ✅ Minimal overhead priority
+- ✅ Code is mostly trusted
+- ✅ Don't need Docker-in-Docker
+
+**Use Docker Sandboxes when**:
+- ✅ Running untrusted code
+- ✅ Maximum security isolation (kernel exploits protection)
+- ✅ Need private Docker daemon inside sandbox
+- ✅ Testing AI-generated scripts
+- ✅ Production CI/CD with sensitive workloads
+
+**Decision tree**:
+
+```
+Daily development?
+├─ Trusted code + team → Native Sandbox (lightweight)
+└─ Untrusted scripts → Docker Sandboxes (max isolation)
+
+Need Docker inside?
+├─ Yes → Docker Sandboxes (only option)
+└─ No → Either works, prefer Native for simplicity
+
+Maximum security?
+├─ Yes (kernel exploit protection) → Docker Sandboxes
+└─ Standard (process isolation OK) → Native Sandbox
+```
+
+### Security Limitations
+
+**⚠️ Native Sandbox limitations** (see [guide/sandbox-native.md](./sandbox-native.md) for details):
+
+1. **Shared kernel**: Vulnerable to kernel exploits (Docker microVM protects against this)
+2. **Domain fronting**: CDN-based bypass possible (Cloudflare, Akamai)
+3. **Unix sockets**: Can grant unexpected privileges if misconfigured
+4. **Filesystem**: Overly broad write permissions enable privilege escalation
+
+**For untrusted code**, Docker Sandboxes provide stronger isolation.
+
+### Open-Source Runtime
+
+The sandbox implementation is available as an open-source npm package:
+
+```bash
+# Use sandbox runtime directly
+npx @anthropic-ai/sandbox-runtime <command-to-sandbox>
+
+# Example: sandbox an MCP server
+npx @anthropic-ai/sandbox-runtime node mcp-server.js
+```
+
+**Repository**: [github.com/anthropic-experimental/sandbox-runtime](https://github.com/anthropic-experimental/sandbox-runtime)
+
+### Deep Dive
+
+For complete technical details, configuration examples, troubleshooting, and security analysis:
+
+→ **[Native Sandboxing Guide](./sandbox-native.md)**
+
+Covers: OS primitives, network proxy architecture, sandbox modes, escape hatch, security limitations, best practices.
+
+---
+
+## 5. Cloud Sandboxes Landscape
 
 ### Fly.io Sprites
 
@@ -303,21 +466,24 @@ Use this when: Docker is unavailable, lightweight isolation is sufficient, or yo
 
 ---
 
-## 5. Comparison Matrix
+## 6. Comparison Matrix
 
-| Criterion | Docker Sandboxes | Fly.io Sprites | Cloudflare SDK | E2B | Vercel Sandboxes | Native CC |
-|-----------|-----------------|----------------|----------------|-----|-----------------|-----------|
-| **Isolation level** | microVM | Firecracker microVM | Container | Firecracker microVM | Firecracker microVM | Process |
-| **Runs locally** | Yes | No (cloud) | No (cloud) | No (cloud) | No (cloud) | Yes |
-| **Docker-in-Docker** | Yes (private daemon) | Yes | No | Yes | Yes | N/A |
-| **Network control** | Allow/Deny lists | L3 egress policies | Not detailed | Not detailed | Not detailed | N/A |
-| **Platform** | macOS, Windows | Any (API) | Any (Workers) | Any (API/SDK) | Any (SDK) | Any |
-| **Free tier** | Docker Desktop | $30 credits | Workers Paid | $100 credits | Yes (limited) | Free |
-| **Best for** | Local dev | API-driven agents | Serverless | Multi-framework | Next.js/Vercel | Minimal setup |
+| Criterion | Docker Sandboxes | Native CC | Fly.io Sprites | Cloudflare SDK | E2B | Vercel Sandboxes |
+|-----------|-----------------|-----------|----------------|----------------|-----|-----------------|
+| **Isolation level** | microVM (hypervisor) | Process (Seatbelt/bubblewrap) | Firecracker microVM | Container | Firecracker microVM | Firecracker microVM |
+| **Kernel isolation** | ✅ Separate kernel | ❌ Shared kernel | ✅ Separate kernel | Partial | ✅ Separate kernel | ✅ Separate kernel |
+| **Runs locally** | Yes | Yes | No (cloud) | No (cloud) | No (cloud) | No (cloud) |
+| **Setup** | Docker Desktop 4.58+ | 0 deps (macOS), 2 pkgs (Linux) | API key | Workers Paid | API key | SDK |
+| **Docker-in-Docker** | ✅ Private daemon | ❌ Not supported | Yes | No | Yes | Yes |
+| **Network control** | Allow/Deny lists | Allow/Deny lists (SOCKS5) | L3 egress policies | Not detailed | Not detailed | Not detailed |
+| **Platform** | macOS, Windows (WSL2) | macOS, Linux, WSL2 | Any (API) | Any (Workers) | Any (API/SDK) | Any (SDK) |
+| **Overhead** | Moderate (~5-10% CPU) | Minimal (~1-3% CPU) | Cloud | Cloud | Cloud | Cloud |
+| **Free tier** | Docker Desktop | Free | $30 credits | Workers Paid | $100 credits | Yes (limited) |
+| **Best for** | Max security, Docker needed | Daily dev, trusted code | API-driven agents | Serverless | Multi-framework | Next.js/Vercel |
 
 ---
 
-## 6. Safe Autonomy Workflows
+## 7. Safe Autonomy Workflows
 
 ### Pattern: Docker Sandbox + --dangerously-skip-permissions
 
@@ -369,7 +535,7 @@ For CI/CD, cloud sandboxes (E2B, Vercel, Sprites) are typically better than Dock
 
 ---
 
-## 7. Anti-Patterns
+## 8. Anti-Patterns
 
 | Anti-pattern | Why it's dangerous | Do instead |
 |-------------|-------------------|------------|

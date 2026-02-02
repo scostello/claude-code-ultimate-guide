@@ -522,6 +522,90 @@ Claude Code appears to flag certain patterns for extra scrutiny:
 
 This is not a complete blocklist — patterns are likely detected through model training rather than explicit rules.
 
+### Native Sandbox (v2.1.0+)
+
+**Confidence**: 100% (Tier 1 - Official)
+**Source**: [code.claude.com/docs/en/sandboxing](https://code.claude.com/docs/en/sandboxing)
+
+Claude Code includes built-in **native sandboxing** using OS-level primitives for process-level isolation:
+
+```
+┌──────────────────────────────────────────────────────┐
+│               Native Sandbox Architecture            │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│  Bash Command Request                                │
+│       │                                              │
+│       ▼                                              │
+│  Sandbox Wrapper (Seatbelt/bubblewrap)               │
+│       │                                              │
+│       ├─ Filesystem: read all, write CWD only        │
+│       ├─ Network: SOCKS5 proxy + domain filtering    │
+│       ├─ Process: isolated environment               │
+│       │                                              │
+│       ▼                                              │
+│  OS Kernel Enforcement                               │
+│       │                                              │
+│       ├─ Allowed: operations within boundaries       │
+│       ├─ Blocked: violations at system call level    │
+│       └─ Notify: user receives alert on violation    │
+│                                                      │
+└──────────────────────────────────────────────────────┘
+```
+
+**OS Primitives**:
+
+| Platform | Mechanism | Notes |
+|----------|-----------|-------|
+| **macOS** | Seatbelt (TrustedBSD MAC) | Built-in, kernel-level system call filtering |
+| **Linux/WSL2** | bubblewrap (namespaces + seccomp) | Requires: `sudo apt-get install bubblewrap socat` |
+| **WSL1** | ❌ Not supported | bubblewrap needs kernel features unavailable |
+| **Windows** | ⏳ Planned | Not yet available |
+
+**Isolation Model**:
+
+1. **Filesystem**:
+   - **Read**: Entire computer (except denied paths)
+   - **Write**: Current working directory only (configurable)
+   - **Blocked**: Modifications outside CWD, credentials directories (`~/.ssh`, `~/.aws`)
+
+2. **Network**:
+   - **Proxy**: All connections routed through SOCKS5 proxy
+   - **Domain filtering**: Allowlist/denylist mode
+   - **Default blocked**: Private CIDRs, localhost ranges
+
+3. **Process**:
+   - **Shared kernel**: Vulnerable to kernel exploits (unlike Docker microVM)
+   - **Child processes**: Inherit same sandbox restrictions
+   - **Escape hatch**: `dangerouslyDisableSandbox` parameter for incompatible tools
+
+**Sandbox Modes**:
+
+- **Auto-allow mode**: Bash commands auto-approved if sandboxed (recommended for daily dev)
+- **Regular permissions mode**: All commands require explicit approval (high-security)
+
+**Security Trade-offs**:
+
+| Aspect | Native Sandbox | Docker Sandboxes (microVM) |
+|--------|---------------|---------------------------|
+| **Kernel isolation** | ❌ Shared kernel | ✅ Separate kernel per VM |
+| **Setup** | 0 deps (macOS), 2 pkgs (Linux) | Docker Desktop 4.58+ |
+| **Overhead** | Minimal (~1-3% CPU) | Moderate (~5-10% CPU) |
+| **Use case** | Daily dev, trusted code | Untrusted code, max security |
+
+**Security Limitations**:
+
+⚠️ **Domain fronting**: CDNs (Cloudflare, Akamai) can bypass domain filtering
+⚠️ **Unix sockets**: Misconfigured `allowUnixSockets` grants privilege escalation
+⚠️ **Filesystem**: Overly broad write permissions enable attacks on `$PATH` directories
+
+**When to use**:
+
+- ✅ **Native Sandbox**: Daily development, trusted team, lightweight setup
+- ✅ **Docker Sandboxes**: Untrusted code, kernel exploit protection, Docker-in-Docker needed
+
+**Deep dive**: See [Native Sandboxing Guide](./sandbox-native.md) for complete technical reference, configuration examples, and troubleshooting.
+
 ### Hooks System
 
 Hooks allow programmatic control over Claude's actions:

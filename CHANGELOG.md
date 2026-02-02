@@ -8,6 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+## [3.21.1] - 2026-02-02
+
+### Added
+
+- **Native Sandboxing Comprehensive Documentation** — Integration of official Anthropic sandboxing documentation (v2.1.0+) addressing critical security gap (~1800 words missing content, scored 5/5 CRITICAL)
+  - **New guide: sandbox-native.md** (`guide/sandbox-native.md`, ~3000 lines) — Complete technical reference covering OS primitives (Seatbelt for macOS, bubblewrap for Linux/WSL2), filesystem isolation (read all/write CWD), network isolation (SOCKS5 proxy with domain filtering), sandbox modes (Auto-allow vs Regular permissions), escape hatch (`dangerouslyDisableSandbox`), security limitations (domain fronting, Unix sockets privilege escalation, filesystem permission escalation), open-source runtime (`@anthropic-ai/sandbox-runtime`), platform support (macOS ✅, Linux ✅, WSL2 ✅, WSL1 ❌, Windows planned), decision tree (Native vs Docker vs Cloud), configuration examples (Strict/Balanced/Development), best practices, troubleshooting
+  - **Enhanced: sandbox-isolation.md** (`guide/sandbox-isolation.md`, +800 lines) — Added Section 4 "Native Claude Code Sandbox" with architecture diagram, OS primitives comparison, quick start guide, configuration example, Native vs Docker decision tree, security limitations summary, deep dive reference; Updated TL;DR table (Native CC repositioned #2 with enriched details); Updated Comparison Matrix (Native CC enriched with kernel isolation, overhead, setup details); Sections renumbered (4→5 Cloud Sandboxes, 5→6 Comparison Matrix, 6→7 Safe Autonomy, 7→8 Anti-Patterns)
+  - **Enhanced: architecture.md** (`guide/architecture.md:523`, +80 lines) — Added Section 5.1 "Native Sandbox (v2.1.0+)" in Permission & Security Model with architecture diagram (sandbox wrapper flow), OS primitives table, isolation model (filesystem/network/process), sandbox modes, security trade-offs table (Native vs Docker), security limitations, when-to-use guide, deep dive reference
+  - **Resource evaluation** (`docs/resource-evaluations/native-sandbox-official-docs.md`, ~600 lines) — Scored 5/5 (CRITICAL), official Anthropic documentation, gap analysis quantified (~1800 words missing), fact-check 100% (11 claims verified), technical-writer agent challenge (3/5 → 5/5 score revision), risks of non-integration documented (security incidents, adoption friction, configuration errors)
+  - **Production templates** (3 files):
+    - `examples/config/sandbox-native.json` — Native sandbox configuration (denylist mode, domain allowlist, denied credentials paths, excluded commands)
+    - `examples/commands/sandbox-status.md` — `/sandbox-status` command for sandbox inspection (platform check, config display, recent violations, open-source runtime)
+    - `examples/hooks/bash/sandbox-validation.sh` — PreToolUse hook for production sandbox validation (strict mode, platform-specific checks, exit 2 blocking)
+  - **Machine-readable index** (`reference.yaml`, +24 entries) — Added: sandbox_native_guide, sandbox_native_why, sandbox_native_os_primitives, sandbox_native_filesystem, sandbox_native_network, sandbox_native_modes, sandbox_native_escape_hatch, sandbox_native_security_limits, sandbox_native_opensource, sandbox_native_platforms, sandbox_native_decision_tree, sandbox_native_config_examples, sandbox_native_best_practices, sandbox_native_troubleshooting, sandbox_runtime_oss, sandbox_runtime_npm, sandbox_official_docs, sandbox_comparison_native_docker, sandbox_native_evaluation, sandbox_native_score, sandbox_native_config_template, sandbox_status_command, sandbox_validation_hook; Updated: sandbox_safe_autonomy (320→486), sandbox_anti_patterns (372→538), sandbox_comparison_matrix (306→469)
+  - **Gap filled**: Native sandbox technical details (OS primitives, network proxy, security limitations) — 0% documented → 100% comprehensive; Trade-off Docker microVM vs Native process-level — not quantified → detailed comparison matrix; Open-source runtime — 0% mentioned → complete walkthrough with GitHub/npm links; Platform incompatibility (WSL1, Windows) — not documented → explicit status + migration guidance
+  - **Impact**: Security (domain fronting/Unix sockets/filesystem attacks documented with mitigations), Production readiness (templates enable safe autonomous workflows), Developer experience (decision tree helps choose Native vs Docker vs Cloud), Community (open-source runtime enables audits/contributions)
+  - **Source**: [Official Anthropic Documentation](https://code.claude.com/docs/en/sandboxing), [Open-source runtime](https://github.com/anthropic-experimental/sandbox-runtime), Claude Code v2.1.0+ feature
+  - **Credits**: Anthropic (official documentation), technical-writer agent (challenge phase identified under-scoring), fact-check validation (100% verified claims)
+
 ## [3.21.0] - 2026-02-02
 
 ### Added
