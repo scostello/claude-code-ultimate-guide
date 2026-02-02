@@ -4083,6 +4083,239 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
+### 3.2.1 Version Control & Backup
+
+**Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
+
+**Solution**: Version control your configuration with Git + strategic `.gitignore` patterns for secrets.
+
+#### Configuration Hierarchy
+
+Claude Code uses a three-tier configuration system with clear precedence:
+
+```
+~/.claude/settings.json          (global user defaults)
+          ↓ overridden by
+.claude/settings.json            (project settings, team shared)
+          ↓ overridden by
+.claude/settings.local.json      (machine-specific, personal)
+```
+
+**Precedence rules**:
+- **Global** (`~/.claude/settings.json`): Applied to all projects unless overridden
+- **Project** (`.claude/settings.json`): Shared team configuration, committed to Git
+- **Local** (`.claude/settings.local.json`): Machine-specific overrides, gitignored
+
+This hierarchy enables:
+- **Team coordination**: Share hooks/rules in `.claude/settings.json`
+- **Personal flexibility**: Override settings in `.local.json` without Git conflicts
+- **Multi-machine consistency**: Global defaults in `~/.claude/` synced separately
+
+#### Git Strategy for Project Configuration
+
+**What to commit** (`.claude/` in project):
+
+```gitignore
+# .gitignore for project root
+.claude/CLAUDE.md           # Personal instructions
+.claude/settings.local.json # Machine-specific overrides
+.claude/plans/              # Saved plan files (optional)
+```
+
+**What to share**:
+```bash
+git add .claude/settings.json      # Team hooks/permissions
+git add .claude/agents/            # Custom agents
+git add .claude/commands/          # Slash commands
+git add .claude/hooks/             # Automation scripts
+git add .claude/rules/             # Team conventions
+git add .claude/skills/            # Knowledge modules
+```
+
+#### Version Control for Global Config (~/.claude/)
+
+Your `~/.claude/` directory contains **global configuration** (settings, MCP servers, session history) that should be backed up but contains secrets.
+
+**Recommended approach** (inspired by [Martin Ratinaud](https://www.linkedin.com/posts/martinratinaud_claudecode-devtools-buildinpublic-activity-7424055660247629824-hBsL), 504 sessions):
+
+```bash
+# 1. Create Git repo for global config
+mkdir ~/claude-config-backup
+cd ~/claude-config-backup
+git init
+
+# 2. Symlink directories (not files with secrets)
+ln -s ~/.claude/agents ./agents
+ln -s ~/.claude/commands ./commands
+ln -s ~/.claude/hooks ./hooks
+ln -s ~/.claude/skills ./skills
+
+# 3. Copy settings template (without secrets)
+cp ~/.claude/settings.json ./settings.template.json
+# Manually replace secrets with ${env:VAR_NAME} placeholders
+
+# 4. .gitignore for secrets
+cat > .gitignore << EOF
+# Never commit these
+.env
+settings.json           # Contains resolved secrets
+mcp.json               # Contains API keys
+*.local.json
+
+# Session history (large, personal)
+projects/
+EOF
+
+# 5. Commit and push to private repo
+git add .
+git commit -m "Initial Claude Code global config backup"
+git remote add origin git@github.com:yourusername/claude-config-private.git
+git push -u origin main
+```
+
+**Why symlinks?**
+- Changes in `~/.claude/agents/` immediately reflected in Git repo
+- No manual sync needed
+- Works across macOS/Linux (Windows: use junction points)
+
+#### Backup Strategies
+
+| Strategy | Pros | Cons | Use Case |
+|----------|------|------|----------|
+| **Git remote (private)** | Full version history, branching | Requires Git knowledge | Developers, power users |
+| **Cloud sync (Dropbox/iCloud)** | Automatic, cross-device | No version history, sync conflicts | Solo users, simple setup |
+| **Cron backup script** | Automated, timestamped | No cross-machine sync | Disaster recovery only |
+| **Third-party tools** | `claudebot backup --config` | Dependency on external tool | Quick setup |
+
+**Example: Automated backup with cron**:
+
+```bash
+# ~/claude-config-backup/backup.sh
+#!/bin/bash
+BACKUP_DIR=~/claude-backups
+DATE=$(date +%Y-%m-%d_%H-%M-%S)
+
+# Create timestamped backup
+mkdir -p "$BACKUP_DIR"
+tar -czf "$BACKUP_DIR/claude-config-$DATE.tar.gz" \
+    ~/.claude/agents \
+    ~/.claude/commands \
+    ~/.claude/hooks \
+    ~/.claude/skills \
+    ~/.claude/settings.json
+
+# Keep only last 30 days
+find "$BACKUP_DIR" -name "claude-config-*.tar.gz" -mtime +30 -delete
+
+echo "Backup created: $BACKUP_DIR/claude-config-$DATE.tar.gz"
+```
+
+Schedule with cron:
+```bash
+# Backup daily at 2 AM
+crontab -e
+0 2 * * * ~/claude-config-backup/backup.sh >> ~/claude-backups/backup.log 2>&1
+```
+
+#### Multi-Machine Sync
+
+**Scenario**: Laptop + desktop, need consistent Claude Code experience.
+
+**Option 1: Git + symlinks**
+
+```bash
+# Machine 1 (setup)
+cd ~/claude-config-backup
+git add agents/ commands/ hooks/ skills/
+git commit -m "Add latest configs"
+git push
+
+# Machine 2 (sync)
+cd ~/claude-config-backup
+git pull
+# Symlinks automatically sync ~/.claude/ directories
+```
+
+**Option 2: Cloud storage symlinks**
+
+```bash
+# Both machines
+# 1. Move ~/.claude/ to Dropbox
+mv ~/.claude ~/Dropbox/claude-config
+
+# 2. Symlink back
+ln -s ~/Dropbox/claude-config ~/.claude
+
+# Changes sync automatically via Dropbox
+```
+
+**Option 3: Hybrid (Git for agents/hooks, cloud for MCP configs)**
+
+```bash
+# Git for code (agents, hooks, skills)
+~/claude-config-backup/  → Git repo
+
+# Cloud for data (settings, MCP, sessions)
+~/Dropbox/claude-mcp/    → settings.json, mcp.json (encrypted secrets)
+ln -s ~/Dropbox/claude-mcp/settings.json ~/.claude/settings.json
+```
+
+#### Security Considerations
+
+**Never commit these to Git**:
+- API keys, tokens, passwords
+- `.env` files with secrets
+- `mcp.json` with resolved credentials
+- Session history (may contain sensitive code)
+
+**Always commit these**:
+- Template files with `${env:VAR_NAME}` placeholders
+- `.gitignore` to prevent secret leaks
+- Public agents/hooks/skills (if safe to share)
+
+**Best practices**:
+1. Use `settings.template.json` with placeholders → Generate `settings.json` via script
+2. Run [pre-commit hook](../../examples/hooks/bash/pre-commit-secrets.sh) to detect secrets
+3. For MCP secrets, see [Section 8.3.1 MCP Secrets Management](#831-mcp-secrets-management)
+
+#### Disaster Recovery
+
+**Restore from backup**:
+
+```bash
+# From Git backup
+cd ~/claude-config-backup
+git clone git@github.com:yourusername/claude-config-private.git
+cd claude-config-private
+
+# Recreate symlinks
+ln -sf ~/.claude/agents ./agents
+ln -sf ~/.claude/commands ./commands
+# ... etc
+
+# Restore settings (fill in secrets manually or via .env)
+cp settings.template.json ~/.claude/settings.json
+# Edit and replace ${env:VAR_NAME} with actual values
+```
+
+**From tarball backup**:
+```bash
+cd ~/claude-backups
+# Find latest backup
+ls -lt claude-config-*.tar.gz | head -1
+
+# Extract
+tar -xzf claude-config-YYYY-MM-DD_HH-MM-SS.tar.gz -C ~/
+```
+
+#### Community Solutions
+
+- **[brianlovin/claude-config](https://github.com/brianlovin/claude-config)**: Public repo with `sync.sh` script for backups and restore
+- **Martin Ratinaud approach**: Git repo + symlinks + `sync-mcp.sh` for secrets (504 sessions tested)
+- **Script template**: See [sync-claude-config.sh](../../examples/scripts/sync-claude-config.sh) for full automation
+
+**GitHub Issue**: [#16204 - Proactive migration guidance for backup/restore workflows](https://github.com/anthropics/claude-code/issues/16204)
+
 ## 3.3 Settings & Permissions
 
 ### settings.json (Team Configuration)
@@ -8109,6 +8342,384 @@ claude mcp add --help
 ```
 
 > **Source**: CLI syntax adapted from [Shipyard Claude Code Cheat Sheet](https://shipyard.build/blog/claude-code-cheat-sheet/)
+
+### 8.3.1 MCP Secrets Management
+
+**Problem**: MCP servers require API keys and credentials. Storing them in plaintext `mcp.json` creates security risks (accidental Git commits, exposure in logs, lateral movement after breach).
+
+**Solution**: Separate secrets from configuration using environment variables, OS keychains, or secret vaults.
+
+#### Security Principles
+
+Before implementing secrets management, understand the baseline requirements from [Security Hardening Guide](./security-hardening.md):
+
+- **Encryption at rest**: Secrets must be encrypted on disk (OS keychain > plaintext .env)
+- **Least privilege**: Use read-only credentials when possible
+- **Token rotation**: Short-lived tokens with automated refresh
+- **Audit logging**: Track secret access without logging the secrets themselves
+- **Never in Git**: Secrets must never be committed to version control
+
+For full threat model and CVE details, see [Section 8.6 MCP Security](#86-mcp-security).
+
+#### Three Practical Approaches
+
+| Approach | Security | Complexity | Use Case |
+|----------|----------|------------|----------|
+| **OS Keychain** | High (encrypted at rest) | Medium | Solo developers, macOS/Linux |
+| **.env + .gitignore** | Medium (file permissions) | Low | Small teams, rapid prototyping |
+| **Secret Vaults** | Very High (centralized, audited) | High | Enterprise, compliance requirements |
+
+---
+
+#### Approach 1: OS Keychain (Recommended)
+
+**Best for**: Solo developers on macOS/Linux with high security needs.
+
+**Pros**: Encrypted at rest, OS-level access control, no plaintext files
+**Cons**: Platform-specific, requires scripting for automation
+
+**macOS Keychain Setup**:
+
+```bash
+# Store secret in Keychain
+security add-generic-password \
+  -a "claude-mcp" \
+  -s "github-token" \
+  -w "ghp_your_token_here"
+
+# Verify storage
+security find-generic-password -s "github-token" -w
+```
+
+**MCP configuration with keychain retrieval**:
+
+```json
+{
+  "servers": {
+    "github": {
+      "command": "bash",
+      "args": ["-c", "GITHUB_TOKEN=$(security find-generic-password -s 'github-token' -w) npx @github/mcp-server"],
+      "env": {}
+    }
+  }
+}
+```
+
+**Linux Secret Service** (GNOME Keyring, KWallet):
+
+```bash
+# Install secret-tool (part of libsecret)
+sudo apt install libsecret-tools  # Ubuntu/Debian
+
+# Store secret
+secret-tool store --label="GitHub Token" service claude key github-token
+# Prompt will ask for the secret value
+
+# Retrieve in MCP config (bash wrapper)
+# ~/.claude/scripts/mcp-github.sh
+#!/bin/bash
+export GITHUB_TOKEN=$(secret-tool lookup service claude key github-token)
+npx @github/mcp-server
+
+# mcp.json
+{
+  "servers": {
+    "github": {
+      "command": "~/.claude/scripts/mcp-github.sh",
+      "args": []
+    }
+  }
+}
+```
+
+**Windows Credential Manager**:
+
+```powershell
+# Store secret
+cmdkey /generic:"claude-mcp-github" /user:"token" /pass:"ghp_your_token_here"
+
+# Retrieve in PowerShell wrapper
+$password = cmdkey /list:"claude-mcp-github" | Select-String -Pattern "Password" | ForEach-Object { $_.ToString().Split(":")[1].Trim() }
+$env:GITHUB_TOKEN = $password
+npx @github/mcp-server
+```
+
+---
+
+#### Approach 2: .env + .gitignore (Simple)
+
+**Best for**: Small teams, rapid prototyping, adequate security with proper `.gitignore`.
+
+**Pros**: Simple, cross-platform, easy onboarding
+**Cons**: Plaintext on disk (file permissions only), requires discipline
+
+**Setup**:
+
+```bash
+# 1. Create .env file (project root or ~/.claude/)
+cat > ~/.claude/.env << EOF
+GITHUB_TOKEN=ghp_your_token_here
+OPENAI_API_KEY=sk-your-key-here
+DATABASE_URL=postgresql://user:pass@localhost/db
+EOF
+
+# 2. Secure permissions (Unix only)
+chmod 600 ~/.claude/.env
+
+# 3. Add to .gitignore
+echo ".env" >> ~/.claude/.gitignore
+```
+
+**MCP configuration with .env variables**:
+
+```json
+{
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["@github/mcp-server"],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-postgres"],
+      "env": {
+        "DATABASE_URL": "${env:DATABASE_URL}"
+      }
+    }
+  }
+}
+```
+
+**Load .env before Claude Code**:
+
+```bash
+# Option 1: Shell wrapper
+# ~/bin/claude-with-env
+#!/bin/bash
+export $(cat ~/.claude/.env | xargs)
+claude "$@"
+
+# Option 2: direnv (automatic per-directory)
+# Install: https://direnv.net/
+echo 'dotenv ~/.claude/.env' > ~/.config/direnv/direnvrc
+direnv allow ~/.claude
+```
+
+**Template approach for teams**:
+
+```bash
+# Commit template (no secrets)
+cat > ~/.claude/mcp.json.template << EOF
+{
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["@github/mcp-server"],
+      "env": {
+        "GITHUB_TOKEN": "\${env:GITHUB_TOKEN}"
+      }
+    }
+  }
+}
+EOF
+
+# Generate actual config from template + .env
+envsubst < ~/.claude/mcp.json.template > ~/.claude/mcp.json
+
+# .gitignore
+mcp.json      # Generated, contains resolved secrets
+.env          # Never commit
+```
+
+**See also**: [sync-claude-config.sh](../../examples/scripts/sync-claude-config.sh) for automated template substitution.
+
+---
+
+#### Approach 3: Secret Vaults (Enterprise)
+
+**Best for**: Enterprise, compliance (SOC 2, HIPAA), centralized secret management.
+
+**Pros**: Centralized, audited, automated rotation, fine-grained access control
+**Cons**: Complex setup, requires infrastructure, vendor lock-in
+
+**HashiCorp Vault**:
+
+```bash
+# Store secret in Vault
+vault kv put secret/claude/github token=ghp_your_token_here
+
+# Retrieve in wrapper script
+# ~/.claude/scripts/mcp-github-vault.sh
+#!/bin/bash
+export GITHUB_TOKEN=$(vault kv get -field=token secret/claude/github)
+npx @github/mcp-server
+
+# mcp.json
+{
+  "servers": {
+    "github": {
+      "command": "~/.claude/scripts/mcp-github-vault.sh",
+      "args": []
+    }
+  }
+}
+```
+
+**AWS Secrets Manager**:
+
+```bash
+# Store secret
+aws secretsmanager create-secret \
+  --name claude/github-token \
+  --secret-string "ghp_your_token_here"
+
+# Retrieve in wrapper
+export GITHUB_TOKEN=$(aws secretsmanager get-secret-value \
+  --secret-id claude/github-token \
+  --query SecretString \
+  --output text)
+npx @github/mcp-server
+```
+
+**1Password CLI** (team-friendly):
+
+```bash
+# Store in 1Password (via GUI or CLI)
+op item create --category=password \
+  --title="Claude MCP GitHub Token" \
+  token=ghp_your_token_here
+
+# Retrieve in wrapper
+export GITHUB_TOKEN=$(op read "op://Private/Claude MCP GitHub Token/token")
+npx @github/mcp-server
+```
+
+---
+
+#### Secrets Rotation Workflow
+
+**Problem**: API keys expire or are compromised. Rotating secrets across multiple MCP servers is manual and error-prone.
+
+**Solution**: Centralized `.env` file with rotation script.
+
+```bash
+# ~/.claude/rotate-secret.sh
+#!/bin/bash
+SECRET_NAME=$1
+NEW_VALUE=$2
+
+# 1. Update .env file
+sed -i.bak "s|^${SECRET_NAME}=.*|${SECRET_NAME}=${NEW_VALUE}|" ~/.claude/.env
+
+# 2. Regenerate mcp.json from template
+envsubst < ~/.claude/mcp.json.template > ~/.claude/mcp.json
+
+# 3. Restart MCP servers (if running)
+pkill -f "mcp-server" || true
+
+echo "✅ Rotated $SECRET_NAME"
+echo "⚠️  Restart Claude Code to apply changes"
+```
+
+**Usage**:
+```bash
+# Rotate GitHub token
+./rotate-secret.sh GITHUB_TOKEN ghp_new_token_here
+
+# Rotate database password
+./rotate-secret.sh DATABASE_URL postgresql://user:new_pass@localhost/db
+```
+
+**Automated rotation with Vault** (advanced):
+
+```bash
+# vault-rotate.sh
+#!/bin/bash
+# Fetch latest secrets from Vault, update .env, restart Claude
+
+vault kv get -format=json secret/claude | jq -r '.data.data | to_entries[] | "\(.key)=\(.value)"' > ~/.claude/.env
+envsubst < ~/.claude/mcp.json.template > ~/.claude/mcp.json
+
+echo "✅ Secrets rotated from Vault"
+```
+
+Schedule with cron:
+```bash
+# Rotate daily at 3 AM
+0 3 * * * ~/claude-rotate.sh >> ~/claude-rotate.log 2>&1
+```
+
+---
+
+#### Pre-Commit Secret Detection
+
+**Problem**: Developers accidentally commit secrets to Git despite `.gitignore` (e.g., adding `.env` with `git add -f`).
+
+**Solution**: [Pre-commit hook](../../examples/hooks/bash/pre-commit-secrets.sh) to block commits containing secrets.
+
+```bash
+# Install hook
+cp examples/hooks/bash/pre-commit-secrets.sh .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+
+# Test (should fail)
+echo "GITHUB_TOKEN=ghp_test" > test.txt
+git add test.txt
+git commit -m "Test"
+# ❌ Blocked: Secret detected in test.txt
+```
+
+**Detection patterns** (see hook for full list):
+- OpenAI keys: `sk-[A-Za-z0-9]{48}`
+- GitHub tokens: `ghp_[A-Za-z0-9]{36}`
+- AWS keys: `AKIA[A-Z0-9]{16}`
+- Generic API keys: `api[_-]?key[\"']?\s*[:=]\s*[\"']?[A-Za-z0-9]{20,}`
+
+---
+
+#### Verification Checklist
+
+Before deploying MCP servers with secrets:
+
+| Check | Command | Pass Criteria |
+|-------|---------|---------------|
+| **.env not in Git** | `git ls-files | grep .env` | No output |
+| **File permissions** | `ls -l ~/.claude/.env` | `-rw-------` (600) |
+| **Template committed** | `git ls-files | grep template` | `mcp.json.template` present |
+| **Pre-commit hook** | `cat .git/hooks/pre-commit` | Secret detection script present |
+| **Secrets resolved** | `claude mcp list` | All servers start without errors |
+
+**Test secret isolation**:
+```bash
+# Should work (secret from .env)
+export $(cat ~/.claude/.env | xargs)
+claude
+
+# Should fail (no secrets in environment)
+unset GITHUB_TOKEN DATABASE_URL
+claude
+# ❌ MCP servers fail to start (expected)
+```
+
+---
+
+#### Best Practices Summary
+
+| Practice | Rationale |
+|----------|-----------|
+| **Use OS keychain when possible** | Encrypted at rest, OS-level security |
+| **Never commit .env to Git** | One leak = full compromise |
+| **Commit .env.example template** | Team onboarding without secrets |
+| **Use ${env:VAR} in mcp.json** | Separation of config and secrets |
+| **Rotate secrets quarterly** | Limit blast radius of old leaks |
+| **Audit .gitignore before push** | Prevent accidental exposure |
+| **Least privilege credentials** | Read-only DB users, scoped API tokens |
+| **Monitor for leaked secrets** | GitHub secret scanning, GitGuardian |
+
+For production deployments, consider [zero standing privilege](https://www.rkon.com/articles/mcp-server-security-navigating-the-new-ai-attack-surface/) where MCP servers start with no secrets and request just-in-time credentials on tool invocation.
 
 ## 8.4 Server Selection Guide
 

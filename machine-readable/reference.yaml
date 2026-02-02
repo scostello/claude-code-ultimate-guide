@@ -139,6 +139,34 @@ deep_dive:
   third_party_claude_chic: "https://pypi.org/project/claudechic/"
   third_party_toad: "https://github.com/batrachianai/toad"
   third_party_conductor: "https://docs.conductor.build"
+  # Configuration Management & Backup (Added 2026-02-02)
+  config_management_guide: "guide/ultimate-guide.md:4085"  # Section 3.2.1
+  config_hierarchy: "guide/ultimate-guide.md:4095"  # Global → Project → Local precedence
+  config_git_strategy_project: "guide/ultimate-guide.md:4110"  # What to commit in .claude/
+  config_git_strategy_global: "guide/ultimate-guide.md:4133"  # Version control ~/.claude/
+  config_backup_strategies: "guide/ultimate-guide.md:4171"  # Git, cloud sync, cron
+  config_multi_machine_sync: "guide/ultimate-guide.md:4183"  # Laptop + desktop workflows
+  config_security_considerations: "guide/ultimate-guide.md:4219"  # Never commit secrets
+  config_disaster_recovery: "guide/ultimate-guide.md:4233"  # Restore from backup
+  config_community_solutions: "guide/ultimate-guide.md:4249"  # brianlovin + Ratinaud
+  config_github_issue: "https://github.com/anthropics/claude-code/issues/16204"  # Migration guidance request
+  config_brianlovin_repo: "https://github.com/brianlovin/claude-config"  # Community example with sync.sh
+  config_ratinaud_approach: "https://www.linkedin.com/posts/martinratinaud_claudecode-devtools-buildinpublic-activity-7424055660247629824-hBsL"  # 504 sessions tested
+  config_ratinaud_evaluation: "docs/resource-evaluations/ratinaud-config-management-evaluation.md"  # Full evaluation
+  # MCP Secrets Management (Added 2026-02-02)
+  mcp_secrets_management: "guide/ultimate-guide.md:8113"  # Section 8.3.1
+  mcp_secrets_principles: "guide/ultimate-guide.md:8121"  # Security principles
+  mcp_secrets_os_keychain: "guide/ultimate-guide.md:8141"  # Approach 1: OS Keychain
+  mcp_secrets_env_file: "guide/ultimate-guide.md:8197"  # Approach 2: .env + .gitignore
+  mcp_secrets_vaults: "guide/ultimate-guide.md:8273"  # Approach 3: HashiCorp Vault, AWS, 1Password
+  mcp_secrets_rotation: "guide/ultimate-guide.md:8325"  # Rotation workflow
+  mcp_secrets_pre_commit: "guide/ultimate-guide.md:8363"  # Secret detection hook
+  mcp_secrets_verification: "guide/ultimate-guide.md:8386"  # Verification checklist
+  mcp_secrets_best_practices: "guide/ultimate-guide.md:8406"  # Summary table
+  # Templates & Scripts (Configuration Management)
+  sync_claude_config_script: "examples/scripts/sync-claude-config.sh"  # Full automation script
+  pre_commit_secrets_hook: "examples/hooks/bash/pre-commit-secrets.sh"  # Git hook for secret detection
+  settings_local_example: "examples/config/settings.local.json.example"  # Machine-specific overrides template
   # Visual Reference (ASCII diagrams)
   visual_reference: "guide/visual-reference.md"
   # Architecture internals (guide/architecture.md)
