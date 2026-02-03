@@ -17,6 +17,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Source**: [Official Git MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/git) (MIT License, 77,908+ stars parent repo), Anthropic MCP ecosystem
   - **Credits**: Anthropic (official server), technical-writer agent (challenge phase: 3/5 → 5/5 score revision, placement critique, decision matrix requirement), fact-check validation (100% verified: 12 tools, installation methods, date filtering, IDE integrations, early development status, MIT license)
 
+### Fixed
+
+- **Ctrl+R Keybinding Documentation** — Corrected incorrect "Retry" label to accurate "Search command history" in 5 locations
+  - **Guide corrections** (`guide/cheatsheet.md:39`, `guide/ultimate-guide.md:358,15508,15521,16032`) — Updated from "Retry last operation"/"Retry last"/"Retry" to "Search command history"/"Search history"/"Search" reflecting official `history:search` action (Global context) and `historySearch:next` (HistorySearch context)
+  - **Verification method** — Tested against official keybindings documentation (`~/.claude/keybindings.json` schema) and CLI behavior confirmation
+  - **Resource evaluation** (`docs/resource-evaluations/sankalp-claude-code-experience.md`) — Sankalp's blog (Dec 27, 2025) correctly identified guide error, scored 2/5 (marginal overlap but accurate Ctrl+R identification), evaluation documents correction workflow + CLI test results
+  - **Impact** — Users now have accurate keybinding documentation matching actual behavior (search command history similar to shell Ctrl+R reverse-i-search)
+  - **Credits** — Sankalp (@dejavucoder) for identifying error in [blog post](https://sankalp.bearblog.dev/my-experience-with-claude-code-20-and-how-to-get-better-at-using-coding-agents/), verification via official keybindings schema
+
 ## [3.21.1] - 2026-02-02
 
 ### Added
