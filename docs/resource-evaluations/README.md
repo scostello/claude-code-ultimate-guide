@@ -58,7 +58,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Docker Sandboxes** (Isolation Landscape) | 4/5 | **4/5** | ✅ Intégré (guide + notice) | [docker-sandboxes-isolation.md](./docker-sandboxes-isolation.md) |
 | **dclaude** (Dockerized Claude Code) | 2/5 | **2/5** | ⚠️ Footnote (sandbox-isolation.md) | [dclaude-docker-wrapper.md](./dclaude-docker-wrapper.md) |
 | **10 Tips from Inside the Claude Code Team** (paddo.dev) | 4/5 | **4/5** | ✅ Intégré (4 sections) | [paddo-team-tips-eval.md](./paddo-team-tips-eval.md) |
+| **Sankalp's Claude Code 2.0 Experience** | 2/5 | **2/5** | ⚠️ Watch only (85% overlap, probable errors) | [sankalp-claude-code-experience.md](./sankalp-claude-code-experience.md) |
 
 ---
 
-**Dernier update**: 2026-02-01 (20 évaluations)
+**Dernier update**: 2026-02-03 (21 évaluations)

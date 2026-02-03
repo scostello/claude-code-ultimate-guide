@@ -355,7 +355,7 @@ These 7 commands are the ones I use most frequently:
 | `!command` | Run shell command directly | `!git status`, `!npm test` |
 | `@file.ts` | Reference a specific file | `@src/app.tsx`, `@README.md` |
 | `Ctrl+C` | Cancel current operation | Stop long-running analysis |
-| `Ctrl+R` | Retry last operation | Retry after fixing error |
+| `Ctrl+R` | Search command history | Find previous prompts |
 | `Esc` | Dismiss current suggestion | Skip unwanted changes |
 
 #### Shell Commands with `!`
@@ -15505,7 +15505,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | Run shell command | `!command` |
 | Reference file | `@filename` |
 | Cancel operation | `Ctrl+C` |
-| Retry last | `Ctrl+R` |
+| Search history | `Ctrl+R` |
 | Dismiss suggestion | `Esc` |
 
 ## 10.2 Keyboard Shortcuts
@@ -15518,7 +15518,7 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `Shift+Enter` | New line in message |
 | `Ctrl+C` | Cancel current operation |
 | `Ctrl+D` | Exit Claude Code |
-| `Ctrl+R` | Retry last operation |
+| `Ctrl+R` | Search command history |
 | `Ctrl+L` | Clear screen (keeps context) |
 | `Ctrl+B` | Run command in background |
 | `Esc` | Dismiss current suggestion |
@@ -16029,7 +16029,7 @@ Get the scripts from:
 ║  QUICK ACTIONS                                           ║
 ║  ─────────────                                           ║
 ║  !command   Run shell         @file     Reference file   ║
-║  Ctrl+R     Retry             ↑/↓       History          ║
+║  Ctrl+R     Search            ↑/↓       History          ║
 ║                                                          ║
 ║  CONTEXT MANAGEMENT                                      ║
 ║  ──────────────────                                      ║

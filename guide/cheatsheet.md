@@ -36,7 +36,7 @@
 | `Shift+Tab` | Cycle permission modes |
 | `Esc` × 2 | Rewind (undo) |
 | `Ctrl+C` | Interrupt |
-| `Ctrl+R` | Retry last operation |
+| `Ctrl+R` | Search command history |
 | `Ctrl+L` | Clear screen (keeps context) |
 | `Tab` | Autocomplete |
 | `Shift+Enter` | New line |
