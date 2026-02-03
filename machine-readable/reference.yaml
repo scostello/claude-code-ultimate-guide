@@ -4,7 +4,7 @@
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
 version: "3.21.1"
-updated: "2026-02-02"
+updated: "2026-02-03"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -386,10 +386,11 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 35
+  resource_evaluations_count: 46
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
+  resource_evaluations_git_mcp: "docs/resource-evaluations/git-mcp-server-evaluation.md"
   resource_evaluations_anaconda_croce: "docs/resource-evaluations/anaconda-croce-evaluation.md"
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
@@ -756,6 +757,16 @@ mcp:
   sequential: "structured multi-step reasoning"
   playwright: "browser automation / E2E"
   figma: "design file access, tokens, structure (official)"
+  git_mcp: "version control automation (official Anthropic) - 12 tools for commits, branches, diffs, logs"
+  git_mcp_guide: "guide/mcp-servers-ecosystem.md:102"
+  git_mcp_tools: "git_status, git_log, git_diff, git_commit, git_add, git_reset, git_branch, git_create_branch, git_checkout, git_show, git_diff_unstaged, git_diff_staged"
+  git_mcp_install: "uvx mcp-server-git --repository /path/to/repo"
+  git_mcp_decision_matrix: "guide/mcp-servers-ecosystem.md:212"  # Git MCP vs GitHub MCP vs Bash tool
+  git_mcp_repo: "https://github.com/modelcontextprotocol/servers/tree/main/src/git"
+  git_mcp_score: "8.5/10"
+  git_mcp_status: "Early development (API subject to change)"
+  git_mcp_advanced_filtering: "ISO 8601 dates, relative dates (2 weeks ago), absolute dates"
+  git_mcp_use_cases: "automated commits, log analysis, branch management, token-efficient diffs, multi-repo"
   ast_grep: "optional plugin for AST-based code search (explicit invocation required)"
   ast_grep_guide: "guide/ultimate-guide.md:6564"
   ast_grep_skill: "examples/skills/ast-grep-patterns.md"
