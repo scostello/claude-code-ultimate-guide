@@ -12881,6 +12881,343 @@ The broader team extends Boris's individual workflow with institutional patterns
 
 ---
 
+### Alternative Pattern: Dual-Instance Planning (Vertical Separation)
+
+While Boris's workflow demonstrates **horizontal scaling** (5-15 instances in parallel), an alternative pattern focuses on **vertical separation**: using two Claude instances with distinct roles for quality-focused workflows.
+
+**Pattern source**: Jon Williams (Product Designer, UK), transition from Cursor to Claude Code after 6 months. [LinkedIn post, Feb 3, 2026](https://www.linkedin.com/posts/thatjonwilliams_ive-been-using-cursor-for-six-months-now-activity-7424481861802033153-k8bu)
+
+#### When to Use Dual-Instance Pattern
+
+This pattern is **orthogonal** to Boris's approach: instead of scaling breadth (more features in parallel), it scales depth (separation of planning and execution phases).
+
+| Your Context | Use Dual-Instance? | Monthly Cost |
+|--------------|-------------------|--------------|
+| **Solo dev, spec-heavy work** | ✅ Yes | $100-200 |
+| **Small team, complex requirements** | ✅ Yes | $150-300 |
+| **Product designers coding** | ✅ Yes | $100-200 |
+| **High-volume parallel features** | ❌ No, use Boris pattern | $500-1K+ |
+
+**Use when**:
+- You need plan verification before execution
+- Specs are complex or ambiguous (interview-based clarification helps)
+- Lower budget than Boris pattern ($100-200/month vs $500-1K+)
+- Quality > speed (willing to sacrifice parallelism for better plans)
+
+**Don't use when**:
+- You need to ship 10+ features simultaneously (use Boris pattern)
+- Plans are straightforward (single instance with `/plan` is enough)
+- Budget is very limited (<$100/month)
+
+#### Setup: Two Instances, Two Roles
+
+```
+┌─────────────────────────────────────────────────────┐
+│         DUAL-INSTANCE ARCHITECTURE                  │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ┌──────────────────┐                               │
+│  │  Claude Zero     │  Planning & Review            │
+│  │  (Planner)       │  - Explores codebase          │
+│  └────────┬─────────┘  - Writes plans               │
+│           │            - Reviews implementations    │
+│           │            - NEVER touches code         │
+│           ▼                                          │
+│  ┌─────────────────┐                                │
+│  │  Plans/Review/  │  Human review checkpoint       │
+│  │  Plans/Active/  │                                │
+│  └────────┬────────┘                                │
+│           │                                          │
+│           ▼                                          │
+│  ┌──────────────────┐                               │
+│  │  Claude One      │  Implementation                │
+│  │  (Implementer)   │  - Reads approved plans       │
+│  └──────────────────┘  - Writes code                │
+│                        - Commits changes            │
+│                        - Reports completion         │
+│                                                     │
+│  Key: Separation of concerns = fewer mistakes      │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+**Setup steps**:
+
+1. **Create directory structure**:
+```bash
+mkdir -p .claude/plans/{Review,Active,Completed}
+```
+
+2. **Launch Claude Zero** (Terminal 1):
+```bash
+cd ~/projects/your-project
+claude
+# Set role in first message:
+# "You are Claude Zero. Your role: explore codebase, write plans,
+#  review implementations. NEVER edit code. Save all plans to
+#  .claude/plans/Review/"
+```
+
+3. **Launch Claude One** (Terminal 2):
+```bash
+cd ~/projects/your-project
+claude
+# Set role in first message:
+# "You are Claude One. Your role: read plans from .claude/plans/Active/,
+#  implement them, commit changes, report back."
+```
+
+#### Workflow: 5 Steps
+
+**Step 1: Planning (Claude Zero)**
+
+```
+You (to Claude Zero): /plan
+
+Implement JWT authentication for the API.
+- Support access tokens (15min expiry)
+- Support refresh tokens (7 day expiry)
+- Middleware to validate tokens on protected routes
+```
+
+Claude Zero explores codebase, interviews you about requirements:
+- "Should we support multiple sessions per user?"
+- "Do you want token revocation (logout) capability?"
+- "Which routes should be protected vs public?"
+
+Claude Zero writes plan to `.claude/plans/Review/auth-jwt.md`:
+
+```markdown
+# Plan: JWT Authentication
+
+## Summary
+Add JWT-based authentication with access/refresh tokens.
+Support token revocation for logout.
+
+## Files to Create
+- src/auth/jwt.ts (line 1-120)
+  - generateAccessToken(userId)
+  - generateRefreshToken(userId)
+  - verifyToken(token)
+
+- src/middleware/auth.ts (line 1-45)
+  - requireAuth middleware
+  - Token validation logic
+
+## Files to Modify
+- src/routes/api.ts (line 23)
+  - Add auth middleware to protected routes
+
+- src/config/env.ts (line 15)
+  - Add JWT_SECRET, JWT_REFRESH_SECRET env vars
+
+## Implementation Steps
+1. Install jsonwebtoken library
+2. Create JWT utility functions
+3. Create auth middleware
+4. Add JWT secrets to .env
+5. Protect existing routes
+6. Write tests for auth flow
+
+## Success Criteria
+- POST /auth/login returns access + refresh token
+- Protected routes reject without valid token
+- POST /auth/refresh exchanges refresh token for new access token
+- POST /auth/logout revokes refresh token
+
+## Risks
+- Token secrets must be in .env (never committed)
+- Refresh token storage needs database table
+```
+
+**Step 2: Human Review**
+
+You review `.claude/plans/Review/auth-jwt.md`:
+- Is the approach correct?
+- Are all requirements covered?
+- Any security issues?
+
+If approved, move to Active:
+```bash
+mv .claude/plans/Review/auth-jwt.md .claude/plans/Active/
+```
+
+**Step 3: Implementation (Claude One)**
+
+```
+You (to Claude One): Implement .claude/plans/Active/auth-jwt.md
+```
+
+Claude One reads the plan file, implements all steps, commits.
+
+**Step 4: Verification (Claude Zero)**
+
+```
+You (to Claude Zero): Review the JWT implementation Claude One just completed.
+```
+
+Claude Zero reviews:
+- Code matches plan?
+- Security best practices followed?
+- Tests cover success criteria?
+
+**Step 5: Archive**
+
+If approved:
+```bash
+mv .claude/plans/Active/auth-jwt.md .claude/plans/Completed/
+```
+
+#### Comparison: Boris (Horizontal) vs Jon (Vertical)
+
+| Dimension | Boris Pattern | Jon Pattern (Dual-Instance) |
+|-----------|---------------|----------------------------|
+| **Scaling axis** | Horizontal (5-15 instances, parallel features) | Vertical (2 instances, separated phases) |
+| **Primary goal** | Speed via parallelism | Quality via separation of concerns |
+| **Monthly cost** | $500-1,000 (Opus × 5-15) | $100-200 (Opus × 2 sequential) |
+| **Entry barrier** | High (worktrees, CLAUDE.md 2.5K, orchestration) | Low (2 terminals, Plans/ directory) |
+| **Audience** | Teams, high-volume, 10+ devs | Solo devs, product designers, spec-heavy |
+| **Context pollution** | Isolated by worktrees (git branches) | Isolated by role separation (planner vs implementer) |
+| **Accountability** | Git history (commits per instance) | Human-in-the-loop (review plans before execution) |
+| **Tooling required** | Worktrees, teleport, `/commit-push-pr` | Plans/ directory structure |
+| **Coordination** | Self-orchestrated (Boris steers 10 sessions) | Human gatekeeper (approve plans) |
+| **Best for** | Shipping 10+ features/day, experienced teams | Complex specs, quality-critical, budget-conscious |
+
+**Key insight**: These patterns are **not mutually exclusive**. You can use dual-instance for complex features (planning rigor) and Boris pattern for high-volume simple features (speed).
+
+#### Cost Analysis: 2 Instances vs Correction Loops
+
+**Question**: Is it cheaper to use 2 instances (planner + implementer) or 1 instance with correction loops?
+
+| Scenario | 1 Instance (Corrections) | 2 Instances (Dual) | Winner |
+|----------|-------------------------|-------------------|--------|
+| **Simple feature** (login form) | 1 session × $5 = $5 | 2 sessions × $3 each = $6 | 1 instance |
+| **Complex spec** (auth system) | 1 session × $15 + 2 correction loops × $10 = $35 | 2 sessions × $12 each = $24 | 2 instances |
+| **Ambiguous requirements** | 1 session × $20 + 3 correction loops × $15 = $65 | 2 sessions × $18 each = $36 | 2 instances |
+
+**Breakeven point**: For features requiring ≥2 correction loops, dual-instance is cheaper and faster.
+
+**Hidden cost savings**:
+- **Context pollution**: Planner doesn't see implementation details → cleaner reasoning
+- **Fewer hallucinations**: Plans have file paths + line numbers → implementer is grounded
+- **Learning**: Review step catches mistakes before they compound
+
+#### Agent-Ready Plans: Best Practices
+
+The key to dual-instance efficiency is **plan structure**. Jon Williams emphasizes "agent-ready plans with specific file references and line numbers."
+
+**Bad plan** (vague):
+```markdown
+## Implementation
+Add authentication to the API.
+Update the routes.
+Create middleware.
+```
+
+**Good plan** (agent-ready):
+```markdown
+## Implementation
+
+### Step 1: Create JWT utilities
+**File**: src/auth/jwt.ts (new file, ~120 lines)
+**Functions**:
+- Line 10-30: generateAccessToken(userId: string): string
+- Line 35-55: generateRefreshToken(userId: string): string
+- Line 60-85: verifyToken(token: string): { userId: string } | null
+
+**Dependencies**: jsonwebtoken (npm install)
+
+### Step 2: Create auth middleware
+**File**: src/middleware/auth.ts (new file, ~45 lines)
+**Export**:
+- Line 15-40: requireAuth middleware (checks Authorization header)
+
+**Imports**: jwt.ts (Step 1)
+
+### Step 3: Protect routes
+**File**: src/routes/api.ts
+**Location**: Line 23 (after imports, before route definitions)
+**Change**: Import requireAuth, apply to /api/protected routes
+
+**Example**:
+router.get('/profile', requireAuth, profileController)
+```
+
+**Why agent-ready plans work**:
+- File paths → Claude One knows exactly where to work
+- Line numbers → Reduces guessing, fewer file reads
+- Dependencies explicit → No surprises during implementation
+- Examples included → Claude One understands expected structure
+
+**Template**: See [guide/workflows/dual-instance-planning.md](workflows/dual-instance-planning.md) for full plan template.
+
+#### Tips for Success
+
+**1. Role enforcement**:
+Set roles in **first message** of each session:
+- Claude Zero: "NEVER edit code, only write plans to .claude/plans/Review/"
+- Claude One: "ONLY implement plans from .claude/plans/Active/, never plan"
+
+**2. Plans directory in .gitignore**:
+```bash
+# .gitignore
+.claude/plans/Review/    # Work in progress
+.claude/plans/Active/    # Under implementation
+# Don't ignore Completed/ (optional: archive for team learning)
+```
+
+**3. Use /plan mode**:
+Claude Zero should start with `/plan` for safe exploration:
+```
+/plan
+
+[Your feature request]
+```
+
+**4. Interview prompts**:
+Encourage Claude Zero to ask clarifying questions:
+```
+"Interview me about requirements before drafting the plan.
+Ask about edge cases, success criteria, and constraints."
+```
+
+**5. Review checklist**:
+When Claude Zero reviews Claude One's implementation:
+- [ ] Code matches plan structure?
+- [ ] All files from plan created/modified?
+- [ ] Tests cover success criteria?
+- [ ] Security best practices followed?
+- [ ] No TODO comments for core functionality?
+
+#### Limitations
+
+**When dual-instance doesn't help**:
+- **Trivial changes**: Typo fixes, simple refactors → 1 instance faster
+- **Exploratory coding**: Unknown problem space → planning overhead not justified
+- **Tight deadlines**: Speed > quality → use 1 instance, accept corrections
+- **Very limited budget**: <$100/month → use Sonnet, 1 instance
+
+**Overhead**:
+- **Manual coordination**: You move plans between directories (no automation)
+- **Context switching**: Managing 2 terminal sessions
+- **Slower iteration**: Plan → approve → implement (vs immediate execution)
+
+**Partial adoption**: You can use this pattern selectively:
+- Dual-instance for complex features
+- Single instance for simple tasks
+- No need to commit to one pattern exclusively
+
+#### See Also
+
+- **Workflow guide**: [dual-instance-planning.md](workflows/dual-instance-planning.md) — Full workflow with templates
+- **Plan Mode**: Section 9.1 "The Trinity" — Foundation for planning
+- **Multi-Instance (Boris)**: Section 9.17 — Horizontal scaling alternative
+- **Cost optimization**: Section 8.10 — Budget management strategies
+
+**External resource**: [Jon Williams LinkedIn post](https://www.linkedin.com/posts/thatjonwilliams_ive-been-using-cursor-for-six-months-now-activity-7424481861802033153-k8bu) (Feb 3, 2026)
+
+---
+
 ### Foundation: Git Worktrees (Non-Negotiable)
 
 Multi-instance workflows **REQUIRE** git worktrees to avoid conflicts. Without worktrees, parallel instances create merge hell.

@@ -386,7 +386,7 @@ deep_dive:
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
   # Resource Evaluations (added 2026-01-26)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 46
+  resource_evaluations_count: 47
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
@@ -452,6 +452,21 @@ deep_dive:
   multi_instance_workflows: 9583
   boris_cherny_case_study: 9617
   boris_cherny_team_patterns: 11822
+  # Dual-Instance Planning Pattern (Jon Williams, Feb 2026)
+  dual_instance_planning: 12884
+  dual_instance_workflow: "guide/workflows/dual-instance-planning.md"
+  dual_instance_overview: 12884
+  dual_instance_setup: "guide/workflows/dual-instance-planning.md:49"
+  dual_instance_complete_workflow: "guide/workflows/dual-instance-planning.md:149"
+  dual_instance_plan_template: "guide/workflows/dual-instance-planning.md:457"
+  dual_instance_cost_analysis: "guide/workflows/dual-instance-planning.md:652"
+  dual_instance_comparison: 13074  # Boris vs Jon comparison table
+  dual_instance_source: "https://www.linkedin.com/posts/thatjonwilliams_ive-been-using-cursor-for-six-months-now-activity-7424481861802033153-k8bu"
+  dual_instance_author: "Jon Williams (Product Designer, UK)"
+  dual_instance_date: "2026-02-03"
+  dual_instance_pattern: "Vertical separation (planner vs implementer) - orthogonal to Boris horizontal scaling"
+  dual_instance_cost: "$100-200/month (vs $500-1K Boris pattern)"
+  dual_instance_audience: "Solo devs, spec-heavy work, quality > speed"
   # External resource: Claude Code team tips (paddo.dev, Feb 2026)
   team_tips_paddo: "https://paddo.dev/blog/claude-code-team-tips/"
   team_tips_paddo_source: "Boris Cherny thread (x.com/bcherny/status/2017742741636321619)"

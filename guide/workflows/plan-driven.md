@@ -250,3 +250,4 @@ Plans in `.claude/plans/` serve as decision documentation:
 - [spec-first.md](./spec-first.md) — Combine with Spec-First
 - [iterative-refinement.md](./iterative-refinement.md) — Post-plan iteration
 - [task-management.md](./task-management.md) — Track plan execution across sessions with Tasks API
+- [dual-instance-planning.md](./dual-instance-planning.md) — Advanced: Use two Claude instances (planner + implementer) for quality-focused workflows
