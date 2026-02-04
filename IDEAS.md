@@ -97,6 +97,32 @@ Using external LLMs (Gemini, GPT-4) as "second opinion" from Claude Code.
 
 **If implementing:**
 - `examples/scripts/gemini-second-opinion.sh`
+
+### Type-Driven API Design for AI Agent Efficiency
+Schema-first development impact on Claude Code token consumption.
+
+**Status:** Anecdotal only (no empirical data). Reevaluate if benchmarks emerge.
+
+**Resource evaluated (Feb 2026):**
+- [ShipTypes](https://shiptypes.com/) by Boris Tane (Cloudflare)
+- **Score:** 2/5 (Marginal) — Claims "types → fewer tokens" unverified
+- **Full evaluation:** `docs/resource-evaluations/shiptypes-evaluation.md`
+
+**What's missing:**
+- Benchmark comparing token consumption: typed APIs (tRPC/Zod) vs untyped (REST/docs)
+- A/B test showing AI agent iterations with/sans types
+- Case study with reproducible metrics
+
+**Reevaluation triggers:**
+- [ ] Academic paper/blog with empirical data (token consumption metrics)
+- [ ] Anthropic official recommendation on schema-first for Claude Code
+- [ ] 5+ community discussions/issues requesting this topic
+
+**If validated (score upgrade to 4/5):**
+- Add subsection in `guide/methodologies.md` (after CDD, line 172)
+- Use micro-integration template: `docs/resource-evaluations/shiptypes-evaluation.md` (section "Integration Plan")
+
+**Check again:** August 2026
 - 3-line mention in "See Also" section
 - No full guide (maintenance burden, scope creep)
 
