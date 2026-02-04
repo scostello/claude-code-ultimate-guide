@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Documentation
+
+- **Claude Code Releases**: Updated tracking to v2.1.31 (2026-02-04)
+  - v2.1.31 (2026-02-03): Session resume hint, PDF/bash/LSP fixes, system improvements
+  - v2.1.30 (2026-02-02): PDF page range support (`pages` parameter), pre-configured OAuth for MCP (Slack), `/debug` command, git log/show flags, task tool metrics
+  - Notable features: PDF pages parameter for large documents (>10 pages), built-in OAuth for servers without Dynamic Client Registration, new troubleshooting command, reduced motion accessibility mode
+
 ### Added
 
 - **Git MCP Server (Official) Documentation** — Integration of Anthropic's official Git MCP server addressing version control automation gap (~1600 words, scored 5/5 CRITICAL after technical-writer challenge)

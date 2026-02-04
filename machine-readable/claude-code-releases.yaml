@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.29"
-updated: "2026-02-02"
+latest: "2.1.31"
+updated: "2026-02-04"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -12,8 +12,26 @@ updated: "2026-02-02"
 releases:
 
   # ─────────────────────────────────────────────────────────────
-  # 2.1.x Series (January 2026)
+  # 2.1.x Series (January-February 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.31"
+    date: "2026-02-03"
+    highlights:
+      - "Session resume hint on exit showing how to continue"
+      - "Fixed PDF errors locking sessions & bash sandbox errors"
+      - "LSP compatibility improvements & terminal rendering fixes"
+    breaking: []
+
+  - version: "2.1.30"
+    date: "2026-02-02"
+    highlights:
+      - "`pages` parameter for Read tool PDFs (e.g., `pages: '1-5'`)"
+      - "Pre-configured OAuth for MCP servers (Slack support)"
+      - "⭐ `/debug` command for session troubleshooting"
+      - "git log/show read-only flags support"
+      - "Task tool metrics (tokens, duration, tool uses)"
+    breaking: []
 
   - version: "2.1.29"
     date: "2026-01-31"

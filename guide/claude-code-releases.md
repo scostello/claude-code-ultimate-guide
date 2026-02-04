@@ -4,20 +4,55 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.29 | **Updated**: 2026-02-02
+**Latest**: v2.1.31 | **Updated**: 2026-02-04
 
 ---
 
 ## Quick Jump
 
-- [2.1.x Series (January 2026)](#21x-series-january-2026) — PR session linking, Task management, Keyboard shortcuts, Skill hot-reload
+- [2.1.x Series (January-February 2026)](#21x-series-january-february-2026) — PDF pages support, /debug command, PR session linking, Task management
 - [2.0.x Series (Nov 2025 - Jan 2026)](#20x-series-november-2025---january-2026) — Opus 4.5, Claude in Chrome, Background agents
 - [Breaking Changes Summary](#breaking-changes-summary)
 - [Milestone Features](#milestone-features)
 
 ---
 
-## 2.1.x Series (January 2026)
+## 2.1.x Series (January-February 2026)
+
+### v2.1.31 (2026-02-03)
+
+- **Session resume hint** — Exit message now shows how to continue your conversation later
+- **Full-width (zenkaku) space support** — Added Japanese IME checkbox selection support
+- Fixed: PDF too large errors permanently locking sessions (now recoverable without starting new conversation)
+- Fixed: Bash commands incorrectly reporting "Read-only file system" when sandbox enabled
+- Fixed: Plan mode crash when project config missing default fields
+- Fixed: `temperatureOverride` being silently ignored in streaming API path
+- Fixed: LSP shutdown/exit compatibility with strict language servers
+- Improved: System prompts now guide model toward Read/Edit/Glob/Grep tools instead of bash equivalents
+- Improved: PDF and request size error messages show actual limits (100 pages, 20MB)
+- Reduced: Layout jitter when spinner appears/disappears during streaming
+
+### v2.1.30 (2026-02-02)
+
+- **⭐ PDF page range support** — `pages` parameter in Read tool for PDFs (e.g., `pages: "1-5"`) with lightweight references for large PDFs (>10 pages)
+- **⭐ Pre-configured OAuth for MCP servers** — Built-in client credentials for servers without Dynamic Client Registration (Slack support via `--client-id` and `--client-secret`)
+- **⭐ New `/debug` command** — Claude can help troubleshoot current session issues
+- **Additional git flags** — Support for `git log` and `git show` read-only flags (`--topo-order`, `--cherry-pick`, `--format`, `--raw`)
+- **Task tool metrics** — Results now include token count, tool uses, and duration
+- **Reduced motion mode** — New config option for accessibility
+- Fixed: Phantom "(no content)" text blocks in API history (reduces token waste)
+- Fixed: Prompt cache not invalidating when tool schemas changed
+- Fixed: 400 errors after `/login` with thinking blocks
+- Fixed: Session resume hang with corrupted `parentUuid` cycles
+- Fixed: Rate limit showing wrong "/upgrade" for Max 20x users
+- Fixed: Permission dialogs stealing focus while typing
+- Fixed: Subagents unable to access SDK MCP tools
+- Fixed: Windows users with `.bashrc` unable to run bash
+- Improved: Memory usage for `--resume` (68% reduction for many sessions)
+- Improved: TaskStop displays stopped command description instead of generic message
+- Changed: `/model` executes immediately instead of queuing
+- [VSCode] Added multiline input in "Other" text fields (Shift+Enter for new lines)
+- [VSCode] Fixed duplicate sessions in session list
 
 ### v2.1.29 (2026-01-31)
 
