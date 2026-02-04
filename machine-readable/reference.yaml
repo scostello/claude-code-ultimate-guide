@@ -3,7 +3,7 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.21.1"
+version: "3.22.0"
 updated: "2026-02-03"
 
 # ════════════════════════════════════════════════════════════════
@@ -166,7 +166,7 @@ deep_dive:
   third_party_toad: "https://github.com/batrachianai/toad"
   third_party_conductor: "https://docs.conductor.build"
   # Configuration Management & Backup (Added 2026-02-02)
-  config_management_guide: "guide/ultimate-guide.md:4085"  # Section 3.21.1
+  config_management_guide: "guide/ultimate-guide.md:4085"  # Section 3.22.0
   config_hierarchy: "guide/ultimate-guide.md:4095"  # Global → Project → Local precedence
   config_git_strategy_project: "guide/ultimate-guide.md:4110"  # What to commit in .claude/
   config_git_strategy_global: "guide/ultimate-guide.md:4133"  # Version control ~/.claude/
@@ -197,7 +197,7 @@ deep_dive:
   visual_reference: "guide/visual-reference.md"
   # Architecture internals (guide/architecture.md)
   architecture_visual_overview: "guide/architecture.md:41"
-  architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-74205921491103.21.12-eY5a"
+  architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-74205921491103.22.02-eY5a"
   architecture_master_loop: "guide/architecture.md:72"
   architecture_tools: "guide/architecture.md:155"
   architecture_context: "guide/architecture.md:208"
@@ -1013,7 +1013,7 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.21.1, 66 templates, cross-links"
+        event: "Code Landing sync v3.22.0, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
