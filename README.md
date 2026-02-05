@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-257_questions-orange?style=for-the-badge" alt="Quiz"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-103-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-106-green?style=for-the-badge" alt="Templates"/></a>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
   <a href="https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide"><img src="https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff" alt="Ask Zread"/></a>
 </p>
 
-> **Claude Code (Anthropic): the learning curve, solved.** ~16K-line guide + 103 templates + 257 quiz questions + 22 event hooks + 47 resource evaluations. Beginner → Power User.
+> **Claude Code (Anthropic): the learning curve, solved.** ~16K-line guide + 106 templates + 257 quiz questions + 22 event hooks + 49 resource evaluations. Beginner → Power User.
 
 ---
 
@@ -67,11 +67,11 @@ graph LR
     root[📦 Repository<br/>Root]
 
     root --> guide[📖 guide/<br/>16K lines]
-    root --> examples[📋 examples/<br/>89 templates]
+    root --> examples[📋 examples/<br/>106 templates]
     root --> quiz[🧠 quiz/<br/>257 questions]
     root --> tools[🔧 tools/<br/>utils]
     root --> machine[🤖 machine-readable/<br/>AI index]
-    root --> docs[📚 docs/<br/>41 evaluations]
+    root --> docs[📚 docs/<br/>49 evaluations]
 
     style root fill:#d35400,stroke:#e67e22,stroke-width:3px,color:#fff
     style guide fill:#2980b9,stroke:#3498db,stroke-width:2px,color:#fff
@@ -96,7 +96,7 @@ graph LR
 │  ├─ mcp-servers-ecosystem.md  Official & community MCP servers
 │  └─ workflows/          Step-by-step guides
 │
-├─ 📋 examples/           86 Production Templates
+├─ 📋 examples/           106 Production Templates
 │  ├─ agents/             6 custom AI personas
 │  ├─ commands/           18 slash commands
 │  ├─ hooks/              18 security hooks (bash + PowerShell)
@@ -116,7 +116,7 @@ graph LR
 │  ├─ reference.yaml      Structured index (~2K tokens)
 │  └─ llms.txt            Standard LLM context file
 │
-└─ 📚 docs/               46 Resource Evaluations
+└─ 📚 docs/               49 Resource Evaluations
    └─ resource-evaluations/  5-point scoring, source attribution
 ```
 
@@ -152,7 +152,7 @@ Complete guides with rationale and examples:
 - [BDD](./guide/methodologies.md#3-bdd-behavior-driven-development) — Behavior-Driven Development
 - [GSD](./guide/methodologies.md#gsd-get-shit-done) — Get Shit Done pattern
 
-### 📚 86 Annotated Templates
+### 📚 106 Annotated Templates
 
 Educational templates with explanations:
 - Agents (6), Commands (18), Hooks (18), Skills
@@ -161,7 +161,7 @@ Educational templates with explanations:
 
 [Browse Catalog →](./examples/)
 
-### 🔍 47 Resource Evaluations
+### 🔍 49 Resource Evaluations
 
 Systematic assessment of external resources (5-point scoring):
 - Articles, videos, tools, frameworks
@@ -388,7 +388,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 | **[Claude Code Releases](./guide/claude-code-releases.md)** | Official release history | 10 min |
 
 <details>
-<summary><strong>Examples Library</strong> (89 templates)</summary>
+<summary><strong>Examples Library</strong> (106 templates)</summary>
 
 **Agents** (6): [code-reviewer](./examples/agents/code-reviewer.md), [test-writer](./examples/agents/test-writer.md), [security-auditor](./examples/agents/security-auditor.md), [refactoring-specialist](./examples/agents/refactoring-specialist.md), [output-evaluator](./examples/agents/output-evaluator.md), [devops-sre](./examples/agents/devops-sre.md) ⭐
 
@@ -426,7 +426,7 @@ cd quiz && npm install && npm start
 </details>
 
 <details>
-<summary><strong>Resource Evaluations</strong> (47 assessments)</summary>
+<summary><strong>Resource Evaluations</strong> (49 assessments)</summary>
 
 Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
 
@@ -487,7 +487,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.22.1 | February 2026 | Crafted with Claude*
+*Version 3.23.0 | February 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

@@ -3,8 +3,8 @@
 # Source: guide/ultimate-guide.md
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
-version: "3.22.1"
-updated: "2026-02-03"
+version: "3.23.0"
+updated: "2026-02-05"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -166,7 +166,7 @@ deep_dive:
   third_party_toad: "https://github.com/batrachianai/toad"
   third_party_conductor: "https://docs.conductor.build"
   # Configuration Management & Backup (Added 2026-02-02)
-  config_management_guide: "guide/ultimate-guide.md:4085"  # Section 3.22.1
+  config_management_guide: "guide/ultimate-guide.md:4085"  # Section 3.23.0
   config_hierarchy: "guide/ultimate-guide.md:4095"  # Global → Project → Local precedence
   config_git_strategy_project: "guide/ultimate-guide.md:4110"  # What to commit in .claude/
   config_git_strategy_global: "guide/ultimate-guide.md:4133"  # Version control ~/.claude/
@@ -197,7 +197,7 @@ deep_dive:
   visual_reference: "guide/visual-reference.md"
   # Architecture internals (guide/architecture.md)
   architecture_visual_overview: "guide/architecture.md:41"
-  architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-74205921491103.22.1-eY5a"
+  architecture_visual_source: "https://www.linkedin.com/posts/mohamed-ali-ben-salem-2b777b9a_en-ce-moment-je-vois-passer-des-posts-du-activity-74205921491103.23.0-eY5a"
   architecture_master_loop: "guide/architecture.md:72"
   architecture_tools: "guide/architecture.md:155"
   architecture_context: "guide/architecture.md:208"
@@ -626,6 +626,29 @@ deep_dive:
   myths_tasks_api_autonomous: 15301
   myths_100x_faster: 15340
   myths_reliable_sources: 15388
+  # Quiz System (257 questions, 15 categories)
+  quiz_overview: "quiz/README.md"
+  quiz_file: "quiz/questions.json"
+  quiz_count: 257
+  quiz_categories: 15
+  quiz_beginner: "quiz/categories/basics,commands,shortcuts,reference"
+  quiz_beginner_count: 60
+  quiz_intermediate: "quiz/categories/workflows,context,agents,hooks"
+  quiz_intermediate_count: 100
+  quiz_advanced: "quiz/categories/mcp,production,advanced,learning,ecosystem"
+  quiz_advanced_count: 97
+  quiz_estimated_time_beginner: "15-20 min"
+  quiz_estimated_time_intermediate: "25-30 min"
+  quiz_estimated_time_advanced: "30-40 min"
+  # Onboarding matrix required keys (added for v2.0.0 adaptive architecture)
+  rules: 917  # Golden Rules section
+  workflow: 659  # Workflow (9 steps)
+  fix: 868  # Troubleshooting section
+  architecture: 819  # Architecture internals
+  production_safety: "guide/production-safety.md"  # Production safety rules
+  security_hardening: "guide/security-hardening.md"  # Security best practices
+  agent_validation_checklist: 3850  # Agent validation section in ultimate-guide.md
+  git_mcp_guide: "guide/mcp-servers-ecosystem.md:102"  # Git MCP server documentation
 
 # ════════════════════════════════════════════════════════════════
 # DECISION TREE (most important - en premier)
@@ -1017,41 +1040,184 @@ ecosystem:
       - "Cross-links modified → Update all 4 repos"
     history:
       - date: "2026-01-20"
-        event: "Code Landing sync v3.22.1, 66 templates, cross-links"
+        event: "Code Landing sync v3.23.0, 66 templates, cross-links"
         commit: "5b5ce62"
       - date: "2026-01-20"
         event: "Cowork Landing fix (paths, README, UI badges)"
         commits: "cab83f5, af497b7, 539912b"
 
 # ════════════════════════════════════════════════════════════════
+# ONBOARDING MATRIX METADATA
+# ════════════════════════════════════════════════════════════════
+onboarding_matrix_meta:
+  version: "2.0.0"
+  last_updated: "2026-02-05"
+  aligned_with_guide: "3.23.0"
+  changelog:
+    - version: "2.0.0"
+      date: "2026-02-05"
+      changes: "Adaptive architecture (core+adaptive topics), v3.21-3.22 coverage (git_mcp, sandbox_native, config_hierarchy, mcp_secrets, dual_instance), security-first (sandbox in beginner_5min), time budgets validated, learn_security goal added"
+    - version: "1.0.0"
+      date: "2025-12-01"
+      changes: "Initial static matrix"
+  maintenance:
+    review_trigger: "Every CRITICAL (5/5) or HIGH VALUE (4/5) feature addition in resource evaluations"
+    automation: "scripts/detect-new-onboarding-topics.sh (run monthly)"
+    responsible: "Guide maintainer (quarterly review)"
+
+# ════════════════════════════════════════════════════════════════
 # ONBOARDING MATRIX - Maps user profile → content sections
 # Used by tools/onboarding-prompt.md for personalized learning paths
+# Format: Each profile has core (always shown) + adaptive (context-based) topics
 # ════════════════════════════════════════════════════════════════
 onboarding_matrix:
-  # Format: goal.level_time → list of deep_dive keys to cover
+  # Adaptive architecture: Each profile has core (always) + adaptive (context-based) topics
+  # Adaptive triggers: keywords in user messages → relevant v3.21-3.22 topics
+  # Time budgets: Validated (6-8 min/topic average, respects topics_max limits)
 
   get_started:
-    beginner_5min: [rules, commands, shortcuts]
-    beginner_15min: [rules, workflow, essential_commands, context.zones]
-    beginner_30min: [rules, workflow, essential_commands, context_management, permission_modes]
+    beginner_5min:
+      core: [rules, sandbox_native_guide, commands]
+      time_budget: "5 min"
+      topics_max: 3
+      note: "SECURITY FIRST - sandbox before commands (v3.23.0 critical fix)"
+
+    beginner_15min:
+      core: [rules, sandbox_native_guide, workflow, essential_commands]
+      time_budget: "15 min"
+      topics_max: 4
+      note: "Core workflow with security foundation"
+
+    beginner_30min:
+      core: [rules, sandbox_native_guide, workflow, context_management]
+      adaptive:
+        - trigger: "permission|allow|deny|mode"
+          topics: [permission_modes]
+        - default: essential_commands
+      time_budget: "30 min"
+      topics_max: 5
 
   optimize:
-    intermediate_15min: [context_management, context_triage, plan_mode]
-    intermediate_30min: [context_management, plan_mode, memory_files, cost_optimization]
-    power_30min: [context_triage, cost_optimization, batch_operations]
+    intermediate_15min:
+      core: [context_management, context_triage, plan_mode]
+      time_budget: "15 min"
+      topics_max: 3
+
+    intermediate_30min:
+      core: [context_management, plan_mode, cost_optimization]
+      adaptive:
+        - trigger: "memory|persist|session|remember"
+          topics: [memory_files]
+        - default: batch_operations
+      time_budget: "30 min"
+      topics_max: 5
+
+    power_30min:
+      core: [context_triage, cost_optimization]
+      adaptive:
+        - trigger: "team|sync|backup|config|multi-machine|laptop|desktop"
+          topics: [config_hierarchy]
+        - trigger: "git|version control|commits|branches|repository"
+          topics: [git_mcp_guide]
+        - trigger: "secrets|API keys|credentials|env|tokens|password"
+          topics: [mcp_secrets_management]
+        - default: batch_operations
+      time_budget: "30 min"
+      topics_max: 4
+      note: "Adaptive: picks up to 2 from adaptive based on user context (v3.21-3.22)"
+
+    power_60min:
+      core: [context_triage, cost_optimization, config_hierarchy]
+      adaptive:
+        - trigger: "git"
+          topics: [git_mcp_guide]
+        - trigger: "secrets"
+          topics: [mcp_secrets_management]
+        - trigger: "security|sandbox|isolation"
+          topics: [sandbox_native_guide]
+        - default: [batch_operations, rtk_guide]
+      time_budget: "60 min"
+      topics_max: 7
+      note: "Comprehensive optimization with all v3.21-3.22 topics"
 
   build_agents:
-    intermediate_30min: [agents, agent_template, agent_examples]
-    power_30min: [agents, agent_template, skills, skill_template, commands]
-    power_60min: [agents, skills, commands, hooks, agent_validation_checklist]
+    intermediate_30min:
+      core: [agents, agent_template, agent_examples]
+      time_budget: "30 min"
+      topics_max: 3
+
+    power_30min:
+      core: [agents, skills, commands]
+      adaptive:
+        - trigger: "template|structure|format"
+          topics: [skill_template]
+        - default: hooks
+      time_budget: "30 min"
+      topics_max: 4
+
+    power_60min:
+      core: [agents, skills, commands, hooks]
+      adaptive:
+        - trigger: "quality|review|planner|dual|two instances|spec"
+          topics: [dual_instance_planning]
+        - trigger: "validation|checklist|production|deploy"
+          topics: [agent_validation_checklist]
+        - default: agent_validation_checklist
+      time_budget: "60 min"
+      topics_max: 6
+      note: "Dual-instance pattern for quality workflows (v3.23.0)"
+
+  learn_security:
+    intermediate_30min:
+      core: [sandbox_native_guide, mcp_secrets_management]
+      adaptive:
+        - trigger: "production|deploy|hardening|best practices"
+          topics: [security_hardening]
+        - default: permission_modes
+      time_budget: "30 min"
+      topics_max: 4
+      note: "NEW goal (v3.23.0) - Security-focused learning path"
+
+    power_60min:
+      core: [sandbox_native_guide, mcp_secrets_management, security_hardening]
+      adaptive:
+        - trigger: "production|safe|rules|reliability"
+          topics: [production_safety]
+        - trigger: "docker|isolation|microvm|container"
+          topics: [sandbox_isolation_guide]
+        - default: production_safety
+      time_budget: "60 min"
+      topics_max: 5
 
   fix_problem:
-    any_any: [troubleshooting, fix, context.symptoms]
+    any_any:
+      core: [troubleshooting, fix, context.symptoms]
+      time_budget: "N/A"
+      topics_max: 3
+      note: "Direct troubleshooting, no profiling"
 
   learn_everything:
-    beginner_60min: [workflow, essential_commands, context_management, memory_files, plan_mode]
-    intermediate_120min: [plan_mode, agents, skills, hooks, mcp_servers]
-    power_120min: [architecture, mcp_servers, hooks, cost_optimization, cicd]
+    beginner_60min:
+      core: [rules, sandbox_native_guide, workflow, essential_commands, context_management, plan_mode]
+      time_budget: "60 min"
+      topics_max: 6
+      note: "Security foundation + core workflow (v3.23.0 sandbox added)"
+
+    intermediate_120min:
+      core: [plan_mode, agents, skills, config_hierarchy, git_mcp_guide, hooks, mcp_servers]
+      time_budget: "120 min"
+      topics_max: 7
+      note: "Agents + v3.21-3.22 topics (config/git)"
+
+    power_120min:
+      core: [architecture, dual_instance_planning, mcp_secrets_management, cost_optimization, cicd]
+      adaptive:
+        - trigger: "security"
+          topics: [security_hardening, sandbox_native_guide]
+        - default: [rtk_guide, bridge_guide]
+      time_budget: "120 min"
+      topics_max: 9
+      note: "Advanced patterns + all v3.21-3.22 features"
 
 # ════════════════════════════════════════════════════════════════
 # ONBOARDING QUESTIONS - Structure for interactive profiling
@@ -1064,6 +1230,7 @@ onboarding_questions:
         get_started: "🚀 Get started quickly"
         optimize: "📈 Optimize my workflow"
         build_agents: "🏗️ Build custom agents/skills"
+        learn_security: "🛡️ Learn security best practices"
         fix_problem: "🐛 Fix a problem"
         learn_everything: "📚 Learn everything"
 
@@ -1108,15 +1275,6 @@ onboarding_questions:
     get_started: "goal → tone → level"
     optimize: "goal → tone → level → time → style (if time >= 15min)"
     build_agents: "goal → tone → level → time → style (if time >= 15min)"
+    learn_security: "goal → tone → level → time"
     learn_everything: "goal → tone → level → time → style"
 
-deep_dive:
-  - file: "guide/production-safety.md"
-    lines: "1-550"
-    topics:
-      - "Port stability rules and implementation"
-      - "Database safety with backup enforcement"
-      - "Feature completeness (no TODOs for core functionality)"
-      - "Infrastructure lock patterns"
-      - "Dependency safety and npm install blocks"
-      - "Pattern following and CLAUDE.md conventions"

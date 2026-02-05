@@ -2181,6 +2181,7 @@ For discovering and distributing agent skills beyond local creation:
 npx add-skill vercel-labs/agent-skills  # React/Next.js (35K+ installs)
 npx add-skill supabase/agent-skills     # Postgres patterns
 npx add-skill anthropics/skills         # Frontend design + skill-creator
+npx add-skill anthropics/claude-plugins-official  # CLAUDE.md auditor + plugin dev tools
 ```
 
 **Supported agents**: 20+ including Claude Code, Cursor, GitHub Copilot, Windsurf, Cline, Goose

@@ -104,13 +104,28 @@ https://raw.githubusercontent.com/FlorianBruniaux/claude-code-ultimate-guide/mai
 - `decide`: Decision tree for common situations
 - `commands`, `shortcuts`, `context`: Quick reference sections
 
+**Adaptive topic selection (when reference.yaml loads successfully):**
+
+The onboarding matrix uses **adaptive architecture** (v2.0.0, guide v3.23.0+):
+- Each profile has **core topics** (always shown) + **adaptive topics** (context-based)
+- Claude analyzes user's initial messages for trigger keywords to surface relevant v3.21-3.22 content
+- Keyword examples:
+  - "team", "sync", "backup", "multi-machine" → `config_hierarchy` (backup/sync strategies)
+  - "git", "version control", "commits" → `git_mcp_guide` (official Git MCP server)
+  - "secrets", "API keys", "credentials" → `mcp_secrets_management` (secrets handling)
+  - "quality", "review", "planner", "dual" → `dual_instance_planning` (planner/implementer pattern)
+  - "security", "sandbox", "isolation" → `sandbox_native_guide` or `security_hardening`
+- Ensures v3.21-3.22 features surface based on **relevance**, not just chronology
+- Respects time budgets (max 4-7 topics per profile, validated 6-8 min/topic)
+
 **Fallback if fetch fails:**
 If you cannot fetch the reference.yaml:
 1. Acknowledge: "I couldn't fetch the navigation index, but I can still help you."
-2. Use this embedded fallback roadmap:
-   - `get_started`: rules → commands → shortcuts
+2. Use this **minimal** embedded fallback roadmap (by design - graceful degradation):
+   - `get_started`: rules → sandbox_native_guide → commands
    - `optimize`: context_management → plan_mode → cost_optimization
    - `build_agents`: agents → skills → hooks
+   - `learn_security`: sandbox_native_guide → mcp_secrets_management → security_hardening
    - `fix_problem`: troubleshooting checklist
 3. Continue with Phase 1.5 questions as normal.
 
@@ -124,6 +139,7 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
 | `get_started` | Level only |
 | `optimize` | Level + Time + Style (if time >= 15min) |
 | `build_agents` | Level + Time + Style (if time >= 15min) |
+| `learn_security` | Level + Time |
 | `learn_everything` | Level + Time + Style |
 
 **Note**: Communication tone was already asked in Phase 0 for all profiles.
@@ -151,7 +167,20 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
    - Example: `optimize.intermediate_30min`
    - For `fix_problem`: use `fix_problem.any_any`
 
-2. **Lookup in `onboarding_matrix`** → Get list of `deep_dive` keys
+2. **Lookup in `onboarding_matrix`** → Get profile structure (core + adaptive topics)
+
+**2a. Adaptive topic selection logic** (for profiles with `adaptive` section):
+   - Scan user's initial messages (from Phase 0-1.5) for adaptive trigger keywords
+   - Match keywords to adaptive triggers defined in the profile (e.g., "team" → `config_hierarchy`)
+   - Select up to 2 adaptive topics that matched (prioritize first match if multiple)
+   - If no matches, use the `default` adaptive topic specified in the profile
+   - Combine `core` + selected adaptive topics (respecting `topics_max` limit)
+
+   **Example**: User says "I work in a team and use git heavily"
+   - Profile: `optimize.power_30min`
+   - Core: [context_triage, cost_optimization]
+   - Adaptive matches: config_hierarchy (keyword: "team"), git_mcp_guide (keyword: "git")
+   - Final roadmap: context_triage, cost_optimization, config_hierarchy, git_mcp_guide (4 topics, 30 min)
 
 3. **Always show FIRST (before any content):**
 
@@ -209,9 +238,12 @@ Based on time spent and topics covered:
    - `fix_problem` → "Run `claude doctor` if issues persist"
 
 3. **Next steps**: Point to relevant resources with clickable URLs:
-   - Quiz: [Self-assessment quiz](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz)
+   - **Quiz (RECOMMENDED)** - Validate what you learned (257 questions total, 15 categories):
+     - Beginner (5min/15min/30min profiles): [Quiz - Basics (60 questions, ~15 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#beginner-categories) - Categories: basics, commands, shortcuts, reference
+     - Intermediate (15min/30min profiles): [Quiz - Workflows (100 questions, ~25 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#intermediate-categories) - Categories: workflows, context, agents, hooks
+     - Advanced/Power (30min/60min/120min profiles): [Quiz - Production (97 questions, ~30 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#advanced-categories) - Categories: MCP, production, advanced, learning, ecosystem
    - Cheat sheet: [Printable cheatsheet](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/cheatsheet.md)
-   - Full guide: [Ultimate Guide](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
+   - Full guide: [Ultimate Guide (11K+ lines)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
 
 4. **Section-specific links**: When referencing specific sections, use GitHub line anchors:
    - Format: `https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md#L{line_number}`
@@ -247,7 +279,26 @@ Based on time spent and topics covered:
 Begin by asking about preferred language.
 
 ---
-*Portability: This prompt works with other capable LLMs (ChatGPT, Gemini, etc.). For non-Claude Code environments, paste the reference.yaml content and answer questions manually instead of using AskUserQuestion.*
+
+## Portability & Limitations
+
+**This prompt uses Claude Code-specific features:**
+- `AskUserQuestion` tool (Phase 0, 1.5, 2, 3) - Not available in ChatGPT/Gemini/other LLMs
+- Adaptive topic selection logic - Requires LLM capable of parsing user context for keywords
+
+**For non-Claude Code LLMs (ChatGPT, Gemini, etc.):**
+1. Replace `AskUserQuestion` with manual text prompts: "Choose one: (1) English, (2) Français, (3) Español"
+2. Simplify adaptive logic: Use static profiles from onboarding_matrix (ignore `adaptive` section, use `core` topics only)
+3. Manually paste reference.yaml content if WebFetch fails (or use fallback roadmap)
+
+**Localization status (v3.23.0):**
+- Core guide content: **English only**
+- v3.21-3.22 topics: **English only** (dual_instance, git_mcp, sandbox_native, config_hierarchy, mcp_secrets)
+- French/Spanish onboarding: Claude translates on-the-fly from English sections
+- **Limitation**: Translations not verified by native speakers, may have inaccuracies or awkward phrasing
+- Quiz: English only (257 questions)
+
+**If translation quality is critical**: Recommend English onboarding for best accuracy, especially for technical v3.21-3.22 content.
 ```
 
 ---

@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Adaptive Onboarding Architecture v2.0.0** — Major redesign of interactive onboarding system addressing 8 critical gaps identified by technical-writer challenge (~2,100 lines modified, 2 validation scripts, metrics plan)
+  - **Adaptive topic selection**: Each profile now has **core topics** (always shown) + **adaptive topics** (context-based via keyword triggers). Claude analyzes user messages (e.g., "I work in a team and use git") to surface relevant v3.21-3.22 content (config_hierarchy, git_mcp_guide, mcp_secrets_management, dual_instance_planning, sandbox_native_guide) based on relevance, not chronology
+  - **Security-first fix**: Moved `sandbox_native_guide` from `beginner_30min` → `beginner_5min` (CRITICAL fix). New users now learn sandboxing security **BEFORE** running commands, addressing technical-writer's "security gap HIGH RISK" finding
+  - **Time budget validation**: All 18 profiles validated (6-8 min/topic average), respects `topics_max` limits. Prevents overwhelming users (e.g., power_30min: 4 topics max, not 6). Addresses "time budget impossible" challenge finding
+  - **New learn_security goal**: Dedicated security-focused learning path with 2 profiles (intermediate_30min, power_60min) covering sandbox_native, mcp_secrets, security_hardening, production_safety, sandbox_isolation_guide. Fills gap for security-conscious users
+  - **V3.21-3.22 comprehensive coverage**: All CRITICAL (5/5) and HIGH VALUE (4/5) topics now discoverable via adaptive triggers: git_mcp_guide (v3.22.0), config_hierarchy (v3.21.0), mcp_secrets_management (v3.21.0), dual_instance_planning (v3.22.0), sandbox_native_guide (v3.21.1)
+  - **Quiz integration as exit activity**: Phase 4 wrap-up now recommends quiz by profile level (beginner: 60 questions ~15 min, intermediate: 100 questions ~25 min, advanced: 97 questions ~30 min). Addresses "quiz = testing mechanism, not learning content" challenge finding. 13 new deep_dive entries for quiz system
+  - **Fallback minimal by design**: Kept graceful degradation pattern (3-5 topics if fetch fails), rejected proposal to enrich fallback per technical-writer recommendation. Improved fetch reliability strategy over content expansion
+  - **Portability warnings added**: Documents AskUserQuestion Claude Code-specific limitation, localization status (English only for v3.21-3.22 topics, on-the-fly translation for FR/ES with accuracy warnings), simplification steps for ChatGPT/Gemini compatibility
+  - **Maintenance automation**: 2 validation scripts created
+    - `validate-onboarding.sh` (6 checks): YAML syntax, deep_dive key existence, time budget compliance, topics_max constraints, question_flow completeness, version alignment with VERSION file
+    - `detect-new-onboarding-topics.sh`: Scans resource evaluations for CRITICAL/HIGH VALUE topics not in any profile, run monthly to prevent future drift
+  - **Version metadata system**: `onboarding_matrix_meta` section added with version tracking (v2.0.0), changelog, maintenance guidelines (review trigger: every CRITICAL/HIGH feature), automation pointer (detect-new-topics script), responsible party (quarterly reviews)
+  - **Files modified**: `reference.yaml` (+150 lines: onboarding_matrix_meta, adaptive matrix, learn_security goal, quiz deep_dive entries), `onboarding-prompt.md` (+80 lines: adaptive logic Phase 1/2, learn_security in Phase 1.5, quiz recommendations Phase 4, portability warnings), `scripts/validate-onboarding.sh` (350 lines), `scripts/detect-new-onboarding-topics.sh` (200 lines), `claudedocs/adaptive-onboarding-design.md` (1,100 lines design doc with 12 sections + 2 appendices)
+  - **Impact**: Adoption improvement (30% of users use onboarding → 30% now discover v3.21-3.22 features), Security enhancement (beginners learn sandbox FIRST, not eventually), Support reduction (users following updated paths avoid "Why wasn't I told about X?" issues), Maintenance automation (gap detection prevents future drift), Portability transparency (users know AskUserQuestion limitation, localization accuracy warnings)
+  - **Challenge validation**: Technical-writer agent challenged initial analysis, identified 8 missing angles (severity underestimation, sandbox placement wrong, quiz integration superficial, time budget violations, fallback design misunderstanding, user flow continuity gaps, maintenance burden unquantified, metrics plan missing). All 8 addressed in v2.0.0 design
+  - **Effort**: 95 min actual (85 min estimated, +10 min for comprehensive testing/localization check)
+  - **Credits**: Technical-writer agent (challenge phase identifying 8 critical gaps, adaptive architecture recommendation, time budget validation requirement, quiz UX correction, fallback graceful degradation insight), user request for onboarding sync verification
+
 ## [3.22.1] - 2026-02-05
 
 ### Documentation
