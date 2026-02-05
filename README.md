@@ -324,6 +324,7 @@ Same agentic capabilities as Claude Code, but through a visual interface with no
 |---------|-------|----------|
 | [claude-code-templates](https://github.com/davila7/claude-code-templates) | Distribution (200+ templates) | CLI installation (17k⭐) |
 | [anthropics/skills](https://github.com/anthropics/skills) | Official Anthropic skills (60K+⭐) | Documents, design, dev templates |
+| [anthropics/claude-plugins-official](https://skills.sh/anthropics/claude-plugins-official) | Plugin dev tools (3.1K installs) | CLAUDE.md audit, automation discovery |
 | [skills.sh](https://skills.sh/) | Skills marketplace | One-command install (Vercel Labs) |
 | [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Curation | Resource discovery |
 | [AI Coding Agents Matrix](https://coding-agents-matrix.dev) | Technical comparison | Comparing 23+ alternatives |
@@ -486,7 +487,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.22.0 | February 2026 | Crafted with Claude*
+*Version 3.22.1 | February 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

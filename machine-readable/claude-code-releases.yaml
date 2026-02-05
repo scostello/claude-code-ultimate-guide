@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.31"
-updated: "2026-02-04"
+latest: "2.1.32"
+updated: "2026-02-05"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,15 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January-February 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.32"
+    date: "2026-02-05"
+    highlights:
+      - "⭐ Opus 4.6 is now available"
+      - "⭐ Agent teams preview (CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)"
+      - "⭐ Automatic memory recording and recall"
+      - "'Summarize from here' for partial conversation summarization"
+    breaking: []
 
   - version: "2.1.31"
     date: "2026-02-03"
@@ -498,6 +507,7 @@ breaking_summary:
 # MILESTONE FEATURES (quick reference)
 # ════════════════════════════════════════════════════════════════
 milestones:
+  "2.1.32": "Opus 4.6, Agent teams preview, Automatic memory"
   "2.1.18": "Customizable keyboard shortcuts with /keybindings"
   "2.1.16": "New task management system with dependency tracking"
   "2.1.0": "Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command"

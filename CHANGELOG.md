@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.22.1] - 2026-02-05
+
+### Documentation
+
+- **Claude Code Releases**: Updated tracking to v2.1.32 (2026-02-05)
+  - ⭐ **Opus 4.6 is now available**
+  - ⭐ **Agent teams research preview** — Multi-agent collaboration for complex tasks (experimental, token-intensive)
+  - ⭐ **Automatic memory recording and recall** — Claude now automatically records and recalls memories as it works
+  - **"Summarize from here"** — Message selector allows partial conversation summarization
+  - Skills from `.claude/skills/` in `--add-dir` directories now auto-load
+  - Multiple fixes: `@` file completion paths, bash heredoc JS template literals, Thai/Lao vowel rendering
+  - [VSCode] Fixed slash commands executing incorrectly, added conversation loading spinner
+
 ## [3.22.0] - 2026-02-04
 
 ### Documentation

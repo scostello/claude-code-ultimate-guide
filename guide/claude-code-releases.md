@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.31 | **Updated**: 2026-02-04
+**Latest**: v2.1.32 | **Updated**: 2026-02-05
 
 ---
 
@@ -18,6 +18,22 @@
 ---
 
 ## 2.1.x Series (January-February 2026)
+
+### v2.1.32 (2026-02-05) ⭐ MAJOR
+
+**Highlights**:
+- ⭐ **Claude Opus 4.6 is now available!**
+- ⭐ **Agent teams research preview** — Multi-agent collaboration for complex tasks (token-intensive, requires `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`)
+- ⭐ **Automatic memory recording and recall** — Claude now automatically records and recalls memories as it works
+- **"Summarize from here"** — Message selector now allows partial conversation summarization
+- Skills from `.claude/skills/` in `--add-dir` directories auto-load
+- Fixed: `@` file completion showing incorrect relative paths from subdirectories
+- Fixed: Bash tool no longer throws "Bad substitution" errors with JavaScript template literals (e.g., `${index + 1}`)
+- Improved: Skill character budget now scales with context window (2% of context)
+- Improved: `--resume` re-uses `--agent` value from previous conversation by default
+- Fixed: Thai/Lao spacing vowels rendering issues
+- [VSCode] Fixed slash commands incorrectly executing when pressing Enter with preceding text
+- [VSCode] Added spinner when loading past conversations list
 
 ### v2.1.31 (2026-02-03)
 
@@ -407,6 +423,7 @@
 
 | Version | Key Features |
 |---------|--------------|
+| **v2.1.32** | Opus 4.6, Agent teams preview, Automatic memory |
 | **v2.1.18** | Customizable keyboard shortcuts with /keybindings |
 | **v2.1.16** | New task management system with dependency tracking |
 | **v2.1.0** | Skill hot-reload, Shift+Enter OOTB, Vim motions, /plan command |

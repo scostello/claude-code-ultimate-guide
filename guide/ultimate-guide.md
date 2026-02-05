@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.22.0
+**Version**: 3.22.1
 
 ---
 
@@ -4139,7 +4139,7 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
-### 3.22.0 Version Control & Backup
+### 3.22.1 Version Control & Backup
 
 **Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
 
@@ -6219,6 +6219,7 @@ Skills.sh (Vercel Labs) provides a centralized marketplace for discovering and i
 npx add-skill vercel-labs/agent-skills  # React/Next.js best practices (35K+ installs)
 npx add-skill supabase/agent-skills     # Postgres optimization patterns
 npx add-skill anthropics/skills         # Frontend design + skill-creator
+npx add-skill anthropics/claude-plugins-official  # CLAUDE.md auditor + automation recommender
 ```
 
 #### How It Works
@@ -6241,6 +6242,8 @@ npx add-skill anthropics/skills         # Frontend design + skill-creator
 | **Testing** | test-driven-development | 721 | obra |
 | **Media** | remotion-best-practices | New | remotion-dev |
 | **Meta** | skill-creator | 3.2K | anthropics |
+| **Tooling** | claude-md-improver | 472 | anthropics |
+| | claude-automation-recommender | 333 | anthropics |
 
 Full catalog: [skills.sh leaderboard](https://skills.sh/)
 
@@ -17779,4 +17782,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.22.0
+**Last updated**: January 2026 | **Version**: 3.22.1
