@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.32 | **Updated**: 2026-02-05
+**Latest**: v2.1.33 | **Updated**: 2026-02-06
 
 ---
 
@@ -18,6 +18,21 @@
 ---
 
 ## 2.1.x Series (January-February 2026)
+
+### v2.1.33 (2026-02-06)
+
+**Highlights**:
+- **Agent teams fixes** — Improved tmux session handling and availability warnings
+- **New hook events** — `TeammateIdle` and `TaskCompleted` for multi-agent workflows
+- **Agent frontmatter enhancements**:
+  - `memory` field for user/project/local scope memory selection
+  - `Task(agent_type)` syntax to restrict sub-agent spawning in agent definitions
+- **Plugin identification** — Plugin name now shown in skill descriptions and `/skills` menu
+- **VSCode improvements** — Remote sessions support, branch/message count in session picker
+- Fixed: Thinking interruption, streaming abort, proxy settings, `/resume` XML markup
+- Improved: API connection errors show specific cause instead of generic message
+- Improved: Invalid managed settings errors now surfaced properly
+- Multiple stability fixes across agent workflows and tool interactions
 
 ### v2.1.32 (2026-02-05) ⭐ MAJOR
 
@@ -448,4 +463,4 @@
 
 ---
 
-*Last updated: 2026-01-28 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-02-06 | [Back to main guide](./ultimate-guide.md)*

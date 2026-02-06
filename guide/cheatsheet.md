@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.23.0 | **Last Updated**: January 2026
+**Version**: 3.23.1 | **Last Updated**: January 2026
 
 ---
 
@@ -484,4 +484,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: February 2026 | Version 3.23.0*
+*Last updated: February 2026 | Version 3.23.1*

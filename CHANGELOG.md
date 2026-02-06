@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.23.1] - 2026-02-06
+
+### Documentation
+
+- **Claude Code Releases**: Updated tracking to v2.1.33 (2026-02-06)
+  - Agent teams fixes (tmux sessions, availability warnings)
+  - `TeammateIdle` and `TaskCompleted` hook events for multi-agent workflows
+  - Agent frontmatter: `memory` field (user/project/local scope), `Task(agent_type)` sub-agent restriction
+  - Plugin name in skill descriptions and `/skills` menu
+  - VSCode: Remote sessions, branch/message count in session picker
+  - Multiple stability fixes and improved error messages
+
+## [3.23.0] - 2026-02-06
+
 ### Changed
 
 - **Adaptive Onboarding Architecture v2.0.0** — Major redesign of interactive onboarding system addressing 8 critical gaps identified by technical-writer challenge (~2,100 lines modified, 2 validation scripts, metrics plan)
