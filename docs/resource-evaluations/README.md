@@ -59,7 +59,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **dclaude** (Dockerized Claude Code) | 2/5 | **2/5** | ⚠️ Footnote (sandbox-isolation.md) | [dclaude-docker-wrapper.md](./dclaude-docker-wrapper.md) |
 | **10 Tips from Inside the Claude Code Team** (paddo.dev) | 4/5 | **4/5** | ✅ Intégré (4 sections) | [paddo-team-tips-eval.md](./paddo-team-tips-eval.md) |
 | **Sankalp's Claude Code 2.0 Experience** | 2/5 | **2/5** | ⚠️ Watch only (85% overlap, probable errors) | [sankalp-claude-code-experience.md](./sankalp-claude-code-experience.md) |
+| **Kajan Siva** (/insights command) | 2/5 | **2/5** | ❌ Do not integrate (no technical content) | [kajan-siva-insights-command.md](./kajan-siva-insights-command.md) |
 
 ---
 
-**Dernier update**: 2026-02-03 (21 évaluations)
+**Dernier update**: 2026-02-06 (22 évaluations)

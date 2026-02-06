@@ -22,6 +22,7 @@
 | `/plan` | Enter Plan Mode (no changes) |
 | `/execute` | Exit Plan Mode (apply changes) |
 | `/model` | Switch model (sonnet/opus/opusplan) |
+| `/insights` | Usage analytics + optimization report |
 | `/teleport` | Teleport session from web |
 | `/tasks` | Monitor background tasks |
 | `/remote-env` | Configure cloud environment |

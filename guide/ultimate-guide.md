@@ -6333,7 +6333,208 @@ Slash commands are shortcuts for common workflows.
 | `/status` | Show session info |
 | `/plan` | Enter Plan Mode |
 | `/rewind` | Undo changes |
+| `/insights` | Generate usage analytics report |
 | `/exit` | Exit Claude Code |
+
+### The /insights Command
+
+`/insights` analyzes your Claude Code usage history to generate a comprehensive report identifying patterns, friction points, and optimization opportunities.
+
+#### What It Analyzes
+
+The command processes your session data to detect:
+
+- **Project areas**: Automatically clusters your work into thematic areas (e.g., "Frontend Development", "CLI Tooling", "Documentation") with session counts
+- **Interaction style**: Identifies your workflow patterns (plan-driven, exploratory, iterative, supervisory)
+- **Success patterns**: Highlights what's working well in your usage (multi-file coordination, debugging approaches, tool selection)
+- **Friction categories**: Pinpoints recurring issues (buggy code, wrong directories, context loss, misunderstood requests)
+- **Tool usage**: Tracks which tools you use most (Bash, Read, Edit, Grep, etc.) and identifies optimization opportunities
+- **Multi-clauding behavior**: Detects parallel session patterns (running multiple Claude instances simultaneously)
+- **Temporal patterns**: Identifies your most productive time windows and response time distribution
+
+#### What It Produces
+
+Running `/insights` generates an interactive HTML report at `~/.claude/usage-data/report.html` containing:
+
+**At a Glance Summary**:
+- What's working: 2-3 sentences on successful patterns
+- What's hindering: 2-3 sentences on main friction points
+- Quick wins: 1-2 actionable suggestions (setup time < 5 minutes)
+- Ambitious workflows: 1-2 advanced patterns for future exploration
+
+**Detailed Sections**:
+1. **What You Work On**: 3-5 auto-detected project areas with descriptions
+2. **How You Use Claude Code**: Narrative analysis (2-3 paragraphs) of your interaction style + key pattern summary
+3. **Impressive Things You Did**: 3 "big wins" — sophisticated workflows the system detected (e.g., multi-agent reviews, custom automation layers)
+4. **Where Things Go Wrong**: 3 friction categories with examples and mitigation strategies
+5. **Existing CC Features to Try**:
+   - 6+ CLAUDE.md additions (pre-formatted, ready to copy)
+   - 3 features with setup code (Custom Skills, Hooks, Task Agents)
+6. **New Ways to Use Claude Code**: 3 usage patterns with copyable prompts
+7. **On the Horizon**: 3 ambitious workflows with detailed implementation prompts (300+ tokens each)
+8. **Fun Ending**: An anecdote from your sessions (e.g., a memorable user intervention or pattern)
+
+**Interactive Elements**:
+- Copy buttons for all code snippets and prompts
+- Checkboxes for CLAUDE.md additions (bulk copy)
+- Charts and visualizations (tool usage, friction types, outcomes, time-of-day distribution)
+- Navigation TOC with anchor links
+- Responsive design (works on mobile)
+
+#### How to Use It
+
+**Basic usage**:
+```bash
+/insights
+```
+
+The command runs silently (no progress output) and takes ~10-30 seconds depending on session count. You'll see:
+```
+1281 sessions · 10,442 messages · 3445h · 1160 commits
+2025-12-15 to 2026-02-06
+
+## At a Glance
+[4 summary sections...]
+
+Report URL: file:///Users/you/.claude/usage-data/report.html
+```
+
+**Open the report**:
+- CLI: `open ~/.claude/usage-data/report.html` (macOS) or `xdg-open ~/.claude/usage-data/report.html` (Linux)
+- The report is self-contained HTML (no external dependencies)
+
+**When to run it**:
+- **After major projects**: Identify what worked and what to improve for next time
+- **Monthly**: Track evolution of your workflow patterns
+- **When feeling stuck**: Get data-driven suggestions for friction points
+- **Before optimizing CLAUDE.md**: See which patterns to codify
+- **When context feels broken**: Check if detected patterns explain frustration
+
+#### Typical Insights Generated
+
+The report may identify patterns like:
+
+**Friction categories**:
+- "Buggy Code Requiring Multiple Fix Rounds" (22 instances) → Suggests build-check-fix loops after each edit
+- "Wrong Directory Before Starting Work" (12 instances) → Recommends explicit working directory confirmation in CLAUDE.md
+- "Insufficient Real-World Testing" → Proposes manual testing protocols beyond automated checks
+- "Context Loss" → Flags sessions where conversation became disconnected from original goal
+
+**Success patterns**:
+- "Plan-Driven Execution at Scale" → Detects users who provide numbered plans and achieve 80%+ completion rates
+- "Multi-Agent Review and Challenge Loops" → Identifies sophisticated users who spawn sub-agents for adversarial review
+- "Custom Slash Commands for Recurring Workflows" → Highlights automation layer patterns
+
+**CLAUDE.md suggestions** (example):
+```markdown
+## Project Directories
+Always confirm the correct working directory before starting work:
+- Frontend: /path/to/web-app
+- Backend: /path/to/api
+- Docs: /path/to/documentation
+Never assume which project to work in — ask if ambiguous.
+```
+
+**Feature recommendations** (example):
+- "Your #1 friction is buggy code (22 occurrences). A pre-commit hook running build checks would catch these before they compound."
+- "You run 73% of messages in parallel sessions (multi-clauding). Consider a session coordination protocol in CLAUDE.md."
+
+**Horizon workflows** (example):
+```markdown
+Self-Healing Builds With Test-Driven Agents
+
+Implement the following plan step by step. After EVERY file edit,
+run the full build command. If the build fails, immediately diagnose
+the error, fix it, and rebuild before moving to the next step.
+Never proceed with a broken build.
+
+[300-token detailed prompt follows...]
+```
+
+#### Technical Details
+
+- **Analysis engine**: Uses Claude Haiku (fast, cost-effective)
+- **Session limit**: Analyzes up to 50 recent sessions per run
+- **Token budget**: Max 8192 tokens per analysis pass
+- **Data location**: `~/.claude/usage-data/` (sessions stored as JSONL)
+- **Privacy**: All analysis runs locally; no data sent to external services beyond standard Claude Code API usage
+
+#### Limitations
+
+- **Requires history**: Needs at least ~10 sessions for meaningful patterns
+- **Recency bias**: Focuses on last 50 sessions (older patterns not detected)
+- **Model-estimated satisfaction**: Satisfaction scores are inferred, not explicit user ratings
+- **No cross-project aggregation**: Each project analyzed independently (no global patterns across multiple repos)
+
+#### Integration with Other Tools
+
+**Feed insights into CLAUDE.md**:
+```bash
+# 1. Generate report
+/insights
+
+# 2. Open report in browser
+open ~/.claude/usage-data/report.html
+
+# 3. Copy CLAUDE.md additions (use checkboxes + "Copy All Checked")
+# 4. Paste into Claude Code:
+"Add these CLAUDE.md sections: [paste copied text]"
+```
+
+**Track evolution over time**:
+```bash
+# Save timestamped reports
+cp ~/.claude/usage-data/report.html ~/insights-reports/$(date +%Y-%m-%d).html
+
+# Compare monthly
+diff ~/insights-reports/2026-01-01.html ~/insights-reports/2026-02-01.html
+```
+
+**Combine with other analytics**:
+- Use with `ccboard` skill for deeper dive into session economics
+- Cross-reference with git history: `git log --since="2025-12-15" --until="2026-02-06" --oneline | wc -l`
+- Compare detected friction with actual bug reports
+
+#### Example Workflow
+
+**Monthly optimization routine**:
+```bash
+# 1. Generate current insights
+/insights
+
+# 2. Review "What's hindering you" section
+# Note: Common friction → buggy code (48% of events)
+
+# 3. Implement quick win (pre-commit hook)
+cat > .claude/settings.json << 'EOF'
+{
+  "hooks": {
+    "preCommit": [
+      {
+        "matcher": "**/*.ts,**/*.tsx",
+        "command": "npm run build 2>&1 | tail -20"
+      }
+    ]
+  }
+}
+EOF
+
+# 4. Update CLAUDE.md with detected patterns
+# (Copy from "Suggested CLAUDE.md Additions" section)
+
+# 5. Re-run next month to measure improvement
+```
+
+#### Comparison with Other Analytics
+
+| Tool | Scope | Output | Use Case |
+|------|-------|--------|----------|
+| `/insights` | Session behavior, friction, patterns | Interactive HTML report | Workflow optimization, self-improvement |
+| `/status` | Current session only | Text summary (context, costs, tools) | Real-time monitoring |
+| `ccboard` | Economics, cost analysis, project breakdown | TUI/Web dashboard | Budget tracking, cost optimization |
+| Git history | Code changes only | Commit log | Delivery metrics, PR velocity |
+
+> **Tip**: Run `/insights` monthly, `/status` per session, and `ccboard` weekly for comprehensive visibility.
 
 ### Custom Commands
 
