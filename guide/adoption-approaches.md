@@ -276,6 +276,10 @@ These are starting points, not rules. Team dynamics matter more than headcount.
 
 **Watch for**: Config drift. Without some coordination, setups diverge over time. Whether that matters depends on your team.
 
+> **Emerging approach**: Some organizations explore "corporate AI marketplaces" to pool AI skills, agents, and rules at the organizational level rather than individual teams (Hugo/Writizzy 2026[^hugo2026]). Few documented production implementations yet, but the concept addresses governance at scale.
+
+[^hugo2026]: Hugo, ["AI's Impact on State of the Art in Software Engineering in 2026"](https://eventuallymaking.io/p/ai-s-impact-on-the-state-of-the-art-in-software-engineering-in-2026), Feb 6, 2026. Based on interviews with Doctolib, Malt, Alan, Google Cloud, Brevo, ManoMano, Ilek, Clever Cloud engineering teams.
+
 ---
 
 ## Common Situations
