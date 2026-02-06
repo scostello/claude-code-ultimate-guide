@@ -6459,6 +6459,49 @@ Never proceed with a broken build.
 - **Data location**: `~/.claude/usage-data/` (sessions stored as JSONL)
 - **Privacy**: All analysis runs locally; no data sent to external services beyond standard Claude Code API usage
 
+#### How /insights Works (Architecture Overview)
+
+The analysis pipeline processes session data through 7 stages:
+
+1. **Session Filtering**: Loads from `~/.claude/projects/`, excludes agent sub-sessions, sessions with <2 user messages, or <1 minute duration
+2. **Transcript Summarization**: Chunks sessions exceeding 30,000 characters into 25,000-character segments
+3. **Facet Extraction**: Uses Claude Haiku to classify sessions into structured categories
+4. **Aggregated Analysis**: Detects cross-session patterns and recurring workflows
+5. **Executive Summary**: Generates "At a Glance" synthesis across four dimensions
+6. **Report Generation**: Renders interactive HTML with visualizations and narrative sections
+7. **Facet Caching**: Saves classifications to `~/.claude/usage-data/facets/<session-id>.json` for fast subsequent runs
+
+**Facets Classification System**:
+
+The system categorizes sessions using these dimensions:
+
+**Goals (13 types)**:
+Debug/Investigate, Implement Feature, Fix Bug, Write Script/Tool, Refactor Code, Configure System, Create PR/Commit, Analyze Data, Understand Codebase, Write Tests, Write Docs, Deploy/Infra, Cache Warmup
+
+**Friction Types (12 categories)**:
+Misunderstood requests, Wrong approach, Buggy code, User rejected actions, Claude blocked, Early user stoppage, Wrong file locations, Over-engineering, Slowness/verbosity, Tool failures, Unclear requests, External issues
+
+**Satisfaction Levels (6)**:
+Frustrated → Dissatisfied → Likely Satisfied → Satisfied → Happy → Unsure
+
+**Outcomes (4 states)**:
+Not Achieved → Partially Achieved → Mostly Achieved → Fully Achieved
+
+**Success Categories (7)**:
+Fast accurate search, Correct code edits, Good explanations, Proactive help, Multi-file changes, Good debugging, None
+
+**Session Types (5)**:
+Single task, Multi-task, Iterative refinement, Exploration, Quick question
+
+Understanding these categories helps interpret your report:
+- High "Buggy code" friction → Consider implementing pre-commit hooks (see Hooks feature)
+- Low satisfaction on "Implement Feature" goals → Improve planning phase specificity
+- "Early user stoppage" pattern → May indicate requests lack sufficient context
+
+**Performance optimization**: The caching system ensures subsequent runs only analyze new sessions (not previously classified ones), making regular monthly runs fast even with large session histories.
+
+> **Source**: Architecture details from [Zolkos Technical Deep Dive](https://www.zolkos.com/2026/02/04/deep-dive-how-claude-codes-insights-command-works.html) (2026-02-04)
+
 #### Limitations
 
 - **Requires history**: Needs at least ~10 sessions for meaningful patterns

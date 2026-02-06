@@ -60,7 +60,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **10 Tips from Inside the Claude Code Team** (paddo.dev) | 4/5 | **4/5** | ✅ Intégré (4 sections) | [paddo-team-tips-eval.md](./paddo-team-tips-eval.md) |
 | **Sankalp's Claude Code 2.0 Experience** | 2/5 | **2/5** | ⚠️ Watch only (85% overlap, probable errors) | [sankalp-claude-code-experience.md](./sankalp-claude-code-experience.md) |
 | **Kajan Siva** (/insights command) | 2/5 | **2/5** | ❌ Do not integrate (no technical content) | [kajan-siva-insights-command.md](./kajan-siva-insights-command.md) |
+| **Zolkos** (/insights deep dive) | 4/5 | **4/5** | ✅ Integrate (architecture + facets) | [zolkos-insights-deep-dive.md](./zolkos-insights-deep-dive.md) |
 
 ---
 
-**Dernier update**: 2026-02-06 (22 évaluations)
+**Dernier update**: 2026-02-06 (23 évaluations)

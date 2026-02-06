@@ -8,15 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Documentation
 
-- **Slash Commands**: Added comprehensive documentation for `/insights` command (Section 6.1)
-  - What it analyzes: Project areas, interaction style, success patterns, friction categories, tool usage, multi-clauding behavior, temporal patterns
-  - What it produces: Interactive HTML report at `~/.claude/usage-data/report.html` with 8 detailed sections (At a Glance, What You Work On, How You Use Claude Code, Impressive Things, Friction Analysis, Features to Try, Usage Patterns, On the Horizon)
-  - Interactive elements: Copy buttons, checkboxes for CLAUDE.md additions, charts/visualizations, navigation TOC
-  - Technical details: Uses Claude Haiku, analyzes up to 50 recent sessions, 8192 token budget, local analysis only
-  - Typical insights: Friction categories with mitigation strategies, CLAUDE.md suggestions (pre-formatted), feature recommendations (Skills/Hooks/Agents), horizon workflows with detailed prompts
-  - Integration examples: Monthly optimization routine, cross-reference with git history, combine with ccboard
-  - Comparison table: `/insights` vs `/status` vs `ccboard` vs Git history
-  - Added to cheatsheet command table with description "Usage analytics + optimization report"
+- **Slash Commands**: Added comprehensive documentation for `/insights` command (Section 6.1) with architecture deep dive
+  - **Architecture Overview** subsection (7-stage pipeline: session filtering, transcript summarization, facet extraction, aggregated analysis, executive summary, report generation, facet caching)
+  - **Facets Classification System**: 6 dimensions documented (13 goal types, 12 friction categories, 6 satisfaction levels, 4 outcome states, 7 success categories, 5 session types)
+  - **Performance optimization**: Caching system explanation (facets/<session-id>.json for incremental analysis)
+  - **Interpretation guidance**: How facets categories help understand report recommendations
+  - **Source attribution**: Zolkos Technical Deep Dive (2026-02-04) as architecture reference
+- **Resource Evaluations**: Added Zolkos /insights deep dive evaluation (4/5 - High Value)
+  - Score: 4/5 (comprehensive technical architecture, fills guide gap, complementary with usage documentation)
+  - Decision: Integrate architecture + facets classification system
+  - Integration: Architecture overview added to Section 6.1 (~800 tokens)
+  - Complémentarité: Zolkos (architecture interne) + Guide (usage externe) = documentation complète
 
 ## [3.23.1] - 2026-02-06
 
