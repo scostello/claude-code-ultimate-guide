@@ -4,7 +4,7 @@
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
 version: "3.23.1"
-updated: "2026-02-05"
+updated: "2026-02-07"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -388,14 +388,29 @@ deep_dive:
   gsd_evaluation: "docs/resource-evaluations/gsd-evaluation.md"
   gsd_source: "https://github.com/glittercowboy/get-shit-done"
   gsd_note: "Overlap with existing patterns (Ralph Loop, Gas Town, BMAD)"
-  # Resource Evaluations (added 2026-01-26)
+  # Resource Evaluations (added 2026-01-26, updated 2026-02-07)
   resource_evaluations_directory: "docs/resource-evaluations/"
-  resource_evaluations_count: 47
+  resource_evaluations_count: 24
   resource_evaluations_methodology: "docs/resource-evaluations/README.md"
   resource_evaluations_appendix: "guide/ultimate-guide.md:15034"
   resource_evaluations_readme_section: "README.md:278"
   resource_evaluations_git_mcp: "docs/resource-evaluations/git-mcp-server-evaluation.md"
   resource_evaluations_anaconda_croce: "docs/resource-evaluations/anaconda-croce-evaluation.md"
+  resource_evaluations_grenier_quality: "docs/resource-evaluations/grenier-agent-skill-quality.md"
+  resource_evaluations_grenier_score: "3/5"
+  resource_evaluations_grenier_gap: "No automated quality checks for agents/skills (29.5% deploy without evaluation per LangChain 2026)"
+  resource_evaluations_grenier_integration: "Created /audit-agents-skills command + skill + criteria.yaml"
+  # Agent/Skill Quality Audit (added 2026-02-07)
+  audit_agents_skills_command: "examples/commands/audit-agents-skills.md"
+  audit_agents_skills_skill: "examples/skills/audit-agents-skills/SKILL.md"
+  audit_agents_skills_criteria: "examples/skills/audit-agents-skills/scoring/criteria.yaml"
+  audit_agents_skills_framework: "16 criteria (Identity 3x, Prompt 2x, Validation 1x, Design 2x)"
+  audit_agents_skills_scoring: "32 points max (agents/skills), 20 points (commands)"
+  audit_agents_skills_grades: "A-F scale, 80% production threshold"
+  audit_agents_skills_modes: "Quick (top-5), Full (all 16), Comparative (vs templates)"
+  audit_agents_skills_output: "Markdown + JSON for CI/CD integration"
+  audit_agents_skills_industry_context: "29.5% deploy without evaluation (LangChain 2026), 18% cite agent bugs as top challenge"
+  audit_agents_skills_guide_refs: "guide/ultimate-guide.md:4951 (after Agent Validation Checklist), guide/ultimate-guide.md:5495 (after Skill Validation)"
   # Practitioner Insights (external validation)
   practitioner_insights: "guide/ai-ecosystem.md:1209"
   practitioner_dave_van_veen: "guide/ai-ecosystem.md:1213"
@@ -539,6 +554,29 @@ deep_dive:
   codebase_design_author: "François Zaninotto (Marmelab)"
   # Section 9.19 - Permutation Frameworks
   permutation_frameworks: 13947
+  # Section 9.20 - Agent Teams (v2.1.32+ experimental)
+  agent_teams: "guide/workflows/agent-teams.md"
+  agent_teams_overview: 15992  # Section 9.20 in ultimate-guide.md
+  agent_teams_architecture: "guide/workflows/agent-teams.md:59"
+  agent_teams_setup: "guide/workflows/agent-teams.md:104"
+  agent_teams_use_cases: "guide/workflows/agent-teams.md:232"
+  agent_teams_fountain_case_study: "guide/workflows/agent-teams.md:254"
+  agent_teams_cred_case_study: "guide/workflows/agent-teams.md:282"
+  agent_teams_c_compiler_case_study: "guide/workflows/agent-teams.md:308"
+  agent_teams_paul_rayner_workflows: "guide/workflows/agent-teams.md:352"
+  agent_teams_workflow_impact: "guide/workflows/agent-teams.md:443"
+  agent_teams_limitations: "guide/workflows/agent-teams.md:529"
+  agent_teams_decision_tree: "guide/workflows/agent-teams.md:723"
+  agent_teams_best_practices: "guide/workflows/agent-teams.md:789"
+  agent_teams_troubleshooting: "guide/workflows/agent-teams.md:978"
+  agent_teams_experimental_flag: "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=true"
+  agent_teams_model_requirement: "Opus 4.6 minimum"
+  agent_teams_sources:
+    - "https://www.anthropic.com/news/claude-opus-4-6"
+    - "https://www.anthropic.com/engineering/building-c-compiler"
+    - "https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf"
+    - "https://dev.to/thegdsks/claude-opus-46-for-developers-agent-teams-1m-context-and-what-actually-matters-4h8c"
+    - "https://www.linkedin.com/posts/thepaulrayner_this-is-wild-i-just-upgraded-claude-code-activity-7425635159678414850-MNyv"
   # Advanced Plan Mode Patterns
   rev_the_engine: 2323
   mechanic_stacking: 2371

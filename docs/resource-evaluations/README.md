@@ -61,7 +61,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Sankalp's Claude Code 2.0 Experience** | 2/5 | **2/5** | ⚠️ Watch only (85% overlap, probable errors) | [sankalp-claude-code-experience.md](./sankalp-claude-code-experience.md) |
 | **Kajan Siva** (/insights command) | 2/5 | **2/5** | ❌ Do not integrate (no technical content) | [kajan-siva-insights-command.md](./kajan-siva-insights-command.md) |
 | **Zolkos** (/insights deep dive) | 4/5 | **4/5** | ✅ Integrate (architecture + facets) | [zolkos-insights-deep-dive.md](./zolkos-insights-deep-dive.md) |
+| **Grenier** (Agent/Skill Quality) | 3/5 | **3/5** | ✅ Intégrer partiellement | [grenier-agent-skill-quality.md](./grenier-agent-skill-quality.md) |
 
 ---
 
-**Dernier update**: 2026-02-06 (23 évaluations)
+**Dernier update**: 2026-02-07 (24 évaluations)

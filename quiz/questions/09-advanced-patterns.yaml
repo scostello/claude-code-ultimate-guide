@@ -693,3 +693,170 @@ questions:
       file: "guide/ultimate-guide.md"
       section: "Boris Cherny Mental Models"
       anchor: "#boris-cherny-mental-models"
+
+  - id: "09-030"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "How do you enable agent teams in Claude Code v2.1.32+?"
+    options:
+      a: "Use /agent-teams command"
+      b: "Set CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 or add to settings.json"
+      c: "Install agent-teams plugin from skills.sh"
+      d: "Use --teams CLI flag"
+    correct: "b"
+    explanation: |
+      Agent teams require experimental feature flag. Two methods:
+
+      1. **Environment variable**: `export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+      2. **Settings file**: Add `{"experimental": {"agentTeams": true}}` to ~/.claude/settings.json
+
+      Also requires Opus 4.6 model minimum. Feature is experimental (research preview).
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Setup & Configuration"
+      anchor: "#3-setup--configuration"
+
+  - id: "09-031"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "When should you use Agent Teams instead of Multi-Instance workflows?"
+    options:
+      a: "Always - agent teams are superior"
+      b: "When tasks need coordination on shared codebase (read-heavy analysis)"
+      c: "When tasks are completely independent (separate projects)"
+      d: "When budget is tight (agent teams are cheaper)"
+    correct: "b"
+    explanation: |
+      **Agent Teams** = Automatic coordination on shared codebase (git-based)
+      Best for: Read-heavy tasks (code review, bug tracing, analysis)
+
+      **Multi-Instance** = Manual orchestration, independent tasks
+      Best for: Separate projects, no shared state, no coordination needed
+
+      Key: Use Teams when coordination matters, Multi-Instance when parallelization without coordination.
+    doc_reference:
+      file: "guide/ultimate-guide.md"
+      section: "9.20 Agent Teams"
+      anchor: "#920-agent-teams-multi-agent-coordination"
+
+  - id: "09-032"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is the main limitation of agent teams?"
+    options:
+      a: "Cannot spawn more than 2 agents"
+      b: "Read-heavy tasks work well, write-heavy tasks risk merge conflicts"
+      c: "Only works on macOS"
+      d: "Requires expensive hardware"
+    correct: "b"
+    explanation: |
+      **Critical limitation**: Read-heavy > Write-heavy trade-off
+
+      ✅ Good: Code review (agents read, analyze, report)
+      ✅ Good: Bug tracing (agents read logs, trace execution)
+      ⚠️ Risky: Refactoring shared types (merge conflicts)
+      ❌ Bad: Same file modified by multiple agents
+
+      Mitigation: Assign non-overlapping file sets, use interface-first approach.
+      Token cost is also significant (3x+ multiplier).
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Limitations & Gotchas"
+      anchor: "#6-limitations--gotchas"
+
+  - id: "09-033"
+    difficulty: "senior"
+    profiles: ["senior", "power"]
+    question: "What minimum Claude model is required for agent teams?"
+    options:
+      a: "Haiku"
+      b: "Sonnet 4.5"
+      c: "Opus 4.5"
+      d: "Opus 4.6"
+    correct: "d"
+    explanation: |
+      Agent teams require **Opus 4.6 minimum** (released Feb 2026 with v2.1.32).
+
+      This is because:
+      - Each agent needs 1M token context window
+      - Git-based coordination requires advanced reasoning
+      - Team lead must synthesize findings from multiple teammates
+
+      Lower models (Sonnet, Haiku) cannot spawn agent teams.
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Prerequisites"
+      anchor: "#prerequisites"
+
+  - id: "09-034"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "In agent teams architecture, what is the role of the 'team lead'?"
+    options:
+      a: "Execute all tasks while teammates observe"
+      b: "Break down tasks, spawn teammates, synthesize findings"
+      c: "Monitor costs and prevent token overuse"
+      d: "Resolve merge conflicts manually"
+    correct: "b"
+    explanation: |
+      **Team lead** (main session) responsibilities:
+
+      1. **Break down tasks** into subtasks
+      2. **Spawn teammate sessions** (each with 1M token context)
+      3. **Synthesize findings** from all agents after completion
+
+      **Teammates** work independently on assigned tasks, report back to team lead.
+      Navigation: Use Shift+Up/Down to switch between agents.
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Architecture Deep-Dive"
+      anchor: "#2-architecture-deep-dive"
+
+  - id: "09-035"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "Which production metric was validated for agent teams?"
+    options:
+      a: "Fountain: 50% faster screening, CRED: 2x execution speed"
+      b: "GitHub: 10x PRs reviewed, Vercel: 99% uptime"
+      c: "Anthropic: 100% bug-free code generation"
+      d: "Meta: 5x developer productivity"
+    correct: "a"
+    explanation: |
+      **Validated production metrics** (2026 Agentic Coding Trends Report):
+
+      - **Fountain** (workforce management): 50% faster screening, 40% onboarding, 2x conversions
+      - **CRED** (15M users, financial services): 2x execution speed across dev lifecycle
+      - **Anthropic Research**: Autonomous C compiler completion (no human intervention)
+
+      These validate agent teams work in production for complex, read-heavy tasks.
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Production Use Cases"
+      anchor: "#4-production-use-cases"
+
+  - id: "09-036"
+    difficulty: "power"
+    profiles: ["power"]
+    question: "What is the typical token cost multiplier for agent teams (3 agents)?"
+    options:
+      a: "Same as single agent (no overhead)"
+      b: "1.5x (minimal overhead)"
+      c: "3x+ (each agent runs separate model inference)"
+      d: "10x (exponential cost)"
+    correct: "c"
+    explanation: |
+      **Token cost multiplier: 3x+** for 3 agents
+
+      Why:
+      - Each agent runs **separate model inference**
+      - 3 agents = 3x input tokens, 3x output tokens
+      - Context loading per agent (1M tokens × 3)
+      - Coordination overhead (team lead synthesis)
+
+      Cost justified when time saved > cost increase (production issues, critical analysis).
+      Budget-constrained projects should use single agent.
+    doc_reference:
+      file: "guide/workflows/agent-teams.md"
+      section: "Cost Trade-offs"
+      anchor: "#cost-trade-offs"

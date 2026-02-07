@@ -4948,6 +4948,8 @@ Before deploying a custom agent, validate against these criteria:
 
 > 💡 **Rule of Three**: If an agent doesn't save significant time on at least 3 recurring tasks, it's probably over-engineering. Start with skills, graduate to agents only when complexity demands it.
 
+> **Automated audit**: Run `/audit-agents-skills` for a comprehensive quality audit across all agents, skills, and commands. Scores each file on 16 criteria with weighted grading (32 points for agents/skills, 20 for commands). See `examples/skills/audit-agents-skills/` for the full scoring methodology.
+
 ## 4.5 Agent Examples
 
 ### Example 1: Code Reviewer Agent
@@ -5489,6 +5491,8 @@ Use the official [skills-ref](https://github.com/agentskills/agentskills/tree/ma
 skills-ref validate ./my-skill      # Check frontmatter + naming conventions
 skills-ref to-prompt ./my-skill     # Generate <available_skills> XML for agent prompts
 ```
+
+> **Beyond spec validation**: `/audit-agents-skills` extends frontmatter checks with content quality, design patterns, and production readiness scoring. Works on both skills and agents together with weighted criteria (32 points max per file).
 
 ## 5.3 Skill Template
 
@@ -15985,6 +15989,193 @@ I'll decide based on our team context.
 
 ---
 
+## 9.20 Agent Teams (Multi-Agent Coordination)
+
+**Reading time**: 5 minutes (overview) | [Full workflow guide →](./workflows/agent-teams.md) (~30 min)
+**Skill level**: Month 2+ (Advanced)
+**Status**: ⚠️ Experimental (v2.1.32+, Opus 4.6 required)
+
+### What Are Agent Teams?
+
+**Agent teams** enable multiple Claude instances to work in parallel on a shared codebase, coordinating autonomously without human intervention. One session acts as **team lead** to break down tasks and synthesize findings from **teammate** sessions.
+
+**Key difference from Multi-Instance** (§9.17):
+- **Multi-Instance** = You manually orchestrate separate Claude sessions (independent projects, no shared state)
+- **Agent Teams** = Claude manages coordination automatically (shared codebase, git-based communication)
+
+```
+Setup:
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+claude
+
+OR in ~/.claude/settings.json:
+{
+  "experimental": {
+    "agentTeams": true
+  }
+}
+```
+
+### When Introduced & Production Validation
+
+**Version**: v2.1.32 (2026-02-05) as research preview
+**Model requirement**: Opus 4.6 minimum
+
+**Production metrics** (validated cases):
+- **Fountain** (workforce management): 50% faster screening, 2x conversions
+- **CRED** (15M users, financial services): 2x execution speed
+- **Anthropic Research**: Autonomous C compiler completion (no human intervention)
+
+Source: [2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf), [Anthropic Engineering Blog](https://www.anthropic.com/engineering/building-c-compiler)
+
+### Architecture Quick View
+
+```
+Team Lead (Main Session)
+    ├─ Breaks tasks into subtasks
+    ├─ Spawns teammate sessions (each with 1M token context)
+    └─ Synthesizes findings from all agents
+         │
+         ├─ Teammate 1: Task A (independent context)
+         └─ Teammate 2: Task B (independent context)
+
+Coordination: Git-based (task locking, continuous merge, conflict resolution)
+Navigation: Shift+Up/Down or tmux to switch between agents
+```
+
+### Teams vs Multi-Instance vs Dual-Instance
+
+| Pattern | Coordination | Best For | Cost | Setup |
+|---------|--------------|----------|------|-------|
+| **Agent Teams** | Automatic (git-based) | Read-heavy tasks needing coordination | High (3x+) | Experimental flag |
+| **Multi-Instance** ([§9.17](#917-scaling-patterns-multi-instance-workflows)) | Manual (human) | Independent parallel tasks | Medium (2x) | Multiple terminals |
+| **Dual-Instance** | Manual (human) | Quality assurance (plan-execute) | Medium (2x) | 2 terminals |
+
+### Use Cases That Work Well
+
+**✅ Excellent fit** (read-heavy, clear boundaries):
+1. **Multi-layer code review**: Security agent + API agent + Frontend agent (Fountain: 50% faster)
+2. **Parallel hypothesis testing**: Debug by testing 3 theories simultaneously
+3. **Large-scale refactoring**: 47+ files across layers with clear interfaces
+4. **Full codebase analysis**: Architecture review, pattern detection
+
+**❌ Poor fit** (avoid these):
+- Simple tasks (<5 files affected) — coordination overhead not justified
+- Write-heavy tasks (many shared file modifications) — merge conflict risks
+- Sequential dependencies — no parallelization benefit
+- Budget-constrained projects — 3x token cost multiplier
+
+### Quick Example: Multi-Layer Code Review
+
+```markdown
+Prompt:
+"Review this PR comprehensively using agent teams:
+- Security agent: Check for vulnerabilities, auth issues, data exposure
+- API agent: Review endpoint design, validation, error handling
+- Frontend agent: Check UI patterns, accessibility, performance
+
+PR: https://github.com/company/repo/pull/123"
+
+Result:
+Team lead spawns 3 agents → Each analyzes their domain in parallel →
+Team lead synthesizes findings → Comprehensive review in 1/3 the time
+```
+
+### Critical Limitations
+
+**Read-heavy > Write-heavy trade-off**:
+```
+✅ Good: Code review (agents read, analyze, report)
+✅ Good: Bug tracing (agents read logs, trace execution)
+✅ Good: Architecture analysis (agents read structure)
+
+⚠️ Risky: Refactoring shared types (merge conflicts)
+⚠️ Risky: Database schema changes (coordinated migrations)
+❌ Bad: Same file modified by multiple agents (conflict hell)
+```
+
+**Mitigation**: Assign non-overlapping file sets, use interface-first approach, define contracts before parallel work.
+
+**Token intensity**: 3x+ cost multiplier (3 agents = 3 model inferences). Only justified when time saved > cost increase.
+
+**Experimental status**: No stability guarantee, bugs expected, feature may change. Report issues to [Anthropic GitHub](https://github.com/anthropics/claude-code/issues).
+
+### Decision Tree: When to Use Agent Teams
+
+```
+Is task simple (<5 files)? ──YES──> Single agent
+    │
+    NO
+    │
+Tasks completely independent? ──YES──> Multi-Instance (§9.17)
+    │
+    NO
+    │
+Need quality assurance split? ──YES──> Dual-Instance
+    │
+    NO
+    │
+Read-heavy (analysis, review)? ──YES──> Agent Teams ✓
+    │
+    NO
+    │
+Write-heavy (many file mods)? ──YES──> Single agent
+    │
+    NO
+    │
+Budget-constrained? ──YES──> Single agent
+    │
+    NO
+    │
+Complex coordination needed? ──YES──> Agent Teams ✓
+                            ──NO──> Single agent
+```
+
+### Practitioner Testimonial
+
+**Paul Rayner** (CEO Virtual Genius, EventStorming Handbook author):
+> "Running 3 concurrent agent team sessions across separate terminals. Pretty impressive compared to previous multi-terminal workflows without coordination."
+
+**Workflows used** (Feb 2026):
+1. Job search app: Design research + bug fixing
+2. Business ops: Operating system + conference planning
+3. Infrastructure: Playwright MCP + beads framework management
+
+Source: [Paul Rayner LinkedIn](https://www.linkedin.com/posts/thepaulrayner_this-is-wild-i-just-upgraded-claude-code-activity-7425635159678414850-MNyv)
+
+### Navigation Between Agents
+
+**Built-in controls**:
+- **Shift+Up/Down**: Switch between sub-agents
+- **tmux**: Use tmux commands if in tmux session
+- **Direct takeover**: Take control of any agent's work mid-execution
+
+**Monitoring**: Each agent reports progress, team lead synthesizes when all complete.
+
+### Full Documentation
+
+This section is a quick overview. For complete guide:
+- **[Agent Teams Workflow](./workflows/agent-teams.md)** (~30 min, 10 sections)
+  - Architecture deep-dive (team lead, teammates, git coordination)
+  - Setup instructions (2 methods)
+  - 5 production use cases with metrics
+  - Workflow impact analysis (before/after)
+  - Limitations & gotchas (read/write trade-offs)
+  - Decision framework (Teams vs Multi-Instance vs Beads)
+  - Best practices, troubleshooting
+
+**Related patterns**:
+- [§9.17 Multi-Instance Workflows](#917-scaling-patterns-multi-instance-workflows) — Manual parallel coordination
+- [§4.3 Sub-Agents](#43-sub-agents) — Single-agent task delegation
+- [AI Ecosystem: Beads Framework](./ai-ecosystem.md) — Alternative orchestration (Gas Town)
+
+**Official sources**:
+- [Introducing Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) (Anthropic, Feb 2026)
+- [Building a C compiler with agent teams](https://www.anthropic.com/engineering/building-c-compiler) (Anthropic Engineering, Feb 2026)
+- [2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf) (Anthropic, Jan 2026)
+
+---
+
 ## 🎯 Section 9 Recap: Pattern Mastery Checklist
 
 Before moving to Section 10 (Reference), verify you understand:
@@ -16016,6 +16207,7 @@ Before moving to Section 10 (Reference), verify you understand:
 - [ ] **Session Teleportation**: Migrate sessions between cloud and local environments
 - [ ] **Background Tasks**: Run tasks in cloud while working locally (`%` prefix)
 - [ ] **Multi-Instance Scaling**: Understand when/how to orchestrate parallel Claude instances (advanced teams only)
+- [ ] **Agent Teams**: Multi-agent coordination for read-heavy tasks (experimental, Opus 4.6+)
 - [ ] **Permutation Frameworks**: Systematically test multiple approaches before committing
 
 ### What's Next?

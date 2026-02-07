@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-257_questions-orange?style=for-the-badge" alt="Quiz"/></a>
-  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-106-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./examples/"><img src="https://img.shields.io/badge/Templates-107-green?style=for-the-badge" alt="Templates"/></a>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
   <a href="https://zread.ai/FlorianBruniaux/claude-code-ultimate-guide"><img src="https://img.shields.io/badge/Ask_Zread-_.svg?style=flat&color=00b0aa&labelColor=000000&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTQuOTYxNTYgMS42MDAxSDIuMjQxNTZDMS44ODgxIDEuNjAwMSAxLjYwMTU2IDEuODg2NjQgMS42MDE1NiAyLjI0MDFWNC45NjAxQzEuNjAxNTYgNS4zMTM1NiAxLjg4ODEgNS42MDAxIDIuMjQxNTYgNS42MDAxSDQuOTYxNTZDNS4zMTUwMiA1LjYwMDEgNS42MDE1NiA1LjMxMzU2IDUuNjAxNTYgNC45NjAxVjIuMjQwMUM1LjYwMTU2IDEuODg2NjQgNS4zMTUwMiAxLjYwMDEgNC45NjE1NiAxLjYwMDFaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00Ljk2MTU2IDEwLjM5OTlIMi4yNDE1NkMxLjg4ODEgMTAuMzk5OSAxLjYwMTU2IDEwLjY4NjQgMS42MDE1NiAxMS4wMzk5VjEzLjc1OTlDMS42MDE1NiAxNC4xMTM0IDEuODg4MSAxNC4zOTk5IDIuMjQxNTYgMTQuMzk5OUg0Ljk2MTU2QzUuMzE1MDIgMTQuMzk5OSA1LjYwMTU2IDE0LjExMzQgNS42MDE1NiAxMy43NTk5VjExLjAzOTlDNS42MDE1NiAxMC42ODY0IDUuMzE1MDIgMTAuMzk5OSA0Ljk2MTU2IDEwLjM5OTlaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik0xMy43NTg0IDEuNjAwMUgxMS4wMzg0QzEwLjY4NSAxLjYwMDEgMTAuMzk4NCAxLjg4NjY0IDEwLjM5ODQgMi4yNDAxVjQuOTYwMUMxMC4zOTg0IDUuMzEzNTYgMTAuNjg1IDUuNjAwMSAxMS4wMzg0IDUuNjAwMUgxMy43NTg0QzE0LjExMTkgNS42MDAxIDE0LjM5ODQgNS4zMTM1NiAxNC4zOTg0IDQuOTYwMVYyLjI0MDFDMTQuMzk4NCAxLjg4NjY0IDE0LjExMTkgMS42MDAxIDEzLjc1ODQgMS42MDAxWiIgZmlsbD0iI2ZmZiIvPgo8cGF0aCBkPSJNNCAxMkwxMiA0TDQgMTJaIiBmaWxsPSIjZmZmIi8%2BCjxwYXRoIGQ9Ik00IDEyTDEyIDQiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K&logoColor=ffffff" alt="Ask Zread"/></a>
 </p>
 
-> **Claude Code (Anthropic): the learning curve, solved.** ~16K-line guide + 106 templates + 257 quiz questions + 22 event hooks + 49 resource evaluations. Beginner → Power User.
+> **Claude Code (Anthropic): the learning curve, solved.** ~16K-line guide + 107 templates + 257 quiz questions + 22 event hooks + 24 resource evaluations. Beginner → Power User.
 
 ---
 
@@ -71,7 +71,7 @@ graph LR
     root --> quiz[🧠 quiz/<br/>257 questions]
     root --> tools[🔧 tools/<br/>utils]
     root --> machine[🤖 machine-readable/<br/>AI index]
-    root --> docs[📚 docs/<br/>49 evaluations]
+    root --> docs[📚 docs/<br/>24 evaluations]
 
     style root fill:#d35400,stroke:#e67e22,stroke-width:3px,color:#fff
     style guide fill:#2980b9,stroke:#3498db,stroke-width:2px,color:#fff
@@ -96,7 +96,7 @@ graph LR
 │  ├─ mcp-servers-ecosystem.md  Official & community MCP servers
 │  └─ workflows/          Step-by-step guides
 │
-├─ 📋 examples/           106 Production Templates
+├─ 📋 examples/           107 Production Templates
 │  ├─ agents/             6 custom AI personas
 │  ├─ commands/           18 slash commands
 │  ├─ hooks/              18 security hooks (bash + PowerShell)
@@ -116,7 +116,7 @@ graph LR
 │  ├─ reference.yaml      Structured index (~2K tokens)
 │  └─ llms.txt            Standard LLM context file
 │
-└─ 📚 docs/               49 Resource Evaluations
+└─ 📚 docs/               24 Resource Evaluations
    └─ resource-evaluations/  5-point scoring, source attribution
 ```
 
@@ -144,6 +144,17 @@ We explain **concepts first**, not just configs:
 
 [Try the Quiz Online →](https://florianbruniaux.github.io/claude-code-ultimate-guide-landing/quiz/) | [Run Locally](./quiz/)
 
+### 🤖 Agent Teams Coverage (v2.1.32+)
+
+**Only comprehensive guide to Anthropic's experimental multi-agent coordination**:
+- Production metrics (Fountain 50% faster, CRED 2x speed, autonomous C compiler)
+- 5 validated workflows (multi-layer review, parallel debugging, large-scale refactoring)
+- Git-based coordination architecture (team lead + teammates)
+- Decision framework: Teams vs Multi-Instance vs Dual-Instance vs Beads
+- Setup, limitations, best practices, troubleshooting
+
+[Agent Teams Workflow →](./guide/workflows/agent-teams.md) | [Section 9.20 →](./guide/ultimate-guide.md#920-agent-teams-multi-agent-coordination)
+
 ### 🔬 Methodologies (Structured Workflows)
 
 Complete guides with rationale and examples:
@@ -161,7 +172,7 @@ Educational templates with explanations:
 
 [Browse Catalog →](./examples/)
 
-### 🔍 49 Resource Evaluations
+### 🔍 24 Resource Evaluations
 
 Systematic assessment of external resources (5-point scoring):
 - Articles, videos, tools, frameworks
@@ -200,7 +211,7 @@ Systematic assessment of external resources (5-point scoring):
 </details>
 
 <details>
-<summary><strong>Power User</strong> — Comprehensive path (7 steps)</summary>
+<summary><strong>Power User</strong> — Comprehensive path (8 steps)</summary>
 
 1. [Complete Guide](./guide/ultimate-guide.md) — End-to-end
 2. [Architecture](./guide/architecture.md) — How Claude Code works
@@ -208,7 +219,8 @@ Systematic assessment of external resources (5-point scoring):
 4. [MCP Servers](./guide/ultimate-guide.md#8-mcp-servers) — Extended capabilities
 5. [Trinity Pattern](./guide/ultimate-guide.md#91-the-trinity) — Advanced workflows
 6. [Observability](./guide/observability.md) — Monitor costs & sessions
-7. [Examples](./examples/) — Production templates
+7. [Agent Teams](./guide/workflows/agent-teams.md) — Multi-agent coordination (Opus 4.6 experimental)
+8. [Examples](./examples/) — Production templates
 
 </details>
 
@@ -426,7 +438,7 @@ cd quiz && npm install && npm start
 </details>
 
 <details>
-<summary><strong>Resource Evaluations</strong> (49 assessments)</summary>
+<summary><strong>Resource Evaluations</strong> (24 assessments)</summary>
 
 Systematic evaluation of external resources (tools, methodologies, articles) before integration into the guide.
 

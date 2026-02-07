@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Slash Commands**: `/audit-agents-skills` command for quality auditing of agents, skills, and commands
+  - 16-criteria framework (Identity 3x, Prompt 2x, Validation 1x, Design 2x)
+  - Weighted scoring: 32 points max for agents/skills, 20 points for commands
+  - Production readiness grading (A-F scale, 80% threshold for production)
+  - Fix mode with actionable suggestions for failing criteria
+  - Project-level command (`.claude/commands/`) + distributable template (`examples/commands/`)
+- **Skills**: `audit-agents-skills` advanced skill with 3 audit modes
+  - Quick Audit: Top-5 critical criteria (fast pass/fail)
+  - Full Audit: All 16 criteria per file with detailed scores
+  - Comparative: Full + benchmark analysis vs reference templates
+  - JSON + Markdown dual output for CI/CD integration
+  - Externalized scoring grids in `scoring/criteria.yaml` for programmatic reuse
+- **Templates**: Added 3 audit infrastructure files
+  - Command template: `examples/commands/audit-agents-skills.md` (~350 lines)
+  - Skill template: `examples/skills/audit-agents-skills/SKILL.md` (~400 lines)
+  - Scoring grids: `examples/skills/audit-agents-skills/scoring/criteria.yaml` (~120 lines, 16 criteria × 3 types)
+
 ### Documentation
 
 - **Slash Commands**: Added comprehensive documentation for `/insights` command (Section 6.1) with architecture deep dive
@@ -14,11 +33,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Performance optimization**: Caching system explanation (facets/<session-id>.json for incremental analysis)
   - **Interpretation guidance**: How facets categories help understand report recommendations
   - **Source attribution**: Zolkos Technical Deep Dive (2026-02-04) as architecture reference
+- **Agent/Skill Quality**: Added 2 strategic references in ultimate-guide.md
+  - After Agent Validation Checklist (line 4951): Automated audit call-out with methodology reference
+  - After Skill Validation (line 5495): Beyond spec validation note explaining quality scoring extension
+- **Resource Evaluations**: Added Mathieu Grenier agent/skill quality evaluation (3/5 - Moderate Value)
+  - Score: 3/5 (real-world observations, identifies automation gap, aligns with LangChain 2026 data)
+  - Decision: Integrate selectively via audit tooling creation
+  - Gap addressed: Guide had conceptual best practices but no automated enforcement
+  - Industry context: 29.5% deploy agents without evaluation (LangChain Agent Report 2026)
+  - Integration: Created `/audit-agents-skills` command + skill + criteria YAML
 - **Resource Evaluations**: Added Zolkos /insights deep dive evaluation (4/5 - High Value)
   - Score: 4/5 (comprehensive technical architecture, fills guide gap, complementary with usage documentation)
   - Decision: Integrate architecture + facets classification system
   - Integration: Architecture overview added to Section 6.1 (~800 tokens)
   - Complémentarité: Zolkos (architecture interne) + Guide (usage externe) = documentation complète
+- **Resource Evaluations Index**: Updated count from 23 to 24 evaluations (added Grenier entry)
 
 ## [3.23.1] - 2026-02-06
 

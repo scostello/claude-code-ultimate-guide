@@ -82,6 +82,7 @@ Custom slash commands available in this project:
 | `/version` | Display current guide and Claude Code versions with stats |
 | `/changelog [count]` | View recent CHANGELOG entries (default: 5) |
 | `/sync` | Check guide/landing synchronization status |
+| `/audit-agents-skills [path]` | Audit quality of agents, skills, and commands in .claude/ config |
 
 **Examples:**
 ```
@@ -93,6 +94,9 @@ Custom slash commands available in this project:
 /version                       # Show versions and content stats
 /changelog 10                  # Last 10 CHANGELOG entries
 /sync                          # Check guide/landing sync status
+/audit-agents-skills           # Audit current project
+/audit-agents-skills --fix     # Audit + fix suggestions
+/audit-agents-skills ~/other   # Audit another project
 ```
 
 These commands are defined in `.claude/commands/` and automate:
