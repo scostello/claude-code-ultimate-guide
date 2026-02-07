@@ -27,6 +27,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Documentation
 
+- **Resource Evaluations**: Added Gur Sannikov "Claude Code as Embedded OS" evaluation (4/5 - High Value)
+  - Score: 4/5 (ADR workflow gap + native capabilities checklist + community validation)
+  - Decision: Integrate 4 sections across 3 guide files
+  - Gap addressed: ADR-driven development pattern, capabilities onboarding checklist, dynamic model switching
+  - Integration: ADR workflow (methodologies.md), Native Capabilities Audit (architecture.md), Dynamic Model Switching (cheatsheet.md), Community Validation (architecture.md)
+  - Community validation: Cursor power user adopting Agent Skills standard (validates "less scaffolding, more model" philosophy)
+  - Source: [LinkedIn post](https://www.linkedin.com/posts/gursannikov_claudecode-embeddedengineering-aiagents-activity-7423851983331328001-DrFb) (2026-02-01)
+- **Resource Evaluations Index**: Updated count from 24 to 55 evaluations
 - **Slash Commands**: Added comprehensive documentation for `/insights` command (Section 6.1) with architecture deep dive
   - **Architecture Overview** subsection (7-stage pipeline: session filtering, transcript summarization, facet extraction, aggregated analysis, executive summary, report generation, facet caching)
   - **Facets Classification System**: 6 dimensions documented (13 goal types, 12 friction categories, 6 satisfaction levels, 4 outcome states, 7 success categories, 5 session types)

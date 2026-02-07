@@ -215,6 +215,41 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 
 **Required for**: features >3 files, architecture, complex debugging
 
+### Dynamic Model Switching (Mid-Session)
+
+**Pattern**: Start Sonnet (speed) → swap Opus (complexity) → back Sonnet
+
+**Workflow**:
+```bash
+# Session start (default Sonnet)
+claude
+
+# Complex feature encountered
+> "Implement OAuth2 flow with PKCE"
+/model opus                    # Switch to deep reasoning
+
+# Feature complete, back to routine
+/model sonnet                  # Speed + cost optimization
+```
+
+**Best Practices**:
+- ✅ Swap **on task boundaries**, not mid-task
+- ✅ Use Opus for: architecture decisions, complex debugging, security-critical code
+- ✅ Use Sonnet for: routine edits, refactoring, test writing
+- ✅ Use Haiku for: simple fixes, typos, validation checks
+- ❌ Don't swap mid-implementation (context loss)
+
+**Cost Impact**:
+| Model | Input | Output | Use Case |
+|-------|--------|--------|----------|
+| Opus  | $15/MTok | $75/MTok | Complex reasoning (10-20% of tasks) |
+| Sonnet | $3/MTok | $15/MTok | Most development (70-80% of tasks) |
+| Haiku | $0.25/MTok | $1.25/MTok | Simple validation (5-10% of tasks) |
+
+**Dynamic switching** optimizes cost while maintaining quality on complex tasks.
+
+**Source**: [Gur Sannikov embedded engineering workflow](https://www.linkedin.com/posts/gursannikov_claudecode-embeddedengineering-aiagents-activity-7423851983331328001-DrFb)
+
 ---
 
 ## MCP Servers

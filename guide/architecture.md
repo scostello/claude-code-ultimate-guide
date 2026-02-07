@@ -154,6 +154,60 @@ The model itself decides when to call tools, which tools to call, and when it's 
 3. **Flexibility**: No rigid pipeline constraining what Claude can do
 4. **Debuggability**: Easy to understand what happened and why
 
+### Native Capabilities Audit
+
+Use this checklist to verify you understand Claude Code's full surface area. Each capability is documented in detail elsewhere in this guide.
+
+**The 11 Native Capabilities**:
+
+- [ ] **Event Hooks** — Bash/PowerShell scripts triggered on tool execution
+  - PreToolUse, PostToolUse, UserPromptSubmit, Notification
+  - See: [Section 5 Hooks](#5-permission--security-model)
+
+- [ ] **Skill-Scoped Hooks** — Event hooks specific to skill execution context
+  - Lifecycle management per skill
+  - See: [Ultimate Guide Section 5.11](./ultimate-guide.md#511-skills)
+
+- [ ] **Background Agents** — Async task execution (test suites, long operations)
+  - Non-blocking agent spawning
+  - See: [Section 4.2 Sub-Agent Architecture](#4-sub-agent-architecture)
+
+- [ ] **Explore Subagent** — `/explore` for codebase analysis
+  - Read-only codebase exploration
+  - See: [Section 4.2 Sub-Agents](#4-sub-agent-architecture)
+
+- [ ] **Plan Subagent** — `/plan` for read-only planning mode
+  - Safe architectural exploration
+  - See: [Ultimate Guide Section 2.3](./ultimate-guide.md#23-plan-mode)
+
+- [ ] **Task Tool** — Hierarchical task delegation to specialized agents
+  - Parallel task execution, depth=1 sub-agents
+  - See: [Section 4.2 Sub-Agent Architecture](#4-sub-agent-architecture)
+
+- [ ] **Agent Teams** — Multi-agent parallel coordination (experimental v2.1.32+)
+  - Git-based coordination, autonomous task claiming
+  - See: [Ultimate Guide Section 9.20](./ultimate-guide.md#920-agent-teams)
+
+- [ ] **Per-Task Model Selection** — Dynamic model switching mid-session
+  - `/model opus|sonnet|haiku` on task boundaries
+  - See: [Section 10 Cost Optimization](#10-claude-code-vs-alternatives)
+
+- [ ] **MCP Protocol Integration** — Model Context Protocol for tool extensions
+  - Context7, Sequential, Serena, Playwright, etc.
+  - See: [Section 6 MCP Integration](#6-mcp-integration)
+
+- [ ] **Permission Modes** — Fine-grained control over tool execution
+  - Default, auto-accept, plan mode, custom rules
+  - See: [Section 5 Permission & Security Model](#5-permission--security-model)
+
+- [ ] **Session Memory** — Persistent context across sessions
+  - CLAUDE.md, memory files, project state
+  - See: [Section 8 Session Persistence](#8-session-persistence)
+
+**Onboarding Tip**: If you haven't explored all 11 capabilities, you're likely missing productivity opportunities. Focus on the unchecked items above.
+
+**Source**: Synthesized from [Gur Sannikov analysis](https://www.linkedin.com/posts/gursannikov_claudecode-embeddedengineering-aiagents-activity-7423851983331328001-DrFb)
+
 ---
 
 ## 2. The Tool Arsenal
@@ -1155,6 +1209,14 @@ The core philosophy behind Claude Code:
 | Flexibility | Harder to enforce strict behaviors |
 | Fewer bugs | Model errors affect everything |
 | Fast iteration | Requires good model quality |
+
+### Community Validation
+
+The "native capabilities first" approach is increasingly validated by external practitioners. Embedded engineering teams (including former Cursor power users) converge on Agent Skills standard over external orchestration frameworks, demonstrating the viability of trusting Claude's native reasoning over adding scaffolding layers.
+
+**Example**: [Gur Sannikov](https://www.linkedin.com/posts/gursannikov_claudecode-embeddedengineering-aiagents-activity-7423851983331328001-DrFb) (embedded engineering) adopted ADR-driven workflows using only native Claude Code capabilities (hooks, skills, Task Tool) without external frameworks — validating the architectural philosophy documented in this guide.
+
+This convergence suggests that the "less scaffolding, more model" approach scales beyond initial expectations, even for complex engineering domains like embedded systems development.
 
 ---
 

@@ -272,6 +272,56 @@ Meta-Agent (Orchestrator)
 └── Reviewer (validation)
 ```
 
+### ADR-Driven Development
+
+**Pattern**: Write plain English ADRs → Feed to implement-adr skill → Execute natively
+
+Architecture Decision Records (ADRs) combined with Claude Code skills create a workflow where architectural decisions drive implementation directly.
+
+**Workflow Steps**:
+1. **Document decision** in ADR format (context, decision, consequences)
+2. **Create implementation skill** (generic or `implement-adr` specialized)
+3. **Feed ADR as prompt** to skill with clear acceptance criteria
+4. **Claude executes** based on architectural guidance in ADR
+
+**Example ADR Template**:
+```
+# ADR-001: Database Migration Strategy
+
+## Context
+Legacy MySQL schema needs migration to PostgreSQL for better JSON support.
+
+## Decision
+Use incremental dual-write pattern with feature flags.
+
+## Consequences
+- Positive: Zero-downtime migration
+- Negative: Temporary code complexity during transition
+```
+
+**Implementation Workflow**:
+```bash
+# 1. Write ADR (plain English)
+vim docs/adr/001-database-migration.md
+
+# 2. Feed to implementation skill
+/implement-adr docs/adr/001-database-migration.md
+
+# 3. Claude executes based on ADR guidance
+# → Creates migration scripts
+# → Updates ORM configuration
+# → Adds feature flags
+# → Implements dual-write logic
+```
+
+**Benefits**:
+- ✅ **Documentation-driven**: Architecture and code stay synchronized
+- ✅ **Native execution**: No external frameworks needed
+- ✅ **Traceable decisions**: Clear audit trail from decision to implementation
+- ✅ **Team alignment**: ADRs communicate intent to both humans and AI
+
+**Source**: [Gur Sannikov embedded engineering workflow](https://www.linkedin.com/posts/gursannikov_claudecode-embeddedengineering-aiagents-activity-7423851983331328001-DrFb)
+
 ---
 
 ### Tier 6: Optimization
