@@ -62,7 +62,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Kajan Siva** (/insights command) | 2/5 | **2/5** | ❌ Do not integrate (no technical content) | [kajan-siva-insights-command.md](./kajan-siva-insights-command.md) |
 | **Zolkos** (/insights deep dive) | 4/5 | **4/5** | ✅ Integrate (architecture + facets) | [zolkos-insights-deep-dive.md](./zolkos-insights-deep-dive.md) |
 | **Grenier** (Agent/Skill Quality) | 3/5 | **3/5** | ✅ Intégrer partiellement | [grenier-agent-skill-quality.md](./grenier-agent-skill-quality.md) |
+| **Awesome Claude Skills** (BehiSecc) | 3/5 | **3/5** | ✅ Mention spécialisée | [awesome-claude-skills-github.md](./awesome-claude-skills-github.md) |
 
 ---
 
-**Dernier update**: 2026-02-07 (24 évaluations)
+**Dernier update**: 2026-02-07 (55 évaluations)
