@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.33"
-updated: "2026-02-06"
+latest: "2.1.37"
+updated: "2026-02-08"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,26 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January-February 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.37"
+    date: "2026-02-08"
+    highlights:
+      - "Fixed /fast not immediately available after enabling /extra-usage"
+    breaking: []
+
+  - version: "2.1.36"
+    date: "2026-02-08"
+    highlights:
+      - "⭐ Fast mode now available for Opus 4.6"
+    breaking: []
+
+  - version: "2.1.34"
+    date: "2026-02-07"
+    highlights:
+      - "Fixed crash when agent teams setting changed between renders"
+      - "Security fix: Sandbox-excluded commands could bypass Bash ask permission"
+    breaking:
+      - "Security fix: sandbox.excludedCommands / dangerouslyDisableSandbox bypass with autoAllowBashIfSandboxed"
 
   - version: "2.1.33"
     date: "2026-02-06"
@@ -505,6 +525,7 @@ breaking_summary:
     - "Command injection fix in bash processing (v2.1.2)"
     - "Wildcard permission rules compound commands fix (v2.1.7)"
     - "Shell line continuation permission bypass fix (v2.1.6)"
+    - "Sandbox-excluded commands bypass with autoAllowBashIfSandboxed (v2.1.34)"
   installation:
     - "npm installations deprecated - use native installer (v2.1.15)"
   behavior:
@@ -516,6 +537,7 @@ breaking_summary:
 # MILESTONE FEATURES (quick reference)
 # ════════════════════════════════════════════════════════════════
 milestones:
+  "2.1.36": "Fast mode for Opus 4.6"
   "2.1.32": "Opus 4.6, Agent teams preview, Automatic memory"
   "2.1.18": "Customizable keyboard shortcuts with /keybindings"
   "2.1.16": "New task management system with dependency tracking"

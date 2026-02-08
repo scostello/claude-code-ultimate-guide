@@ -4,13 +4,13 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.33 | **Updated**: 2026-02-06
+**Latest**: v2.1.37 | **Updated**: 2026-02-08
 
 ---
 
 ## Quick Jump
 
-- [2.1.x Series (January-February 2026)](#21x-series-january-february-2026) — PDF pages support, /debug command, PR session linking, Task management
+- [2.1.x Series (January-February 2026)](#21x-series-january-february-2026) — Fast mode Opus 4.6, PDF pages support, /debug command, Task management
 - [2.0.x Series (Nov 2025 - Jan 2026)](#20x-series-november-2025---january-2026) — Opus 4.5, Claude in Chrome, Background agents
 - [Breaking Changes Summary](#breaking-changes-summary)
 - [Milestone Features](#milestone-features)
@@ -18,6 +18,19 @@
 ---
 
 ## 2.1.x Series (January-February 2026)
+
+### v2.1.37 (2026-02-08)
+
+- Fixed `/fast` not immediately available after enabling `/extra-usage`
+
+### v2.1.36 (2026-02-08) ⭐
+
+- ⭐ **Fast mode now available for Opus 4.6** — Same model, faster output. Toggle with `/fast`. [Learn more](https://code.claude.com/docs/en/fast-mode)
+
+### v2.1.34 (2026-02-07)
+
+- Fixed a crash when agent teams setting changed between renders
+- **Security fix**: Commands excluded from sandboxing (via `sandbox.excludedCommands` or `dangerouslyDisableSandbox`) could bypass the Bash ask permission rule when `autoAllowBashIfSandboxed` was enabled
 
 ### v2.1.33 (2026-02-06)
 

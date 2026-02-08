@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Documentation
+
+- **Claude Code Releases**: Updated tracking v2.1.33 → v2.1.37
+  - v2.1.37: Fixed /fast availability after /extra-usage
+  - v2.1.36: Fast mode now available for Opus 4.6
+  - v2.1.34: Security fix for sandbox-excluded commands bypass + agent teams crash fix
+
 ### Added
 
 - **Slash Commands**: `/audit-agents-skills` command for quality auditing of agents, skills, and commands
