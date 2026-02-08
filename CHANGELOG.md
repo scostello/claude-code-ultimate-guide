@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.23.2] - 2026-02-08
+
 ### Documentation
 
 - **Claude Code Releases**: Updated tracking v2.1.33 → v2.1.37
@@ -14,6 +16,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - v2.1.34: Security fix for sandbox-excluded commands bypass + agent teams crash fix
 
 ### Added
+
+- **Workflows**: Agent Teams Quick Start Guide (`guide/workflows/agent-teams-quick-start.md`)
+  - Practical 8-10 min guide vs 30 min full documentation
+  - 5-minute setup walkthrough (prerequisites → first test)
+  - 4 copy-paste patterns for real projects (Guide pre-release review, landing sync, multi-file doc updates, RTK security PR review)
+  - Decision matrix with 10+ scenarios (when YES, when NO, when MAYBE)
+  - Success metrics framework (convergence rate, unique insights, false positive rate, time saving, bug catch rate)
+  - Minimal workflow template (bash + prompt examples)
+  - Red flags section (when NOT to use agent teams to avoid waste)
 
 - **Slash Commands**: `/audit-agents-skills` command for quality auditing of agents, skills, and commands
   - 16-criteria framework (Identity 3x, Prompt 2x, Validation 1x, Design 2x)

@@ -9,6 +9,8 @@
 **Reading time**: ~30 min
 **Prerequisites**: Opus 4.6 model, understanding of [Sub-Agents](../ultimate-guide.md#sub-agents), familiarity with [Task Tool](../ultimate-guide.md#task-tool)
 
+**🚀 Want to get started fast?** See **[Agent Teams Quick Start Guide](./agent-teams-quick-start.md)** (8-10 min, copy-paste patterns for your projects)
+
 ---
 
 ## Table of Contents

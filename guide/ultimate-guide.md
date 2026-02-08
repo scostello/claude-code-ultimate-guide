@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.23.1
+**Version**: 3.23.2
 
 ---
 
@@ -4139,7 +4139,7 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
-### 3.23.1 Version Control & Backup
+### 3.23.2 Version Control & Backup
 
 **Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
 
@@ -15991,7 +15991,7 @@ I'll decide based on our team context.
 
 ## 9.20 Agent Teams (Multi-Agent Coordination)
 
-**Reading time**: 5 minutes (overview) | [Full workflow guide →](./workflows/agent-teams.md) (~30 min)
+**Reading time**: 5 minutes (overview) | [Quick Start →](./workflows/agent-teams-quick-start.md) (8-10 min, practical) | [Full workflow guide →](./workflows/agent-teams.md) (~30 min, theory)
 **Skill level**: Month 2+ (Advanced)
 **Status**: ⚠️ Experimental (v2.1.32+, Opus 4.6 required)
 
@@ -18218,4 +18218,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.23.1
+**Last updated**: January 2026 | **Version**: 3.23.2

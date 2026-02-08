@@ -6,7 +6,7 @@
 
 **Reading time**: ~25 minutes (full) | ~5 minutes (TL;DR only)
 
-**Last verified**: January 2026 (Claude Code 3.3.x)
+**Last verified**: February 2026 (Claude Code v2.1.34)
 
 ---
 
@@ -1177,7 +1177,7 @@ Sessions appear to be stored as JSON/JSONL files in `~/.claude/` but:
 ## 9. Philosophy: Less Scaffolding, More Model
 
 **Confidence**: 100% (Tier 1 - Official)
-**Source**: Daniela Amodei (Anthropic CEO) - Public statements
+**Source**: Daniela Amodei (Anthropic Co-founder & President) - Public statements
 
 The core philosophy behind Claude Code:
 

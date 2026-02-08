@@ -499,7 +499,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.23.1 | February 2026 | Crafted with Claude*
+*Version 3.23.2 | February 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,
