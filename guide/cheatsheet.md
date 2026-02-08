@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.23.2 | **Last Updated**: January 2026
+**Version**: 3.23.2 | **Last Updated**: February 2026
 
 ---
 
@@ -463,7 +463,7 @@ CLAUDE_CODE_ENABLE_TASKS=false claude
 
 ```
 Simple task       → Just ask Claude
-Complex task      → TodoWrite to plan first
+Complex task      → Tasks API to plan first
 Risky change      → Plan Mode first
 Repeating task    → Create agent or command
 Context full      → /compact or /clear

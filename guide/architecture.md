@@ -310,7 +310,7 @@ Claude Code offers multiple ways to search code, each with specific strengths:
 - [platform.claude.com/docs](https://platform.claude.com/docs/en/build-with-claude/context-windows) (Tier 1)
 - Observed behavior (Tier 2)
 
-Claude Code operates within a fixed context window (200K tokens for Claude 3.5 Sonnet, varies by model).
+Claude Code operates within a fixed context window (~200K tokens, varies by model).
 
 ### Context Budget Breakdown
 
@@ -949,7 +949,7 @@ app.sendFollowUpMessage('Applied filters: EU, Active');
 
 | Tool | Provider | Capabilities |
 |------|----------|--------------|
-| Asana | Atlassian | Project timelines, task boards |
+| Asana | Asana | Project timelines, task boards |
 | Slack | Salesforce | Message drafting with formatting preview |
 | Figma | Figma | Flowcharts, Gantt charts in FigJam |
 | Amplitude | Amplitude | Analytics charts with interactive filtering |
@@ -1196,7 +1196,7 @@ The core philosophy behind Claude Code:
 
 ### Why It Works
 
-1. **Model capability**: Claude 3.5+ is capable enough to handle routing decisions
+1. **Model capability**: Claude 4+ is capable enough to handle routing decisions
 2. **Reduced latency**: Fewer components = faster response
 3. **Simpler debugging**: When something fails, there's one place to look
 4. **Better generalization**: No hand-coded rules to break on edge cases
@@ -1324,6 +1324,6 @@ Found an error? Have verified new information? Contributions welcome:
 
 ---
 
-**Last updated**: January 2026
-**Claude Code version**: 3.3.x
-**Document version**: 1.0.0
+**Last updated**: February 2026
+**Claude Code version**: v2.1.34
+**Document version**: 1.1.0

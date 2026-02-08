@@ -2,7 +2,7 @@
 
 > **Confidence**: Tier 2 — Validated by multiple production reports and official documentation.
 >
-> **Last updated**: January 2026
+> **Last updated**: February 2026
 
 This is a quick reference for 15 structured development methodologies that have emerged for AI-assisted development in 2025-2026. For hands-on practical workflows, see [workflows/](./workflows/).
 

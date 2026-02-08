@@ -49,8 +49,10 @@ check_file() {
     else
       # Replace all old 3.x.x versions with current version
       for v in $old_versions; do
+        # Escape dots for sed regex (prevents matching digits in URLs/IDs)
+        local escaped_v=$(echo "$v" | sed 's/\./\\./g')
         # macOS compatible sed
-        sed -i '' "s/$v/$VERSION/g" "$file"
+        sed -i '' "s/$escaped_v/$VERSION/g" "$file"
       done
       echo "✅ $file: updated"
     fi
