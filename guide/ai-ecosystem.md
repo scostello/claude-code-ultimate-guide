@@ -1235,6 +1235,23 @@ claude "Review my changes and suggest tests"
 # Claude reviews diff, generates comprehensive tests
 ```
 
+### Real-World Migration Path: Cursor → Windsurf → Claude Code
+
+> **Source**: [Zadig&Voltaire Engineering Blog](https://tech.zadig-et-voltaire.com/blog/migration-nuxt/) — Benjamin Calef, Feb 2026
+
+A 6-person team at Zadig&Voltaire documented their sequential tool adoption during a 6-month e-commerce rebuild (July 2025 – January 2026):
+
+| Phase | Tool | Observation |
+|-------|------|-------------|
+| July 2025 | Cursor | Co-building workflow, inline suggestions |
+| Aug 2025 | Windsurf | Similar paradigm, slightly different UX |
+| Aug 2025 | **Claude Code** | Contextual understanding of entire codebase — pivot moment |
+| Nov 2025 | Claude Opus 4.5 | Model comprehension leap, reliable code generation |
+
+The team reported the pivot to Claude Code was driven by **codebase-level context** rather than file-level editing. They then integrated custom skills (`zv-commit`, `zv-code-review`, `zv-jira`, `zv-jira-qa`) and community skills from [skills.sh](https://skills.sh/) to standardize their workflows.
+
+**Caveat**: Performance gains reported (-33% LOC, -63% LCP) are primarily attributable to the Nuxt 3 migration itself, not the AI tooling. The tool migration path is the transferable insight.
+
 ### Cursor-Specific Integration
 
 Cursor's `.cursor/rules` can mirror your CLAUDE.md:
@@ -2163,6 +2180,38 @@ External resources from experienced practitioners that validate and extend the p
 **Context**: Article includes interview with Stanislas Polu (Dust co-founder, ex-OpenAI) mentioning Mirakl achievement (75% of employees became agent builders using Dust platform). Validates that "engineer → orchestrator" transformation is happening across industry, not just early adopters.
 
 **Language note**: Original article in French; concepts and quotes translated for this guide.
+
+### Zadig&Voltaire Engineering (Benjamin Calef)
+
+**URL**: [tech.zadig-et-voltaire.com/blog/migration-nuxt/](https://tech.zadig-et-voltaire.com/blog/migration-nuxt/)
+
+**Author credentials**:
+- Technical Project Manager at Zadig&Voltaire (luxury fashion e-commerce)
+- Led 6-person team through complete frontend migration (July 2025 – January 2026)
+- Published: February 2, 2026
+
+**Content summary**: First external (non-Anthropic) team productivity data with a temporal adoption curve. During a Vue Storefront → Nuxt 3 migration, the team tracked AI-assisted merge request velocity across 6 months:
+
+| Month | MRs/week | AI-assisted |
+|-------|----------|-------------|
+| July 2025 | ~7 | 30% |
+| Nov 2025 | ~15 | 70% |
+| Jan 2026 | ~27 | 90%+ |
+
+**4x acceleration** over 6 months, with AI assistance growing from 30% to 90%+.
+
+**Alignment with this guide**:
+
+| Z&V Insight | This Guide Reference |
+|-------------|---------------------|
+| Tool migration path | IDE-Based Tools (Section 6 above) |
+| Orchestrator mindset shift | Mental Model (ultimate-guide.md:2360) |
+| Custom skills in production | Skills (Section 5.5 in ultimate-guide.md) |
+| Team-wide adoption curve | Adoption Approaches (adoption-approaches.md) |
+
+**Value**: Complements Anthropic's internal metrics (+67% PRs/engineer/day) with **external team data** showing a progressive adoption trajectory. The temporal dimension (30% → 90% over 6 months) is unique — most case studies report before/after snapshots, not the journey.
+
+**Caveat**: Performance metrics reported (-63% LCP, -33% LOC) are attributable to the Nuxt 3 migration, not Claude Code. The productivity trajectory is the transferable insight. Article is self-published by the team (no third-party validation).
 
 ---
 

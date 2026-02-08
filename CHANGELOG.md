@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Documentation
+
+- **Ecosystem**: Added awesome-claude-skills (BehiSecc) to curated lists
+  - 62 skills taxonomy across 12 categories (Development, Design, Documentation, Testing, DevOps, Security, Data, AI/ML, Productivity, Content, Integration, Fun)
+  - Positioned as complementary to awesome-claude-code (skills-only focus vs full ecosystem)
+  - Distinct from ComposioHQ/awesome-claude-skills (different maintainer, taxonomy approach)
+  - Referenced in guide section 8.5 (line 9721), Further Reading (line 17520), README.md, reference.yaml
+  - Evaluation: `docs/resource-evaluations/awesome-claude-skills-github.md` (score 3/5)
+
 ## [3.23.2] - 2026-02-08
 
 ### Documentation

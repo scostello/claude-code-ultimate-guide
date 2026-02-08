@@ -1001,6 +1001,15 @@ ecosystem:
     awesome_claude_code:
       url: "github.com/hesreallyhim/awesome-claude-code"
       focus: "Curation - Discover & link"
+    awesome_claude_skills:
+      url: "github.com/BehiSecc/awesome-claude-skills"
+      maintainer: "BehiSecc"
+      focus: "Skills taxonomy - 62 skills across 12 categories"
+      categories: ["Development", "Design", "Documentation", "Testing", "DevOps", "Security", "Data", "AI/ML", "Productivity", "Content", "Integration", "Fun"]
+      positioning: "Complementary to awesome-claude-code (skills-only vs full ecosystem)"
+      evaluation: "docs/resource-evaluations/awesome-claude-skills-github.md"
+      score: "3/5 (Moderate - Useful complement)"
+      note: "Distinct from ComposioHQ/awesome-claude-skills (different maintainer, taxonomy approach)"
     claude_code_everything:
       url: "github.com/wesammustafa/Claude-Code-Everything"
       focus: "Visual walkthrough - Screenshots, BMAD method"

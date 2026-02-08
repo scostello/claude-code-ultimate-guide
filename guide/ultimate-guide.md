@@ -9718,6 +9718,7 @@ The Claude Code plugin ecosystem has grown significantly. Here are verified comm
 
 - [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) (20k+ stars) - Commands, templates, plugins
 - [awesome-claude-code-plugins](https://github.com/ccplugins/awesome-claude-code-plugins) - Plugin-focused curation
+- [awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills) (5.5k stars) - Skills-only taxonomy (62 skills across 12 categories)
 
 > **Source**: Stats from [claude-plugins.dev](https://claude-plugins.dev), [Firecrawl analysis](https://www.firecrawl.dev/blog/best-claude-code-plugins) (Jan 2026). Counts evolve rapidly.
 
@@ -17517,6 +17518,7 @@ The Claude Code ecosystem is growing rapidly. Here are curated resources to cont
 |------------|-------|
 | [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Commands, workflows, IDE integrations |
 | [awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | Custom skills collection |
+| [awesome-claude-skills (BehiSecc)](https://github.com/BehiSecc/awesome-claude-skills) | Skills taxonomy (62 skills, 12 categories) |
 | [awesome-claude](https://github.com/alvinunreal/awesome-claude) | General Claude resources (SDKs, tools) |
 
 #### Frameworks
