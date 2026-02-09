@@ -70,6 +70,64 @@ Agent teams enable **multiple Claude instances to work in parallel** on differen
 
 ---
 
+## 📊 Industry Adoption Data (Anthropic 2026)
+
+> **Source**: [2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)
+
+### Enterprise Adoption Timeline
+
+Agent teams represent the evolution from "single agent" to "coordinated teams" pattern documented by Anthropic across 5000+ organizations:
+
+| Adoption Phase | Timeline | Characteristics | Success Rate |
+|---------------|----------|-----------------|--------------|
+| **Pilot** | Month 1-2 | 1-2 teams, experimental flag | 60-70% |
+| **Expansion** | Month 3-4 | 3-5 teams, process refinement | 75-85% |
+| **Production** | Month 5-6 | Team-wide, integrated CI/CD | 85-90% |
+
+**Critical success factors**:
+- ✅ Modular architecture (enables parallel work without conflicts)
+- ✅ Comprehensive tests (agents verify changes autonomously)
+- ✅ Clear task decomposition (well-defined subtask boundaries)
+- ❌ **Blocker**: Monolithic codebase, weak test coverage
+
+### Real-World Performance
+
+**Fountain** (frontline workforce platform):
+- **50% faster screening** via hierarchical multi-agent orchestration
+- **40% faster onboarding** for new fulfillment centers
+- **2x candidate conversions** through automated workflows
+- **Timeline compression**: Staffing new center from 1+ week → 72 hours
+
+**Anthropic Internal** (from research team):
+- **67% more PRs merged** per engineer per day
+- **0-20% "fully delegated"** tasks (collaboration remains central)
+- **27% new work** (tasks wouldn't be done without AI)
+
+### Anti-Patterns Observed
+
+| Anti-Pattern | Symptom | Fix |
+|-------------|---------|-----|
+| **Too many agents** | >5 agents = coordination overhead > productivity | Start 2-3, scale progressively |
+| **Over-delegation** | Context switching cost exceeds gains | Active human oversight on critical decisions |
+| **Premature automation** | Automating workflow not mastered manually | Manual → Semi-auto → Full-auto (progressive) |
+
+### Cost-Benefit Analysis
+
+**Agent Teams** vs **Multi-Instance Manual**:
+
+| Aspect | Agent Teams | Multi-Instance (Manual) |
+|--------|-------------|------------------------|
+| **Setup time** | 30-60 min (flag + git config) | 5-10 min (new terminals) |
+| **Coordination** | Automatic (git-based) | Manual (human orchestration) |
+| **Token cost** | High (continuous messaging) | Medium (isolated sessions) |
+| **Best for** | Complex read-heavy tasks | Independent parallel features |
+| **Adoption timeline** | 3-6 months to production | 1-2 months to proficiency |
+
+**When Agent Teams win**: Complex refactoring, large-scale analysis, coordinated multi-file changes
+**When Multi-Instance wins**: Independent features, prototype exploration, simple parallelization
+
+---
+
 ## 2. Architecture Deep-Dive
 
 ### Lead-Teammate Architecture

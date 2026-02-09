@@ -615,6 +615,34 @@ deep_dive:
     - "https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf"
     - "https://dev.to/thegdsks/claude-opus-46-for-developers-agent-teams-1m-context-and-what-actually-matters-4h8c"
     - "https://www.linkedin.com/posts/thepaulrayner_this-is-wild-i-just-upgraded-claude-code-activity-7425635159678414850-MNyv"
+  # Anthropic 2026 Trends (diffused across sections, not standalone)
+  agentic_trends_2026_report: "https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf"
+  agentic_trends_2026_evaluation: "docs/resource-evaluations/anthropic-2026-agentic-coding-trends.md"
+  agentic_trends_integration_strategy: "Diffusion transversale (industry data in 9.17, 9.20, 9.11, 9 intro)"
+  agentic_trends_research_data:
+    ai_usage: "60% of work (Anthropic internal study)"
+    full_delegation: "0-20% tasks (collaboration > delegation)"
+    productivity_gain: "67% more PRs merged/engineer/day"
+    new_work: "27% tasks wouldn't be done without AI"
+  agentic_trends_case_studies:
+    fountain: "50% faster screening (hierarchical multi-agent)"
+    rakuten: "7h autonomous vLLM (12.5M lines, 99.9% accuracy)"
+    cred: "2x execution speed, quality maintained (fintech)"
+    telus: "500K hours saved, 13K solutions, 30% faster"
+    legora: "Legal platform, lawyers automate without coding"
+    zapier: "89% adoption, 800+ internal agents"
+    augment_code: "4-8 months project → 2 weeks"
+  agentic_trends_benchmarks:
+    multi_instance_cost: "$500-1K/month (Boris pattern validation)"
+    agent_teams_timeline: "3-6 months adoption (enterprise)"
+    productivity_multiplier: "3x (capabilities × orchestration × experience)"
+    timeline_compression: "weeks → days (feature implementation)"
+    onboarding_speedup: "2-4 weeks → 4-8 hours (new codebase)"
+  agentic_trends_anti_patterns:
+    over_delegation: ">5 agents = coordination overhead"
+    premature_automation: "Automate before mastering manual"
+    tool_sprawl: ">10 MCP servers = maintenance burden"
+    no_roi_tracking: "Can't optimize what you don't measure"
   # Advanced Plan Mode Patterns
   rev_the_engine: 2323
   mechanic_stacking: 2371

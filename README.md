@@ -383,7 +383,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 | File | Purpose | Time |
 |------|---------|------|
-| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~19K lines), 10 sections | ~4 hours |
+| **[Ultimate Guide](./guide/ultimate-guide.md)** | Complete reference (~19K lines), 10 sections | 30-40h (full) • Most consult sections |
 | **[Cheat Sheet](./guide/cheatsheet.md)** | 1-page printable reference | 5 min |
 | **[Visual Reference](./guide/visual-reference.md)** | 20 ASCII diagrams for key concepts | 5 min |
 | **[Architecture](./guide/architecture.md)** | How Claude Code works internally | 25 min |
@@ -487,6 +487,15 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 - [Documentation](https://code.claude.com/docs) — Official docs
 - [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) — Official changelog
 - [GitHub Issues](https://github.com/anthropics/claude-code/issues) — Bug reports & feature requests
+
+### Research & Industry Reports
+
+- **[2026 Agentic Coding Trends Report](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf)** (Anthropic, Feb 2026)
+  - 8 trends prospectifs (foundation/capability/impact)
+  - Case studies: Fountain (50% faster), Rakuten (7h autonomous), CRED (2x speed), TELUS (500K hours saved)
+  - Research data: 60% AI usage, 0-20% full delegation, 67% more PRs merged/day
+  - **Evaluation**: [`docs/resource-evaluations/anthropic-2026-agentic-coding-trends.md`](docs/resource-evaluations/anthropic-2026-agentic-coding-trends.md) (score 4/5)
+  - **Integration**: Diffused across sections 9.17 (Multi-Instance ROI), 9.20 (Agent Teams adoption), 9.11 (Enterprise Anti-Patterns), Section 9 intro
 
 ### Community Resources
 - [everything-claude-code](https://github.com/affaan-m/everything-claude-code) — Production configs (31.9k⭐)
