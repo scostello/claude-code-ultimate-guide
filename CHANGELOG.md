@@ -8,6 +8,48 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+<!-- New entries go here -->
+
+## [3.23.4] - 2026-02-09
+
+### Added
+
+- **Agent Anti-Patterns Section** (§9.17): Critical guidance on proper agent usage
+  - Citation from Dex Horty: "Subagents are not for anthropomorphizing roles, they are for controlling context"
+  - Wrong vs Right table: Anthropomorphizing (Frontend Agent) vs Context Control (scope-focused agents)
+  - When to use agents (good reasons): Context isolation, parallel processing, scope limitation
+  - When NOT to use agents (bad reasons): Fake teams, roleplaying, mimicking human org structure
+  - Section location: guide/ultimate-guide.md line 3662
+
+### Changed
+
+- **Agent Terminology Refactoring** (Breaking conceptual change): Systematic replacement of role-based language with scope-focused terminology
+  - **Section renames**: "Split-Role Sub-Agents" → "Scope-Focused Agents" (line 3709)
+  - **Agent definitions**: "Specialized role" → "Context isolation tool" (Skills vs Agents table, line 5490)
+  - **Custom agent examples** (3 refactored):
+    - code-reviewer: "You are a senior code reviewer" → "Perform comprehensive code reviews with isolated context"
+    - debugger: "You are a systematic debugger" → "Perform systematic debugging with isolated context"
+    - backend-architect: "You are a senior backend architect" → "Analyze backend architecture with isolated context"
+  - **Prompt examples** (8+ refactored): All agent prompts now specify scope boundaries with explicit context
+    - Before: "Security Agent: Check for vulnerabilities"
+    - After: "Security Scope: Check for vulnerabilities (context: auth, input validation code)"
+  - **Production examples**: Pat Cullen's Multi-Agent Code Review, Fountain case study (line 5335, 16623)
+  - **Workflow files**: agent-teams-quick-start.md, agent-teams.md, tdd-with-claude.md, iterative-refinement.md
+  - **Terminology replacements**:
+    - "Specialized agents" → "Scope-focused agents"
+    - "Expert personas" → "Context boundaries"
+    - "Multi-domain expertise" → "Multi-scope analysis"
+    - "Diversify expertise" → "Diversify analysis angles"
+  - **Example agents** (5 files in examples/agents/): All refactored to use functional language instead of role-based personas
+
+### Fixed
+
+- **Methodologies**: Added clarification note to BMAD description about role-based naming (guide/methodologies.md line 49)
+
+## [3.23.3] - 2026-02-09
+
+### Added
+
 - **Opus 4.6 Integration**: Comprehensive documentation update for Claude Opus 4.6 features (Feb 2026)
   - **Adaptive Thinking**: Replaced budget-based thinking with dynamic depth calibration
     - Effort parameter: `low|medium|high|max` (API only, default: high)

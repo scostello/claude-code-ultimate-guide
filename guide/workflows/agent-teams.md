@@ -295,12 +295,12 @@ claude --session infra-setup
 
 **Organization**: Fountain (frontline workforce management platform)
 **Challenge**: Comprehensive codebase review across multiple concerns (security, API design, frontend)
-**Solution**: Deployed hierarchical multi-agent orchestration with specialized sub-agents
+**Solution**: Deployed hierarchical multi-agent orchestration with scope-focused sub-agents
 
-**Agent assignment**:
-- **Agent 1 (Security)**: Scan for vulnerabilities, auth issues, data exposure
-- **Agent 2 (API)**: Review endpoint design, request/response validation, error handling
-- **Agent 3 (Frontend)**: Check UI patterns, accessibility, performance
+**Agent scopes** (Fountain's approach):
+- **Scope 1 (Security)**: Scan for vulnerabilities, auth issues, data exposure
+- **Scope 2 (API)**: Review endpoint design, request/response validation, error handling
+- **Scope 3 (Frontend)**: Check UI patterns, accessibility, performance
 
 **Results**:
 - ✅ **50% faster** candidate screening
@@ -314,10 +314,10 @@ claude --session infra-setup
 
 **Example prompt** (team lead):
 ```
-Review this PR comprehensively:
-- Security agent: Check for vulnerabilities and auth issues
-- API agent: Review endpoint design and error handling
-- Frontend agent: Check UI patterns and accessibility
+Review this PR comprehensively with scope-focused analysis:
+- Security Scope: Check for vulnerabilities and auth issues (context: auth code, input validation)
+- API Design Scope: Review endpoint design and error handling (context: API routes, controllers)
+- Frontend Scope: Check UI patterns and accessibility (context: components, styles)
 
 PR: https://github.com/company/repo/pull/123
 ```

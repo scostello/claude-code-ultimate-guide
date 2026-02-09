@@ -183,7 +183,7 @@ post_edit:
 
 ### With Sub-Agents
 
-Delegate test writing to specialized agent:
+Delegate test writing to scope-focused agent:
 
 ```
 Use the test-writer agent to create comprehensive tests for

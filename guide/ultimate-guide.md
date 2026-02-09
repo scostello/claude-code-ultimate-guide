@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.23.2
+**Version**: 3.23.4
 
 ---
 
@@ -4241,7 +4241,7 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
-### 3.23.2 Version Control & Backup
+### 3.23.4 Version Control & Backup
 
 **Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
 
@@ -5083,21 +5083,23 @@ skills:
 
 # Code Reviewer
 
-## Role Definition
+## Scope Definition
 
-You are a senior code reviewer with expertise in:
+Perform comprehensive code reviews with isolated context, focusing on:
 - Code quality and maintainability
 - Security best practices (OWASP Top 10)
 - Performance optimization
 - Test coverage analysis
 
+Scope: Code review analysis only. Provide findings without implementing fixes.
+
 ## Activation Triggers
 
 Use this agent when:
-- Completing a feature before PR
-- Reviewing someone else's code
-- Auditing security-sensitive code
-- Analyzing performance bottlenecks
+- Completing a feature before PR (need fresh eyes on code)
+- Reviewing someone else's code (isolated review context)
+- Auditing security-sensitive code (security-focused scope)
+- Analyzing performance bottlenecks (performance-focused scope)
 
 ## Methodology
 
@@ -5138,12 +5140,14 @@ tools: Read, Bash, Grep, Glob
 
 # Debugger
 
-## Role Definition
+## Scope Definition
 
-You are a systematic debugger who:
-- Investigates root causes, not symptoms
-- Uses evidence-based debugging
-- Aims to verify rather than assume (but always review output—LLMs can make mistakes)
+Perform systematic debugging with isolated context:
+- Investigate root causes, not symptoms
+- Use evidence-based debugging approach
+- Verify rather than assume (always review output—LLMs can make mistakes)
+
+Scope: Debugging analysis only. Focus on root cause identification without context pollution from previous debugging attempts.
 
 ## Methodology
 
@@ -5180,21 +5184,23 @@ skills:
 
 # Backend Architect
 
-## Role Definition
+## Scope Definition
 
-You are a senior backend architect specializing in:
+Analyze backend architecture with isolated context, focusing on:
 - API design (REST, GraphQL, tRPC)
 - Database modeling and optimization
 - System scalability
 - Clean architecture patterns
 
+Scope: Backend architecture analysis only. Focus on design decisions without frontend or DevOps considerations.
+
 ## Activation Triggers
 
 Use this agent when:
-- Designing new API endpoints
-- Optimizing database queries
-- Planning system architecture
-- Refactoring backend code
+- Designing new API endpoints (need architecture-focused analysis)
+- Optimizing database queries (database scope isolation)
+- Planning system architecture (system design scope)
+- Refactoring backend code (backend-only scope)
 
 ## Methodology
 
@@ -5250,7 +5256,7 @@ description: |
 
 ### The 7-Parallel-Task Method
 
-Launch 7 specialized sub-agents in parallel for complete features:
+Launch 7 scope-focused sub-agents in parallel for complete features:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -5312,33 +5318,37 @@ Launch all agents in parallel.
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Code Review Prompt**:
+**Code Review Prompt** (scope-focused):
 ```
-Analyze this PR with the following perspectives:
-1. Senior Engineer: Architecture and patterns
-2. Security Expert: Vulnerabilities and risks
-3. Performance Engineer: Bottlenecks and optimizations
-4. Junior Dev: Readability and documentation
-5. QA Engineer: Testability and edge cases
+Analyze this PR with isolated scopes:
+1. Architecture Scope: Design patterns, SOLID principles, modularity
+2. Security Scope: Vulnerabilities, injection risks, auth/authz flaws
+3. Performance Scope: Database queries, algorithmic complexity, caching
+4. Maintainability Scope: Code clarity, documentation, naming conventions
+5. Testing Scope: Test coverage, edge cases, testability
+
+Context: src/**, tests/**, only files changed in PR
 ```
 
-**UX Review Prompt**:
+**UX Review Prompt** (scope-focused):
 ```
-Evaluate this interface with perspectives:
-1. Designer: Visual consistency and design system
-2. New User: Discoverability ease
-3. Power User: Efficiency and shortcuts
-4. Accessibility Expert: WCAG compliance
-5. Mobile User: Responsive and touch
+Evaluate this interface with isolated scopes:
+1. Visual Design Scope: Consistency with design system, spacing, typography
+2. Usability Scope: Discoverability, user flow, cognitive load
+3. Efficiency Scope: Keyboard shortcuts, power user features, quick actions
+4. Accessibility Scope: WCAG 2.1 AA compliance, screen reader, keyboard nav
+5. Responsive Scope: Mobile breakpoints, touch targets, viewport handling
+
+Context: src/components/**, styles/**, only UI-related files
 ```
 
 **Production Example: Multi-Agent Code Review** (Pat Cullen, Jan 2026):
 
-Specialized agent roles for comprehensive PR review:
+Scope-focused agents for comprehensive PR review:
 
-1. **Consistency Agent**: Duplicate logic, pattern violations, DRY compliance
-2. **SOLID Agent**: SRP violations, nested conditionals (>3 levels), cyclomatic complexity >10
-3. **Defensive Code Auditor**: Silent catches, swallowed exceptions, hidden fallbacks
+1. **Consistency Scope**: Duplicate logic, pattern violations, DRY compliance (context: full PR diff)
+2. **SOLID Scope**: SRP violations, nested conditionals (>3 levels), cyclomatic complexity >10 (context: changed classes/functions)
+3. **Defensive Code Scope**: Silent catches, swallowed exceptions, hidden fallbacks (context: error handling code)
 
 **Key patterns** (beyond generic Split Role):
 
@@ -5483,7 +5493,7 @@ Skills are knowledge packages that agents can inherit.
 
 | Concept | Purpose | Invocation |
 |---------|---------|------------|
-| **Agent** | Specialized role | Task tool delegation |
+| **Agent** | Context isolation tool | Task tool delegation |
 | **Skill** | Knowledge module | Inherited by agents |
 | **Command** | Process workflow | Slash command |
 
@@ -5491,14 +5501,14 @@ Skills are knowledge packages that agents can inherit.
 
 | Aspect | Commands | Skills | Agents |
 |--------|----------|--------|--------|
-| **What it is** | Prompt template | Knowledge module | Specialized worker |
+| **What it is** | Prompt template | Knowledge module | Context isolation tool |
 | **Location** | `.claude/commands/` | `.claude/skills/` | `.claude/agents/` |
 | **Invocation** | `/command-name` | Inherited via `@skill` | Task tool delegation |
 | **Execution** | In main conversation | Loaded into context | Separate subprocess |
 | **Context** | Shares main context | Adds to agent context | Isolated context |
-| **Best for** | Repeatable workflows | Reusable knowledge | Complex multi-step tasks |
+| **Best for** | Repeatable workflows | Reusable knowledge | Scope-limited analysis |
 | **Token cost** | Low (template only) | Medium (knowledge loaded) | High (full agent) |
-| **Examples** | `/commit`, `/pr`, `/ship` | TDD, security-guardian | code-reviewer, architect |
+| **Examples** | `/commit`, `/pr`, `/ship` | TDD, security-guardian | security-audit, perf-audit |
 
 #### Decision Tree: Which to Use?
 
@@ -5523,8 +5533,8 @@ Is this a repeatable workflow with steps?
 | Need | Solution | Example |
 |------|----------|---------|
 | Run tests before commit | Command | `/commit` with test step |
-| Security review expertise | Skill + Agent | security-guardian skill → security-reviewer agent |
-| Parallel code review | Multiple agents | Launch 3 reviewer agents in parallel |
+| Security review knowledge | Skill + Agent | security-guardian skill → security-audit agent |
+| Parallel code review | Multiple scope-focused agents | Launch 3 review agents with isolated scopes |
 | Quick git workflow | Command | `/pr`, `/ship` |
 | Architecture knowledge | Skill | architecture-patterns skill |
 | Complex debugging | Agent | debugging-specialist agent |
@@ -16610,7 +16620,7 @@ Navigation: Shift+Up/Down or tmux to switch between agents
 ### Use Cases That Work Well
 
 **✅ Excellent fit** (read-heavy, clear boundaries):
-1. **Multi-layer code review**: Security agent + API agent + Frontend agent (Fountain: 50% faster)
+1. **Multi-layer code review**: Security scope + API scope + Frontend scope (Fountain: 50% faster)
 2. **Parallel hypothesis testing**: Debug by testing 3 theories simultaneously
 3. **Large-scale refactoring**: 47+ files across layers with clear interfaces
 4. **Full codebase analysis**: Architecture review, pattern detection
@@ -16625,15 +16635,15 @@ Navigation: Shift+Up/Down or tmux to switch between agents
 
 ```markdown
 Prompt:
-"Review this PR comprehensively using agent teams:
-- Security agent: Check for vulnerabilities, auth issues, data exposure
-- API agent: Review endpoint design, validation, error handling
-- Frontend agent: Check UI patterns, accessibility, performance
+"Review this PR comprehensively using agent teams with scope-focused analysis:
+- Security Scope: Check for vulnerabilities, auth issues, data exposure (context: auth, validation code)
+- API Design Scope: Review endpoint design, validation, error handling (context: API routes, controllers)
+- Frontend Scope: Check UI patterns, accessibility, performance (context: components, styles)
 
 PR: https://github.com/company/repo/pull/123"
 
 Result:
-Team lead spawns 3 agents → Each analyzes their domain in parallel →
+Team lead spawns 3 scope-focused agents → Each analyzes their scope in parallel →
 Team lead synthesizes findings → Comprehensive review in 1/3 the time
 ```
 
@@ -18813,4 +18823,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.23.2
+**Last updated**: January 2026 | **Version**: 3.23.4

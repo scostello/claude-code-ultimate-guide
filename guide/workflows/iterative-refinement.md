@@ -370,7 +370,7 @@ Specialized iterative pattern for code review where Claude reviews → fixes →
 
 ```
 Review this PR with auto-correction:
-1. Multi-agent review (3 specialized agents)
+1. Multi-agent review (3 scope-focused agents)
 2. Fix all 🔴 Must Fix issues
 3. Re-review to verify fixes didn't introduce new issues
 4. Fix all 🟡 Should Fix issues

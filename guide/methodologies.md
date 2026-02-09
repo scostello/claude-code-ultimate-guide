@@ -46,7 +46,7 @@ Organized in a 6-tier pyramid from strategic orchestration down to optimization 
 | **BMAD** | Multi-agent governance with constitution as guardrail | Enterprise 10+ teams, long-term projects | ⭐⭐ Niche but powerful |
 | **GSD** | Meta-prompting 6-phase workflow with fresh contexts per task | Solo devs, Claude Code CLI | ⭐⭐ Similar to patterns in guide |
 
-**BMAD (Breakthrough Method for Agile AI-Driven Development)** inverts the traditional paradigm: documentation becomes the source of truth, not code. Uses specialized agents (Analyst, PM, Architect, Developer, QA) orchestrated with strict governance.
+**BMAD (Breakthrough Method for Agile AI-Driven Development)** inverts the traditional paradigm: documentation becomes the source of truth, not code. Uses specialized agents (Analyst, PM, Architect, Developer, QA) orchestrated with strict governance. *Note: BMAD's role-based agent naming reflects their methodology; see §9.17 Agent Anti-Patterns for scope-focused alternatives.*
 
 - **Key concept**: Constitution.md as strategic guardrail
 - **When to use**: Complex enterprise projects needing governance
