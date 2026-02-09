@@ -206,20 +206,23 @@ Team: doc-update (3 agents)
 **Copy-paste prompt**:
 ```
 > Update documentation for new "[FEATURE NAME]" feature:
-> - Content writer: Write section [X.Y] in guide/ultimate-guide.md with:
+> - Content Scope: Write section [X.Y] in guide/ultimate-guide.md with:
 >   - Overview (what/why/when)
 >   - 2-3 concrete examples
 >   - Best practices + gotchas
 >   - Links to related sections
-> - Index updater: Update:
+>   Context: guide/ultimate-guide.md section [X.Y] only
+> - Index Scope: Update:
 >   - guide/ultimate-guide.md TOC (add section [X.Y])
 >   - machine-readable/reference.yaml (add entry with line numbers)
 >   - README.md navigation (add link if major feature)
-> - Consistency checker: Verify:
+>   Context: Index files only (TOC, reference.yaml, README.md)
+> - Consistency Scope: Verify:
 >   - All cross-references resolve correctly
 >   - Line numbers in reference.yaml match actual content
 >   - Anchors in README point to correct sections
 >   - No broken internal links
+>   Context: All modified files for cross-reference validation
 ```
 
 **ROI**:
@@ -259,22 +262,25 @@ Team: security-pr-review (3 agents)
 
 **Copy-paste prompt**:
 ```
-> Review PR #[NUMBER] with security focus:
-> - Rust expert: Check:
+> Review PR #[NUMBER] with scope-focused analysis:
+> - Rust Scope: Check:
 >   - Ownership patterns (prefer &str over String, minimize clones)
 >   - Error handling (anyhow::Result with .context(), no unwrap outside tests)
 >   - Idiomatic code (impl after type, #[cfg(test)] mod tests)
 >   - Clippy compliance (zero warnings)
-> - Security auditor: Scan for:
+>   Context: All modified .rs files
+> - Security Scope: Scan for:
 >   - Command injection (shell escapes, argument sanitization)
 >   - Token/credential leaks (hardcoded secrets, logs, error messages)
 >   - Input sanitization (path traversal, regex DoS)
 >   - File operations (path validation, permissions)
-> - Perf analyzer: Review:
+>   Context: Input handling, auth, file I/O code
+> - Performance Scope: Review:
 >   - Unnecessary allocations (String::from vs &str)
 >   - Async patterns (spawn_blocking for CPU-bound work)
 >   - Compiled regex (lazy_static! for hot paths)
 >   - Algorithm complexity (O(n) vs O(n²))
+>   Context: Hot paths, loops, async functions
 ```
 
 **ROI**:
@@ -326,7 +332,7 @@ Verdict: ✅ Critical security issues caught, PR requires revision
 **Use Agent Teams when**:
 - ✅ You'd naturally think "I should check X, Y, and Z"
 - ✅ High stakes (production release, external contributor, security-sensitive)
-- ✅ Multi-domain expertise needed (Rust + Security + Performance)
+- ✅ Multi-scope analysis needed (Rust scope + Security scope + Performance scope)
 - ✅ Cross-file consistency matters (links, counts, versions sync)
 - ✅ Parallel work possible (independent tasks, no sequential dependency)
 
@@ -351,11 +357,11 @@ claude
 
 # 3. Create team (prompt template)
 > Create a team to [TASK]:
-> - Agent 1 ([ROLE]): [SPECIFIC MISSION]
-> - Agent 2 ([ROLE]): [SPECIFIC MISSION]
-> - Agent 3 ([ROLE]): [SPECIFIC MISSION]
+> - Agent 1 ([SCOPE/CONTEXT]): [SPECIFIC MISSION]
+> - Agent 2 ([SCOPE/CONTEXT]): [SPECIFIC MISSION]
+> - Agent 3 ([SCOPE/CONTEXT]): [SPECIFIC MISSION]
 >
-> [CONTEXT/FILES TO REVIEW]
+> [FILES/DIRECTORIES TO ANALYZE]
 
 # 4. Observe (optional)
 # Shift+Up/Down to see individual agent outputs
@@ -381,19 +387,19 @@ claude
 #### Security PR Review (RTK)
 
 ```
-> Review PR #42 with security focus:
-> - Rust expert: Check ownership patterns, error handling (anyhow/thiserror), idiomatic code in modified files
-> - Security auditor: Scan for injection risks, token leaks, input sanitization
-> - Perf analyzer: Review allocations, async patterns, compiled regex
+> Review PR #42 with scope-focused analysis:
+> - Rust Scope: Check ownership patterns, error handling (anyhow/thiserror), idiomatic code in modified files (context: src/**/*.rs)
+> - Security Scope: Scan for injection risks, token leaks, input sanitization (context: auth, input handling code)
+> - Performance Scope: Review allocations, async patterns, compiled regex (context: hot paths, loops)
 ```
 
 #### Multi-File Doc Update
 
 ```
 > Update documentation for new "Agent Teams Quick Start" feature:
-> - Content writer: Write guide/workflows/agent-teams-quick-start.md with overview, 4 patterns, decision matrix, metrics
-> - Index updater: Update guide/ultimate-guide.md (add reference section 9.20), machine-readable/reference.yaml (add entry), CHANGELOG.md (add "Added" entry)
-> - Consistency checker: Verify all cross-refs work, line numbers match, no broken links
+> - Content Scope: Write guide/workflows/agent-teams-quick-start.md with overview, 4 patterns, decision matrix, metrics
+> - Index Scope: Update guide/ultimate-guide.md (add reference section 9.20), machine-readable/reference.yaml (add entry), CHANGELOG.md (add "Added" entry)
+> - Consistency Scope: Verify all cross-refs work, line numbers match, no broken links (context: all modified files)
 ```
 
 #### Landing Sync Validation
@@ -473,8 +479,8 @@ Verdict: ✅ High value for pre-release audits
 ```
 
 **Adjust prompts** if metrics fail:
-- Low convergence (<30%) → Agents too specialized, overlap prompts more
-- No unique insights → Agents too similar, diversify expertise
+- Low convergence (<30%) → Scopes too narrow, overlap context boundaries more
+- No unique insights → Scopes too similar, diversify analysis angles
 - High false positives (>20%) → Prompts too vague, add concrete criteria
 
 ---

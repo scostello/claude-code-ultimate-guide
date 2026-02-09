@@ -3769,15 +3769,15 @@ impact (High/Medium/Low) without considering security or maintainability
 trade-offs.
 ```
 
-**When to split roles:**
-- Code reviews requiring 3+ distinct expertise areas
-- Architecture decisions with competing concerns (performance vs. security vs. DX)
-- Migration planning where different stakeholders have different priorities
+**When to use scope-focused agents:**
+- Analysis requiring 3+ distinct context boundaries (security scope, perf scope, API scope)
+- Competing concerns that benefit from isolated evaluation (performance vs. security vs. DX)
+- Large codebases where full context would pollute analysis of specific aspects
 
-**When NOT to split:**
-- Simple reviews (one agent covers all aspects)
+**When NOT to use scope-focused agents:**
+- Simple reviews (one agent with full context covers all aspects)
 - Time-constrained situations (overhead of synthesis outweighs benefit)
-- Tasks where perspectives aren't genuinely distinct
+- Tasks where scopes aren't genuinely independent (overlapping context needed)
 
 ### The Philosophy
 

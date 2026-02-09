@@ -64,6 +64,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Hook events (TeammateIdle, TaskCompleted)
   - Agent memory field, Xcode integration, adaptive thinking
   - Updated: 2026-02-09
+- **llms.txt Standard Documentation** (Section 9.18.4): AI-optimized documentation indexing
+  - **Concept explanation**: llms.txt as documentation discovery standard for LLMs
+  - **Format and structure**: Plain text index at `/llms.txt` or `/machine-readable/llms.txt`
+  - **Complementarity with MCP**: Clarifies llms.txt (static index) vs Context7 MCP (runtime lookup)
+  - **Implementation examples**: Minimal and advanced patterns with line numbers
+  - **CLAUDE.md integration**: How llms.txt and CLAUDE.md serve different purposes
+  - **Repository example**: References this guide's own `machine-readable/llms.txt` implementation
+  - Section: Documentation Formats for Agents (line 14544)
+  - Resource: docs/resource-evaluations/wasp-fullstack-essentials-eval.md (score 3/5)
+  - Source: llmstxt.org specification (official standard)
+  - Gap addressed: Repository had llms.txt file without conceptual documentation
+- **Background Tasks Workflow** (Section 9.5): Fullstack development patterns with Ctrl+B
+  - **When to background**: 5 scenarios (dev server, test watcher, build, migration, docker)
+  - **Fullstack workflow pattern**: Dev server backgrounded while iterating on frontend
+  - **Real-world example**: API + frontend iteration maintaining tight feedback loops
+  - **Context rot prevention**: `/tasks` monitoring strategies
+  - **Limitations**: No foreground command, session-scoped tasks, output visibility
+  - **Teleportation integration**: Background tasks not transferred, restart required
+  - **Disable flag**: `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` environment variable (v2.1.4+)
+  - Section: Background Tasks for Fullstack Development (line 11057)
+  - Resource: docs/resource-evaluations/wasp-fullstack-essentials-eval.md (score 3/5)
+  - Gap addressed: Ctrl+B documented as feature, now complete workflow strategy
+- **Chrome DevTools MCP Server** (mcp-servers-ecosystem.md): Debugging and inspection capabilities
+  - **Official Anthropic server**: Chrome DevTools Protocol integration
+  - **Use case**: Debugging web apps, runtime inspection, complements Playwright MCP
+  - **Key features**: Console access, network monitoring, DOM inspection, JS execution, profiling
+  - **Comparison table**: Chrome DevTools (debugging) vs Playwright (testing)
+  - **Setup and limitations**: Manual Chrome launch with remote debugging port
+  - Section: Browser Automation (line 418)
+  - Statistics: 3 browser servers (was 2), 6 official servers (was 5)
+  - Resource: docs/resource-evaluations/wasp-fullstack-essentials-eval.md (score 3/5)
+  - npm: @modelcontextprotocol/server-chrome-devtools
+- **Convention-Over-Configuration for AI** (Section 9.18.1): Framework selection impact
+  - **Problem**: Custom architectures require extensive CLAUDE.md documentation
+  - **Solution**: Opinionated frameworks reduce agent cognitive load through conventions
+  - **Comparison table**: Custom vs opinionated architectures (file organization, routing, testing)
+  - **Framework examples**: Next.js, Rails, Phoenix, Django with convention benefits
+  - **Real-world impact**: Fewer mistakes, faster boilerplate, smaller CLAUDE.md files
+  - **Trade-offs**: Faster onboarding vs architectural flexibility
+  - **CLAUDE.md connection**: Convention-over-config directly reduces token requirements
+  - Section: Convention-Over-Configuration for AI Agents (line 14380)
+  - Resource: docs/resource-evaluations/wasp-fullstack-essentials-eval.md (score 3/5)
+  - Gap addressed: Existing AX framework concept reinforced with framework angle
 
 ### Changed
 
