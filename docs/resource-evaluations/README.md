@@ -63,7 +63,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Zolkos** (/insights deep dive) | 4/5 | **4/5** | ✅ Integrate (architecture + facets) | [zolkos-insights-deep-dive.md](./zolkos-insights-deep-dive.md) |
 | **Grenier** (Agent/Skill Quality) | 3/5 | **3/5** | ✅ Intégrer partiellement | [grenier-agent-skill-quality.md](./grenier-agent-skill-quality.md) |
 | **Awesome Claude Skills** (BehiSecc) | 3/5 | **3/5** | ✅ Mention spécialisée | [awesome-claude-skills-github.md](./awesome-claude-skills-github.md) |
+| **Wasp Fullstack Essentials** (Vinny @ Wasp) | 3/5 | **3/5** | ✅ Intégrer concepts framework-agnostiques | [wasp-fullstack-essentials-eval.md](./wasp-fullstack-essentials-eval.md) |
 
 ---
 
-**Dernier update**: 2026-02-07 (55 évaluations)
+**Dernier update**: 2026-02-09 (56 évaluations)

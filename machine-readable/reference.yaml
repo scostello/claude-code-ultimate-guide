@@ -4,7 +4,7 @@
 # Purpose: Condensed index for LLMs to quickly answer user questions about Claude Code
 
 version: "3.23.2"
-updated: "2026-02-07"
+updated: "2026-02-09"
 
 # ════════════════════════════════════════════════════════════════
 # DEEP DIVE - Line numbers in guide/ultimate-guide.md
@@ -248,6 +248,33 @@ deep_dive:
   semantic_anchors: 2904
   semantic_anchors_catalog: "examples/semantic-anchors/anchor-catalog.md"
   memory_files: 3160
+  # Auto-Memories (v2.1.32+) - Added 2026-02-09
+  auto_memories: 3986
+  auto_memories_vs_claudemd: 3999
+  # Fast Mode (v2.1.36+) - Added 2026-02-09
+  fast_mode_command: 16279  # /fast in commands table
+  fast_mode_api: 10051  # API breaking changes section
+  fast_mode_pricing: 1722  # Pricing table
+  fast_mode_behavior: "2.5x faster, 6x price, same Opus 4.6 model"
+  # Debug Command (v2.1.30+) - Added 2026-02-09
+  debug_command: 16280  # /debug in commands table
+  debug_purpose: "Systematic troubleshooting and error investigation"
+  # Opus 4.6 Features (Feb 2026) - Added 2026-02-09
+  opus_4_6_adaptive_thinking: 9911
+  opus_4_6_effort_parameter: 9985
+  opus_4_6_pricing: 1722
+  opus_4_6_api_breaking_changes: 10044
+  opus_4_6_assistant_prefill_removed: 10047
+  # Summarize from Here (v2.1.32+) - Added 2026-02-09
+  summarize_from_here: 1470  # Context recovery strategies
+  # Agent Teams Hook Events (v2.1.32+) - Added 2026-02-09
+  hook_teammate_idle: 6972
+  hook_task_completed: 6973
+  # Agent Memory Field (v2.1.32+) - Added 2026-02-09
+  agent_memory_frontmatter: 4849
+  # Xcode Integration (Feb 2026) - Added 2026-02-09
+  xcode_integration: 10834
+  claude_agent_sdk: 10845
   # Task Management System (v2.1.16+) - Added 2026-01-26
   task_management_system: 3127
   task_management_comparison: 3140
@@ -549,9 +576,12 @@ deep_dive:
       published: "2026-01-21"
       guide_section: "README.md:338"
   # Section 9.18 - Codebase Design for Agent Productivity
-  codebase_design_agents: 9976
+  codebase_design_agents: 14121
   codebase_design_source: "https://marmelab.com/blog/2026/01/21/agent-experience.html"
   codebase_design_author: "François Zaninotto (Marmelab)"
+  codebase_design_llms_txt: 14543  # llms.txt standard for AI-optimized documentation
+  codebase_design_llms_txt_spec: "https://llmstxt.org/"
+  codebase_design_llms_txt_example: "machine-readable/llms.txt"
   # Section 9.19 - Permutation Frameworks
   permutation_frameworks: 13947
   # Section 9.20 - Agent Teams (v2.1.32+ experimental)
