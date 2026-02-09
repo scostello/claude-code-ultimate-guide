@@ -8,6 +8,80 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Opus 4.6 Integration**: Comprehensive documentation update for Claude Opus 4.6 features (Feb 2026)
+  - **Adaptive Thinking**: Replaced budget-based thinking with dynamic depth calibration
+    - Effort parameter: `low|medium|high|max` (API only, default: high)
+    - API syntax: `thinking: {"type": "adaptive", "effort": "high"}`
+    - CLI: Same Alt+T toggle (no per-request control)
+    - Deprecation: `budget_tokens` no longer functional on Opus 4.6
+    - Section: Extended Thinking (line 9911), API Breaking Changes (line 10044)
+  - **Fast Mode** (`/fast` command, v2.1.36+): 2.5x faster responses, 6x price
+    - CLI: `/fast` command (toggle, persists across sessions)
+    - API: `speed: "fast"` + beta header `fast-mode-2026-02-01`
+    - Pricing: $30/$150 per 1M tokens (vs $5/$25 standard)
+    - Added to Commands Table (line 16279), Pricing Model (line 1722)
+  - **Pricing Tiers**: Updated pricing table with Opus 4.6 three-tier model
+    - Standard: $5/$25 per 1M tokens (200K context)
+    - 1M Context Beta: $10/$37.50 per 1M tokens (requests >200K)
+    - Fast Mode: $30/$150 per 1M tokens (2.5x speed)
+  - **API Breaking Changes**: Documented removed and deprecated features
+    - `assistant-prefill` removed (use system prompts instead)
+    - `budget_tokens` deprecated (use adaptive thinking)
+- **Auto-Memories** (v2.1.32+): Automatic context capture across sessions
+  - Opt-in feature, per-project storage
+  - Automatically identifies: decisions, preferences, patterns, known issues
+  - Separate from CLAUDE.md (personal vs team-level)
+  - Comparative table: CLAUDE.md vs auto-memories (line 3999)
+  - Section: Memory Files (line 3986)
+- **Context Management**: "Summarize from here" feature (v2.1.32+)
+  - Right-click message → summarize from that point forward
+  - More precise than full `/compact`
+  - Added to Context Recovery Strategies (line 1470)
+- **Debug Command** (`/debug`, v2.1.30+): Systematic troubleshooting
+  - Added to Commands Table (line 16280)
+  - Purpose: Error investigation and debugging workflows
+- **Agent Teams Enhancements** (v2.1.32+)
+  - Hook events: `TeammateIdle` and `TaskCompleted` in events table (line 6972)
+  - Agent frontmatter: `memory` field for pre-populated context (line 4849)
+  - Enables persistent agent context without repeating project details
+- **Xcode Integration** (Feb 2026): Native Claude Agent SDK support
+  - Xcode 26.3 RC+ includes built-in Claude assistant
+  - Same harness as Claude Code CLI
+  - Section: IDE Integration (line 10834)
+  - Clarified: Claude Agent SDK ≠ Claude Code (shared framework, different products)
+- **machine-readable/reference.yaml**: 24 new entries
+  - Auto-memories, fast mode, debug command, Opus 4.6 features
+  - Hook events (TeammateIdle, TaskCompleted)
+  - Agent memory field, Xcode integration, adaptive thinking
+  - Updated: 2026-02-09
+
+### Changed
+
+- **Pricing Model**: Updated default model from "Sonnet 3.5" to "Sonnet 4.5" (line 1720)
+- **Model References**: 8 mentions "Opus 4.5" updated to "Opus 4.6" or context-appropriate version
+  - Status line example, Trinity pattern description, TDD workflow, benchmarks
+- **Comparative Tools Table**: Corrected PowerPoint capability
+  - Before: "No PPTX output capability"
+  - After: "Limited PPTX (via Claude in PowerPoint add-in, research preview)"
+  - Note: Claude in PowerPoint exists but limited to add-in (line 17251)
+
+### Security
+
+- **CVE Update**: Added Claude Code v2.1.34 security fix to security-hardening.md
+  - Critical sandbox bypass vulnerability patched
+  - Recommendation: **Upgrade to v2.1.34+ immediately**
+  - Details undisclosed pending broader adoption
+  - Added to CVE Summary table (guide/security-hardening.md)
+
+### Documentation
+
+- **Fact-Checking**: All Opus 4.6 details verified via Perplexity Pro
+  - Pricing confirmed: $5/$25 (standard), $10/$37.50 (1M), $30/$150 (fast)
+  - Adaptive thinking syntax validated: effort parameter, API examples
+  - Fast mode behavior confirmed: 2.5x speed, 6x cost, persistent toggle
+  - Auto-memories verified: opt-in, per-project, cross-session recall
+  - Sources: Anthropic official docs, pricepertoken.com, eesel.ai, help.apiyi.com
+
 - **Templates**: Session handoff template based on Robin Lorenz's context engineering approach
   - Structured handoff at 85% context to prevent auto-compact degradation
   - Research-backed rationale (LLM performance drop 50-70% at high context)

@@ -415,6 +415,63 @@ npm install @browserbasehq/mcp-server-browserbase
 
 ---
 
+#### Chrome DevTools MCP
+
+**Official Anthropic server** for Chrome DevTools Protocol integration. Provides debugging and inspection capabilities via Chrome's native DevTools APIs.
+
+**Use Case**: Debugging web applications, inspecting runtime state, monitoring network requests, and analyzing performance. Complements Playwright MCP (testing) with development-focused debugging capabilities.
+
+**Key Features**:
+
+| Capability | Details |
+|------------|---------|
+| Console Access | Read browser console logs, errors, warnings |
+| Network Monitor | Inspect HTTP requests, responses, headers |
+| DOM Inspection | Query DOM structure, element properties |
+| JavaScript Execution | Execute arbitrary JS in page context |
+| Performance Profiling | CPU profiles, memory snapshots |
+
+**Setup**:
+
+```bash
+npm install @modelcontextprotocol/server-chrome-devtools
+```
+
+**Configuration**:
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["@modelcontextprotocol/server-chrome-devtools"]
+    }
+  }
+}
+```
+
+**When to Use**:
+
+| Scenario | Use Chrome DevTools MCP | Use Playwright MCP |
+|----------|------------------------|-------------------|
+| Debug runtime errors | ✅ Console logs, stack traces | ❌ Limited error visibility |
+| Inspect network calls | ✅ Full request/response details | ⚠️ Basic navigation only |
+| Test user interactions | ❌ Not designed for testing | ✅ Click, type, navigate |
+| Profile performance | ✅ CPU/memory profiling | ❌ No profiling tools |
+| Automate workflows | ❌ Manual debugging focus | ✅ E2E test automation |
+
+**Limitations**:
+- Requires Chrome browser running with DevTools Protocol enabled
+- Manual setup (launch Chrome with `--remote-debugging-port`)
+- Not suitable for automated testing (use Playwright for that)
+- Performance overhead when profiling enabled
+
+**Resources**:
+- **npm**: https://www.npmjs.com/package/@modelcontextprotocol/server-chrome-devtools
+- **Chrome DevTools Protocol**: https://chromedevtools.github.io/devtools-protocol/
+
+---
+
 ### DevOps & Infrastructure
 
 #### Kubernetes MCP (Red Hat)
@@ -1043,7 +1100,7 @@ Servers evaluated but not included in the validated list:
 
 | Category | Servers | Use Cases |
 |----------|---------|-----------|
-| **Browser Automation** | 2 (Playwright, Browserbase) | Testing, data extraction, web scraping |
+| **Browser Automation** | 3 (Playwright, Browserbase, Chrome DevTools) | Testing, debugging, data extraction |
 | **DevOps/Infrastructure** | 2 (Vercel, Kubernetes) | Deployment, cluster management |
 | **Security/Code Analysis** | 1 (Semgrep) | Vulnerability scanning, secure coding |
 | **Documentation/Knowledge** | 1 (Context7) | API reference, code examples |
@@ -1052,7 +1109,7 @@ Servers evaluated but not included in the validated list:
 
 ### Maintainer Types
 
-- **Official Servers** (5): Playwright (Microsoft), Browserbase, Semgrep, Context7, Kubernetes (Red Hat)
+- **Official Servers** (6): Playwright (Microsoft), Browserbase, Semgrep, Context7, Kubernetes (Red Hat), Chrome DevTools (Anthropic)
 - **Community Servers** (3): Linear, Vercel, MCP-Compose (well-designed, actively maintained)
 
 ---

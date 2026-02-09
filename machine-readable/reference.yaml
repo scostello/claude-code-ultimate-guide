@@ -36,6 +36,13 @@ deep_dive:
   # Session management
   session_search: "guide/observability.md:29"
   session_search_script: "examples/scripts/session-search.sh"
+  session_resume_limitations: "guide/observability.md:117"
+  session_cross_folder_migration: "guide/observability.md:117"
+  session_migration_manual: "guide/observability.md:135"
+  session_migration_risks: "guide/observability.md:157"
+  session_migration_community_tool: "guide/observability.md:175"
+  session_migration_issue: "https://github.com/anthropics/claude-code/issues/1516"
+  session_migration_weller_skill: "https://github.com/jimweller/dotfiles/tree/main/dotfiles/claude-code/skills/claude-migrate-session"
   # Cost optimization - Local execution bridge
   bridge_script: "examples/scripts/bridge.py"
   bridge_schema: "examples/scripts/bridge-plan-schema.json"

@@ -1063,6 +1063,7 @@ Since v2.1.7 (January 2026), Claude Code uses **lazy loading** for MCP tool defi
 | Token overhead (5-server setup) | ~55K | ~8.7K | **85% reduction** |
 | Opus 4 tool selection accuracy | 49% | 74% | +25 points |
 | Opus 4.5 tool selection accuracy | 79.5% | 88.1% | +8.6 points |
+| Opus 4.6 adaptive thinking | N/A | Auto-calibrated | Dynamic depth |
 
 **Configuration** (v2.1.9+):
 

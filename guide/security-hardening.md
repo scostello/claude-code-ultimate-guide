@@ -46,7 +46,7 @@ MITIGATION: Version pinning + hash verification + monitoring
 
 This attack exploits the one-time approval model: once you approve an MCP, updates execute automatically without re-consent.
 
-#### CVE Summary (2025)
+#### CVE Summary (2025-2026)
 
 | CVE | Severity | Impact | Mitigation |
 |-----|----------|--------|------------|
@@ -54,8 +54,11 @@ This attack exploits the one-time approval model: once you approve an MCP, updat
 | **CVE-2025-54135** | High (8.6) | RCE in Cursor via prompt injection rewriting mcp.json | File integrity monitoring hook |
 | **CVE-2025-54136** | High | Persistent team backdoor via post-approval config tampering | Git hooks + hash verification |
 | **CVE-2025-49596** | Critical (9.4) | RCE in MCP Inspector tool | Update to patched version |
+| **Claude Code v2.1.34** | High | Sandbox bypass (undisclosed) | **Update to v2.1.34+ immediately** |
 
-**Source**: [Cymulate EscapeRoute](https://cymulate.com/blog/cve-2025-53109-53110-escaperoute-anthropic/), [Checkpoint MCPoison](https://research.checkpoint.com/2025/cursor-vulnerability-mcpoison/), [Cato CurXecute](https://www.catonetworks.com/blog/curxecute-rce/)
+**v2.1.34 Security Fix (Feb 2026)**: Claude Code v2.1.34 patched a critical sandbox bypass vulnerability. **Upgrade immediately** if running v2.1.33 or earlier. Details undisclosed pending broader adoption.
+
+**Source**: [Cymulate EscapeRoute](https://cymulate.com/blog/cve-2025-53109-53110-escaperoute-anthropic/), [Checkpoint MCPoison](https://research.checkpoint.com/2025/cursor-vulnerability-mcpoison/), [Cato CurXecute](https://www.catonetworks.com/blog/curxecute-rce/), Claude Code CHANGELOG
 
 #### Attack Patterns
 

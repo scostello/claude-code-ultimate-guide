@@ -3659,9 +3659,56 @@ Leader creates shared task queue → Teammates self-organize and claim tasks
 
 > ⚠️ **Note**: This is an experimental feature. Capabilities may change or be removed in future releases. Always verify current behavior with official documentation.
 
-### Split-Role Sub-Agents
+### Agent Anti-Patterns: Roles vs Context Control
 
-Beyond generic sub-agents, **split-role orchestration** assigns distinct expert personas to different agents for multi-perspective analysis.
+> **"Subagents are not for anthropomorphizing roles, they are for controlling context"** - Dex Horty
+
+**Common Mistake**: Creating agents as if building a human team with job titles.
+
+❌ **Wrong** (Anthropomorphizing):
+```
+- Frontend Agent (role: UI developer)
+- Backend Agent (role: API engineer)
+- QA Agent (role: tester)
+- Security Agent (role: security expert)
+```
+
+**Why this fails**: Agents aren't humans with expertise areas. They're **context isolation tools** for computational efficiency.
+
+✅ **Right** (Context Control):
+```
+- Agent for isolated dependency analysis (scope: package.json + lock files only)
+- Agent for parallel file processing (scope: batch edits without main context pollution)
+- Agent for fresh security audit (scope: security-focused analysis without prior assumptions)
+- Agent for independent module testing (scope: test execution without interfering with main workflow)
+```
+
+**Key differences**:
+
+| Anthropomorphizing (Wrong) | Context Control (Right) |
+|----------------------------|-------------------------|
+| "Security expert agent" | "Security audit with isolated context" |
+| "Frontend developer agent" | "UI component analysis (scope: src/components/ only)" |
+| "Code reviewer agent" | "PR review without main context pollution" |
+| Mimics human team structure | Optimizes computational resources |
+| Based on job roles | Based on scope/context boundaries |
+
+**When to use agents** (good reasons):
+- **Isolate context**: Prevent pollution of main conversation context
+- **Parallel processing**: Independent operations that can run concurrently
+- **Scope limitation**: Restrict analysis to specific files/directories
+- **Fresh perspective**: Analyze without baggage from previous reasoning
+- **Resource optimization**: Offload heavy operations to separate context window
+
+**When NOT to use agents** (bad reasons):
+- ❌ Creating a fake team with job titles
+- ❌ Roleplaying different "expertise" personas
+- ❌ Mimicking human organizational structure
+- ❌ Splitting work by discipline (frontend/backend/QA) instead of by context boundaries
+
+### Scope-Focused Agents
+
+Beyond generic sub-agents, **scope-focused orchestration** assigns distinct **context boundaries** to different agents for multi-perspective analysis.
 
 **The Pattern**: Instead of one agent reviewing everything, spawn specialized agents that each bring a different lens:
 
@@ -11007,6 +11054,154 @@ fi
 
 💡 **Tip**: Faster loops catch more bugs. Invest in making your test suite fast.
 
+### Background Tasks for Fullstack Development
+
+**Problem**: Fullstack development often requires long-running processes (dev servers, watchers) that block the main Claude session, preventing iterative frontend work.
+
+**Solution**: Use `Ctrl+B` to background tasks and maintain tight feedback loops across the stack.
+
+#### When to Background Tasks
+
+| Scenario | Background Command | Why |
+|----------|-------------------|-----|
+| **Dev server running** | `pnpm dev` → `Ctrl+B` | Keeps server alive while iterating on frontend |
+| **Test watcher** | `pnpm test --watch` → `Ctrl+B` | Monitor test results while coding |
+| **Build watcher** | `pnpm build --watch` → `Ctrl+B` | Detect build errors without blocking session |
+| **Database migration** | `pnpm migrate` → `Ctrl+B` | Long-running migration, work on other features |
+| **Docker compose** | `docker compose up` → `Ctrl+B` | Infrastructure running, develop application |
+
+#### Fullstack Workflow Pattern
+
+```bash
+# 1. Start backend dev server
+pnpm dev:backend
+# Press Ctrl+B to background
+
+# 2. Now Claude can iterate on frontend
+"Update the login form UI to match Figma designs"
+# Claude can read files, make changes, all while backend runs
+
+# 3. Check server logs when needed
+/tasks  # View background task status
+
+# 4. Bring server back to foreground if needed
+# (Currently: no built-in foreground command, restart if needed)
+```
+
+#### Real-World Example: API + Frontend Iteration
+
+**Traditional (blocked) flow:**
+```bash
+$ pnpm dev:backend
+# Server starts... Claude waits... session blocked
+# Cannot iterate on frontend until server stops
+# Kill server → work on frontend → restart server → repeat
+```
+
+**Background task flow:**
+```bash
+$ pnpm dev:backend
+# Server starts...
+$ Ctrl+B  # Background the server
+# Claude is now free to work
+
+"Add loading state to the API calls"
+# Claude iterates on frontend
+# Backend still running, can test immediately
+# Tight feedback loop maintained
+```
+
+#### Context Rot Prevention
+
+**Problem**: Long-running background tasks can cause context rot—Claude loses awareness of what's running.
+
+**Solution**: Check task status periodically:
+
+```bash
+# Before major changes
+/tasks
+
+# Output example:
+# Task 1 (background): pnpm dev:backend
+#   Status: Running (35 minutes)
+#   Last output: Server listening on :3000
+```
+
+**Best practices:**
+- Background tasks at session start (setup phase)
+- Check `/tasks` before major architecture changes
+- Restart backgrounded tasks if context is lost
+- Use descriptive commands (`pnpm dev:backend` not just `npm run dev`)
+
+#### Limitations
+
+- **No foreground command**: Cannot bring tasks back to foreground (yet)
+- **Context loss**: Long-running tasks may lose relevance to current work
+- **Output not streamed**: Background task output not visible unless checked
+- **Session-scoped**: Background tasks tied to Claude session, killed on exit
+
+**Workaround for foreground**: If you need to interact with a backgrounded task, restart it in foreground:
+```bash
+# Can't foreground task directly
+# Instead: check status, then restart if needed
+/tasks  # See what's running
+# Ctrl+C to stop current session interaction
+# Restart the command you need in foreground
+```
+
+#### Integration with Teleportation
+
+When using session teleportation (web → local), background tasks are **not** transferred:
+- Web sessions cannot background tasks
+- Teleported sessions start with clean slate
+- Restart required dev servers after teleportation
+
+**Teleport workflow:**
+```bash
+# 1. Teleport session from web to local
+claude --teleport
+
+# 2. Restart dev environment
+pnpm dev:backend
+Ctrl+B  # Background
+
+# 3. Continue work locally with full feedback loops
+```
+
+#### Monitoring Background Tasks
+
+```bash
+/tasks  # View all background tasks
+
+# Output includes:
+# - Task ID
+# - Command run
+# - Runtime duration
+# - Recent output (last few lines)
+# - Status (running, completed, failed)
+```
+
+**Use `/tasks` when:**
+- Starting new feature work (verify infrastructure running)
+- Debugging (check for error output in background tasks)
+- Before committing (ensure tests passed in background)
+- Session feels slow (check if background tasks consuming resources)
+
+#### Disabling Background Tasks
+
+```bash
+# Environment variable (v2.1.4+)
+export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=true
+claude
+
+# Useful when:
+# - Debugging Claude Code itself
+# - Running in resource-constrained environments
+# - Avoiding accidental backgrounding
+```
+
+💡 **Key insight**: Background tasks optimize fullstack workflows by decoupling infrastructure (servers, watchers) from iterative development. Use them strategically to maintain tight feedback loops across the entire stack.
+
 ## 9.6 Todo as Instruction Mirrors
 
 **Reading time**: 5 minutes
@@ -14180,6 +14375,69 @@ Netlify coined "Agent Experience" as the agent equivalent of Developer Experienc
 - ✅ Teams using agents extensively (>50% of commits)
 - ❌ Stable legacy code (don't refactor just for agents)
 - ❌ Small scripts (<100 lines, agents handle fine)
+
+#### Convention-Over-Configuration for AI Agents
+
+**Problem**: Every configuration decision adds cognitive load for agents. Custom architectures require extensive CLAUDE.md documentation to prevent hallucinations.
+
+**Solution**: Choose opinionated frameworks that reduce decision space through enforced conventions.
+
+**Why opinionated frameworks help agents:**
+
+| Aspect | Custom Architecture | Opinionated Framework |
+|--------|---------------------|----------------------|
+| **File organization** | Agent must learn your structure | Standard conventions (e.g., Next.js `app/`, Rails MVC) |
+| **Routing** | Custom logic, must be documented | Convention-based (file = route) |
+| **Data access** | Multiple patterns possible | Single pattern enforced (e.g., Rails Active Record) |
+| **Testing setup** | Agent must discover your approach | Framework provides defaults |
+| **CLAUDE.md size** | Large (must document everything) | Smaller (conventions already known) |
+
+**Examples of opinionated frameworks:**
+
+- **Next.js**: `app/` directory structure, file-based routing, server components conventions
+- **Rails**: MVC structure, Active Record patterns, generator conventions
+- **Phoenix (Elixir)**: Context boundaries, schema conventions, LiveView patterns
+- **Django**: Apps structure, settings conventions, admin interface patterns
+
+**Real-world impact:**
+
+When agents work with opinionated frameworks, they:
+- Make fewer mistakes (fewer choices = fewer wrong choices)
+- Generate boilerplate faster (know the patterns)
+- Require less CLAUDE.md documentation (conventions replace custom instructions)
+- Produce more consistent code (follow framework idioms)
+
+**Trade-offs:**
+
+| Benefit | Cost |
+|---------|------|
+| Faster agent onboarding | Less architectural flexibility |
+| Smaller CLAUDE.md files | Framework lock-in |
+| Fewer hallucinations | Must accept framework opinions |
+| Consistent patterns | Learning curve for team |
+
+**Connection to CLAUDE.md sizing:**
+
+Convention-over-configuration directly reduces CLAUDE.md token requirements:
+
+```markdown
+# Custom Architecture (500+ lines CLAUDE.md)
+## File Organization
+- API routes in `src/endpoints/`
+- Business logic in `src/domain/`
+- Data access in `src/repositories/`
+- Validation in `src/validators/`
+... (extensive documentation of custom patterns)
+
+# Next.js (50 lines CLAUDE.md)
+## Project Context
+We use Next.js 14 with App Router.
+... (minimal context, rest is framework conventions)
+```
+
+**Recommendation**: For greenfield projects with AI-assisted development, prefer opinionated frameworks unless architectural constraints require custom design. The reduction in agent cognitive load often outweighs loss of flexibility.
+
+**See also**: [CLAUDE.md sizing guidelines (Section 3.2)](#32-claudemd-best-practices) for token optimization patterns.
 
 ---
 

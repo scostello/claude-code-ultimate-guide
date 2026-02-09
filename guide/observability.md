@@ -114,6 +114,95 @@ See [session-search.sh](../examples/scripts/session-search.sh) for the complete 
 
 ---
 
+### Session Resume Limitations & Cross-Folder Migration
+
+**TL;DR**: Native `--resume` is limited to the current working directory by design. For cross-folder migration, use manual filesystem operations (recommended) or community automation tools (untested).
+
+#### Why Resume is Directory-Scoped
+
+Claude Code stores sessions at `~/.claude/projects/<encoded-path>/` where `<encoded-path>` is derived from your project's absolute path. For example:
+- Project at `/home/user/myapp` → Sessions in `~/.claude/projects/-home-user-myapp-/`
+- Project moved to `/home/user/projects/myapp` → Claude looks for `~/.claude/projects/-home-user-projects-myapp-/` (different directory)
+
+**Design rationale**: Sessions store absolute file paths, project-specific context (MCP server configs, `.claudeignore` rules, environment variables). Cross-folder resume would require path rewriting and context validation, which isn't implemented yet.
+
+**Related**: GitHub issue [#1516](https://github.com/anthropics/claude-code/issues/1516) tracks community requests for native cross-folder support.
+
+#### Manual Migration (Recommended)
+
+**When moving a project folder:**
+
+```bash
+# Before moving project
+cd ~/.claude/projects/
+ls -la  # Note the current encoded path
+
+# Move your project
+mv /old/location/myapp /new/location/myapp
+
+# Rename session directory to match new path
+cd ~/.claude/projects/
+mv -- -old-location-myapp- -new-location-myapp-
+
+# Verify
+cd /new/location/myapp
+claude --continue  # Should resume successfully
+```
+
+**When forking sessions to a new project:**
+
+```bash
+# Copy session files (preserves original)
+cd ~/.claude/projects/
+cp -n ./-source-project-/*.jsonl ./-target-project-/
+
+# Copy subagents directory if exists
+if [ -d ./-source-project-/subagents ]; then
+  cp -r ./-source-project-/subagents ./-target-project-/
+fi
+
+# Resume in target project
+cd /path/to/target/project
+claude --continue
+```
+
+#### ⚠️ Migration Risks & Caveats
+
+**Before migrating sessions, verify compatibility:**
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| **Hardcoded secrets** | Credentials exposed in new context | Audit `.jsonl` files before migration, redact if needed |
+| **Absolute paths** | File references break if paths differ | Verify paths exist in target, or accept broken references |
+| **MCP server configs** | Source MCP servers missing in target | Install matching MCP servers before resuming |
+| **`.claudeignore` rules** | Different ignore patterns | Review differences, merge if needed |
+| **Environment variables** | `process.env` context mismatch | Check `.env` files compatibility |
+
+**When NOT to migrate sessions:**
+
+- Conflicting dependencies (e.g., different Node.js versions, package managers)
+- Database state differences (migrations applied in source, not in target)
+- Authentication context (API tokens, OAuth sessions specific to source project)
+- Security boundaries (migrating from private to public repo)
+
+#### Community Automation Tool
+
+**claude-migrate-session** by Jim Weller (inspired by Alexis Laporte) automates the manual process above:
+
+- **Repository**: [jimweller/dotfiles](https://github.com/jimweller/dotfiles/tree/main/dotfiles/claude-code/skills/claude-migrate-session)
+- **Features**: Global search with filtering, preserves `.jsonl` + subagents, uses ripgrep for performance
+- **Status**: Personal dotfiles (0 stars/forks as of Feb 2026), limited adoption
+- **Command**: `/claude-migrate-session <source> <target>`
+
+**⚠️ Caveat**: This tool has minimal community testing. The manual approach is safer and gives you explicit control over what gets migrated. Test thoroughly before using in production workflows.
+
+**Use cases for migration:**
+- Forking prototype work into production codebase
+- Moving debugging session to isolated test repository
+- Continuing architecture discussion in a new project
+
+---
+
 ### Multi-Agent Orchestration Monitoring
 
 For monitoring multiple concurrent Claude Code instances via external orchestrators (Gas Town, multiclaude), see:
