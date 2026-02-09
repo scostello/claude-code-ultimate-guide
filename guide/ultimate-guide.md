@@ -3710,54 +3710,63 @@ Leader creates shared task queue → Teammates self-organize and claim tasks
 
 Beyond generic sub-agents, **scope-focused orchestration** assigns distinct **context boundaries** to different agents for multi-perspective analysis.
 
-**The Pattern**: Instead of one agent reviewing everything, spawn specialized agents that each bring a different lens:
+**The Pattern**: Instead of one agent reviewing everything, spawn **scope-isolated** agents that each analyze distinct aspects with fresh context:
 
 ```markdown
-User: Review the new payment service using split-role analysis:
+User: Review the new payment service using scope-focused analysis:
 
-Agent 1 (Security Expert): Focus on authentication, input validation,
+Agent 1 (Security Scope): Analyze authentication, input validation,
   injection vectors, secret handling, PCI DSS compliance.
+  Context: src/payment/, src/auth/, config/security.yml
 
-Agent 2 (Performance Analyst): Focus on database queries, N+1 problems,
+Agent 2 (Performance Scope): Analyze database queries, N+1 problems,
   caching opportunities, response time bottlenecks.
+  Context: src/payment/repository/, src/database/, slow query logs
 
-Agent 3 (UX/API Reviewer): Focus on error messages, response format
+Agent 3 (API Design Scope): Analyze error messages, response format
   consistency, API discoverability, documentation completeness.
+  Context: src/payment/api/, docs/api/, tests/integration/
 
-Synthesize all three perspectives into a unified review with
+Synthesize all three scoped analyses into a unified review with
 prioritized action items.
 ```
 
 **Implementation with Custom Agents**:
 
 ```yaml
-# .claude/agents/security-reviewer.md
+# .claude/agents/security-audit.md
 ---
-name: security-reviewer
+name: security-audit
 model: opus
 tools: Read, Grep, Glob
 ---
-You are a security-focused code reviewer. Analyze code for:
+Analyze code for security issues with isolated context:
 - OWASP Top 10 vulnerabilities
 - Authentication/authorization flaws
 - Input validation gaps
 - Secret exposure risks
-Report findings with severity ratings (Critical/High/Medium/Low).
+
+Scope: Security-focused analysis only. Report findings with severity
+ratings (Critical/High/Medium/Low) without considering performance
+or UX trade-offs.
 ```
 
 ```yaml
-# .claude/agents/perf-reviewer.md
+# .claude/agents/perf-audit.md
 ---
-name: perf-reviewer
+name: perf-audit
 model: sonnet
 tools: Read, Grep, Glob, Bash
 ---
-You are a performance-focused reviewer. Analyze code for:
+Analyze code for performance bottlenecks with isolated context:
 - Database query efficiency (N+1, missing indexes)
 - Memory leaks and resource management
 - Caching opportunities
 - Algorithmic complexity issues
-Report findings with estimated impact (High/Medium/Low).
+
+Scope: Performance-focused analysis only. Report findings with estimated
+impact (High/Medium/Low) without considering security or maintainability
+trade-offs.
 ```
 
 **When to split roles:**
@@ -18563,6 +18572,42 @@ Common misconceptions we've seen:
 - [AI Ecosystem Guide](ai-ecosystem.md) — Complementary tools (Granola, Wispr Flow, ChatPRD, v0)
 - [Cowork Guide](https://github.com/FlorianBruniaux/claude-cowork-guide) — Claude Desktop for non-technical PMs
 - [Design-to-Code Workflow](workflows/design-to-code.md#for-product-managers) — PM perspective on Figma MCP
+
+---
+
+### Can I continue a session from a different project folder?
+
+**Short answer**: Not with native \`--resume\`, but manual filesystem operations work reliably.
+
+**The limitation**: Claude Code's \`--resume\` command is scoped to the current working directory by design. Sessions are stored at \`~/.claude/projects/<encoded-path>/\` where the path is derived from your project's absolute location. Moving a project or forking a session to a new folder breaks the resume capability.
+
+**Why this design?**: Sessions store absolute file paths, project-specific context (MCP server configurations, \`.claudeignore\` rules, environment variables). Cross-folder resume would require path rewriting and context validation, which isn't implemented yet.
+
+**Workaround - Manual migration** (recommended):
+
+\`\`\`bash
+# When moving a project folder
+cd ~/.claude/projects/
+mv -- -old-location-myapp- -new-location-myapp-
+
+# When forking sessions to a new project
+cp -n ./-source-project-/*.jsonl ./-target-project-/
+cp -r ./-source-project-/subagents ./-target-project-/ 2>/dev/null || true
+
+cd /path/to/target/project && claude --continue
+\`\`\`
+
+**⚠️ Migration risks**:
+- Hardcoded secrets/credentials may not transfer correctly
+- Absolute paths in session context may break
+- MCP server configurations may differ between projects
+- \`.claudeignore\` rules are project-specific
+
+**Community automation**: The [claude-migrate-session](https://github.com/jimweller/dotfiles/tree/main/dotfiles/claude-code/skills/claude-migrate-session) skill by Jim Weller automates this process, but has limited testing (0 stars/forks as of Feb 2026). Manual approach is safer.
+
+**Detailed guide**: See [Session Resume Limitations & Cross-Folder Migration](observability.md#session-resume-limitations--cross-folder-migration) for complete workflow and edge cases.
+
+**Related**: GitHub issue [#1516](https://github.com/anthropics/claude-code/issues/1516) tracks community requests for native cross-folder support.
 
 ---
 

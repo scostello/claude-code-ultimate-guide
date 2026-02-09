@@ -48,6 +48,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Xcode 26.3 RC+ includes built-in Claude assistant
   - Same harness as Claude Code CLI
   - Section: IDE Integration (line 10834)
+- **Session Cross-Folder Migration** (Feb 2026): Documentation for resume limitations and workarounds
+  - **Architecture explanation**: Why `--resume` is limited to current working directory
+  - **Manual migration workflow**: Filesystem operations for moving/forking sessions
+  - **Risk documentation**: Secrets, paths, MCP mismatches explicitly warned
+  - **Community tool mention**: Jim Weller's claude-migrate-session skill (with 0 adoption caveat)
+  - **GitHub issue tracking**: Issue #1516 for native cross-folder support
+  - Section: Session Resume Limitations & Cross-Folder Migration (observability.md:117)
+  - FAQ entry: "Can I continue a session from a different project folder?" (ultimate-guide.md:~18312)
+  - Resource evaluation: docs/resource-evaluations/weller-session-migration-skill.md
+  - Reference: machine-readable/reference.yaml (session_resume_limitations, session_migration_*)
   - Clarified: Claude Agent SDK ≠ Claude Code (shared framework, different products)
 - **machine-readable/reference.yaml**: 24 new entries
   - Auto-memories, fast mode, debug command, Opus 4.6 features
