@@ -383,15 +383,17 @@ Claude system prompts (~5-15K tokens) are **publicly published** by Anthropic as
 
 ### Auto-Compaction
 
-**Confidence**: 50% (Tier 3 - Conflicting reports)
+**Confidence**: 75% (Tier 2 - Community-verified with research backing)
 
 When context usage exceeds a threshold, Claude Code automatically summarizes older conversation turns:
 
-| Source | Reported Threshold |
-|--------|-------------------|
-| PromptLayer analysis | 92% |
-| Community observations | 75-80% |
-| User-triggered `/compact` | Anytime |
+| Source | Reported Threshold | Notes |
+|--------|-------------------|-------|
+| VS Code extension | ~75% usage (25% remaining) | [GitHub #11819](https://github.com/anthropics/claude-code/issues/11819) (Nov 2025) |
+| CLI version | 1-5% remaining | More conservative than VS Code |
+| PromptLayer analysis | 92% | Historical observation |
+| Steve Kinney | 95% | [Session Management Guide](https://stevekinney.com/courses/ai-development/claude-code-session-management) (Jul 2025) |
+| User-triggered `/compact` | Anytime | Manual control |
 
 **What happens during compaction:**
 
@@ -400,7 +402,26 @@ When context usage exceeds a threshold, Claude Code automatically summarizes old
 3. Recent context is preserved in full
 4. The model receives a "context was compacted" signal
 
-**User control**: Use `/compact` to manually trigger summarization before hitting limits.
+**Performance Impact** (Research-backed):
+
+Recent research and practitioner observations confirm **quality degradation with auto-compaction**:
+
+- **LLM performance drops 50-70% on complex tasks** as context grows from 1K to 32K tokens ([Context Rot Research](https://research.trychroma.com/context-rot), Jul 2025)
+- **11 out of 12 models fall below 50% of their short-context performance** at 32K tokens (NoLiMa benchmark)
+- **Auto-compact loses nuance and breaks references** through repeated compression cycles ([Claude Saves Tokens, Forgets Everything](https://golev.com/post/claude-saves-tokens-forgets-everything/), Jan 2026)
+- **Attention mechanism struggles** with retrieval burden in high-context scenarios
+
+**Community Consensus**: Manual `/compact` at logical breakpoints > waiting for auto-compact to trigger.
+
+**Recommended Strategy** ([Lorenz, 2026](https://www.linkedin.com/posts/robin-lorenz-54055412a_claudecode-contextengineering-aiengineering-activity-7425136701515251713)):
+
+| Context % | Action | Rationale |
+|-----------|--------|-----------|
+| **70%** | Warning - Plan cleanup | Early awareness |
+| **85%** | Manual handoff recommended | Prevent auto-compact degradation |
+| **95%** | Force handoff | Severe quality degradation |
+
+**User control**: Use `/compact` manually to trigger summarization at logical breakpoints, or use **session handoffs** (see [Session Handoffs](#session-handoffs)) to preserve intent over compressed history.
 
 ### Context Preservation Strategies
 

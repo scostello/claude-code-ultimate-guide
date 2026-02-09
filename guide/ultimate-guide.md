@@ -731,7 +731,10 @@ Claude: [Continues with full context of Day 1 work]
 
 - **Use `/exit` properly**: Always exit with `/exit` or `Ctrl+D` (not force-kill) to ensure session is saved
 - **Descriptive final messages**: End sessions with context ("Ready for testing") so you remember the state when resuming
-- **Check context before resuming**: High-context sessions (>75%) may need `/compact` after resuming
+- **Proactive context management**: Monitor with `/status` and use research-backed thresholds:
+  - **70%**: Warning - Start planning cleanup or handoff
+  - **85%**: Manual handoff recommended - Prevent auto-compact degradation ([research-backed](../architecture.md#auto-compaction))
+  - **95%**: Force handoff - Severe quality degradation
 - **Session naming**: Use meaningful session IDs when available to identify different work streams
 
 **Resume vs. fresh start**:
@@ -3579,7 +3582,7 @@ Claude Code operates within a ~200K token context window:
 | Tool results | Variable |
 | Reserved for response | 40-45K tokens |
 
-When context fills up (~75-92% depending on model), older content is automatically summarized. Use `/compact` proactively to manage this.
+When context fills up (~75% in VS Code, ~95% in CLI), older content is automatically summarized. However, **research shows this degrades quality** (50-70% performance drop on complex tasks). Use `/compact` proactively at logical breakpoints, or trigger **session handoffs at 85%** to preserve intent over compressed history. See [Session Handoffs](line 2140) and [Auto-Compaction Research](../architecture.md#auto-compaction).
 
 ### Sub-Agent Isolation
 

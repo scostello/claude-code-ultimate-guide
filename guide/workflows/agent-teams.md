@@ -35,10 +35,11 @@
 Agent teams enable **multiple Claude instances to work in parallel** on different subtasks while coordinating through a git-based system. Unlike manual multi-instance workflows where you orchestrate separate Claude sessions yourself, agent teams provide built-in coordination where agents claim tasks, merge changes continuously, and resolve conflicts automatically.
 
 **Key characteristics**:
-- ✅ **Autonomous coordination** — Team lead delegates, teammates report back
+- ✅ **Autonomous coordination** — Team lead delegates, teammates communicate via mailbox
+- ✅ **Peer-to-peer messaging** — Direct communication between agents (not just hierarchical)
 - ✅ **Git-based locking** — Agents claim tasks by writing to shared directory
 - ✅ **Continuous merge** — Changes pulled/pushed without manual intervention
-- ✅ **Independent context** — Each agent has own 1M token context window
+- ✅ **Independent context** — Each agent has own 1M token context window (isolated)
 - ⚠️ **Experimental** — Research preview, stability not guaranteed
 - ⚠️ **Token-intensive** — Multiple simultaneous model calls = high cost
 
@@ -51,6 +52,8 @@ Agent teams enable **multiple Claude instances to work in parallel** on differen
 **Official announcement**:
 > "We've introduced agent teams in Claude Code as a research preview. You can now spin up multiple agents that work in parallel as a team and coordinate autonomously on shared codebases."
 > — [Anthropic, Introducing Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6)
+
+> **📝 Documentation Update (2026-02-09)**: Architecture section corrected based on [Addy Osmani's research](https://addyosmani.com/blog/claude-code-agent-teams/). Key clarification: Agents communicate via **peer-to-peer messaging** through a mailbox system, not only through team lead synthesis. Context windows remain isolated (1M tokens per agent), but explicit messaging enables direct coordination between teammates.
 
 ### Agent Teams vs Other Patterns
 
@@ -69,7 +72,7 @@ Agent teams enable **multiple Claude instances to work in parallel** on differen
 
 ## 2. Architecture Deep-Dive
 
-### Hierarchical Structure
+### Lead-Teammate Architecture
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -77,19 +80,20 @@ Agent teams enable **multiple Claude instances to work in parallel** on differen
 │  - Breaks tasks into subtasks                   │
 │  - Spawns teammate sessions                     │
 │  - Synthesizes findings from all agents         │
-│  - Coordinates via git                          │
+│  - Coordinates via shared task list + mailbox   │
 └─────────────────┬───────────────────────────────┘
                   │
         ┌─────────┴─────────┐
         │                   │
 ┌───────▼────────┐  ┌───────▼────────┐
-│  Teammate 1    │  │  Teammate 2    │
-│                │  │                │
-│ - Own context  │  │ - Own context  │
-│   (1M tokens)  │  │   (1M tokens)  │
-│ - Claims tasks │  │ - Claims tasks │
-│ - Reports back │  │ - Reports back │
-└────────────────┘  └────────────────┘
+│  Teammate 1    │◄─┼────────────────►│  Teammate 2    │
+│                │  │ Peer-to-peer    │                │
+│ - Own context  │  │ messaging via   │ - Own context  │
+│   (1M tokens)  │  │ mailbox system  │   (1M tokens)  │
+│ - Claims tasks │  │                 │ - Claims tasks │
+│ - Messages     │  │                 │ - Messages     │
+│   team/peers   │  │                 │   team/peers   │
+└────────────────┘  └─────────────────┘────────────────┘
 ```
 
 ### Git-Based Coordination
@@ -109,6 +113,39 @@ Agent teams enable **multiple Claude instances to work in parallel** on differen
 ├── task-2.lock        # Agent B claimed
 └── task-3.pending     # Not yet claimed
 ```
+
+### Communication Architecture
+
+**Key distinction from sub-agents**: Agent teams implement **true peer-to-peer messaging** via a mailbox system, not just hierarchical reporting.
+
+**Architecture components** (Source: [Addy Osmani](https://addyosmani.com/blog/claude-code-agent-teams/), Feb 2026):
+
+1. **Team lead**: Creates team, spawns teammates, coordinates work
+2. **Teammates**: Independent Claude Code instances with own context (1M tokens each)
+3. **Task list**: Shared work items with dependency tracking and auto-unblocking
+4. **Mailbox**: Inbox-based messaging system enabling direct communication between agents
+
+**Communication patterns**:
+- **Lead → Teammate**: Direct messages or broadcasts to all
+- **Teammate → Lead**: Progress updates, questions, findings
+- **Teammate ↔ Teammate**: Direct peer-to-peer messaging (challenge approaches, debate solutions)
+- **Final synthesis**: Team lead aggregates all findings for user
+
+**Example messaging flow**:
+```
+Team Lead: "Review this PR for security issues"
+├─ Teammate 1 (Security): Analyzes → Messages Teammate 2: "Found auth issue in line 45"
+├─ Teammate 2 (Code Quality): Reviews → Messages back: "Confirmed, also see OWASP violation"
+└─ Team Lead: Synthesizes findings → Presents unified response to user
+```
+
+**What this enables**:
+- ✅ Agents actively challenge each other's approaches
+- ✅ Debate solutions without human intervention
+- ✅ Coordinate independently (self-organization)
+- ✅ Share discoveries mid-workflow (via messages, not context)
+
+**Limitation**: Context isolation remains—agents don't share their full context window, only explicit messages.
 
 ### Navigation Between Agents
 
@@ -131,14 +168,18 @@ claude --experimental-agent-teams
 **Per-agent context**:
 - Each agent has **1M token context window** (Opus 4.6)
 - ~30,000 lines of code per session
-- **Isolation**: Agents don't share context directly
-- **Communication**: Only through team lead synthesis
+- **Context isolation**: Agents don't share their full context window
+- **Communication**: Via mailbox system (peer-to-peer + team lead synthesis)
 
 **Total context capacity** (3 agents example):
 - Team lead: 1M tokens
 - Teammate 1: 1M tokens
 - Teammate 2: 1M tokens
-- **Total**: 3M tokens across team (but isolated)
+- **Total**: 3M tokens across team (context isolated, but communicating via messages)
+
+**Important distinction**:
+- ❌ **Context NOT shared**: Agent 1's full 1M token context invisible to Agent 2
+- ✅ **Messages ARE shared**: Agents send explicit messages via mailbox (findings, questions, debates)
 
 ---
 
@@ -642,19 +683,30 @@ Cost multiplier: 3x
 ### Context Isolation
 
 **What agents can't do**:
-- ❌ **Share context directly**: Agent 1's discoveries not automatically visible to Agent 2
-- ❌ **Read each other's outputs**: Communication only through team lead
+- ❌ **Share context windows**: Agent 1's full context (1M tokens) not visible to Agent 2
+- ❌ **Auto-sync discoveries**: Agent 2 won't see Agent 1's findings unless explicitly messaged
 - ❌ **Coordinate timing**: Agents work independently, may finish at different times
+
+**What agents CAN do**:
+- ✅ **Send messages**: Via mailbox system (peer-to-peer or via team lead)
+- ✅ **Challenge approaches**: Debate solutions, ask questions to each other
+- ✅ **Share findings**: Explicit messaging (not automatic context sharing)
 
 **Implications**:
 ```
 Scenario: Agent 1 discovers critical bug that affects Agent 2's work
 
-Problem:
+Without messaging:
 - Agent 2 doesn't see Agent 1's discovery automatically
 - Agent 2 may continue with flawed assumption
 
+With messaging (built-in):
+- Agent 1 messages Agent 2: "Found auth issue in line 45"
+- Agent 2 adjusts approach based on message
+- Team lead synthesizes all findings at end
+
 Mitigation:
+- Agents can message each other via mailbox system
 - Team lead synthesizes findings after all agents complete
 - Human can interrupt and redirect agents mid-workflow (Shift+Up/Down)
 - Design tasks with minimal inter-agent dependencies
@@ -693,10 +745,11 @@ Result: Agent teams would create merge conflicts, no time savings
 
 | Criterion | Agent Teams | Multi-Instance | Dual-Instance |
 |-----------|-------------|----------------|---------------|
-| **Coordination** | Automatic (git-based) | Manual (human) | Manual (human) |
+| **Coordination** | Automatic (git-based + mailbox) | Manual (human) | Manual (human) |
 | **Setup** | Experimental flag | Multiple terminals | 2 terminals |
 | **Best for** | Read-heavy tasks needing coordination | Independent parallel tasks | Quality assurance (plan-execute split) |
-| **Context sharing** | Via team lead synthesis | Manual copy-paste | Manual synchronization |
+| **Communication** | Peer-to-peer messaging + team lead synthesis | Manual copy-paste | Manual synchronization |
+| **Context sharing** | Isolated (1M per agent, no auto-sync) | Isolated (separate sessions) | Isolated (2 sessions) |
 | **Cost** | High (3x+ tokens) | Medium (2x tokens) | Medium (2x tokens) |
 | **Cognitive load** | Low (observer) | High (orchestrator) | Medium (reviewer) |
 | **Merge conflicts** | Automatic resolution (limited) | N/A (separate repos) | Manual resolution |

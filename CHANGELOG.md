@@ -6,8 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Templates**: Session handoff template based on Robin Lorenz's context engineering approach
+  - Structured handoff at 85% context to prevent auto-compact degradation
+  - Research-backed rationale (LLM performance drop 50-70% at high context)
+  - Complete workflow: metadata, completed work, pending tasks, blockers, next steps, essential context
+  - File: `examples/templates/session-handoff-lorenz.md`
+
+### Changed
+
+- **Architecture**: Auto-compaction confidence upgraded 50% → 75% (Tier 3 → Tier 2)
+  - Added platform-specific thresholds: VS Code (~75% usage), CLI (1-5% remaining)
+  - Added performance impact research section with 6+ sources
+  - Performance benchmarks: 50-70% accuracy drop on complex tasks (1K → 32K tokens)
+  - Research sources: Context Rot (Chroma), Beyond Prompts (UseAI), Claude Saves Tokens (Golev)
+  - Added Lorenz's proactive thresholds: 70% warning, 85% handoff, 95% force handoff
+  - File: `guide/architecture.md` Section 3.2
+- **Context Management**: Added research-backed proactive thresholds
+  - Replaced generic "Check context before resuming (>75%)" with specific 70%/85%/95% ladder
+  - Added performance degradation warnings with research links
+  - Clarified auto-compact triggers: ~75% (VS Code), ~95% (CLI) with quality impact
+  - File: `guide/ultimate-guide.md` (lines ~734, ~3582)
+
 ### Documentation
 
+- **Resource Evaluation**: Lorenz session handoffs post (score 4/5)
+  - Initial score 2/5 → upgraded to 4/5 after Perplexity validation
+  - 3 research queries validated core claims (auto-compact degradation, LLM performance, handoff best practices)
+  - Technical-writer challenge identified 4 critical gaps in initial assessment
+  - Integration: architecture.md + ultimate-guide.md + template created
+  - File: `docs/resource-evaluations/lorenz-session-handoffs-2026.md`
 - **Ecosystem**: Added awesome-claude-skills (BehiSecc) to curated lists
   - 62 skills taxonomy across 12 categories (Development, Design, Documentation, Testing, DevOps, Security, Data, AI/ML, Productivity, Content, Integration, Fun)
   - Positioned as complementary to awesome-claude-code (skills-only focus vs full ecosystem)
