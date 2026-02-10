@@ -113,6 +113,8 @@ Most developers experience three distinct phases:
 
 **Critical nuance**: These gains are conditional. Studies show experienced developers (5+ years) see larger, sustained gains. Junior developers often see initial spikes followed by regression — because speed without understanding creates technical debt. A 2026 RCT ([Shen & Tamkin, Anthropic Fellows](https://arxiv.org/abs/2601.20245)) measured a **17% reduction in skills acquisition** when developers learned a new library with AI assistance (n=52, p=0.01) — with no significant time savings. Only ~20% of AI users (pure delegation pattern) finished faster, at the cost of learning almost nothing.
 
+**AI-specific stress factor**: Nondeterministic outputs (identical prompts → varying results) create cognitive anxiety distinct from traditional debugging. This variability can trigger "AI fatigue" — mental exhaustion from unpredictable tool behavior that compounds over extended sessions. Mitigation: Time-box sessions (30 min max), limit retry attempts (3 max before reverting to manual implementation), and recognize when tool unpredictability signals a need for context reset (`/clear`) or manual problem-solving.
+
 ### Where AI Helps (And Where It Hurts)
 
 | High-Gain Tasks | Low/Negative-Gain Tasks |
@@ -244,6 +246,16 @@ List 3 possible approaches, even if you're not sure they'll work:
 ```
 
 This forces you to think before asking AI.
+
+#### Step 2.5: Recognize Fatigue Signals (30 sec)
+
+Before moving forward, pause and assess your cognitive state:
+
+- **Session duration**: Been working >30 min? → Take a 5-min break, consider `/clear` to reset context
+- **Retry count**: Tried the same prompt 3+ times with inconsistent results? → Switch to manual implementation
+- **Frustration level**: Feeling anxious about unpredictable AI responses? → This is "AI fatigue" (nondeterminism stress), not your fault — it's the tool's inherent variability
+
+This checkpoint prevents compounding exhaustion from extended sessions with diminishing returns.
 
 #### Step 3: Identify Knowledge Gaps (3 min)
 
@@ -866,6 +878,7 @@ Warning signs you're becoming dependent, and what to do:
 | Always ask "how" never "why" | Surface-level usage | Force yourself to ask "why this approach?" |
 | Every solution looks the same | AI has patterns, you need variety | Study multiple implementations manually |
 | Task feels easy but you can't explain it | **Perception gap** — AI users rate tasks easier while scoring 17% lower ([Shen & Tamkin 2026](https://arxiv.org/abs/2601.20245)) | After each task, explain the solution without looking at code |
+| Prolonged sessions without breaks | **Session fatigue** — identical prompts yield varying outputs, causing anxiety | Time-box sessions: 30 min limit, max 3 attempts before manual implementation |
 
 ### Weekly Self-Audit
 

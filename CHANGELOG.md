@@ -6,7 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-<!-- New entries go here -->## [3.25.0] - 2026-02-10
+<!-- New entries go here -->
+
+### Added
+
+- **Resource Evaluation**: "AI Fatigue is Real" by Siddhant Khare (`docs/resource-evaluations/siddhant-khare-ai-fatigue.md`)
+  - Evaluated blog post on AI-induced exhaustion and productivity paradoxes
+  - Score: 3/5 (Pertinent — complément utile)
+  - 90% content overlap with existing `learning-with-ai.md`, but identified session time-boxing gap
+  - Technical-writer challenge downgraded from initial 4/5 to 3/5
+  - Fact-check confirmed: 0 research citations (anecdotal only) vs guide's peer-reviewed RCTs
+  - Extracted: Time-boxing tactics (30 min limit, 3 attempts max), nondeterminism stress recognition
+
+### Changed
+
+- **Learning Guide Enhancement**: AI fatigue symptom recognition integrated into `guide/learning-with-ai.md`
+  - **Red Flags Checklist** (line 869): Added "Prolonged sessions without breaks" with time-boxing mitigation (30 min limit, max 3 attempts before manual implementation)
+  - **Productivity Reality** (line 115): Added paragraph on nondeterminism stress (identical prompts → varying outputs causes "AI fatigue")
+  - **UVAL Protocol** (line 247): Added "Step 2.5: Recognize Fatigue Signals" checkpoint (session duration, retry count, frustration assessment)
+  - **Total footprint**: ~200 words across 3 locations (minimal integration)
+  - **Rationale**: Addresses session-level time-boxing gap (distinct from existing weekly 70/30 split)
+
+## [3.25.0] - 2026-02-10
 
 ### Added
 
