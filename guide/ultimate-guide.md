@@ -8463,7 +8463,247 @@ grepai search "session creation logic"
 
 ---
 
-### 🔍 Search Tools Comparison: rg vs grepai vs Serena vs ast-grep
+### claude-mem (Automatic Session Memory)
+
+**Purpose**: Automatic persistent memory across Claude Code sessions through AI-compressed capture of tool usage and observations.
+
+**Why claude-mem matters**: Unlike manual memory tools (Serena's `write_memory()`), claude-mem **automatically captures everything** Claude does during sessions and intelligently injects relevant context when you reconnect. This solves the #1 pain point: context loss between sessions.
+
+**Key Features**:
+
+| Feature | Description |
+|---------|-------------|
+| **Automatic capture** | Hooks into SessionStart, PostToolUse, Stop, SessionEnd lifecycle events |
+| **AI compression** | Uses Claude to generate semantic summaries (~10x token reduction) |
+| **Progressive disclosure** | 3-layer retrieval (search → timeline → observations) saves ~95% tokens |
+| **Hybrid search** | Full-text + vector search (Chroma) + natural language queries |
+| **Web dashboard** | Real-time UI at `http://localhost:37777` for exploring history |
+| **Privacy controls** | `<private>` tags to exclude sensitive content from storage |
+
+**Architecture**:
+
+```
+Lifecycle Hooks → Capture observations → AI compression (Claude)
+                                              ↓
+                                     SQLite storage
+                                              ↓
+                               Chroma vector indexation
+                                              ↓
+                               Session start auto-injection
+```
+
+**Installation**:
+
+```bash
+# Via plugin marketplace (recommended)
+/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem
+
+# Restart Claude Code
+# claude-mem automatically activates on next session
+```
+
+**Basic Usage**:
+
+Once installed, claude-mem works **automatically**—no manual commands needed. It captures all tool operations and injects relevant context at session start.
+
+**Natural Language Search** (via skill):
+
+```bash
+# Search your session history
+"Search my memory for authentication decisions"
+"What files did we modify for the payment bug?"
+"Remind me why we chose Zod over Yup"
+```
+
+**Web Dashboard**:
+
+```bash
+# Access real-time UI
+open http://localhost:37777
+
+# Features:
+# - Timeline view of all sessions
+# - Natural language search
+# - Observation details
+# - Session statistics
+```
+
+**Progressive Disclosure Workflow**:
+
+claude-mem uses a 3-layer approach to minimize token consumption:
+
+```
+Layer 1: Search (50-100 tokens)
+├─ "Find sessions about authentication"
+├─ Returns: 5 relevant session summaries
+│
+Layer 2: Timeline (500-1000 tokens)
+├─ "Show timeline for session abc123"
+├─ Returns: Chronological observation list
+│
+Layer 3: Details (full context)
+└─ "Get observation details for obs_456"
+    Returns: Complete tool call + result
+```
+
+**Result**: ~10x token reduction vs loading full session history.
+
+**Privacy Controls**:
+
+```markdown
+<!-- In your prompts -->
+<private>
+Database credentials: postgres://prod-db-123
+API key: sk-1234567890abcdef
+</private>
+
+<!-- claude-mem excludes <private> content from storage -->
+```
+
+**Cost Considerations**:
+
+| Aspect | Cost | Notes |
+|--------|------|-------|
+| **API compression** | ~$0.15 per 100 observations | AI summarization via Claude |
+| **Storage** | Free (local SQLite) | 10-20 MB/month (light use), 100-200 MB/month (heavy use) |
+| **Queries** | Free (local vectors) | Chroma indexation runs locally |
+
+**Typical monthly cost**: $5-15 for heavy users (100+ sessions/month)
+
+**Limitations**:
+
+| Limitation | Impact | Workaround |
+|------------|--------|------------|
+| **CLI only** | No web interface, no VS Code | Use Claude Code CLI exclusively |
+| **No cloud sync** | Can't sync between machines | Manual export/import via `claude-mem export` |
+| **AGPL-3.0 license** | Commercial restrictions, source disclosure | Check license compliance for commercial use |
+| **Manual privacy tags** | Must explicitly mark sensitive data | Use `<private>` tags consistently |
+
+**Use when**:
+- Working on projects >1 week with multiple sessions
+- Need to remember architectural decisions across days/weeks
+- Frequently ask "what did we do last time?"
+- Want to avoid re-reading files for context
+- Value automatic capture over manual note-taking
+
+**Don't use when**:
+- One-off quick tasks (<10 minutes)
+- Extremely sensitive data (consider manual Serena instead)
+- Commercial projects without AGPL compliance review
+- Need cross-machine sync (not supported)
+
+**Example: Multi-Day Refactoring**:
+
+```
+Day 1 (Session 1):
+User: "Explore auth module"
+Claude: [Reads auth.service.ts, session.middleware.ts]
+claude-mem: Captures "Auth exploration: JWT validation, session management"
+
+Day 2 (Session 2):
+Claude: [Auto-injected context]
+"Previously: Explored auth module. Files: auth.service.ts, session.middleware.ts.
+ Key finding: JWT validation in validateToken()"
+User: "Refactor auth to use jose library"
+Claude: [Already has context, no re-reading needed]
+
+Day 3 (Session 3):
+Claude: [Auto-injected context]
+"Day 1: Auth exploration. Day 2: Refactored to jose library.
+ Decision: Chose jose over jsonwebtoken (lighter, 40% fewer deps)"
+User: "Add tests for auth refactoring"
+Claude: [Full context of decisions and changes]
+```
+
+**Stats** (verified 2026-02-10):
+- **26.5k GitHub stars**, 1.8k forks
+- **181 releases**, 46 contributors
+- Latest: v9.1.1 (Feb 7, 2026)
+- License: AGPL-3.0 + PolyForm Noncommercial
+
+> **Sources**:
+> - [GitHub: thedotmack/claude-mem](https://github.com/thedotmack/claude-mem)
+> - [Guide: Progressive Disclosure](https://corti.com/claude-mem-persistent-memory-for-ai-coding-assistants/)
+> - [Video: 5-Minute Setup](https://www.youtube.com/watch?v=ryqpGVWRQxA)
+
+---
+
+### 🧩 Memory Tools Decision Matrix
+
+Now that you've seen Serena, grepai, and claude-mem, here's when to use each:
+
+| Need | Tool | Example |
+|------|------|---------|
+| **"What did we do yesterday?"** | claude-mem | Auto-inject previous session context |
+| **"Find function login"** | Serena | `find_symbol --name "login"` |
+| **"Who calls this function?"** | grepai | `grepai trace callers "login"` |
+| **"Record arch decision"** | Serena | `write_memory("auth_decision", "Use JWT")` |
+| **"Find code that does X"** | grepai | `grepai search "payment validation"` |
+| **"Summary of all sessions"** | claude-mem | Web dashboard at localhost:37777 |
+| **"Exact pattern match"** | rg (native) | `rg "authenticate" --type ts` |
+
+**Memory Stack Pattern** (4 layers):
+
+```
+Layer 4: Session Capture   → claude-mem (automatic)
+Layer 3: Symbol Memory     → Serena (manual decisions)
+Layer 2: Semantic Search   → grepai (discovery)
+Layer 1: Exact Search      → rg (native, fast)
+```
+
+**Integrated Workflow Example**:
+
+```bash
+# Scenario: Refactoring auth module after 3 days
+
+# 1. AUTO CONTEXT (claude-mem)
+# At session start, Claude auto-injects:
+# "3 previous sessions explored auth module.
+#  Decision: Migrate to JWT.
+#  Files modified: auth.service.ts, session.middleware.ts"
+
+# 2. ARCH DECISIONS (Serena)
+serena list_memories
+# → "auth_decision: Use JWT for stateless API (2026-02-07)"
+serena read_memory("auth_decision")
+
+# 3. SEMANTIC DISCOVERY (grepai)
+grepai search "JWT token validation"
+# → Finds validateJWT() in auth.service.ts
+
+# 4. DEPENDENCIES (grepai trace)
+grepai trace callers "validateJWT"
+# → Called by: ApiGateway, AdminPanel, UserController
+
+# 5. EXACT SEARCH (rg)
+rg "validateJWT" --type ts -A 5
+```
+
+**Result**: Complete context without re-reading all files, architectural decisions preserved, dependencies mapped → safe refactoring.
+
+**Comparison: claude-mem vs Serena vs grepai**:
+
+| Aspect | claude-mem | Serena | grepai |
+|--------|-----------|---------|--------|
+| **Trigger** | Auto (hooks) | Manual API | Manual CLI |
+| **Storage** | SQLite + Chroma | `.serena/memories/` | Ollama vectors |
+| **Purpose** | Session capture | Symbol memory | Semantic search |
+| **Dashboard** | ✅ Web UI | ❌ No | ❌ No |
+| **Cost** | ~$0.15/100 obs | Free | Free |
+| **Effort** | Zero (automatic) | Manual commands | Manual commands |
+| **Query** | Natural language | Key lookup | Semantic search |
+| **License** | AGPL-3.0 | MIT | MIT |
+
+**When to combine tools**:
+
+- **claude-mem + Serena**: Automatic capture + manual architectural decisions
+- **claude-mem + grepai**: Session history + semantic code discovery
+- **All 3**: Complete memory stack (session + symbol + semantic + exact)
+
+---
+
+### 🔍 Search Tools Comparison: rg vs grepai vs Serena vs ast-grep vs claude-mem
 
 Now that you've seen individual tools, here's how they compare and when to use each:
 
@@ -8477,18 +8717,21 @@ Now that you've seen individual tools, here's how they compare and when to use e
 | Find structural pattern | `ast-grep` | `ast-grep "async function $F"` |
 | See who calls function | `grepai` | `grepai trace callers "login"` |
 | Get file structure | `Serena` | `serena get_symbols_overview` |
+| Remember past sessions | `claude-mem` | Auto-injected at session start |
 
 #### Feature Comparison
 
-| Feature | rg (ripgrep) | grepai | Serena | ast-grep |
-|---------|--------------|--------|--------|----------|
-| **Search type** | Regex/text | Semantic | Symbol-aware | AST structure |
-| **Speed** | ⚡ ~20ms | 🐢 ~500ms | ⚡ ~100ms | 🕐 ~200ms |
-| **Setup** | ✅ None | ⚠️ Ollama | ⚠️ MCP | ⚠️ npm |
-| **Integration** | ✅ Native | ⚠️ MCP | ⚠️ MCP | ⚠️ Plugin |
-| **Call graph** | ❌ No | ✅ Yes | ❌ No | ❌ No |
-| **Symbol tracking** | ❌ No | ❌ No | ✅ Yes | ❌ No |
-| **Session memory** | ❌ No | ❌ No | ✅ Yes | ❌ No |
+| Feature | rg (ripgrep) | grepai | Serena | ast-grep | claude-mem |
+|---------|--------------|--------|--------|----------|-----------|
+| **Search type** | Regex/text | Semantic | Symbol-aware | AST structure | Session history |
+| **Speed** | ⚡ ~20ms | 🐢 ~500ms | ⚡ ~100ms | 🕐 ~200ms | ⚡ ~100ms |
+| **Setup** | ✅ None | ⚠️ Ollama | ⚠️ MCP | ⚠️ npm | ⚠️ Plugin |
+| **Integration** | ✅ Native | ⚠️ MCP | ⚠️ MCP | ⚠️ Plugin | ⚠️ Plugin |
+| **Call graph** | ❌ No | ✅ Yes | ❌ No | ❌ No | ❌ No |
+| **Symbol tracking** | ❌ No | ❌ No | ✅ Yes | ❌ No | ❌ No |
+| **Session memory** | ❌ No | ❌ No | ✅ Manual | ❌ No | ✅ Automatic |
+| **Auto capture** | ❌ No | ❌ No | ❌ No | ❌ No | ✅ Yes |
+| **Web dashboard** | ❌ No | ❌ No | ❌ No | ❌ No | ✅ Yes |
 
 #### When to Use What
 
@@ -8515,6 +8758,13 @@ Now that you've seen individual tools, here's how they compare and when to use e
 - ✅ Framework migrations (React, Vue)
 - ✅ Finding structural patterns (async without try/catch)
 - ❌ Don't use for: small projects, simple searches
+
+**Use claude-mem** when:
+- ✅ Multi-session projects (>1 week)
+- ✅ Need to remember architectural decisions
+- ✅ Frequently reconnecting to same project
+- ✅ Want automatic context injection (no manual effort)
+- ❌ Don't use for: one-off tasks, extremely sensitive data
 
 #### Combined Workflow Example
 

@@ -8,6 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Section 8.2.5**: claude-mem plugin documentation (automatic session memory)
+  - Automatic capture of tool usage via lifecycle hooks
+  - AI compression with progressive disclosure (10x token reduction)
+  - Web dashboard at localhost:37777 for session exploration
+  - Natural language search across session history
+  - Privacy controls with `<private>` tags
+  - Cost analysis ($0.15/100 observations)
+  - AGPL-3.0 licensing considerations
+- **Memory Tools Decision Matrix**: Comprehensive comparison (claude-mem vs Serena vs grepai)
+  - When to use automatic vs manual memory
+  - 4-layer memory stack pattern
+  - Integrated workflow examples
+  - Combined tools strategies
+- **Plugin Template**: `examples/plugins/claude-mem.md` (installation, configuration, troubleshooting)
+- **Resource Evaluation**: `docs/resource-evaluations/claude-mem-evaluation.md` (score 4/5)
+- **reference.yaml**: 14 new claude-mem entries (repo, guide, installation, stats, comparison)
+
+### Changed
+
+- **Section 8.2.X**: Updated search tools comparison to include claude-mem
+  - Extended feature matrix (5 tools: rg, grepai, Serena, ast-grep, claude-mem)
+  - Added "Auto capture" and "Web dashboard" comparison rows
+  - Updated "When to Use What" section with claude-mem guidelines
+
 <!-- New entries go here -->
 
 ## [3.23.4] - 2026-02-09
