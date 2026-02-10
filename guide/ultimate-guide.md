@@ -2638,6 +2638,9 @@ This mental model scales: one developer can orchestrate 2-5 Claude instances on 
 The most common mistake is treating Claude Code like a chatbot — typing ad-hoc requests and hoping for good output. What separates casual usage from production workflows is a shift in thinking:
 
 > **Chatbot mode**: You write good prompts. **Context system**: You build structured context that makes every prompt better.
+>
+> *"Stop treating it like a chatbot. Give it structured context. CLAUDE.md, hooks, skills, project memory. Changes everything."*
+> — [Robin Lorenz](https://www.linkedin.com/in/robin-lorenz-54055412a/), AI Engineer ([comment](https://www.linkedin.com/feed/update/urn:li:activity:7426936437746352128?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7426936437746352128%2C7426941635306987520%29))
 
 Claude Code has four layers of persistent context that compound over time:
 

@@ -32,7 +32,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - **New Mental Model Section**: "From Chatbot to Context System" (§2.5)
-  - Addresses critical gap identified by Robin Lorenz (AI Engineer, 17-agent orchestration in prod)
+  - Addresses critical gap identified by [Robin Lorenz](https://www.linkedin.com/in/robin-lorenz-54055412a/) ([comment](https://www.linkedin.com/feed/update/urn:li:activity:7426936437746352128?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7426936437746352128%2C7426941635306987520%29))
+  - AI Engineer, 17-agent orchestration in production
   - Four-layer framework unifying CLAUDE.md, skills, hooks, and project memory
   - Comparison table: What each layer does, when to set up (Week 1-3 + Ongoing)
   - Before/After examples: Chatbot mode vs Context system mode
