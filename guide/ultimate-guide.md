@@ -846,7 +846,7 @@ Switching from GitHub Copilot, Cursor, or other AI assistants? Here's what you n
 | **Customization** | Limited | Extensions | Agents, skills, hooks, MCP |
 | **Cost Model** | $10-20/month flat | $20/month flat | Pay-per-use ($0.10-$0.50/hour) |
 
-**Key mindset shift**: Claude Code is a **conversational coding partner**, not an autocomplete tool.
+**Key mindset shift**: Claude Code is a **structured context system**, not a chatbot or autocomplete tool. You build persistent context (CLAUDE.md, skills, hooks) that compounds over time — see [§2.5](#from-chatbot-to-context-system).
 
 ### Migration Guide: GitHub Copilot → Claude Code
 
@@ -1271,18 +1271,23 @@ VERIFY: Login persists after browser refresh
 
 **Fix**: One focused task per session. `/clear` between different tasks.
 
-### 8. ❌ Not Using CLAUDE.md
+### 8. ❌ Treating Claude Code Like a Chatbot
 
-**Mistake**: Repeating project context in every prompt.
+**Mistake**: Typing ad-hoc instructions every session. Repeating project conventions, re-explaining architecture, manually enforcing quality checks.
 
-**Fix**: Create `CLAUDE.md` with your tech stack, conventions, and patterns. Claude reads it automatically.
+**Fix**: Build structured context that compounds over time:
+- **CLAUDE.md**: Your conventions, stack, and patterns — loaded every session automatically
+- **Skills**: Reusable workflows (`/review`, `/deploy`) for consistent execution
+- **Hooks**: Automated guardrails (lint, security, formatting) — zero manual effort
+
+Start with CLAUDE.md in Week 1. See [§2.5 Mental Model](#from-chatbot-to-context-system) for the full framework.
 
 ### Quick Self-Check
 
 Before your next session, verify:
 
 - [ ] I have a clear, specific goal
-- [ ] My project has a CLAUDE.md file
+- [ ] My project has a CLAUDE.md file (see [§2.5](#from-chatbot-to-context-system))
 - [ ] I'm on a feature branch (not main)
 - [ ] I know my context level (`/status`)
 - [ ] I'll review every diff before accepting
@@ -2627,6 +2632,40 @@ Think of yourself as a CPU scheduler. Claude Code instances are worker threads. 
 - **Escalate to yourself**. When Claude is stuck, step in—then hand back.
 
 This mental model scales: one developer can orchestrate 2-5 Claude instances on independent tasks (see [§9.17 Scaling Patterns](#917-scaling-patterns-multi-instance-workflows)).
+
+### From Chatbot to Context System
+
+The most common mistake is treating Claude Code like a chatbot — typing ad-hoc requests and hoping for good output. What separates casual usage from production workflows is a shift in thinking:
+
+> **Chatbot mode**: You write good prompts. **Context system**: You build structured context that makes every prompt better.
+
+Claude Code has four layers of persistent context that compound over time:
+
+| Layer | What It Does | Section | When to Set Up |
+|-------|-------------|---------|----------------|
+| **CLAUDE.md** | Persistent rules, conventions, project knowledge | [§3.1](#31-memory-files-claudemd) | Week 1 |
+| **Skills** | Reusable knowledge modules for consistent workflows | [§5](#5-skills) | Week 2 |
+| **Hooks** | Automated guardrails (lint, security, formatting) | [§7](#7-hooks) | Week 2-3 |
+| **Project memory** | Cross-session decisions and architectural context | [§3.1](#31-memory-files-claudemd) | Ongoing |
+
+These are not independent features. They are layers of the same system:
+
+- **CLAUDE.md** teaches Claude *what* your project needs (conventions, stack, patterns)
+- **Skills** teach Claude *how* to perform specific workflows (review, deploy, test)
+- **Hooks** enforce *guardrails* automatically (block secrets, auto-format, run linting)
+- **Memory** preserves *decisions* across sessions (architectural choices, resolved tradeoffs)
+
+**Before** (chatbot mode):
+> "Use pnpm, not npm. And remember our naming convention is..."
+> *(Every session. Every time. Copy-pasting context.)*
+
+**After** (context system):
+> CLAUDE.md loads conventions automatically. Skills ensure consistent workflows.
+> Hooks enforce quality with zero manual effort. Memory carries decisions forward.
+
+The shift is not about prompting better. It is about building a system where Claude starts every session already knowing what you need.
+
+> **See also**: [§9.10 Continuous Improvement Mindset](#910-continuous-improvement-mindset) for evolving this system over time.
 
 ### Communicating Effectively
 
@@ -12043,6 +12082,8 @@ AI-native: *"I improve the workflow and context so AI writes better code"*
 This is the meta-skill: instead of fixing code, **fix the system that produces the code**.
 
 > Inspired by [Nick Tune's Coding Agent Development Workflows](https://medium.com/nick-tune-tech-strategy-blog/coding-agent-development-workflows-af52e6f912aa)
+
+> **See also**: [§2.5 From Chatbot to Context System](#from-chatbot-to-context-system) — the four-layer framework (CLAUDE.md, skills, hooks, memory) that makes this mindset operational.
 
 ## 9.11 Common Pitfalls & Best Practices
 

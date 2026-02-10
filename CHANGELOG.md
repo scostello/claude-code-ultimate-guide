@@ -6,7 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-<!-- New entries go here -->
+<!-- New entries go here -->## [3.25.0] - 2026-02-10
+
+### Added
+
+- **New Mental Model Section**: "From Chatbot to Context System" (§2.5)
+  - Addresses critical gap identified by Robin Lorenz (AI Engineer, 17-agent orchestration in prod)
+  - Four-layer framework unifying CLAUDE.md, skills, hooks, and project memory
+  - Comparison table: What each layer does, when to set up (Week 1-3 + Ongoing)
+  - Before/After examples: Chatbot mode vs Context system mode
+  - Cross-references to §3.1 (Memory Files), §5 (Skills), §7 (Hooks), §9.10 (Continuous Improvement)
+  - Location: guide/ultimate-guide.md line 2636 (after "You Are the Main Thread", before "Communicating Effectively")
+  - **Impact**: Presents CLAUDE.md/skills/hooks/memory not as independent features but as layers of a unified context system
+  - **Concept**: "Stop treating it like a chatbot. Give it structured context. Changes everything." — Robin Lorenz
+
+### Changed
+
+- **Mistake #8 Rewritten**: "Not Using CLAUDE.md" → "Treating Claude Code Like a Chatbot" (§1.8)
+  - Expanded scope: From single-feature warning to systematic context building approach
+  - Fix now includes: CLAUDE.md + Skills + Hooks (3-layer solution instead of 1)
+  - Cross-reference to new §2.5 section for full framework
+  - Location: guide/ultimate-guide.md line 1274
+
+- **Key Mindset Shift Updated**: Section 1.6 comparison table
+  - Before: "conversational coding partner, not an autocomplete tool"
+  - After: "structured context system, not a chatbot or autocomplete tool"
+  - Added cross-reference to §2.5 for context system framework
+  - Location: guide/ultimate-guide.md line 849
+
+- **Quick Self-Check Enhanced**: Added cross-reference to CLAUDE.md checklist item
+  - Checklist item now links to §2.5 for context on why CLAUDE.md matters
+  - Location: guide/ultimate-guide.md line 1290
+
+- **Continuous Improvement Mindset**: Added cross-reference to new §2.5 section
+  - Links the "fix the system that produces the code" philosophy to the 4-layer framework
+  - Location: guide/ultimate-guide.md line 12086 (after Nick Tune quote, before §9.11)
 
 ## [3.24.0] - 2026-02-10
 
