@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.37"
-updated: "2026-02-08"
+latest: "2.1.38"
+updated: "2026-02-10"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -14,6 +14,15 @@ releases:
   # ─────────────────────────────────────────────────────────────
   # 2.1.x Series (January-February 2026)
   # ─────────────────────────────────────────────────────────────
+
+  - version: "2.1.38"
+    date: "2026-02-10"
+    highlights:
+      - "Fixed VS Code terminal scroll-to-top regression"
+      - "Fixed Tab key queueing slash commands instead of autocompleting"
+      - "Fixed bash permission matching for commands with env var wrappers"
+      - "Security: Blocked writes to `.claude/skills` in sandbox mode"
+    breaking: []
 
   - version: "2.1.37"
     date: "2026-02-08"
