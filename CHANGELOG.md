@@ -8,7 +8,53 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- New entries go here -->
 
-<!-- New entries go here -->
+## [3.24.0] - 2026-02-10
+
+### Added
+
+- **Resource Evaluation**: nao framework (`docs/resource-evaluations/nao-framework.md`)
+  - Evaluated open-source framework for building analytics agents
+  - Score: 3/5 (Moderate - Useful Complement)
+  - Identified critical gap: Agent evaluation not documented in guide
+  - Technical challenge by technical-writer agent adjusted score from 2/5 to 3/5
+  - All technical claims fact-checked (TypeScript 58.9%, Python 38.5%, stack verified)
+
+- **New Guide Section**: Agent Evaluation (`guide/agent-evaluation.md`, ~3000 tokens)
+  - **Why Evaluate Agents**: Quantify quality, compare configurations, build feedback loops
+  - **Metrics to Track**: Response quality, tool usage, performance, user satisfaction
+  - **Implementation Patterns**: Logging hooks, unit tests, A/B testing, feedback loops
+  - **Example**: Analytics agent with built-in metrics collection
+  - **Tools & References**: nao framework as reference, Claude Code hooks integration
+  - Addresses critical gap identified in nao evaluation
+  - Navigation: After `guide/ultimate-guide.md` Section 4 (Agents)
+
+- **AI Ecosystem Update**: Section 8.2 Domain-Specific Agent Frameworks (`guide/ai-ecosystem.md`)
+  - New subsection after "Multi-Agent Orchestration Systems"
+  - **nao (Analytics Agents)**: Database-agnostic framework with built-in evaluation
+  - Transposable patterns: Context builder architecture, evaluation hooks, database integrations
+  - Links to new `guide/agent-evaluation.md` for implementation details
+  - Location: guide/ai-ecosystem.md lines 1612-1638
+
+- **Template**: Analytics Agent with Evaluation (`examples/agents/analytics-with-eval/`, 5 files)
+  - **README.md**: Complete setup, usage, troubleshooting (production-ready)
+  - **analytics-agent.md**: SQL query generator with evaluation criteria and safety rules
+  - **hooks/post-response-metrics.sh**: Automated metrics logging (safety, performance, errors)
+  - **eval/metrics.sh**: Analysis script for aggregating collected metrics
+  - **eval/report-template.md**: Monthly evaluation report template
+  - Demonstrates patterns from `guide/agent-evaluation.md` in complete implementation
+  - Includes safety checks (destructive operations), performance monitoring, feedback loops
+
+### Changed
+
+- **Agent Evaluation Guide**: Updated template reference (line 434)
+  - Changed "(coming soon)" to "with hooks, scripts, and report template"
+  - Added reference to complete template in "Example" section (line 277)
+  - All links verified and functional
+
+- **Landing Site**: Templates count synchronized
+  - Updated index.html: 110 → 114 templates
+  - Updated examples/index.html: 110 → 114 templates
+  - Reflects addition of analytics-with-eval template (5 new files)
 
 ## [3.23.5] - 2026-02-10
 

@@ -1609,6 +1609,32 @@ If you're not using Gas Town/multiclaude, you can still:
 - Experimentation tolerance is high (work may be lost/redone)
 - Team has SRE capacity to monitor/intervene
 
+### 8.2 Domain-Specific Agent Frameworks
+
+Beyond general-purpose coding assistants, specialized frameworks target specific use cases with built-in context, evaluation, and deployment patterns.
+
+#### nao (Analytics Agents)
+
+**URL**: [github.com/getnao/nao](https://github.com/getnao/nao/) | **Stack**: TypeScript 58.9%, Python 38.5%
+
+**What it is**: Open-source framework for building and deploying analytics agents. Two-step architecture: build agent context via CLI (databases, docs, metadata) → deploy chat UI for natural language data queries.
+
+**Key features**:
+- Database agnostic (PostgreSQL, BigQuery, Snowflake, Databricks)
+- Built-in evaluation framework with unit testing
+- Native data visualization in chat interface
+- Self-hosted deployment with Docker
+- Stack: Fastify, Drizzle ORM, tRPC, React, shadcn UI
+
+**Relevance to Claude Code**: While nao deploys agents as standalone services (not Claude Code plugins), its patterns are transposable:
+- **Context builder architecture**: Structuring complex agent context (similar to `.claude/agents/` best practices)
+- **Evaluation framework**: Measuring agent quality through metrics, unit tests, and feedback loops (gap in current Claude Code workflows)
+- **Database integrations**: Patterns for injecting database context into agent prompts
+
+**When to use**: Data teams building conversational analytics interfaces for business users. For Claude Code users, nao serves as reference architecture for agent evaluation and database context patterns.
+
+**Status**: Active open-source project, production-ready, well-documented
+
 ---
 
 ## 9. Cost & Subscription Strategy

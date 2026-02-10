@@ -16,6 +16,7 @@ Core documentation for mastering Claude Code.
 | [architecture.md](./architecture.md) | How Claude Code works internally (master loop, tools, context) | 25 min |
 | [learning-with-ai.md](./learning-with-ai.md) | Guide for juniors on using AI without losing skills | 15 min |
 | [adoption-approaches.md](./adoption-approaches.md) | Implementation strategies for teams | 15 min |
+| [agent-evaluation.md](./agent-evaluation.md) | **Agent quality metrics**: Measuring custom agent effectiveness with hooks, tests, and feedback loops | 20 min |
 | [data-privacy.md](./data-privacy.md) | Data retention and privacy guide | 10 min |
 | [observability.md](./observability.md) | Session monitoring and cost tracking | 15 min |
 | [methodologies.md](./methodologies.md) | 15 development methodologies reference (TDD, SDD, BDD, etc.) | 20 min |
