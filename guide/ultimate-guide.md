@@ -10395,23 +10395,40 @@ The most powerful Claude Code pattern combines three techniques:
 
 #### Adaptive Thinking (Opus 4.6)
 
-**How it works**: The model dynamically calibrates reasoning depth based on query complexity. No fixed token budget — thinking adapts to the task.
+**How it works**: The `effort` parameter controls the model's **overall computational budget** — not just thinking tokens, but the entire response including text generation and tool calls. The model dynamically allocates this budget based on query complexity.
 
-**Effort levels** (API only):
-- `low`: Minimal thinking, faster responses
-- `medium`: Moderate reasoning
-- `high` (default): Extended thinking when useful
-- `max`: Maximum reasoning depth
+**Key insight**: `effort` affects everything, even when thinking is disabled. Lower effort = fewer tool calls, more concise text. Higher effort = more tool calls with explanations, detailed analysis.
+
+**Effort levels** (API only, official descriptions):
+- **`max`**: Maximum capability, no constraints. **Opus 4.6 only** (returns error on other models). Use for most complex tasks requiring unlimited reasoning depth.
+- **`high`** (default): Complex reasoning, coding, agentic tasks. Best for production workflows requiring deep analysis.
+- **`medium`**: Balance between speed, cost, and performance. Good for agentic tasks with moderate complexity.
+- **`low`**: Most efficient. Ideal for classification, lookups, sub-agents, or tasks where speed matters more than depth.
 
 **API syntax**:
 ```python
 response = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=16000,
-    thinking={"type": "adaptive", "effort": "high"},  # low|medium|high|max
+    output_config={"effort": "medium"},  # low|medium|high|max
     messages=[{"role": "user", "content": "Analyze..."}]
 )
 ```
+
+**Effort and Tool Use**:
+
+The `effort` parameter significantly impacts how Claude uses tools:
+
+- **`low` effort**: Combines operations to minimize tool calls. No explanatory preamble before actions. Faster, more efficient for simple tasks.
+- **`high` effort**: More tool calls with detailed explanations. Describes the plan before executing. Provides comprehensive summaries after operations. Better for complex workflows requiring transparency.
+
+**Example**: With `low` effort, Claude might read 3 files and edit them in one flow. With `high` effort, Claude explains why it's reading those files, what it's looking for, then provides a detailed summary of changes made.
+
+**Relationship between `effort` and thinking**:
+
+- **Opus 4.6**: `effort` is the **recommended control** for thinking depth. The `budget_tokens` parameter is **deprecated** on 4.6 (though still functional for backward compatibility).
+- **Opus 4.5**: `effort` works **in parallel** with `budget_tokens`. Both parameters are supported and affect different aspects of the response.
+- **Without thinking enabled**: `effort` still controls text generation and tool calls. It's not a thinking-only parameter.
 
 **CLI usage**: Same as before — Alt+T toggles thinking on/off globally. No per-request effort control in CLI (uses model's default `high`).
 
@@ -10421,7 +10438,7 @@ response = client.messages.create(
 |--------|----------|----------|-------------|
 | **Alt+T** (Option+T on macOS) | Toggle on/off | Toggle on/off | Current session |
 | **/config** → Thinking mode | Enable/disable globally | Enable/disable globally | Across sessions |
-| **API `effort` parameter** | N/A (uses `budget_tokens`) | `low\|medium\|high\|max` | Per request |
+| **API `effort` parameter** | `low\|medium\|high` | `low\|medium\|high\|max` (`max` = 4.6 only) | Per request |
 | **Ctrl+O** | View thinking blocks | View thinking blocks | Display only |
 
 #### Cost Implications

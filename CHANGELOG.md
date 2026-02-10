@@ -27,6 +27,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **Total footprint**: ~200 words across 3 locations (minimal integration)
   - **Rationale**: Addresses session-level time-boxing gap (distinct from existing weekly 70/30 split)
 
+### Fixed
+
+- **Extended Thinking Documentation**: Corrected `effort` parameter documentation based on [official Anthropic docs](https://platform.claude.com/docs/en/build-with-claude/effort)
+  - **API Syntax** (line 10408-10416): `thinking={"type": "adaptive", "effort": "high"}` → `output_config={"effort": "medium"}` (correct parameter name)
+  - **Scope Clarification** (line 10398-10400): `effort` controls **entire response** (text, tool calls, thinking), not just thinking tokens
+  - **Official Descriptions** (line 10402-10406): Replaced generic descriptions with official Anthropic definitions
+    - `max`: Maximum capability, no constraints (Opus 4.6 only — errors on other models)
+    - `high`: Complex reasoning, coding, agentic tasks (default)
+    - `medium`: Balance speed/cost/performance
+    - `low`: Most efficient for classification, lookups, sub-agents
+  - **Control Table** (line 10441): Opus 4.5 supports `low|medium|high`, Opus 4.6 adds `max`
+  - **New Subsection**: "Effort and Tool Use" (line 10418-10425) — explains impact on tool call behavior
+  - **Relationship Clarification** (line 10427-10431):
+    - Opus 4.6: `effort` recommended, `budget_tokens` deprecated
+    - Opus 4.5: both `effort` and `budget_tokens` work in parallel
+    - Without thinking: `effort` still controls text + tools
+
 ## [3.25.0] - 2026-02-10
 
 ### Added
