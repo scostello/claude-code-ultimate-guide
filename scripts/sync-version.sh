@@ -66,11 +66,49 @@ check_file() {
   fi
 }
 
+# Function to update date in README
+update_readme_date() {
+  local file="README.md"
+
+  if [[ ! -f "$file" ]]; then
+    echo "⚠️  $file not found"
+    return
+  fi
+
+  # Get current date in format: Feb 10, 2026
+  local current_date=$(date +"%b %-d, %Y")
+  # Format for badge: Feb_10,_2026
+  local badge_date=$(echo "$current_date" | sed 's/ /_/g')
+
+  if $CHECK_ONLY; then
+    # In check mode, verify if dates need updating
+    if ! grep -q "Updated-${badge_date}_·_v${VERSION}-brightgreen" "$file" 2>/dev/null; then
+      echo "📍 $file: date badge needs update (→ $current_date)"
+      ERRORS=$((ERRORS + 1))
+    fi
+    if ! grep -q "Updated daily · ${current_date}" "$file" 2>/dev/null; then
+      echo "📍 $file: footer date needs update (→ $current_date)"
+      ERRORS=$((ERRORS + 1))
+    fi
+  else
+    # Update badge date pattern: Updated-XXX-brightgreen
+    sed -i '' "s|Updated-[^-]*-brightgreen|Updated-${badge_date}_·_v${VERSION}-brightgreen|g" "$file"
+
+    # Update footer date pattern: Updated daily · DATE (preserve space before |)
+    sed -i '' "s|Updated daily · [^|]*|Updated daily · ${current_date} |g" "$file"
+
+    echo "✅ $file: date updated (→ $current_date)"
+  fi
+}
+
 # Check main files
 check_file "README.md"
 check_file "guide/cheatsheet.md"
 check_file "guide/ultimate-guide.md"
 check_file "machine-readable/reference.yaml"
+
+# Update README date (version and date in badge + footer)
+update_readme_date
 
 echo ""
 
