@@ -64,7 +64,8 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Grenier** (Agent/Skill Quality) | 3/5 | **3/5** | ✅ Intégrer partiellement | [grenier-agent-skill-quality.md](./grenier-agent-skill-quality.md) |
 | **Awesome Claude Skills** (BehiSecc) | 3/5 | **3/5** | ✅ Mention spécialisée | [awesome-claude-skills-github.md](./awesome-claude-skills-github.md) |
 | **Wasp Fullstack Essentials** (Vinny @ Wasp) | 3/5 | **3/5** | ✅ Intégrer concepts framework-agnostiques | [wasp-fullstack-essentials-eval.md](./wasp-fullstack-essentials-eval.md) |
+| **Master Claude Code Infographic** (Rakesh Gohel / Aakash Gupta) | 2/5 | **2/5** | ❌ Ne pas intégrer (surface-level, erreur Cursor) | [rakesh-gohel-aakash-gupta-master-claude-code.md](./rakesh-gohel-aakash-gupta-master-claude-code.md) |
 
 ---
 
-**Dernier update**: 2026-02-09 (56 évaluations)
+**Dernier update**: 2026-02-10 (57 évaluations)
