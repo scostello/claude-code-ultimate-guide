@@ -8,41 +8,55 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- New entries go here -->
 
+## [3.26.0] - 2026-02-11
+
 ### Added
 
+- **Security Threat Intelligence Database** (`examples/commands/resources/threat-db.yaml` v2.0.0)
+  - Comprehensive threat DB compiled from Perplexity Deep Research across 15 sources
+  - **63 malicious skills** catalogued (ClawHavoc 341 skills, Snyk ToxicSkills, PyPI supply chain)
+  - **22 CVEs** tracked with component, severity, fixed_in version, and mitigation
+  - **4 campaigns** documented: ClawHavoc (AMOS), ToxicSkills, PyPI MCP reverse shell, Postmark npm squatter
+  - **IOCs**: 6 C2 IPs, exfiltration endpoints, malicious GitHub repos, malware hashes
+  - **17 malicious skill patterns** for wildcard matching (prefix-based scanning)
+  - **10 minimum safe versions** quick reference for MCP servers
+  - **8 attack techniques** taxonomy (T001-T008) mapped to campaigns
+  - **6 scanning tools** documented (mcp-scan, skills-ref, Garak, MCP Fortress, SafeDep vet, Koi Clawdex)
+  - **5 defensive resources** (SAFE-MCP framework, VirusTotal integration, Docker MCP Gateway, Snyk AI-BOM, Bitsight TRACE)
+  - Sources: Koi Security, Snyk, JFrog, Flatt Security, SentinelOne, Cymulate, Checkpoint, Bitsight, SafeDep, SAFE-MCP
+
+- **New Slash Command**: `/security-check` (`examples/commands/security-check.md`)
+  - Quick (~30s) configuration security check against known threats database
+  - 7 phases: Load threat DB → MCP audit → Skills/agents audit → Hook security → Memory poisoning → Permissions → Exposed secrets
+  - Outputs CRITICAL/HIGH/MEDIUM/LOW findings with exact fix commands
+
+- **New Slash Command**: `/security-audit` (`examples/commands/security-audit.md`)
+  - Full 6-phase security audit with scored posture assessment (/100, grades A-F)
+  - Phases: Config (via /security-check) → Secrets scan → Injection surface → Dependencies → Hook security → Posture score
+  - Includes benchmark against security-hardening.md recommendations
+
+- **New Slash Command**: `/update-threat-db` (`examples/commands/update-threat-db.md`)
+  - Research & update the threat intelligence database via Perplexity searches
+  - 6 phases: Assess current state → 4 targeted searches → Deduplicate → Update YAML → Cascade to guides → Summary report
+  - Designed for monthly maintenance or post-advisory updates
+
+- **Threat DB Badge** in README: red badge linking to security-hardening.md showing CVE and malicious skill counts
+
 - **Resource Evaluation**: "AI Fatigue is Real" by Siddhant Khare (`docs/resource-evaluations/siddhant-khare-ai-fatigue.md`)
-  - Evaluated blog post on AI-induced exhaustion and productivity paradoxes
-  - Score: 3/5 (Pertinent — complément utile)
-  - 90% content overlap with existing `learning-with-ai.md`, but identified session time-boxing gap
-  - Technical-writer challenge downgraded from initial 4/5 to 3/5
-  - Fact-check confirmed: 0 research citations (anecdotal only) vs guide's peer-reviewed RCTs
-  - Extracted: Time-boxing tactics (30 min limit, 3 attempts max), nondeterminism stress recognition
+  - Score: 3/5 — Time-boxing tactics, nondeterminism stress recognition
 
 ### Changed
 
+- **README**: Commands count updated 18→22, 3 new security commands listed in examples library
+- **CLAUDE.md**: Slash commands table updated with `/security-check`, `/security-audit`, `/update-threat-db`
+- **reference.yaml**: 4 new entries (security_check_command, security_audit_command, security_threat_db, security_update_threat_db)
 - **Learning Guide Enhancement**: AI fatigue symptom recognition integrated into `guide/learning-with-ai.md`
-  - **Red Flags Checklist** (line 869): Added "Prolonged sessions without breaks" with time-boxing mitigation (30 min limit, max 3 attempts before manual implementation)
-  - **Productivity Reality** (line 115): Added paragraph on nondeterminism stress (identical prompts → varying outputs causes "AI fatigue")
-  - **UVAL Protocol** (line 247): Added "Step 2.5: Recognize Fatigue Signals" checkpoint (session duration, retry count, frustration assessment)
-  - **Total footprint**: ~200 words across 3 locations (minimal integration)
-  - **Rationale**: Addresses session-level time-boxing gap (distinct from existing weekly 70/30 split)
+  - Red Flags Checklist, Productivity Reality, UVAL Protocol sections updated
 
 ### Fixed
 
 - **Extended Thinking Documentation**: Corrected `effort` parameter documentation based on [official Anthropic docs](https://platform.claude.com/docs/en/build-with-claude/effort)
-  - **API Syntax** (line 10408-10416): `thinking={"type": "adaptive", "effort": "high"}` → `output_config={"effort": "medium"}` (correct parameter name)
-  - **Scope Clarification** (line 10398-10400): `effort` controls **entire response** (text, tool calls, thinking), not just thinking tokens
-  - **Official Descriptions** (line 10402-10406): Replaced generic descriptions with official Anthropic definitions
-    - `max`: Maximum capability, no constraints (Opus 4.6 only — errors on other models)
-    - `high`: Complex reasoning, coding, agentic tasks (default)
-    - `medium`: Balance speed/cost/performance
-    - `low`: Most efficient for classification, lookups, sub-agents
-  - **Control Table** (line 10441): Opus 4.5 supports `low|medium|high`, Opus 4.6 adds `max`
-  - **New Subsection**: "Effort and Tool Use" (line 10418-10425) — explains impact on tool call behavior
-  - **Relationship Clarification** (line 10427-10431):
-    - Opus 4.6: `effort` recommended, `budget_tokens` deprecated
-    - Opus 4.5: both `effort` and `budget_tokens` work in parallel
-    - Without thinking: `effort` still controls text + tools
+  - API syntax, scope clarification, official descriptions, control table, effort and tool use subsection
 
 ## [3.25.0] - 2026-02-10
 

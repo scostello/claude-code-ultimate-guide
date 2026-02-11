@@ -6,9 +6,10 @@
 
 <p align="center">
   <a href="https://github.com/FlorianBruniaux/claude-code-ultimate-guide/stargazers"><img src="https://img.shields.io/github/stars/FlorianBruniaux/claude-code-ultimate-guide?style=for-the-badge" alt="Stars"/></a>
-  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/Updated-Feb_10,_2026_·_v3.24.0-brightgreen?style=for-the-badge" alt="Last Update"/></a>
+  <a href="./CHANGELOG.md"><img src="https://img.shields.io/badge/Updated-Feb_11,_2026_·_v3.26.0-brightgreen?style=for-the-badge" alt="Last Update"/></a>
   <a href="./quiz/"><img src="https://img.shields.io/badge/Quiz-257_questions-orange?style=for-the-badge" alt="Quiz"/></a>
   <a href="./examples/"><img src="https://img.shields.io/badge/Templates-111-green?style=for-the-badge" alt="Templates"/></a>
+  <a href="./guide/security-hardening.md"><img src="https://img.shields.io/badge/🛡️_Threat_DB-22_CVEs_·_341_malicious_skills-red?style=for-the-badge" alt="Threat Database"/></a>
 </p>
 
 <p align="center">
@@ -99,7 +100,7 @@ graph LR
 │
 ├─ 📋 examples/           111 Production Templates
 │  ├─ agents/             6 custom AI personas
-│  ├─ commands/           18 slash commands
+│  ├─ commands/           22 slash commands
 │  ├─ hooks/              18 security hooks (bash + PowerShell)
 │  ├─ skills/             1 meta-skill (Claudeception)
 │  └─ scripts/            Utility scripts (audit, search)
@@ -167,7 +168,7 @@ Complete guides with rationale and examples:
 ### 📚 106 Annotated Templates
 
 Educational templates with explanations:
-- Agents (6), Commands (18), Hooks (18), Skills
+- Agents (6), Commands (22), Hooks (18), Skills
 - Comments explaining **why** each pattern works
 - Gradual complexity progression
 
@@ -406,7 +407,7 @@ Claude Code sends your prompts, file contents, and MCP results to Anthropic serv
 
 **Agents** (6): [code-reviewer](./examples/agents/code-reviewer.md), [test-writer](./examples/agents/test-writer.md), [security-auditor](./examples/agents/security-auditor.md), [refactoring-specialist](./examples/agents/refactoring-specialist.md), [output-evaluator](./examples/agents/output-evaluator.md), [devops-sre](./examples/agents/devops-sre.md) ⭐
 
-**Slash Commands** (18): [/pr](./examples/commands/pr.md), [/commit](./examples/commands/commit.md), [/release-notes](./examples/commands/release-notes.md), [/diagnose](./examples/commands/diagnose.md), [/security](./examples/commands/security.md), [/refactor](./examples/commands/refactor.md), [/explain](./examples/commands/explain.md), [/optimize](./examples/commands/optimize.md), [/ship](./examples/commands/ship.md)...
+**Slash Commands** (22): [/pr](./examples/commands/pr.md), [/commit](./examples/commands/commit.md), [/release-notes](./examples/commands/release-notes.md), [/diagnose](./examples/commands/diagnose.md), [/security](./examples/commands/security.md), [/security-check](./examples/commands/security-check.md) **, [/security-audit](./examples/commands/security-audit.md) **, [/update-threat-db](./examples/commands/update-threat-db.md) **, [/refactor](./examples/commands/refactor.md), [/explain](./examples/commands/explain.md), [/optimize](./examples/commands/optimize.md), [/ship](./examples/commands/ship.md)...
 
 **Security Hooks** (18): [dangerous-actions-blocker](./examples/hooks/bash/dangerous-actions-blocker.sh), [prompt-injection-detector](./examples/hooks/bash/prompt-injection-detector.sh), [unicode-injection-scanner](./examples/hooks/bash/unicode-injection-scanner.sh), [output-secrets-scanner](./examples/hooks/bash/output-secrets-scanner.sh)...
 
@@ -510,7 +511,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-*Version 3.24.0 | Updated daily · Feb 10, 2026 | Crafted with Claude*
+*Version 3.26.0 | Updated daily · Feb 11, 2026 | Crafted with Claude*
 
 <!-- SEO Keywords -->
 <!-- claude code, claude code tutorial, anthropic cli, ai coding assistant, claude code mcp,

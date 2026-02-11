@@ -83,6 +83,9 @@ Custom slash commands available in this project:
 | `/changelog [count]` | View recent CHANGELOG entries (default: 5) |
 | `/sync` | Check guide/landing synchronization status |
 | `/audit-agents-skills [path]` | Audit quality of agents, skills, and commands in .claude/ config |
+| `/security-check` | Quick config check against known threats database (~30s) |
+| `/security-audit` | Full 6-phase security audit with score /100 (2-5min) |
+| `/update-threat-db` | Research & update threat intelligence database |
 
 **Examples:**
 ```
@@ -97,6 +100,9 @@ Custom slash commands available in this project:
 /audit-agents-skills           # Audit current project
 /audit-agents-skills --fix     # Audit + fix suggestions
 /audit-agents-skills ~/other   # Audit another project
+/security-check                # Quick scan config vs known threats
+/security-audit                # Full audit with posture score /100
+/update-threat-db              # Research + update threat-db.yaml
 ```
 
 These commands are defined in `.claude/commands/` and automate:

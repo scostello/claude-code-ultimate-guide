@@ -6,7 +6,7 @@
 
 **Written with**: Claude (Anthropic)
 
-**Version**: 3.24.0 | **Last Updated**: February 2026
+**Version**: 3.26.0 | **Last Updated**: February 2026
 
 ---
 
@@ -26,6 +26,8 @@
 | `/teleport` | Teleport session from web |
 | `/tasks` | Monitor background tasks |
 | `/remote-env` | Configure cloud environment |
+| `/fast` | Toggle fast mode (2.5x speed, 6x cost) |
+| `/debug` | Systematic troubleshooting |
 | `/exit` | Quit (or Ctrl+D) |
 
 ---
@@ -42,6 +44,7 @@
 | `Tab` | Autocomplete |
 | `Shift+Enter` | New line |
 | `Ctrl+B` | Background tasks |
+| `Alt+T` | Toggle thinking |
 | `Ctrl+D` | Exit |
 
 ---
@@ -67,7 +70,8 @@
 |---------|-------|--------------|
 | **Tasks API** | v2.1.16 | Persistent task lists with dependencies |
 | **Background Agents** | v2.0.60 | Sub-agents work while you code |
-| **TeammateTool** | Experimental | Multi-agent coordination (unstable) |
+| **Agent Teams** | v2.1.32 | Multi-agent coordination (TeamCreate/SendMessage) |
+| **Auto-Memories** | v2.1.32 | Automatic cross-session context capture |
 | **Session Forking** | v2.1.19 | Rewind + create parallel timeline |
 | **LSP Tool** | v2.0.74 | Code intelligence (go-to-def, refs) |
 
@@ -202,12 +206,13 @@ Model: Sonnet | Ctx: 89.5k | Cost: $2.11 | Ctx(u): 56.0%
 | **Plan Mode** | `Shift+Tab × 2` or `/plan` | Explore without modifying |
 | **OpusPlan** | `/model opusplan` | Opus for planning, Sonnet for execution |
 
-> **⚠️ Opus 4.5+ Change**: Thinking mode is now **ON by default at max budget**. Keywords like "ultrathink" are cosmetic only.
+> **Opus 4.6**: Thinking is **ON by default at max budget**. Keywords like "think hard" or "ultrathink" are cosmetic only — they don't control depth.
 
 | Control | Action | Persistence |
 |---------|--------|-------------|
 | **Alt+T** | Toggle thinking on/off | Session |
 | **/config** | Enable/disable globally | Permanent |
+| **`effort` param** | API only: `low\|medium\|high\|max` | Per-request |
 
 **Cost tip**: For simple tasks, Alt+T to disable thinking → faster & cheaper.
 
@@ -520,4 +525,4 @@ where.exe claude; claude doctor; claude mcp list
 
 **Author**: Florian BRUNIAUX | [@Méthode Aristote](https://methode-aristote.fr) | Written with Claude
 
-*Last updated: February 2026 | Version 3.24.0*
+*Last updated: February 2026 | Version 3.26.0*
