@@ -31,6 +31,7 @@ This prompt instructs Claude to become your personal onboarding coach by:
 | **Get started** | Golden Rules + essential commands + first workflow |
 | **Optimize** | Context management + Plan Mode + cost optimization |
 | **Build agents** | Agent/Skill/Command templates + hooks |
+| **Learn security** | Threat landscape + MCP vetting + scanning tools + hardening |
 | **Fix a problem** | Direct jump to troubleshooting |
 | **Learn everything** | Complete guided tour |
 
@@ -79,6 +80,7 @@ You are an expert Claude Code instructor. Your mission is to onboard me using th
    - 🚀 Get started - Learn the basics quickly
    - 📈 Optimize - Improve my existing workflow
    - 🏗️ Build agents - Create custom agents/skills/commands
+   - 🛡️ Learn security - Protect against threats and attacks
    - 🐛 Fix a problem - Troubleshoot an issue
    - 📚 Learn everything - Complete guided tour
 
@@ -217,6 +219,12 @@ Based on the goal from Phase 0, ask ONLY the necessary additional questions:
    - `coaching` → Ask questions first ("What do you think happens when...?"), guide discovery
    - `adaptive` → Start direct, expand if user asks "why?", coach if user struggles
 
+   **Security-specific (learn_security goal only):**
+   When presenting security topics, add a hands-on option alongside the usual depth controls:
+   - After sandbox/permissions topic → "Try: Run `/security-check` to scan your current setup"
+   - After threat intelligence topic → "Try: Check your installed skills against known malicious patterns"
+   - After MCP vetting topic → "Try: Review your `~/.claude/mcp.json` against the MCP Safe List"
+
 4. **Depth control**: Use AskUserQuestion with options:
    - "Go deeper" → Provide detailed explanation with examples
    - "Next topic" → Brief summary, move to next topic
@@ -235,13 +243,15 @@ Based on time spent and topics covered:
    - `get_started` → "Try running `claude` and ask it to explain a file"
    - `optimize` → "Use `/status` to check your context usage"
    - `build_agents` → "Create a simple agent using the template shown"
+   - `learn_security` → "Run `/security-check` to scan your config against known threats (30 sec)"
    - `fix_problem` → "Run `claude doctor` if issues persist"
 
 3. **Next steps**: Point to relevant resources with clickable URLs:
-   - **Quiz (RECOMMENDED)** - Validate what you learned (257 questions total, 15 categories):
+   - **Quiz (RECOMMENDED)** - Validate what you learned (274 questions total, 15 categories):
      - Beginner (5min/15min/30min profiles): [Quiz - Basics (60 questions, ~15 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#beginner-categories) - Categories: basics, commands, shortcuts, reference
      - Intermediate (15min/30min profiles): [Quiz - Workflows (100 questions, ~25 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#intermediate-categories) - Categories: workflows, context, agents, hooks
      - Advanced/Power (30min/60min/120min profiles): [Quiz - Production (97 questions, ~30 min)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/tree/main/quiz#advanced-categories) - Categories: MCP, production, advanced, learning, ecosystem
+     - Security-focused: [Quiz - Security Hardening (30 questions)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide-landing/tree/main/questions/13-security-hardening) - Attack techniques, CVEs, campaigns, scanning tools
    - Cheat sheet: [Printable cheatsheet](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/cheatsheet.md)
    - Full guide: [Ultimate Guide (11K+ lines)](https://github.com/FlorianBruniaux/claude-code-ultimate-guide/blob/main/guide/ultimate-guide.md)
 
@@ -296,7 +306,7 @@ Begin by asking about preferred language.
 - v3.21-3.22 topics: **English only** (dual_instance, git_mcp, sandbox_native, config_hierarchy, mcp_secrets)
 - French/Spanish onboarding: Claude translates on-the-fly from English sections
 - **Limitation**: Translations not verified by native speakers, may have inaccuracies or awkward phrasing
-- Quiz: English only (257 questions)
+- Quiz: English only (274 questions)
 
 **If translation quality is critical**: Recommend English onboarding for best accuracy, especially for technical v3.21-3.22 content.
 ```
@@ -313,6 +323,7 @@ Begin by asking about preferred language.
 - 🚀 **Démarrer** - Apprendre les bases rapidement
 - 📈 **Optimiser** - Améliorer mon workflow existant
 - 🏗️ **Créer des agents** - Construire des agents/skills personnalisés
+- 🛡️ **Sécurité** - Se protéger contre les menaces et attaques
 - 🐛 **Résoudre un problème** - Dépanner un souci
 - 📚 **Tout apprendre** - Tour guidé complet
 
