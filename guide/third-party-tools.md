@@ -146,6 +146,67 @@ A web-based UI for browsing and reading Claude Code conversation history (JSONL 
 
 ---
 
+ti### Entire CLI
+
+Agent-native platform for Git-integrated session capture with rewindable checkpoints and governance layer.
+
+| Attribute | Details |
+|-----------|---------|
+| **Source** | [GitHub: entireio/cli](https://github.com/entireio/cli) / [entire.io](https://entire.io) |
+| **Install** | See GitHub (platform launched Feb 2026, early access) |
+| **Language** | TypeScript |
+| **Founded** | February 2026 by Thomas Dohmke (ex-GitHub CEO), $60M funding |
+
+**Key features:**
+
+- **Session Capture**: Automatic recording of AI agent sessions (Claude Code, Gemini CLI) with full context
+- **Rewindable Checkpoints**: Restore to any session state with prompts + reasoning + file changes
+- **Governance Layer**: Permission system, human approval gates, audit trails for compliance
+- **Agent Handoffs**: Preserve context when switching between agents (Claude → Gemini)
+- **Git Integration**: Stores checkpoints on separate `entire/checkpoints/v1` branch (no history pollution)
+- **Multi-Agent Support**: Works with multiple AI agents simultaneously with context sharing
+
+**Use cases:**
+
+| Scenario | Why Entire CLI |
+|----------|---------------|
+| **Compliance (SOC2, HIPAA)** | Full audit trail: prompts → reasoning → outputs |
+| **Multi-agent workflows** | Context preserved across agent switches |
+| **Debugging AI decisions** | Rewind to checkpoint, inspect reasoning |
+| **Governance** | Approval gates before production changes |
+| **Team handoffs** | Resume sessions with full context |
+
+**vs claude-code-viewer:**
+
+| Feature | claude-code-viewer | Entire CLI |
+|---------|-------------------|-----------|
+| **Purpose** | Read-only history viewing | Active session management + replay |
+| **Replay** | No | Yes (rewind to checkpoints) |
+| **Context** | Conversation only | Prompts + reasoning + file states |
+| **Governance** | No | Yes (approval gates, permissions) |
+| **Multi-agent** | No | Yes (agent handoffs) |
+| **Overhead** | None | ~5-10% storage |
+
+**When to choose Entire over claude-code-viewer:**
+
+- ✅ Need session replay/rewind functionality
+- ✅ Enterprise compliance requirements (audit trails)
+- ✅ Multi-agent workflows (Claude + Gemini)
+- ✅ Governance gates (approval before deploy)
+- ❌ Just want to browse history → Use claude-code-viewer (lighter)
+
+**Limitations:**
+
+- Very new (launched Feb 10-12, 2026) - limited production feedback
+- Enterprise-focused (may be complex for solo developers)
+- Storage overhead (~5-10% of project size for session data)
+- macOS/Linux only (Windows via WSL)
+- Early stage (v1.x) - expect API changes
+
+> **Cross-ref**: Full Entire workflow with examples at [AI Traceability Guide](./ai-traceability.md#51-entire-cli). For compliance use cases, see [Security Hardening](./security-hardening.md).
+
+---
+
 ## Configuration Management
 
 ### claude-code-config
@@ -316,7 +377,7 @@ As of February 2026, the community tooling ecosystem has notable gaps:
 | **Visual skills editor** | No GUI for creating/editing `.claude/skills/` — must edit YAML/Markdown manually |
 | **Visual hooks editor** | No GUI for managing hooks in `settings.json` — requires JSON editing |
 | **Unified admin panel** | No single dashboard combining config, sessions, cost, and MCP management |
-| **Session replay** | No tool replays sessions with playback controls (only static viewing) |
+| **Session replay** | ✅ **FILLED**: Entire CLI (launched Feb 2026) provides rewindable checkpoints with full context replay |
 | **Per-MCP-server profiler** | No way to measure token cost attributable to each MCP server individually |
 | **Cross-platform config sync** | No tool syncs Claude Code config across machines (must manual copy `~/.claude/`) |
 

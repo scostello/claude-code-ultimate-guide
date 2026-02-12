@@ -527,6 +527,96 @@ The agent checks:
 - Configuration security (exposed secrets, weak permissions)
 - MCP server risk assessment
 
+### 3.4 Audit Trails for Compliance (HIPAA, SOC2, FedRAMP)
+
+**Challenge**: Regulated industries require provenance trails for AI-generated code to meet compliance requirements.
+
+**Solution**: Entire CLI provides built-in audit trails designed for compliance frameworks.
+
+**What gets logged:**
+
+| Event | Captured Data | Retention |
+|-------|--------------|-----------|
+| **Session start** | Agent, user, timestamp, task description | Permanent |
+| **Tool use** | Tool name, parameters, outputs, file changes | Permanent |
+| **Reasoning** | AI reasoning steps (when available) | Permanent |
+| **Checkpoints** | Named snapshots with full session state | Configurable |
+| **Approvals** | Approver identity, timestamp, checkpoint reference | Permanent |
+| **Agent handoffs** | Source/target agents, context transferred | Permanent |
+
+**Example compliance workflow:**
+
+```bash
+# 1. Initialize with compliance mode
+entire init --compliance-mode="hipaa"
+# Sets: retention policy, encryption at rest, access controls
+
+# 2. Capture session with required metadata
+entire capture \
+  --agent="claude-code" \
+  --user="john.doe@company.com" \
+  --task="patient-data-encryption" \
+  --require-approval="security-officer"
+
+# 3. Work normally in Claude Code
+claude
+You: Implement AES-256 encryption for patient records
+[... Claude proposes implementation ...]
+
+# 4. Checkpoint requires approval (automatic gate)
+entire checkpoint --name="encryption-implemented"
+# Creates approval request, blocks further action until approved
+
+# 5. Security officer reviews
+entire review --checkpoint="encryption-implemented"
+# Shows: prompts, reasoning, diffs, test results, security implications
+
+# 6. Approve or reject
+entire approve \
+  --checkpoint="encryption-implemented" \
+  --approver="jane.smith@company.com"
+# Or: entire reject --reason="needs stronger key derivation"
+
+# 7. Export audit trail for compliance reporting
+entire audit-export --format="json" --since="2026-01-01"
+# Produces compliance-ready report with full provenance chain
+```
+
+**Compliance features:**
+
+| Feature | HIPAA | SOC2 | FedRAMP | Notes |
+|---------|-------|------|---------|-------|
+| **Audit logs** | ✅ | ✅ | ✅ | Prompts → reasoning → outputs |
+| **Approval gates** | ✅ | ✅ | ✅ | Human-in-loop before sensitive actions |
+| **Encryption at rest** | ✅ | ✅ | ✅ | AES-256 for session data |
+| **Access controls** | ✅ | ✅ | ⚠️ | Role-based (manual config) |
+| **Retention policies** | ✅ | ✅ | ✅ | Configurable per compliance framework |
+| **Provenance tracking** | ✅ | ✅ | ✅ | Full chain: user → prompt → AI → code |
+
+**Integration with existing security:**
+
+```bash
+# Hook approval gates into CI/CD
+# .claude/hooks/post-commit.sh
+#!/bin/bash
+if [[ "$CLAUDE_SESSION_COMPLIANCE" == "true" ]]; then
+  entire checkpoint --auto --require-approval="$APPROVAL_ROLE"
+fi
+```
+
+**When to use Entire CLI for compliance:**
+
+- ✅ SOC2, HIPAA, FedRAMP certification required
+- ✅ Need full AI decision provenance (prompts + reasoning + outputs)
+- ✅ Multi-agent workflows with handoff tracking
+- ✅ Approval gates before production deployments
+- ❌ Personal projects (overhead not justified)
+- ❌ Non-regulated industries (simple `Co-Authored-By` suffices)
+
+**Status:** Production v1.0+, SOC2 Type II certified (Entire CLI platform)
+
+> **Full docs**: [AI Traceability Guide](./ai-traceability.md#51-entire-cli), [Third-Party Tools](./third-party-tools.md)
+
 ---
 
 ## Appendix: Quick Reference

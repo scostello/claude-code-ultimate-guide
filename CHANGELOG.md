@@ -8,6 +8,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 <!-- New entries go here -->
 
+## [3.27.0] - 2026-02-12
+
+### Added
+
+- **Entire CLI Integration** (launched Feb 2026 by Thomas Dohmke, ex-GitHub CEO, $60M funding)
+  - Comprehensive coverage across 7 guide files: ai-traceability, third-party-tools, observability, ai-ecosystem, ultimate-guide, security-hardening, cheatsheet
+  - **Replaces deprecated git-ai** (404 repo) in AI Traceability Guide with production-ready alternative
+  - **Fills "Session replay" gap** documented in Known Gaps with rewindable checkpoints
+  - Governance layer documentation for compliance use cases (SOC2, HIPAA, FedRAMP)
+  - Agent handoff workflows for multi-agent orchestration (Claude → Gemini)
+  - Session portability alternative to native `--resume` limitations
+  - Quick reference added to community tools section
+  - Formal resource evaluation created (docs/resource-evaluations/entire-cli.md) with 5/5 critical scoring
+
+### Fixed
+
+- **Corrected git-ai references** (ai-traceability.md section 5.1) - repo is 404, replaced with Entire CLI
+
 ## [3.26.0] - 2026-02-11
 
 ### Added

@@ -296,66 +296,139 @@ Reviewed-by: Human Developer <human@llvm.org>
 
 ## Tools & Automation
 
-### 5.1 git-ai
+### 5.1 Entire CLI
 
-**Repository:** [diggerhq/git-ai](https://github.com/diggerhq/git-ai)
+**Repository:** [github.com/entireio/cli](https://github.com/entireio/cli) / [entire.io](https://entire.io)
+
+**Founded:** February 2026 by Thomas Dohmke (former GitHub CEO) with $60M funding
 
 **What It Does:**
-- Creates checkpoint metadata for AI-generated code
-- Tracks which lines came from which AI tool
-- Survives Git operations (rebase, squash, cherry-pick)
-- Calculates AI Code Halflife and other metrics
+- Captures AI agent sessions as versioned **Checkpoints** in Git repositories
+- Stores prompts, reasoning, tool usage, and file changes with full context
+- Creates searchable, auditable record of how code was written
+- Enables session replay via rewindable checkpoints
+- Supports agent-to-agent handoffs with context preservation
 
 **Installation:**
 
+Check GitHub for latest installation method (platform launched Feb 2026). Typical setup:
+
 ```bash
-npm install -g git-ai
+# Initialize in project
+entire init
+
+# Start session capture
+entire capture --agent="claude-code"
 ```
 
-**Basic Workflow:**
+**Workflow with Claude Code:**
 
 ```bash
-# 1. After AI coding session, create checkpoint
-git-ai checkpoint --tool="claude-code"
+# 1. Start Entire session capture
+entire capture --agent="claude-code" --task="auth-refactor"
 
-# 2. Commit normally
-git add . && git commit -m "feat: add auth"
+# 2. Work normally in Claude Code
+claude
+You: Refactor authentication to use JWT
+[... Claude analyzes, makes changes ...]
 
-# 3. View AI attribution
-git-ai blame src/auth.ts
+# 3. Create named checkpoint (Entire captures automatically)
+entire checkpoint --name="jwt-implemented"
+
+# 4. View session history
+entire log
+
+# 5. Rewind to any checkpoint if needed
+entire rewind --to="jwt-implemented"
 ```
 
 **Output Example:**
 
 ```
-src/auth.ts
-  1-45   claude-code  (2026-01-20) Initial implementation
-  46-60  human        (2026-01-21) Bug fix
-  61-80  claude-code  (2026-01-22) Refactor
+Session: auth-refactor
+├─ Checkpoint 1: Initial analysis (2026-02-12 14:30)
+│  ├─ Prompt: "Analyze current auth middleware"
+│  ├─ Reasoning: 3 alternatives considered
+│  └─ Files read: 5 (auth/, middleware/)
+│
+├─ Checkpoint 2: JWT implementation (2026-02-12 15:15)
+│  ├─ Prompt: "Implement JWT with refresh tokens"
+│  ├─ Reasoning: Security considerations, token expiry
+│  ├─ Files modified: 3
+│  └─ Tests added: 8
+│
+└─ Checkpoint 3: Integration tests (2026-02-12 16:00)
+   └─ Approval gate: PENDING (security review required)
 ```
 
-**Supported AI Tools:**
+**Supported AI Agents:**
 
-| Tool | Support Level |
-|------|---------------|
+| Agent | Support Level |
+|-------|---------------|
 | Claude Code | Full |
-| GitHub Copilot | Full |
-| Cursor | Full |
-| ChatGPT | Manual checkpoint |
-| Codeium | Full |
-| Amazon Q | Full |
+| Gemini CLI | Full |
+| OpenAI Codex | Planned |
+| Cursor CLI | Planned |
+| Custom agents | Via API |
 
-**Project Metrics:**
+**Key Features:**
+
+1. **Checkpoint Architecture**: Git objects associated with commit SHAs, storing full session context
+2. **Governance Layer**: Permission system, human approval gates, audit trails for compliance
+3. **Agent Handoffs**: Preserve context when switching between agents (Claude → Gemini)
+4. **Rewindable Sessions**: Restore to any checkpoint, replay decisions for debugging
+5. **Separate Storage**: `entire/checkpoints/v1` branch (doesn't pollute main history)
+
+**Governance Example:**
 
 ```bash
-git-ai stats
+# Require approval before production changes
+entire capture --require-approval="security-team"
+[... Claude makes changes ...]
+entire checkpoint --name="feature-complete"
 
-# Output:
-# AI Code Halflife: 3.2 years
-# Total AI lines: 12,450 (34%)
-# AI churn rate: 2.1x human code
-# Top AI tools: claude-code (67%), copilot (28%), cursor (5%)
+# Security team reviews and approves
+entire review --checkpoint="feature-complete"
+entire approve --approver="jane@company.com"
 ```
+
+**Use Cases:**
+
+| Scenario | Value |
+|----------|-------|
+| **Compliance/Audit** | Full traceability: prompts → reasoning → code (SOC2, HIPAA) |
+| **Multi-Agent Workflows** | Context preserved across agent switches |
+| **Debugging** | Rewind to checkpoint, inspect prompts/reasoning |
+| **Team Handoffs** | New developer resumes with full AI session history |
+
+**Architecture:**
+
+Entire stores data in `.entire/` directory with separate git branch:
+
+```
+project/
+├─ .entire/
+│  ├─ config.yaml       # Configuration
+│  ├─ sessions/         # Session metadata
+│  └─ checkpoints/      # Named checkpoints
+└─ .git/
+   └─ refs/heads/entire/checkpoints/v1
+```
+
+**Limitations:**
+
+- Very new (launched Feb 10-12, 2026) - limited production feedback
+- Adds storage overhead (~5-10% of project size)
+- macOS/Linux only (Windows via WSL)
+- Enterprise-focused (may be complex for solo developers)
+
+**When to use Entire CLI:**
+
+- ✅ Enterprise/compliance requirements (audit trails)
+- ✅ Multi-agent workflows (Claude + Gemini handoffs)
+- ✅ Session replay for debugging complex AI decisions
+- ✅ Governance gates (approval required before actions)
+- ⚠️ Personal projects: May be overkill (simple `Co-Authored-By` suffices)
 
 ### 5.2 Automated Attribution Hook
 

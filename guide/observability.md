@@ -201,6 +201,50 @@ claude --continue
 - Moving debugging session to isolated test repository
 - Continuing architecture discussion in a new project
 
+#### Alternative: Entire CLI Session Portability
+
+**Native limitation**: Claude Code's `--resume` is tied to absolute file paths, breaking on folder moves.
+
+**Entire CLI solution**: Checkpoints are **path-agnostic**, enabling true session portability across project locations.
+
+**How it works:**
+
+```bash
+# In source project
+cd /old/location/myapp
+entire capture --agent="claude-code"
+[... work in Claude Code ...]
+entire checkpoint --name="migration-complete"
+
+# Move project to new location
+mv /old/location/myapp /new/location/myapp
+
+# Resume in target (works because Entire stores relative paths)
+cd /new/location/myapp
+entire resume --checkpoint="migration-complete"
+claude --continue  # Resumes with full context
+```
+
+**Why Entire checkpoints are portable:**
+
+| Aspect | Native `--resume` | Entire CLI |
+|--------|-------------------|-----------|
+| **Path storage** | Absolute paths in JSONL | Relative paths in checkpoints |
+| **Cross-folder** | Breaks (different project encoding) | Works (path-agnostic) |
+| **Context preservation** | Prompt history only | Prompts + reasoning + file states |
+| **Agent handoffs** | No | Yes (between Claude/Gemini) |
+
+**When to use Entire over manual migration:**
+
+- ✅ Frequent project moves/forks
+- ✅ Multi-agent workflows (Claude → Gemini handoffs)
+- ✅ Session replay for debugging (rewind to exact state)
+- ✅ Governance (approval gates on resume)
+
+**Trade-off**: Adds tool dependency + storage overhead (~5-10% project size).
+
+> **Full docs**: [AI Traceability Guide](./ai-traceability.md#51-entire-cli)
+
 ---
 
 ### Multi-Agent Orchestration Monitoring

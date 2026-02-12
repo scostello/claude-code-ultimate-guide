@@ -10,7 +10,7 @@
 
 **Last updated**: January 2026
 
-**Version**: 3.26.0
+**Version**: 3.27.0
 
 ---
 
@@ -4283,7 +4283,7 @@ The `.claude/` folder is your project's Claude Code directory for memory, settin
 | Personal preferences | `CLAUDE.md` | ❌ Gitignore |
 | Personal permissions | `settings.local.json` | ❌ Gitignore |
 
-### 3.26.0 Version Control & Backup
+### 3.27.0 Version Control & Backup
 
 **Problem**: Without version control, losing your Claude Code configuration means hours of manual reconfiguration across agents, skills, hooks, and MCP servers.
 
@@ -14720,9 +14720,11 @@ Don't jump to 10 instances. Scale progressively with validation gates.
 **Goal**: Scale to 3-5 instances with orchestration framework.
 
 ```bash
-# 1. Deploy Headless PM (or equivalent)
-# - Task locking to prevent conflicts
-# - Monitoring dashboard
+# 1. Deploy orchestration framework (choose based on needs)
+# - Headless PM (manual coordination)
+# - Gas Town (parallel task execution)
+# - multiclaude (self-hosted, tmux-based)
+# - Entire CLI (governance + sequential handoffs)
 
 # 2. Define roles
 # - Architect (reviews PRs)
@@ -14735,6 +14737,17 @@ Don't jump to 10 instances. Scale progressively with validation gates.
 # - Measure ROI (cost vs output)
 # - Adjust instance count
 ```
+
+**Orchestration framework options:**
+
+| Tool | Paradigm | Best For |
+|------|----------|----------|
+| **Manual (worktrees)** | No framework | 2-3 instances, full control |
+| **Gas Town** | Parallel coordination | 5+ instances, complex parallel tasks |
+| **multiclaude** | Self-hosted spawner | Teams needing on-prem/airgap |
+| **Entire CLI** | Governance + handoffs | Sequential workflows with compliance |
+
+> **Entire CLI** (Feb 2026): Alternative to parallel orchestration, focuses on **sequential agent handoffs** with governance layer (approval gates, audit trails). Useful for compliance-critical workflows (SOC2, HIPAA) or multi-agent handoffs (Claude → Gemini). See [AI Ecosystem Guide](./ai-ecosystem.md#entire-cli-governance-first-orchestration) for details.
 
 **Success criteria**: Sustained 3-5% productivity gain over 3 months.
 
@@ -19354,4 +19367,4 @@ We'll evaluate and add it to this section if it meets quality criteria.
 
 **Contributions**: Issues and PRs welcome.
 
-**Last updated**: January 2026 | **Version**: 3.26.0
+**Last updated**: January 2026 | **Version**: 3.27.0

@@ -67,6 +67,10 @@ Les documents de travail bruts (prompts Perplexity, audits clients) restent dans
 | **Master Claude Code Infographic** (Rakesh Gohel / Aakash Gupta) | 2/5 | **2/5** | ❌ Ne pas intégrer (surface-level, erreur Cursor) | [rakesh-gohel-aakash-gupta-master-claude-code.md](./rakesh-gohel-aakash-gupta-master-claude-code.md) |
 | **Snyk ToxicSkills** (Supply Chain Audit) | 4/5 | **4/5** | ✅ Intégré (security-hardening.md §1.1, §1.2, §1.5) | [snyk-toxicskills-evaluation.md](./snyk-toxicskills-evaluation.md) |
 
+## Watch List
+
+Ressources surveillées mais pas encore intégrées : [watch-list.md](./watch-list.md)
+
 ---
 
-**Dernier update**: 2026-02-11 (58 évaluations)
+**Dernier update**: 2026-02-12 (58 évaluations)

@@ -1566,6 +1566,77 @@ When scaling beyond single Claude Code sessions, external orchestration systems 
 
 See: `guide/observability.md` for native Claude Code session monitoring
 
+#### Entire CLI: Governance-First Orchestration
+
+**What it is**: Agent-native platform focused on **governance + sequential handoffs** vs pure parallel coordination.
+
+**Launched**: February 2026 by Thomas Dohmke (ex-CEO GitHub), $60M funding
+
+**Architecture difference:**
+
+| Aspect | Gas Town / multiclaude | Entire CLI |
+|--------|------------------------|-----------|
+| **Paradigm** | Coordination (tmux multiplexing) | Governance (approval gates) |
+| **Agent spawning** | Manual (tmux/worktrees) | Automatic (handoff protocol) |
+| **Parallelization** | Yes (5+ agents) | No (sequential handoffs) |
+| **Context preservation** | Manual (shared files) | Automatic (checkpoints) |
+| **Audit trail** | None | Built-in (compliance-ready) |
+| **Rewind** | No | Yes (restore to checkpoints) |
+
+**Key points**:
+- ✅ Full audit trail: prompts → reasoning → outputs (SOC2, HIPAA compliance)
+- ✅ Agent handoffs with context (Claude → Gemini → Claude)
+- ✅ Approval gates before deploy (human-in-loop)
+- ⚠️ No parallel execution (sequential only)
+- ⚠️ Very new (launched Feb 10-12, 2026) - limited production feedback
+- 🔗 [GitHub repo](https://github.com/entireio/cli) / [entire.io](https://entire.io)
+
+**When to use Entire CLI:**
+
+```bash
+# Use Case 1: Compliance-critical workflows
+entire capture --agent="claude-code" --require-approval="security-team"
+[... Claude makes changes ...]
+# Changes blocked until security-team approves via: entire approve
+
+# Use Case 2: Sequential agent handoff (Claude → Gemini)
+entire capture --agent="claude-code" --task="architecture"
+[... Claude designs system ...]
+entire handoff --to="gemini" --task="visual-design"
+# Gemini receives full context from Claude's session
+
+# Use Case 3: Debugging with rewind
+entire log  # See all decision checkpoints
+entire rewind --to="before-refactor"  # Restore exact state
+```
+
+**Complementarity matrix:**
+
+| Use Case | Best Tool |
+|----------|-----------|
+| **Parallel features** (5+ agents) | Gas Town |
+| **Visual monitoring** | agent-chat |
+| **macOS parallel with GUI** | Conductor |
+| **Sequential handoffs + governance** | **Entire CLI** |
+| **Single agent + cost tracking** | Native Claude Code + ccusage |
+
+**Practical workflow (hybrid approach):**
+
+```bash
+# 1. Use Gas Town for parallel feature work
+gastown spawn --agents=5 --tasks="auth, tests, docs, refactor, deploy"
+
+# 2. Use Entire for sequential refinement with governance
+entire capture --agent="claude-code"
+[... implement critical feature ...]
+entire checkpoint --name="feature-complete"
+entire handoff --to="gemini" --task="ui-polish" --require-approval
+```
+
+**Status:** Production v1.0+ (macOS/Linux, Windows via WSL)
+
+> **Full docs**: [AI Traceability Guide](./ai-traceability.md#51-entire-cli), [Third-Party Tools](./third-party-tools.md)
+
 #### Security & Cost Warnings
 
 **Before using external orchestrators**:

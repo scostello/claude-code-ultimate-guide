@@ -1059,7 +1059,7 @@ For each candidate server:
 
 4. **Decision**:
    - **Integrate** (score ≥8): Add full section to guide
-   - **Monitor** (score 6-7): Add to watch list, re-evaluate next month
+   - **Monitor** (score 6-7): Add to [Watch List](../../docs/resource-evaluations/watch-list.md), re-evaluate next month
    - **Reject** (score <6): Document reason in [Excluded Servers](#excluded-servers)
 
 ### Integration Workflow
