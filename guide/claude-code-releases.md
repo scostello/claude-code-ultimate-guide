@@ -4,7 +4,7 @@
 > **Full details**: [github.com/anthropics/claude-code/CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
 > **Machine-readable**: [claude-code-releases.yaml](../machine-readable/claude-code-releases.yaml)
 
-**Latest**: v2.1.37 | **Updated**: 2026-02-08
+**Latest**: v2.1.41 | **Updated**: 2026-02-13
 
 ---
 
@@ -18,6 +18,43 @@
 ---
 
 ## 2.1.x Series (January-February 2026)
+
+### v2.1.41 (2026-02-13)
+
+- **New**: `claude auth login`, `claude auth status`, `claude auth logout` CLI subcommands
+- **New**: Windows ARM64 (win32-arm64) native binary support
+- **Improved**: `/rename` auto-generates session name from conversation context when called without arguments
+- Improved narrow terminal layout for prompt footer
+- Fixed: File resolution for @-mentions with anchor fragments (e.g., `@README.md#installation`)
+- Fixed: FileReadTool blocking on FIFOs, `/dev/stdin`, and large files
+- Fixed: Background task notifications not delivered in streaming Agent SDK mode
+- Fixed: Auto-compact failure error notifications shown to users
+- Fixed: Stale permission rules not clearing when settings change on disk
+- Fixed: Permission wait time included in subagent elapsed time display
+- Fixed: Proactive ticks firing while in plan mode
+
+### v2.1.39 (2026-02-11)
+
+- **New**: Guard against launching Claude Code inside another Claude Code session
+- Added `speed` attribute to OTel events and trace spans for fast mode visibility
+- Fixed: Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers
+- Fixed: Crash when MCP tools return image content during streaming
+- Fixed: `/resume` session previews showing raw XML tags instead of readable command names
+- Fixed: Opus 4.6 launch announcement showing for Bedrock/Vertex/Foundry users
+- Fixed: Hook blocking errors (exit code 2) not showing stderr to the user
+- Fixed: Structured-outputs beta header sent unconditionally on Vertex/Bedrock
+- Improved: Model error messages for Bedrock/Vertex/Foundry with fallback suggestions
+- Improved: Terminal rendering performance
+- Multiple stability fixes (fatal errors, process hanging, character loss at screen boundary)
+
+### v2.1.38 (2026-02-10)
+
+- Fixed: VS Code terminal scroll-to-top regression introduced in 2.1.37
+- Fixed: Tab key queueing slash commands instead of autocompleting
+- Fixed: Bash permission matching for commands using environment variable wrappers
+- Fixed: Text between tool uses disappearing when not using streaming
+- **Security**: Improved heredoc delimiter parsing to prevent command smuggling
+- **Security**: Blocked writes to `.claude/skills` directory in sandbox mode
 
 ### v2.1.37 (2026-02-08)
 
@@ -438,6 +475,7 @@
 | v2.1.2 | Command injection in bash command processing |
 | v2.1.6 | Shell line continuation permission bypass |
 | v2.1.7 | Wildcard permission rules compound commands |
+| v2.1.38 | Heredoc delimiter command smuggling prevention |
 
 ### Syntax
 
@@ -476,4 +514,4 @@
 
 ---
 
-*Last updated: 2026-02-06 | [Back to main guide](./ultimate-guide.md)*
+*Last updated: 2026-02-13 | [Back to main guide](./ultimate-guide.md)*

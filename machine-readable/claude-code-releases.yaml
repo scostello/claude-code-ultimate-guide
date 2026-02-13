@@ -3,8 +3,8 @@
 # Purpose: Track Claude Code product releases for documentation sync
 # Maintained: Manual updates when new releases are announced
 
-latest: "2.1.38"
-updated: "2026-02-10"
+latest: "2.1.41"
+updated: "2026-02-13"
 
 # ════════════════════════════════════════════════════════════════
 # RELEASES (newest first, condensed highlights only)
@@ -15,12 +15,30 @@ releases:
   # 2.1.x Series (January-February 2026)
   # ─────────────────────────────────────────────────────────────
 
+  - version: "2.1.41"
+    date: "2026-02-13"
+    highlights:
+      - "`claude auth login/status/logout` CLI subcommands"
+      - "Windows ARM64 (win32-arm64) native binary support"
+      - "`/rename` auto-generates session name from conversation context"
+      - "Multiple stability fixes (FileReadTool FIFOs, background tasks, stale permissions)"
+    breaking: []
+
+  - version: "2.1.39"
+    date: "2026-02-11"
+    highlights:
+      - "Guard against launching Claude Code inside another Claude Code session"
+      - "Fixed Agent Teams wrong model for Bedrock/Vertex/Foundry"
+      - "`speed` attribute in OTel events for fast mode visibility"
+      - "Multiple stability fixes (rendering, session close, fatal errors)"
+    breaking: []
+
   - version: "2.1.38"
     date: "2026-02-10"
     highlights:
       - "Fixed VS Code terminal scroll-to-top regression"
       - "Fixed Tab key queueing slash commands instead of autocompleting"
-      - "Fixed bash permission matching for commands with env var wrappers"
+      - "Security: Heredoc delimiter parsing to prevent command smuggling"
       - "Security: Blocked writes to `.claude/skills` in sandbox mode"
     breaking: []
 
@@ -535,6 +553,7 @@ breaking_summary:
     - "Wildcard permission rules compound commands fix (v2.1.7)"
     - "Shell line continuation permission bypass fix (v2.1.6)"
     - "Sandbox-excluded commands bypass with autoAllowBashIfSandboxed (v2.1.34)"
+    - "Heredoc delimiter command smuggling prevention (v2.1.38)"
   installation:
     - "npm installations deprecated - use native installer (v2.1.15)"
   behavior:
